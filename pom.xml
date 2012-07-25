@@ -353,6 +353,7 @@
 
 	<build>
 		<finalName>emma-internal</finalName>
+		<sourceDirectory>${project.basedir}/src/java</sourceDirectory>
 		<plugins>
 
 			<!-- Facilitates downloading source and javadoc in Eclipse -->
