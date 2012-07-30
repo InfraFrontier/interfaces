@@ -49,8 +49,8 @@ public class BibliosManager {
 
         return bd;
     }
-    
-        public BibliosDAO getPubmedIDByID(int pmid) {
+
+    public BibliosDAO getPubmedIDByID(int pmid) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         BibliosDAO bd = null;
@@ -65,15 +65,15 @@ public class BibliosManager {
 
         return bd;
     }
-        
-                public List getPubmedID() {
+
+    public List getPubmedID() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List bd = null;
         try {
 
-            bd = session.createQuery("FROM BibliosDAO WHERE (updated IS NULL OR updated != 'Y') " +
-                                                 "AND (pubmed_id IS NOT NULL AND pubmed_id !='')").list();
+            bd = session.createQuery("FROM BibliosDAO WHERE (updated IS NULL OR updated != 'Y') "
+                    + "AND (pubmed_id IS NOT NULL AND pubmed_id !='')").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -82,7 +82,6 @@ public class BibliosManager {
 
         return bd;
     }
-
 
     public List Biblios(int id) {
 
@@ -98,6 +97,22 @@ public class BibliosManager {
             throw e;
         }
         return bibIDs;
+    }
+
+    public List submissionBiblios(int id) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List biblios = null;
+        try {
+            biblios = session.createQuery(
+                    "FROM SubmissionBibliosDAO WHERE sub_id_sub=?").setParameter(0, id).list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return biblios;
     }
 
     public List BibliosStrains(int id) {
@@ -133,6 +148,23 @@ public class BibliosManager {
         return count;
     }
 
+    public SubmissionBibliosDAO getSubBiblioBySubBiblioID(int subBibID) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        SubmissionBibliosDAO sbd = null;
+        try {
+
+            sbd = (SubmissionBibliosDAO) session.get(SubmissionBibliosDAO.class,
+                    subBibID);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+
+        return sbd;
+    }
+
     public void save(BibliosDAO bDAO) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -140,6 +172,36 @@ public class BibliosManager {
 
         try {
             session.saveOrUpdate(bDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
+
+    public void save(SubmissionBibliosDAO sbDAO) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.saveOrUpdate(sbDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
+
+    public void delete(int ID) {
+        SubmissionBibliosDAO sbDAO = this.getSubBiblioBySubBiblioID(ID);
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.delete(sbDAO);
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
