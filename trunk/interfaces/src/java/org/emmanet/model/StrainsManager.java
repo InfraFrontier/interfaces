@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -559,7 +560,7 @@ System.out.println("DAO FROM SM==" + rtd.getRtls_id());
         return psd;
     }
 
-                        public ProjectsStrainsDAO getProjectsByID(int projectID) {
+        public ProjectsStrainsDAO getProjectsByID(int projectID) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         ProjectsStrainsDAO psd = null;
@@ -575,7 +576,7 @@ System.out.println("DAO FROM SM==" + rtd.getRtls_id());
 
         return psd;
     }
-                        
+                
     public CVSourcesDAO getSourcesBySID(int sid) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -592,24 +593,7 @@ System.out.println("DAO FROM SM==" + rtd.getRtls_id());
 
         return cvs;
     }
-    
-  /*      public CVProjectsDAO getProjectsByPID(int projectID) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        CVProjectsDAO psd = null;
-        try {
 
-            psd = (CVProjectsDAO) session.get(CVProjectsDAO.class,
-                    projectID);
-            session.getTransaction().commit();
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
-            throw e;
-        }
-
-        return psd;
-    }
-*/
     public List getArchCentre(int archID) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
