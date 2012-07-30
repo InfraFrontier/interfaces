@@ -16,9 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
@@ -46,7 +48,6 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-
 /**
  *
  * @author phil
@@ -118,7 +119,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             // String date = ad.getSubmitted();
             //@@@@@
             
-            
+        
             /*
             if (date != null) {
                 strippedDate = date.replace("-", "");
@@ -247,7 +248,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
 
             String MSGcontentArrv = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                     getTemplatePath() + getArchArrvTemplate(), model);
-
+            
             String MSGcontentFrz = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                     getTemplatePath() + getArchFrzeTemplate(), model);
 
@@ -286,7 +287,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
         }
 
         sDAO = (StrainsDAO) command;
-
+int id_str = sDAO.getId_str();
         if (request.getParameter("sendEmailArch").equals("yes") ||
                 request.getParameter("sendEmailFreeze").equals("yes") ||
                 request.getParameter("sendEmailComplete").equals("yes")) {
@@ -410,7 +411,6 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                         getJavaMailSender().send(message);
                     }
 
-
                 }
                 System.out.println("sendEmailComplete==" + request.getParameter("sendEmailComplete"));
                 System.out.println("sendEmailFreeze==" + request.getParameter("sendEmailFreeze"));
@@ -433,12 +433,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             System.out.println("Frozen Sanger material field has a value, alter strain_status to ARCHD");
             sDAO.setStr_status("ARCHD");
         }
-        
-        sDAO=this.cleanDates(sDAO);
-        sm.saveArchive(sDAO);
-        
-        
-//sm.save(sDAO);//.saveArchive(sDAO);//added a save DAO here as joined daos (projects strains and sources strains) could be changed by code below.
+
         //now save sourceid and projectid
         if (!request.getParameter("sourceID").isEmpty() || !request.getParameter("projectID").isEmpty()) {
 
@@ -447,7 +442,6 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             int sour_id = Integer.parseInt(request.getParameter("sourceID"));
             int project_id = Integer.parseInt(request.getParameter("projectID"));
             psd = new ProjectsStrainsDAO();
-
 
             ssd = sm.getSourcesByID(sDAO.getId_str());
             psd = sm.getProjectsByID(sDAO.getId_str());
@@ -473,24 +467,29 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 ssd.setStr_id_str(sDAO.getId_str());
                 ssd.setSour_id(sour_id);
                 //save only here not save or update
-                saveOnlySsd = true;
+               saveOnlySsd = true;
             }
 
             if (saveOnlyPsd) {
-                sm.saveOnlyPsd(psd);
+                sDAO.getProjectsDAO().add(psd);
+            //    sm.saveOnlyPsd(psd);
+                
                 System.out.println("Projects Strains saved using saveOnly");
             } else if (!saveOnlyPsd) {
                 psd.setProject_id(project_id);
-                sm.savePsd(psd);
+           //     sm.savePsd(psd);
+                sDAO.getProjectsDAO().add(psd);
                 System.out.println("Projects Strains saved");
             }
 
             if (saveOnlySsd) {
-                sm.saveOnlySsd(ssd);
+                sDAO.getSources_StrainsDAO().add(ssd);
+             //   sm.saveOnlySsd(ssd);
                 System.out.println("Sources Strains saved using saveOnly");
             } else if (!saveOnlySsd) {
                 ssd.setSour_id(sour_id);
-                sm.saveSsd(ssd); //TODO REMOVED FOR TESTING
+                sDAO.getSources_StrainsDAO().add(ssd);
+              //  sm.saveSsd(ssd); //TODO REMOVED FOR TESTING
                 System.out.println("Sources Strains saved");
             }
         }
@@ -505,13 +504,11 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 //OK lets add a new one
                 BackgroundDAO bDAO = sDAO.getBackgroundDAO();//. new BackgroundDAO();
                 bDAO.setName(newBGName);
-
                 bm.save(bDAO);
                 sDAO.getArchiveDAO().setMale_bg_id("" + bDAO.getId_bg() + "");
 
                 //Now regenerate list
                 createList();
-
             }
         }
         if (request.getParameter("female_bg_id_new") != null) {
@@ -523,15 +520,14 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 //OK lets add a new one
                 BackgroundDAO bDAO = sDAO.getBackgroundDAO();//new BackgroundDAO();
                 bDAO.setName(newBGName);
-
                 bm.save(bDAO);
                 sDAO.getArchiveDAO().setFemale_bg_id("" + bDAO.getId_bg() + "");
-
                 createList();
             }
         }
 
 System.out.println("ABOUT TO BE saved");
+
 sDAO=this.cleanDates(sDAO);
         sm.saveArchive(sDAO);
         System.out.println("saved");
