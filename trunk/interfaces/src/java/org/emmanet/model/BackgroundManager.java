@@ -33,6 +33,26 @@ public class BackgroundManager {
         }
         return bg;
     }
+    
+        public List getCuratedBackgrounds() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List bg;
+        try {
+            bg = session.createSQLQuery(
+                    "SELECT id_bg,name "
+                    + "FROM backgrounds "
+                    + "WHERE name != '' "
+                    + " AND curated='Y'"
+                    + "ORDER BY name").list();
+            session.getTransaction().commit();
+            System.out.println("size of bg list is::: " + bg.size());
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return bg;
+    }
 
     public List getBGDAOByName(String name) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
