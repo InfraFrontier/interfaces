@@ -9,6 +9,7 @@ function populateBibDetails(userString,refNo){
     $('#year').val(q.year);
     $('#volume').val(q.volume);
     $('#pages').val(q.pages);
+    $('#pubmed_id').val(q.paperid);
 }
 function removeBibDetails(){
     $('#pubmed_id').val(null);
