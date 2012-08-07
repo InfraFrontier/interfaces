@@ -114,7 +114,7 @@ public class BibliosManager {
         }
         return biblios;
     }
-
+    
     public List BibliosStrains(int id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
