@@ -5,8 +5,6 @@
 package org.emmanet.controllers;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +29,9 @@ public class submissionMutationsController implements Controller {
     Encrypter enc = new Encrypter();
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("Encrypted parameter::-");
+        System.out.println(request.getParameter("Id_sub"));
+        System.out.println(enc.decrypt(request.getParameter("Id_sub")));
         mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
         String alleleMGI = request.getParameter("mutation_allele_mgi_symbol");
         String chrom = request.getParameter("mutation_chrom");
