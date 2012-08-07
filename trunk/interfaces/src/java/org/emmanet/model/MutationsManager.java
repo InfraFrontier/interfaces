@@ -87,7 +87,7 @@ public class MutationsManager {
         try {
             //.setMaxResults(10)
             subMutations = session.createQuery(
-                    "FROM submissionMutationsDAO WHERE id_sub=? ORDER BY id DESC").setMaxResults(10).setParameter(0, subID).list();
+                    "FROM SubmissionMutationsDAO WHERE id_sub=? ORDER BY id DESC").setMaxResults(10).setParameter(0, subID).list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
