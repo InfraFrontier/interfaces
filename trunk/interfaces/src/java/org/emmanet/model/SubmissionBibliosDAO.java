@@ -25,6 +25,8 @@ public class SubmissionBibliosDAO {
     private String last_change;
     private String notes;
     private String mgi_original;
+    
+    private int BiblioCount;
 
     /**
      * @return the id_biblio
@@ -234,5 +236,19 @@ public class SubmissionBibliosDAO {
      */
     public void setMgi_original(String mgi_original) {
         this.mgi_original = mgi_original;
+    }
+
+    /**
+     * @return the BiblioCount
+     */
+    public int getBiblioCount() {
+        return BiblioCount;
+    }
+
+    /**
+     * @param BiblioCount the BiblioCount to set
+     */
+    public void setBiblioCount(int BiblioCount) {
+        this.BiblioCount = BiblioCount;
     }
 }
