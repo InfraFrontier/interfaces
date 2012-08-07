@@ -105,8 +105,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
             sda.setCvDAO(wr.isoCountries());
 
         }
-        session.setAttribute("backgroundsDAO", bm.getBackgrounds());
-        sda.setBgDAO(bm.getBackgrounds());
+        session.setAttribute("backgroundsDAO", bm.getCuratedBackgrounds());
+        sda.setBgDAO(bm.getCuratedBackgrounds());
         return sda;
     }
 
