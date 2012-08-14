@@ -147,7 +147,7 @@ public class AjaxReturnController extends SimpleFormController {
             int ID = Integer.parseInt(request.getParameter("biblioid"));
             //FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
             SubmissionBibliosDAO sbd=bm.getSubBiblioBySubBiblioID(ID);
-            
+            System.out.println("I D + + " + ID);
             paper.add(0, sbd.getTitle());
             paper.add(1, sbd.getAuthor1());
             paper.add(2, sbd.getAuthor2());
@@ -157,8 +157,8 @@ public class AjaxReturnController extends SimpleFormController {
             paper.add(6, null);
             paper.add(7, sbd.getPages());
             paper.add(8, sbd.getPubmed_id());
-            
-            
+            System.out.println("BIBLIOID==" + ID );
+            paper.add(9, ID);
             System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }
