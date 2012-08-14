@@ -18,9 +18,10 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
                 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-                <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+                    <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
-        <script type="text/javascript" src="../js/biblioData.js"></script>
+        <script type="text/javascript" src="../js/biblioData.js?<%= new java.util.Date()%>"></script>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
     </head>
     <body>
@@ -32,6 +33,7 @@
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
             </p>
             <form:form method="POST" commandName="command"> 
+                <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
             <spring:bind path="command.published">
                 <div class="field">
                     <label class="label" for="published"><strong>Has this mouse mutant strain been published?<sup><font color="red">*</font></sup></strong></label>
@@ -76,8 +78,8 @@
                 </spring:bind>
                     <div id="bibRef" name="bibRef"></div>
                     <script type="text/javascript" > 
-                    $('#reference_pmid').focusout(function() {
-                        $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#reference_pmid').val(), funct: "pubMed"});
+                    $('#pubmed_id').focusout(function() {
+                        $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#pubmed_id').val(), funct: "pubMed"});
                     });
                     
                 </script>
@@ -148,13 +150,12 @@
                 </div>
                  </spring:bind>
                     
-                 <spring:bind path="command.removeReference">    
+                 <%--<spring:bind path="command.removeReference">--%>    
                 <div>
-                   
-                    <input value="${status.expression}" type="button" class="remove_reference" id="${status.expression}" onClick="javascript:removeBibDetails();" />
-
+                    <input value="Clear" type="button" class="remove_reference" id="removeReference" onClick="javascript:removeBibDetails();" />
                 </div>
-                    </spring:bind>
+                   
+                <input type="hidden" name="id_biblio" id="id_biblio"  value=""/>
             </fieldset>
         <%--    <p>
                 <spring:bind path="command.addReference"> 
@@ -162,10 +163,11 @@
                 </spring:bind>
             </p>
             --%>
+            <c:choose><c:when test="${empty param.getprev}"><c:set var="action" value="none"/></c:when><c:otherwise><c:set var="action" value="get"/></c:otherwise></c:choose>
                 <div id="subBiblios" name="subBiblios">
         <script type="text/javascript" > 
             $('#subBiblios').load('ajaxBiblios.emma',{
-                action: "none",
+                action: "${action}",
                 Id_sub:$('#encID').val()
             });
         </script>
