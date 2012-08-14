@@ -14,8 +14,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,7 +52,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         StrainsDAO sd = new StrainsDAO();
         SubmissionsDAO sda = new SubmissionsDAO();//#################
-        WebRequests wr = new WebRequests();
+        wr = new WebRequests();
 
         //////////////////////////////////////////////
         BackgroundManager bm = new BackgroundManager();
@@ -70,41 +68,48 @@ public class SubmissionFormController extends AbstractWizardFormController {
         sd.setPeopleDAO(new PeopleDAO());
         sd.getPeopleDAO().setLabsDAO(new LabsDAO());
 
-        if (request.getParameter("getprev") != null && !request.getParameter("getprev").isEmpty()) {
-            Encrypter encrypter = new Encrypter();
-            try {
-                // Encrypt
-                String encrypted = encrypter.encrypt(request.getParameter("getprev"));
-                // System.out.println("ENCRYPTEDSTRING==" + encrypted);
+         /*   if (request.getParameter("getprev") != null && !request.getParameter("getprev").isEmpty()) {
+        Encrypter encrypter = new Encrypter();
+        try {
+        // Encrypt
+        //String encrypted = encrypter.encrypt(request.getParameter("getprev"));
+        // System.out.println("ENCRYPTEDSTRING==" + encrypted);
+        
+        // Decrypt
+        String decrypted = encrypter.decrypt(request.getParameter("getprev"));
+        
+        //System.out.println("DECRYPTEDSTRING==" + decrypted);
+        } catch (Exception e) {
+        }*/
 
-                // Decrypt
-                // String decrypted = encrypter.decrypt(encrypted);
+Encrypter encrypter = new Encrypter();
+        sda = new SubmissionsDAO();
 
-                //System.out.println("DECRYPTEDSTRING==" + decrypted);
-            } catch (Exception e) {
-            }
+        SubmissionsManager sm = new SubmissionsManager();
 
-
-            sda = new SubmissionsDAO();
-
-            SubmissionsManager sm = new SubmissionsManager();
-
-            /*/decode
-            try {
-            getprev = java.net.URLDecoder.decode(request.getParameter("getprev"), "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-            System.out.println("decoded==" + request.getParameter("getprev") + "--" + getprev);
-            getprev = encrypter.decrypt(request.getParameter("getprev"));
-            int idDecrypt = Integer.parseInt(getprev);
-            System.out.println("decrypted id_str==" + idDecrypt);
-
-            sda = sm.getSubByID(idDecrypt);///decrypt here
-
-            sda.setCvDAO(wr.isoCountries());
-
+        /*/decode
+        try {
+        getprev = java.net.URLDecoder.decode(request.getParameter("getprev"), "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+        Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("decoded==" + request.getParameter("getprev") + "--" + getprev);
+        getprev = encrypter.decrypt(request.getParameter("getprev"));
+        int idDecrypt = Integer.parseInt(getprev);
+        System.out.println("decrypted id_str==" + idDecrypt);
+        
+        sda = sm.getSubByID(idDecrypt);///decrypt here
+        
+        }*/
+        
+        if(request.getParameter("getprev") != null){
+            String idDecrypt=encrypter.decrypt(request.getParameter("getprev"));
+            sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+        }
+
+        sda.setCvDAO(wr.isoCountries());
+
+
         session.setAttribute("backgroundsDAO", bm.getCuratedBackgrounds());
         sda.setBgDAO(bm.getCuratedBackgrounds());
         return sda;
@@ -116,7 +121,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Errors errors,
             int page)
             throws Exception {
-        //StrainsDAO sd = (StrainsDAO) command;
         SubmissionsDAO sda = (SubmissionsDAO) command;
         SubmissionsManager sm = new SubmissionsManager();
         Map refData = new HashMap();
@@ -127,7 +131,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         PeopleManager pm;
         List people;
         List peopleDAOs;
-
         switch (page) {
             case 0: //if page 1 , do summat
                 sda.setStep("0");
@@ -139,14 +142,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 break;
             case 2:
 
-                if (request.getParameter("getprev") != null && !request.getParameter("getprev").isEmpty()) {
-                    System.out.println("getprev==" + request.getParameter("getprev"));
-                    //sda = sm.getSubByID(Integer.parseInt(request.getParameter("getprev")));
-                    //command.equals(sda);
-                    // this.formBackingObject(request);
-                }
+
                 if (sda.getSubmitter_email()/*.getPeopleDAO().getEmail()*/ != null) {
-                    WebRequests wr = new WebRequests();
+                    wr = new WebRequests();
                     SubmissionsDAO prevSub = new SubmissionsDAO();
                     List submitterDAO = new LinkedList();
                     System.out.println(" email for prevsub = " + sda.getSubmitter_email().toString());
@@ -162,11 +160,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             String encrypted = encrypter.encrypt(prevSub.getId_sub());
 
 
-                            try {
+                      /*      try {
                                 encrypted = java.net.URLEncoder.encode(encrypted, "UTF-8");
                             } catch (UnsupportedEncodingException ex) {
                                 Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            }*/
 
                             prevSub.setEncryptedId_sub(encrypted);
                             prevSub.setCvDAO(wr.isoCountries());
@@ -270,10 +268,20 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 sm.save(sda);
                 break;
             case 7:
-                //sda.getBiblioRefs();
+                System.out.println("DAO ref==" + sda.hashCode());
+                 if (request.getParameter("getprev") != null && !request.getParameter("getprev").isEmpty()) {
+           // sda = new SubmissionsDAO();
+               sda=previousSubmission(sda, request.getParameter("getprev"));
+               //command..equals(sda);
+               sda = (SubmissionsDAO) command;
+               System.out.println("DAO ref2==" + sda.hashCode());
+               System.out.println("new ID sub==" + sda.getId_sub());
+               //sda.setStep("7");
+               //sm.save(sda);
+                    }else{
 
                 sda.setStep("7");
-                sm.save(sda);
+                sm.save(sda);}
                 break;
 
             case 8:
@@ -395,6 +403,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 //validator.validateSubmissionForm11(sd, errors);
                 break;
         }
+
     }
 
     public List getCvDAO() {
@@ -446,7 +455,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     obj.put("county", pd.getLabsDAO().getProvince());
                     obj.put("postcode", pd.getLabsDAO().getPostcode());
                     obj.put("country", pd.getLabsDAO().getCountry());
-obj.put("authority", pd.getLabsDAO().getAuthority());
+                    obj.put("authority", pd.getLabsDAO().getAuthority());
                     System.out.println(obj.toString());
                     //return obj.toString();
                 }
@@ -456,5 +465,20 @@ obj.put("authority", pd.getLabsDAO().getAuthority());
             session.setAttribute("pidaos", peopleDAOs);
         }
 
+    }
+
+    public SubmissionsDAO previousSubmission(SubmissionsDAO sd, String encryptedID) throws UnsupportedEncodingException {
+        //String getprev = "";
+        Encrypter encrypter = new Encrypter();
+//encrypter.decrypt(ID);
+//System.out.println("to decode==" + encryptedID );
+
+        String getprev = encrypter.decrypt(encryptedID);
+        //System.out.println(getprev);
+        int idDecrypt = Integer.parseInt(getprev);
+        //System.out.println("decrypted id_str==" + idDecrypt);
+        SubmissionsManager sman = new SubmissionsManager();
+        sd = sman.getSubByID(idDecrypt);///decrypt here
+        return sd;
     }
 }

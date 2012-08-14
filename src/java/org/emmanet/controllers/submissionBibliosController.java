@@ -29,10 +29,15 @@ public class submissionBibliosController implements Controller {
     private Encrypter enc = new Encrypter();
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("from sub biblios controller ::-- " + request.getParameter("Id_sub"));
         subBiblios = bm.submissionBiblios(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
 
-        int id_biblio =0 ;//Integer.parseInt(request.getParameter("id_biblio"));
-        int sub_id_sub = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
+        String id_biblio =request.getParameter("id_biblio");
+        int sub_id_sub = 0;//Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
+        if(!request.getParameter("Id_sub").isEmpty()){
+sub_id_sub = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
+
+}
         String title = request.getParameter("title");
         String author1 = request.getParameter("author1");
         String author2 = request.getParameter("author2");
@@ -42,7 +47,7 @@ public class submissionBibliosController implements Controller {
         String volume = request.getParameter("volume");
         String pages = request.getParameter("pages");
         String pubmed_id = request.getParameter("pubmed_id");
-        int biblio_number = 0;//Integer.parseInt(request.getParameter("biblio_number"));
+        String biblio_number = request.getParameter("biblio_number");//TODO probably ditch this field we have biblio ref
         String last_change = request.getParameter("last_change");
         String notes = request.getParameter("notes");
         String mgi_original = request.getParameter("mgi_original");
@@ -62,7 +67,7 @@ public class submissionBibliosController implements Controller {
             sbd.setLast_change(last_change);
             sbd.setNotes(notes);
             sbd.setMgi_original(mgi_original);
-            sbd.setBiblio_number(biblio_number);
+           // sbd.setBiblio_number(Integer.parseInt(biblio_number));
             sbd.setPubmed_id(pubmed_id);
             sbd.setUsername(username);
             
@@ -70,8 +75,28 @@ public class submissionBibliosController implements Controller {
             subBiblios = bm.submissionBiblios(sub_id_sub);
 
         } else if (request.getParameter("action").equals("edit")) {
+            
+            
+            System.out.println("EDITING, ");
+            if (request.getParameter("action2").equals("editRecord")) {
+                System.out.println("BIBID=" + request.getParameter("id_biblio"));
             sbd=new SubmissionBibliosDAO();
-            sbd = bm.getSubBiblioBySubBiblioID(id_biblio);
+            sbd = bm.getSubBiblioBySubBiblioID(Integer.parseInt(id_biblio));
+            sbd.setTitle(title);
+            sbd.setAuthor1(author1);
+            sbd.setAuthor2(author2);
+            sbd.setYear(year);
+            sbd.setJournal(journal);
+            sbd.setVolume(volume);
+            sbd.setPages(pages);
+            sbd.setLast_change(last_change);
+            sbd.setNotes(notes);
+            
+            //sbd.setBiblio_number(Integer.parseInt(biblio_number));
+            sbd.setPubmed_id(pubmed_id);
+                System.out.println("CHECK FOR  CURRENT DAO AND THAT IT IS CORRECT: " + sbd.getTitle() + " == " + sbd.getId_biblio());
+           bm.save(sbd);
+            }
             subBiblios = bm.submissionBiblios(sub_id_sub);
         }   else if (request.getParameter("action").equals("get")) {
             subBiblios = bm.submissionBiblios(sub_id_sub);
