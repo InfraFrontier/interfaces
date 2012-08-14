@@ -16,7 +16,8 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+                    <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+        <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
 <%--<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -140,7 +141,7 @@ JSON return for submission form people data fro PI and contact
              <script type="text/javascript" >
                  populateBibDetails("?title=${paper[0]}&author1=${paper[1]}&author2=${paper[2]}\
 &journal=${paper[3]}&year=${paper[4]}&volume=${paper[5]}&issue=${paper[6]}&pages=${paper[7]}\
-&paperid=${paper[8]}",0);
+&paperid=${paper[8]}&biblioid=${paper[9]}",0);
 
              </script>  
             </c:if>
