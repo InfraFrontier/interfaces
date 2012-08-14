@@ -23,7 +23,7 @@
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="../js//jquery-1.6.1.min.js"></script>
+       <script type="text/javascript" src="../js//jquery-1.6.1.min.js"></script>
 
         <script type="text/javascript" src="../js/submission.js"></script>
     </head>
@@ -492,10 +492,11 @@
             <input value="Add mutation" type="button" id="add_mutation" />
         </p>
     </div>--%>
+    <c:choose><c:when test="${empty param.getprev}"><c:set var="action" value="none"/></c:when><c:otherwise><c:set var="action" value="get"/></c:otherwise></c:choose>
     <div id="subMutations" name="subMutations">
         <script type="text/javascript" > 
             $('#subMutations').load('ajaxMutations.emma',{
-                action: "none",
+                action: "${action}",
                 Id_sub:$('#encID').val()
             });
         </script>

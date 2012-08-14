@@ -54,13 +54,12 @@
                 ${requestScope['javax.servlet.forward.request_uri']}
                 --%>
      
-
                 
-     var conf=confirm("Click OK to continue the submission that you started on  ${submissionDAO.timestamp} but never completed?");
+    // var conf=confirm("Click OK to continue the submission that you started on  ${submissionDAO.timestamp} but never completed?");
      if(conf) {
                 <%
                     String step = request.getParameter("step");
-                    request.setAttribute("_target" + step, "Next");
+                    //request.setAttribute("_target" + step, "Next");
                 %>
                                 $.post("${requestScope['javax.servlet.forward.request_uri']}", { _target${submissionDAO.step}: "Next", getprev: "${submissionDAO.encryptedId_sub}" } );
                                 location.replace("?getprev=${submissionDAO.encryptedId_sub}&_target${submissionDAO.step}=Next");     
@@ -74,31 +73,21 @@
             <%-- ${command.timestamp} --%>
             ////////////////////////new modal code here
 
-
+     
 
 
 
             <div id="confirmStepForm" title="Recall previous submission?">
                 <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}">
-                    <fieldset>
+                    
                         <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
                         <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
-                    </fieldset>
+                        
+                    Would you like to continue the submission that you started on  ${submissionDAO.timestamp} but never completed?
                     
-                    <button id="No">No</button>&nbsp;&nbsp;<button id="Yes">Yes</button>
+                    <button id="No" type="button" value="No">No</button>&nbsp;&nbsp;<input type="submit" value="Yes">
                 </form>
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
