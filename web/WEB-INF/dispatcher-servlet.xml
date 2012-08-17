@@ -77,7 +77,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 </prop>
                 <prop key="newsitems.emma">rssNewsController
                 </prop>
-                <prop key="/ajaxReturn.emma">ajaxReturnController
+                <prop key="/ajaxReturn.emma">AjaxReturnController
                 </prop>
                 <prop key="/wp4Spreadsheet.emma">intwp4SpreadsheetController
                 </prop>
@@ -407,7 +407,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>redirect:../interfaces/backgroundUpdateInterface.emma</value>
         </property>
     </bean>
-    <bean name="ajaxReturnController" class="org.emmanet.controllers.ajaxReturnController">
+    <bean name="ajaxReturnController" class="org.emmanet.controllers.AjaxReturnController">
     </bean>
     <bean name="statsSpreadsheetController" class="org.emmanet.controllers.statsSpreadsheetController">
     </bean>
