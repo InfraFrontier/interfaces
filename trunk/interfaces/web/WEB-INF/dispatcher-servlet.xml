@@ -81,19 +81,19 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 </prop>
                 <prop key="/wp4Spreadsheet.emma">intwp4SpreadsheetController
                 </prop>
-                <!--<prop key="/submissionForm.emma">SubmissionFormController
+                <!--<prop key="/submissionForm.emma">submissionFormController
                 </prop>-->
                 <prop key="/interfaces/reqFulfillment.emma">reqFulfillmentController
                 </prop>  
                 <prop key="/pdfView.emma">PdfViewController
                 </prop>
-               <prop key="/publicSubmission/submissionForm.emma">SubmissionFormController
+               <prop key="/publicSubmission/submissionForm.emma">submissionFormController
                 </prop>
-                <!-- <prop key="/publicSubmission/submissionForm1.emma">SubmissionFormController
+                <!-- <prop key="/publicSubmission/submissionForm1.emma">submissionFormController
                 </prop>
-                <prop key="/publicSubmission/submissionForm2.emma">SubmissionFormController
+                <prop key="/publicSubmission/submissionForm2.emma">submissionFormController
                 </prop>-->
-<prop key="/publicSubmission/ajaxMutations.emma">SubmissionMutationsController
+<prop key="/publicSubmission/ajaxMutations.emma">submissionMutationsController
                 </prop>
             </props>
         </property>
@@ -111,7 +111,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <bean id="RequestUpdateFormValidator"
           class="org.emmanet.controllers.RequestUpdateFormValidator" />
           
-    <bean id="SubmissionFormValidator" class="org.emmanet.controllers.SubmissionFormValidator" />
+    <bean id="submissionFormValidator" class="org.emmanet.controllers.SubmissionFormValidator" />
           
     <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <!-- this will forward directly to view stored in /WEB-INF/jsp/index.jsp -->
@@ -434,7 +434,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     </bean>
 
 
-    <bean name="SubmissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
+    <bean name="submissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
         <property name="pages">
             <list>
 		<!-- follow sequence -->
@@ -454,7 +454,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         </property>
         <property name="validator">
 		<!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
-            <ref bean="SubmissionFormValidator" />
+            <ref bean="submissionFormValidator" />
         </property>
     </bean>
 <bean name="submissionMutationsController" class="org.emmanet.controllers.SubmissionMutationsController"> </bean>
