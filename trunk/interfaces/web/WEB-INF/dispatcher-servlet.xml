@@ -457,5 +457,5 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <ref bean="SubmissionFormValidator" />
         </property>
     </bean>
-<bean name="SubmissionMutationsController" class="org.emmanet.controllers.submissionMutationsController"> </bean>
+<bean name="submissionMutationsController" class="org.emmanet.controllers.SubmissionMutationsController"> </bean>
 </beans>
