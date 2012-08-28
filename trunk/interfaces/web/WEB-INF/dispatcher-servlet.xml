@@ -77,7 +77,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 </prop>
                 <prop key="newsitems.emma">rssNewsController
                 </prop>
-                <prop key="/ajaxReturn.emma">AjaxReturnController
+                <prop key="/ajaxReturn.emma">ajaxReturnController
                 </prop>
                 <prop key="/wp4Spreadsheet.emma">intwp4SpreadsheetController
                 </prop>
