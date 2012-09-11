@@ -131,6 +131,7 @@ Encrypter encrypter = new Encrypter();
         PeopleManager pm;
         List people;
         List peopleDAOs;
+        
         switch (page) {
             case 0: //if page 1 , do summat
                 sda.setStep("0");
