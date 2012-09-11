@@ -164,13 +164,10 @@ xmlns:security="http://www.springframework.org/schema/security"
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                <!--
-                <ref bean="smailerTrigger"/>
                 
-              
                 <ref bean="bglistTrigger"/>
                 <ref bean="rssTrigger"/>
-                <ref bean="updateBibliosTrigger"/>  -->
+                <ref bean="updateBibliosTrigger"/> <!-- <ref bean="smailerTrigger"/>-->
             </list>
         </property>
     </bean>
