@@ -96,6 +96,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         BibliosManager bm = new BibliosManager();
         BibliosDAO bdao = new BibliosDAO();
         List rset = bm.getPubmedID();
+        schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Total number of records needing updating::- ").append(rset.size()).toString();
         int pmid=0;
         String spmid;
         int counter = 0;
@@ -167,10 +168,17 @@ public class EmmaBiblioJOB extends QuartzJobBean {
             WSCitationImpl port = service.getWSCitationImplPort();
             //System.out.println(" Invoking searchCitations operation on wscitationImpl port ");
             ResultListBean resultListBean = port.searchCitations("EXT_ID:" + pmid, "core", 0, "");
-            System.out.println("\nNumber of hits:\t" + resultListBean.getHitCount());
-            schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultListBean.getHitCount()).toString();
+            //System.out.println("\nNumber of hits:\t" + resultListBean.getHitCount());
+            //schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultListBean.getHitCount()).append("\n").toString();
             //System.out.println("Off set:\t" + resultListBean.getOffSet());
             List<ResultBean> resultBeanCollection = resultListBean.getResultBeanCollection();
+            /*
+             * Moved size of results here and used resultBeanCollection.size() rather than resultListBean.getHitCount() which always returned 0 for some reason (lines 171/2)
+             * Suggest that this was a result of porting the old code over to this new code
+             * PJW 11SEP2012
+             */
+            System.out.println("\nNumber of hits:\t" + resultBeanCollection.size());
+            schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultBeanCollection.size()).append("\n").toString();
             for (ResultBean resultBean : resultBeanCollection) {
                 Citation citation = resultBean.getCitation();
                 int size = citation.getAuthorCollection().size();
@@ -218,7 +226,8 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     }
 
     /**
-     * @return the wsdlLocation
+     * @return the wsdlLocationsystems.eebi.ac.uk
+     * 
      */
     public String getWsdlLocation() {
         return wsdlLocation;
