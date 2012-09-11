@@ -32,7 +32,12 @@ public class SubmissionMutationsController implements Controller {
         System.out.println("Encrypted parameter::-");
         System.out.println(request.getParameter("Id_sub"));
         System.out.println(enc.decrypt(request.getParameter("Id_sub")));
-        mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
+        String id_sub="0";
+        if(request.getParameter("Id_sub") != null){
+        id_sub=enc.decrypt(request.getParameter("Id_sub"));
+        }
+        int ID=Integer.parseInt(id_sub);
+        mutdaos = mm.getSubMutationBySubID(/*Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")))*/ID);
         String alleleMGI = request.getParameter("mutation_allele_mgi_symbol");
         String chrom = request.getParameter("mutation_chrom");
         String chromName = request.getParameter("mutation_chrom_anomaly_name");
@@ -74,10 +79,11 @@ public class SubmissionMutationsController implements Controller {
             smd.setMutation_type(type);
             //mutdaos.add(smd);
             //System.out.println("DEBUG INTEGER ISSUE LINE 72::" + smd.getId_sub());
-            int id_sub = smd.getId_sub();
+            //int id_sub
+                    ID = smd.getId_sub();
             // System.out.println("DEBUG INTEGER ISSUE LINE 72::" + id_sub);
             mm.save(smd);
-            mutdaos = mm.getSubMutationBySubID(id_sub);
+            mutdaos = mm.getSubMutationBySubID(ID);
 
         } else if (request.getParameter("action").equals("edit")) {
             //edit records
@@ -89,7 +95,7 @@ public class SubmissionMutationsController implements Controller {
             //load record in fields
    
         } else if (request.getParameter("action").equals("get")) {
-            mutdaos = mm.getSubMutationBySubID(smd.getId_sub());
+            //mutdaos = mm.getSubMutationBySubID(smd.getId_sub());
             
         } else if (request.getParameter("action").equals("delete")) {
             mm.delete(Integer.parseInt(request.getParameter("Id_mut")));
