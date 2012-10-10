@@ -20,12 +20,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body>
         <div id="miscellanea" class="step">
             <h2>
                 Additional information (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
             </h2>
+            <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
 
             </p>
@@ -233,12 +238,12 @@
                 <div class="field">
                     <label class="label"><strong>Additional materials of interest (you can upload up to five attachments)</strong></label>
                     <div class="input">
-                        <spring:bind path="command.additional_materials_file_1"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
+                        <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL',gmyWin);return false;" title="Opens a new window">Upload attachment</a>
+                       <%-- <spring:bind path="command.additional_materials_file_1"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
 <spring:bind path="command.additional_materials_file_2"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
 <spring:bind path="command.additional_materials_file_3"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
 <spring:bind path="command.additional_materials_file_4"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-<spring:bind path="command.additional_materials_file_5"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-                    </div>
+<spring:bind path="command.additional_materials_file_5"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>--%>                    </div>
                     <div class="validation_error_message">
                         &nbsp;
                     </div>

@@ -22,18 +22,24 @@
 	<meta http-equiv='pragma' content='no-cache'>
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
-                <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/modalwindows.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js"></script>
+        <script  type="text/javascript">
+            $( document ).tooltip();
+        </script>
     </head>
     <body>
         <div id="producer" class="step">
             <h2>
                 Producer (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
             </h2>
+            <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
                 Please enter the contact information of the principal investigator who generated the mouse mutant strain you want to deposit in EMMA.
             </p>
@@ -127,7 +133,7 @@
                         <label class="label" for="${status.expression}"><strong>Phone Number
                                 <sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" alt="The phone number must
+                            <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must
                                          begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
                                          parentheses. An extension must begin with x followed by the extension number, 
                                          e.g., +1 (234) 567-8900 x123"></form:input>
@@ -143,7 +149,7 @@
                         <label class="label" for="${status.expression}"><strong>Fax Number
                                 <sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" alt="The fax number must 
+                            <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must 
                                          begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
                                          parentheses. An extension must begin with x followed by the extension number, 
                                          e.g., +1 (234) 567-8900 x123"></form:input></div>
@@ -266,7 +272,7 @@
                     <label class="label" for="${status.expression}"><strong>ILAR Code</strong></label>
 
                     <div class="input">
-                        <input type="text" name="${status.expression}"  id="${status.expression}" alt="Please enter the 
+                        <input type="text" name="${status.expression}"  id="${status.expression}" title="Please enter the 
                                producer's ILAR-registered laboratory code to be used for developing the official strain designation
                                consistent with the rules and guidelines established by the 
                                &lt;a href='http://www.informatics.jax.org/mgihome/nomen/inc.shtml' 

@@ -15,6 +15,8 @@
 <c:set var="subMutsDAO"  value="${keyRef['mutdaos']}"></c:set>
 <c:set var="singleSubMutsDAO"  value="${keyRef['SubMutDAO']}"></c:set>
 <c:set var="count"  value="${keyRef['count']}"></c:set>
+<c:set var="sessencID"  value="${sessionScope.getprev}"></c:set>
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <!DOCTYPE html>
@@ -104,11 +106,10 @@
     });
         
     $("a[id^='deletemutation']").click(function() {
-        alert("Your mutation will be deleted from your submission\n\n\
-Are you sure you wish to continue? ");
+        alert("Your mutation will be deleted from your submission\n\n\ ");
         $('#subMutations').load('ajaxMutations.emma',{
             action: "delete",
-            Id_sub:$('#encID').val(),
+            Id_sub:"${sessencID}"/*$('#encID').val()*/,
             Id_mut:$(this).attr("title")
 
             //"a[id^='deletemutation']"
@@ -119,9 +120,11 @@ Are you sure you wish to continue? ");
 </script>
 <script type="text/javascript" > 
     $('#add_mutation').click(function() {
+       // alert("ID Value is:: ${sessencID}")
         $('#subMutations').load('ajaxMutations.emma',{
             action: "add",
-            Id_sub:$('#encID').val(), 
+            Id_sub:$('#encID').val(),
+            IDFromSession:"${sessencID}",
             mutation_allele_mgi_symbol:$('#mutation_allele_mgi_symbol').val(),
             mutation_chrom:$('#mutation_chrom').val(), 
             mutation_chrom_anomaly_name:$('#mutation_chrom_anomaly_name').val(), 
@@ -142,5 +145,5 @@ Are you sure you wish to continue? ");
     });
 </script>
 <c:if test="${count >= 10}"><script type="text/javascript" >  $("#addMut").hide(); </script></c:if>
-<c:if test="${count < 10}"><script type="text/javascript" >  $("#addMut").show(); </script></c:if>
+<c:if test="${empty count || count < 10}"><script type="text/javascript" >  $("#addMut").show(); </script></c:if>
 

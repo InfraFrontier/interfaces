@@ -17,12 +17,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <script type="text/javascript" src="../js/popWin.js"></script>
+       <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body>
         <div id="breeding" class="step">
             <h2>
                 Breeding (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
             </h2>
+            <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
                 Fertility and reproduction statistics, husbandry requirements and sanitary status of the mutant mouse strain you want to deposit in EMMA.
             </p>
@@ -275,7 +281,7 @@
                         <div class="input">
                             <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                 <div>
-                                    <label> <spring:bind path="command.sanitary_status_file">Upload as attachment&nbsp;<input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind></label>
+                                    <label> <spring:bind path="command.sanitary_status_file"><a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${param.getprev}&submissionFileType=SANITARYSTATUS',gmyWin);return false;" title="Opens a new window">Upload as attachment</a></spring:bind></label>
                                 </div>
                             </div>
                         <form:errors path="${status.expression}" cssClass="error" />
