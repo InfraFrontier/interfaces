@@ -30,7 +30,9 @@ public class submissionBibliosController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("from sub biblios controller ::-- " + request.getParameter("Id_sub"));
-        subBiblios = bm.submissionBiblios(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
+         int ID = 0;
+         
+   subBiblios = bm.submissionBiblios(ID/*Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")))*/);
 
         String id_biblio =request.getParameter("id_biblio");
         int sub_id_sub = 0;//Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));

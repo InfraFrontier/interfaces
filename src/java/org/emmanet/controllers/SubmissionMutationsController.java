@@ -30,14 +30,29 @@ public class SubmissionMutationsController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("Encrypted parameter::-");
-        System.out.println(request.getParameter("Id_sub"));
-        System.out.println(enc.decrypt(request.getParameter("Id_sub")));
-        String id_sub="0";
-        if(request.getParameter("Id_sub") != null){
-        id_sub=enc.decrypt(request.getParameter("Id_sub"));
+        System.out.println("id sub::" + request.getParameter("Id_sub"));
+        System.out.println("decrypted:" + enc.decrypt(request.getParameter("Id_sub")));
+        
+        
+        int ID = 0;
+      /*  String id_sub;
+        id_sub = "0";
+        if (request.getParameter("Id_sub") != null || !request.getParameter("Id_sub").isEmpty()) {
+            System.out.println("id sub not null or empty");
+            id_sub = enc.decrypt(request.getParameter("Id_sub"));
+            
         }
-        int ID=Integer.parseInt(id_sub);
-        mutdaos = mm.getSubMutationBySubID(/*Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")))*/ID);
+        if (id_sub.equals("0")) {
+            //new DAO
+            System.out.println("id sub equals 0 :: " + id_sub);
+            ID=0;
+        } else {
+            ID = Integer.parseInt(id_sub);
+            //mutdaos = mm.getSubMutationBySubID(/*Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")))*//*ID);
+        }*/
+
+
+        //new dao if id_sub=0
         String alleleMGI = request.getParameter("mutation_allele_mgi_symbol");
         String chrom = request.getParameter("mutation_chrom");
         String chromName = request.getParameter("mutation_chrom_anomaly_name");
@@ -55,11 +70,32 @@ public class SubmissionMutationsController implements Controller {
         String subtype = request.getParameter("mutation_subtype");
         String type = request.getParameter("mutation_type");
         String transMGI = request.getParameter("mutation_transgene_mgi_symbol");
-
+        
+        String IDFromSession = request.getParameter("IDFromSession");
 
         if (request.getParameter("action").equals("add")) {
             smd = new SubmissionMutationsDAO();
-            smd.setId_sub(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
+            
+            //sessencID
+            
+           String encryptedID=request.getParameter("Id_sub");
+           if(encryptedID.isEmpty()){
+               encryptedID=IDFromSession;//request.getParameter("IDFromSession");
+           }
+           System.out.println("idfromsession==" + IDFromSession);//request.getParameter("IDFromSession"));
+           System.out.println("## id==" + encryptedID);
+          // encryptedID = java.net.URLEncoder.encode(encryptedID, "UTF-8");
+          encryptedID = java.net.URLDecoder.decode(encryptedID, "UTF-8");
+           encryptedID=enc.decrypt(encryptedID);
+           int decryptedID= Integer.parseInt(encryptedID);
+           System.out.println("DECRYPTED++==" + decryptedID);
+           smd.setId_sub(decryptedID);
+           /*  if (request.getParameter("Id_sub") != null || !request.getParameter("Id_sub").isEmpty()) {
+                 smd.setId_sub(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
+             } else {
+                 smd.setId_sub(Integer.parseInt(enc.decrypt(request.getParameter("IDFromSession"))));
+             }*/
+            
             smd.setMutation_allele_mgi_symbol(alleleMGI);
             smd.setMutation_chrom(chrom);
             smd.setMutation_chrom_anomaly_name(chromName);
@@ -80,7 +116,7 @@ public class SubmissionMutationsController implements Controller {
             //mutdaos.add(smd);
             //System.out.println("DEBUG INTEGER ISSUE LINE 72::" + smd.getId_sub());
             //int id_sub
-                    ID = smd.getId_sub();
+            ID = smd.getId_sub();
             // System.out.println("DEBUG INTEGER ISSUE LINE 72::" + id_sub);
             mm.save(smd);
             mutdaos = mm.getSubMutationBySubID(ID);
@@ -88,26 +124,32 @@ public class SubmissionMutationsController implements Controller {
         } else if (request.getParameter("action").equals("edit")) {
             //edit records
             //get record from id
-             //mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
+            //mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
             System.out.print("id_Mut==" + Integer.parseInt(request.getParameter("Id_mut")));
             SubmissionMutationsDAO smd = mm.getSubMutationBySubMutID(Integer.parseInt(request.getParameter("Id_mut")));
             returnedOut.put("SubMutDAO", smd);
             //load record in fields
-   
+
         } else if (request.getParameter("action").equals("get")) {
-            //mutdaos = mm.getSubMutationBySubID(smd.getId_sub());
+            if(!request.getParameter("Id_sub").isEmpty()){
+                 ID=Integer.parseInt(enc.decrypt(request.getParameter("sessencID")));
+            }
+           
+            System.out.println("ID||| " + ID);
+            mutdaos = mm.getSubMutationBySubID(ID/*smd.getId_sub()*/);
             
         } else if (request.getParameter("action").equals("delete")) {
+            System.out.println("DELETING " + request.getParameter("Id_mut"));
             mm.delete(Integer.parseInt(request.getParameter("Id_mut")));
             mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
         }
         //return new ModelAndView("ajaxMutations.emma");
         System.out.println("mutdaos size==" + mutdaos.size());
         int count = mutdaos.size();
-        if(smd != null){
+        if (smd != null) {
             smd.setMutationCount(mutdaos.size());
         }
-        
+
         returnedOut.put("count", count);
         returnedOut.put("mutdaos", mutdaos);
         return new ModelAndView("/publicSubmission/ajaxMutations", MAP_KEY, returnedOut);

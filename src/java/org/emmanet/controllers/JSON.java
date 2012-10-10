@@ -486,7 +486,10 @@ manualCalcFields2="freezing_started , received";
                 }
                 whereClause = (new StringBuilder()).append(whereClause).append("s.reporting_count IN " + multiMutInClause).toString();
             }
+            
+            whereClause = (new StringBuilder()).append(whereClause).append(" AND l.code IS NOT NULL ").toString();
         }
+        
         if (request.getParameter("view").equals("grid")) {
             groupClause = " GROUP BY l.code";
 

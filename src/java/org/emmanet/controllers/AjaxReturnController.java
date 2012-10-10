@@ -166,7 +166,6 @@ public class AjaxReturnController extends SimpleFormController {
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
         //  return returnedResults;
 
-
     }
     
 }
