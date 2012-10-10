@@ -47,6 +47,7 @@ public class SubmissionsManager {
     }
 
     public void save(SubmissionsDAO sDAO) {
+        System.out.print("SUBMISSION DAO IS::" + sDAO.getId_sub());
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();

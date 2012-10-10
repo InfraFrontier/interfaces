@@ -114,7 +114,7 @@ public class MutationsManager {
     }
 
     public void save(SubmissionMutationsDAO smDAO) {
-
+System.out.println("at database update/insert for id " + smDAO.getId_sub());
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
