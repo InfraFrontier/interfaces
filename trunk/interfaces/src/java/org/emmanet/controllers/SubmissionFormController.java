@@ -40,6 +40,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private JSONObject obj;
     private List JSONobjects = new LinkedList();
     private WebRequests wr;
+    private Encrypter encrypter = new Encrypter();
 
     public SubmissionFormController() {
         setCommandName("command");
@@ -82,8 +83,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         } catch (Exception e) {
         }*/
 
-Encrypter encrypter = new Encrypter();
-        sda = new SubmissionsDAO();
+encrypter = new Encrypter();
+        //#####sda = new SubmissionsDAO();
 
         SubmissionsManager sm = new SubmissionsManager();
 
@@ -104,7 +105,9 @@ Encrypter encrypter = new Encrypter();
         
         if(request.getParameter("getprev") != null){
             String idDecrypt=encrypter.decrypt(request.getParameter("getprev"));
+            System.out.println("g e t p r e v::" + idDecrypt);
             sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+            System.out.println("SUBID::FBO2 = " + sda.getEncryptedId_sub());
         }
 
         sda.setCvDAO(wr.isoCountries());
@@ -123,6 +126,18 @@ Encrypter encrypter = new Encrypter();
             throws Exception {
         SubmissionsDAO sda = (SubmissionsDAO) command;
         SubmissionsManager sm = new SubmissionsManager();
+        encrypter = new Encrypter();
+        
+                if(request.getParameter("getprev") != null){
+            String idDecrypt=encrypter.decrypt(request.getParameter("getprev"));
+            System.out.println("g e t p r e v::" + idDecrypt);
+            sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+            
+            System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
+        }
+        
+      
+                
         Map refData = new HashMap();
         int pageCount = page;
         session.setAttribute("pageCount", "" + pageCount);
@@ -131,7 +146,7 @@ Encrypter encrypter = new Encrypter();
         PeopleManager pm;
         List people;
         List peopleDAOs;
-        
+        System.out.println("SUBID:: = " + sda.getId_sub());
         switch (page) {
             case 0: //if page 1 , do summat
                 sda.setStep("0");
@@ -142,8 +157,11 @@ Encrypter encrypter = new Encrypter();
                 sda.setStep("1");
                 break;
             case 2:
-
-
+   encrypter = new Encrypter();
+//System.out.println("toencrypt==" + sda.getId_sub());
+                            // Encrypt
+                            //String encrypted = encrypter.encrypt(sda.getId_sub());
+                                 
                 if (sda.getSubmitter_email()/*.getPeopleDAO().getEmail()*/ != null) {
                     wr = new WebRequests();
                     SubmissionsDAO prevSub = new SubmissionsDAO();
@@ -155,10 +173,15 @@ Encrypter encrypter = new Encrypter();
                             prevSub = (SubmissionsDAO) it.next();
                             System.out.println("TIMESTAMP :: " + prevSub.getTimestamp());
 
-                            Encrypter encrypter = new Encrypter();
+                           encrypter = new Encrypter();
 
                             // Encrypt
                             String encrypted = encrypter.encrypt(prevSub.getId_sub());
+                            if(encrypted.isEmpty() || encrypted != null){
+session.setAttribute("getprev", encrypted);
+                            } else {
+                                //TODO need to come up with something to use as a prefix for files etc if decryptions errors out, usually because of + chars in the encrypte string
+                            }
 
 
                       /*      try {
@@ -260,6 +283,12 @@ Encrypter encrypter = new Encrypter();
 
             case 5:
 
+                           encrypter = new Encrypter();
+
+                            // Encrypt
+                            String encrypted = encrypter.encrypt(sda.getId_sub());
+                                 session.setAttribute("getprev", encrypted);
+                         
                 sda.setStep("5");
                 sm.save(sda);
                 break;
@@ -286,6 +315,7 @@ Encrypter encrypter = new Encrypter();
                 break;
 
             case 8:
+                
                 sda.setStep("8");
                 sm.save(sda);
                 break;
@@ -329,6 +359,7 @@ Encrypter encrypter = new Encrypter();
         //  }
         return refData;
     }
+   
 
     @Override
     protected ModelAndView processFinish(HttpServletRequest request, HttpServletResponse response,
