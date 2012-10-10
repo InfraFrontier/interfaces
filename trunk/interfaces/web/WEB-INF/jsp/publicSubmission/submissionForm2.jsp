@@ -14,12 +14,13 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <spring:bind path="command.*" />
 <c:set var="PeopleDAO" value='${requestScope.userdaos}'></c:set>
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>   
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
+        <style type="text/css">@import url(../css/emmastyle.css);</style>  
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
@@ -29,79 +30,48 @@
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
         <script type="text/javascript" src="../js/jquery.floatobject-1.0.js"></script>
         <script type="text/javascript" src="../js/jquery.qtip-1.0.0-rc3.min.js"></script>
+
     </head>
     <body>
         <h2>
-            Submitter (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
-        </h2>
+    Submitter (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
+</h2>
+        <%@include file="submissionFormHeader_inc.jsp"%>
+      
+        
         <c:if test="${not empty requestScope.previousSub}">
             <c:set var="submissionDAO"  value="${requestScope.previousSub}"/>
             <c:set var="step"  value="${submissionDAO.step}"/>
-            <%-- <c:if test="${not empty PeopleDAO.LabsDAO.authority}">--%>
-            <%--${submissionDAO.timestamp}
-            ${requestScope['javax.servlet.forward.request_uri']}
-            ${submissionDAO.id_sub}--%>
-            <p id="confirm"></p>
-            <script type="text/javascript">
-                <%--  $("#confirm").dialog({
-                   msg:'Do you want to continue the submission that you started on  ${submissionDAO.timestamp} but never completed?',
-                 buttons: {
-                   "Yes": function() {},
-                   "No": function() {}
-                 }
-               });
-                
-                ${requestScope['javax.servlet.forward.request_uri']}
-                --%>
-     
-                
-    // var conf=confirm("Click OK to continue the submission that you started on  ${submissionDAO.timestamp} but never completed?");
-     if(conf) {
-                <%
-                    String step = request.getParameter("step");
-                    //request.setAttribute("_target" + step, "Next");
-                %>
-                                $.post("${requestScope['javax.servlet.forward.request_uri']}", { _target${submissionDAO.step}: "Next", getprev: "${submissionDAO.encryptedId_sub}" } );
-                                location.replace("?getprev=${submissionDAO.encryptedId_sub}&_target${submissionDAO.step}=Next");     
-                <c:set var="command" value="${requestScope.previousSub}"/>
-              
-                    }
+
+            <script>
+                $(function() {   
+                    $( "#dialog-confirm" ).dialog({
+                        resizable: false,
+                        height:180,
+                        modal: true       
+                    });
+                });
             </script>
 
-            //
-            <%--</c:if>--%>
-            <%-- ${command.timestamp} --%>
-            ////////////////////////new modal code here
+            <div id="dialog-confirm" title="Recall Previous Submission?">
 
-     
-
-
-
-            <div id="confirmStepForm" title="Recall previous submission?">
                 <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}">
-                    
-                        <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
-                        <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
-                        
-                    Would you like to continue the submission that you started on  ${submissionDAO.timestamp} but never completed?
-                    
-                    <button id="No" type="button" value="No">No</button>&nbsp;&nbsp;<input type="submit" value="Yes">
+
+                    <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
+                    <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
+                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+                        Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on ${submissionDAO.timestamp} but never completed?
+                        <br/><br/>
+                        <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;<input type="submit" name="recall_window" value="Yes"></center>
+                    </p>
                 </form>
+                <script>
+                    $( "#No" )
+                    .click(function() {
+                        $( "#dialog-confirm" ).dialog( "close" );
+                    });
+                </script>
             </div>
-
-
-
-
-
-
-            ////////////////////////////////////end new modal code
-
-
-
-
-
-
-
 
         </c:if>
         <p>
@@ -134,8 +104,8 @@
                         <c:if test="${not empty user.labsDAO['province']}">County: ${user.labsDAO['province']}<br/></c:if>
                         <c:if test="${not empty user.labsDAO['postcode']}">Postcode: ${user.labsDAO['postcode']}<br/></c:if>
                         <c:if test="${not empty user.labsDAO['country']}">Country: ${user.labsDAO['country']}<br/></c:if>
-                            <br/>Would you like to use the details above ?&nbsp;
-                            <input type="button" id="modal" name="yes" onClick="populateUserDetails('?uid=${user['id_per']}\
+                        <br/>Would you like to use the details above ?&nbsp;
+                        <input type="button" id="modal" name="yes" onClick="populateUserDetails('?uid=${user['id_per']}\
 &email=${user['email']}&title=${user['title']}&firstname=${user['firstname']}&surname=${user['surname']}&phone=${user['phone']}\
 &fax=${user['fax']}&institute=${user.labsDAO['name']}&dept=${user.labsDAO['dept']}\
 &addr_line_1=${user.labsDAO['addr_line_1']}&addr_line_2=${user.labsDAO['addr_line_2']}\
@@ -185,7 +155,7 @@
                     <label class="label" for="${status.expression}"><strong>First name</strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
                     <form:errors path="${status.expression}" cssClass="error" />
                 </div>
             </spring:bind>
@@ -196,7 +166,7 @@
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="error" />
 
@@ -212,7 +182,7 @@
                                      followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                      An extension must begin with x followed by the extension number, 
                                      e.g., +1 (234) 567-8900 x123"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="error" />
 
@@ -240,7 +210,7 @@
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
@@ -252,7 +222,7 @@
                     <label class="label" for="${status.expression}"><strong>Department</strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
@@ -265,7 +235,7 @@
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
@@ -277,7 +247,7 @@
                     <label class="label" for="${status.expression}"><strong>Address line 2</strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
@@ -290,7 +260,7 @@
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
@@ -302,7 +272,7 @@
                     <label class="label" for="${status.expression}"><strong>County/Province/State</strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
@@ -315,7 +285,7 @@
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                        </div>
+                    </div>
 
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
 

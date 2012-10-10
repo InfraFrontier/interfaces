@@ -16,9 +16,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
-                <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
                     <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/biblioData.js?<%= new java.util.Date()%>"></script>
@@ -29,6 +30,7 @@
             <h2>
                 References (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
             </h2>
+            <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
             </p>
@@ -46,8 +48,10 @@
 
                 </div>
             </spring:bind>
+            
+
             <spring:bind path="command.notes">
-                <fieldset class="reference">
+                <fieldset class="reference" style="display: none" id="reference" >
                     <legend>Reference</legend>
                     <div class="field reference_descr">
                         <label class="label" for="${status.expression}"><strong>Short description<sup><font color="red">*</font></sup></strong></label>
@@ -163,6 +167,19 @@
                 </spring:bind>
             </p>
             --%>
+            <script>
+                $("#published-yes").click(function () {
+                    $("#reference").show("slow");
+                });
+                            
+                $("#published-no").click(function () {
+                    $("#reference").hide("slow");
+                });
+                            
+                $("#published-not_known").click(function () {
+                    $("#reference").hide("slow");
+                });            
+            </script>
             <c:choose><c:when test="${empty param.getprev}"><c:set var="action" value="none"/></c:when><c:otherwise><c:set var="action" value="get"/></c:otherwise></c:choose>
                 <div id="subBiblios" name="subBiblios">
         <script type="text/javascript" > 

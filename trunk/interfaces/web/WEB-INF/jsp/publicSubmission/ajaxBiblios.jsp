@@ -14,6 +14,7 @@
 <c:set var="keyRef"  value="${returnedOut}"></c:set>
 <c:set var="subBibliosDAO"  value="${keyRef['subBiblios']}"></c:set>
 <c:set var="count"  value="${keyRef['count']}"></c:set>
+<c:set var="sessencID"  value="${sessionScope.getprev}"></c:set>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
@@ -32,7 +33,7 @@
 <h3>Bibliographic references for Submission</h3>
 <script type="text/javascript" >  $("#addBib").show(); </script>
 <c:choose>
-    <c:when test="${count<=0}">No references added.</c:when>
+    <c:when test="${empty count || count<=0}">No references added.</c:when>
     <c:otherwise>
         <table width="60%" align="center">
             <tr>
@@ -72,7 +73,7 @@
          $('#subBiblios').load('ajaxBiblios.emma',{
             action: "edit",
             action2: "editRecord",
-            Id_sub:$('#encID').val(), 
+            Id_sub:"${sessencID}",/*$('#encID').val(),*/ 
             Id_bib:$('#id_biblio').val(),
             id_biblio:$('#id_biblio').val(),
             pubmed_id:$('#pubmed_id').val(),
@@ -92,7 +93,7 @@
 Are you sure you wish to continue? ");
         $('#subBiblios').load('ajaxBiblios.emma',{
             action: "delete",
-            Id_sub:$('#encID').val(),
+            Id_sub:"${sessencID}",//$('#encID').val(),
             Id_bib:$(this).attr("title")
         });
     });
@@ -101,9 +102,10 @@ Are you sure you wish to continue? ");
 </script>
 <script type="text/javascript" > 
     $('#add_biblio').click(function() {
+      //  alert("Adding biblio ${sessencID}" );
         $('#subBiblios').load('ajaxBiblios.emma',{
             action: "add",
-            Id_sub:$('#encID').val(), 
+            Id_sub:"${sessencID}",//$('#encID').val(), 
             Id_bib:$(this).attr("title"),
             pubmed_id:$('#pubmed_id').val(),
             title:$('#title').val(),
@@ -116,4 +118,4 @@ Are you sure you wish to continue? ");
     });
 </script>
 <c:if test="${count >= 10}"><script type="text/javascript" >  $("#addBib").hide(); </script></c:if>
-<c:if test="${count < 10}"><script type="text/javascript" >  $("#addBib").show(); </script></c:if>
+<c:if test="${empty count || count < 10}"><script type="text/javascript" >  $("#addBib").show(); </script></c:if>

@@ -29,9 +29,14 @@ while (enumeration.hasMoreElements()) {
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <script type="text/javascript" src="../js/submission.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body>
         <h1>Submitter (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})</h1>
+        <%@include file="submissionFormHeader_inc.jsp"%>
         <form:form method="POST" commandName="command">
             
             <form:errors path="*" cssClass="errorblock"/><%--cssClass="errorblock" --%>

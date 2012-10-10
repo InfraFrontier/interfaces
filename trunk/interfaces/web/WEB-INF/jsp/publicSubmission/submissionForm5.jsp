@@ -21,15 +21,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-       <script type="text/javascript" src="../js//jquery-1.6.1.min.js"></script>
-
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/submission.js"></script>
     </head>
     <body>
         <div id="genotype" class="step">
             <h2>Genotype (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})</h2>
+            <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
                 Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions.
             </p>
@@ -38,6 +39,7 @@
             </p>
             <form:form method="POST" commandName="command"> 
                 <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
+                <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
                 <spring:bind path="command.strain_name">
                     <div class="field">
                         <label class="label" for="${status.expression}"><strong>Strain name<sup><font color="red">*</font></sup></strong></label>
@@ -83,7 +85,7 @@
                 </spring:bind>   
 
 
-                <input type="text" name="command.current_backg_text" id="current_backg_text" />
+                <%--<input type="text" name="command.current_backg_text" id="current_backg_text" />--%>
             </div>
             <form:errors path="${status.expression}" cssClass="error" />
         </div>
@@ -113,8 +115,7 @@
             <div class="field">
                 <label class="label" for="breeding_history"><strong>Breeding history</strong></label>
                 <div class="input">
-                    <textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" alt="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background.">
-                    </textarea>
+                    <textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" alt="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></textarea>
                 </div>
                 <form:errors path="${status.expression}" cssClass="error" />
             </div>
@@ -124,7 +125,7 @@
             <legend>Mutation</legend>
             <div class="field mutation_type">
                 <label class="label" for="mutation_type"><strong>Type<sup><font color="red">*</font></sup></strong></label>
-
+ <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
                 <div class="input">
                     <!--TODO MUTS FROM DATABASE-->
                     <select name="mutation_type" id="mutation_type">
@@ -492,12 +493,13 @@
             <input value="Add mutation" type="button" id="add_mutation" />
         </p>
     </div>--%>
-    <c:choose><c:when test="${empty param.getprev}"><c:set var="action" value="none"/></c:when><c:otherwise><c:set var="action" value="get"/></c:otherwise></c:choose>
+    <c:choose><c:when test="${empty param.getprev}"><c:set var="action" value="get"/></c:when><c:otherwise><c:set var="action" value="get"/></c:otherwise></c:choose>
     <div id="subMutations" name="subMutations">
         <script type="text/javascript" > 
             $('#subMutations').load('ajaxMutations.emma',{
                 action: "${action}",
-                Id_sub:$('#encID').val()
+               Id_sub:$('#encID').val(),
+               IDFromSession: $('#sessencID').val()
             });
         </script>
     </div>
