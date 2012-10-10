@@ -27,6 +27,8 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 <!--Do not need a custom controller for success page see above -->
                 <prop key="/success.emma">urlFilenameController
                 </prop>
+                 <prop key="/publicSubmission/fileUploadSuccess.emma">urlFilenameController
+                </prop>
                 <prop key="/dashboard.emma">DashboardController
                 </prop>
                 <prop key="/EUCOMMdashboard.emma">DashboardController
@@ -37,7 +39,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 </prop>
                 <prop key="/staticJSON.emma">JSON
                 </prop>
-               <!--<prop key="/spreadsheets.emma">intwp4SpreadsheetController
+                <!--<prop key="/spreadsheets.emma">intwp4SpreadsheetController
                 </prop>-->
                 <prop key="/interfaces/index.emma">InterfacesFormController
                 </prop>
@@ -73,7 +75,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 </prop>
                 <prop key="/interfaces/cryopreservationUpdateInterface.emma">cryopreservationHistoryController
                 </prop>
-                 <prop key="/interfaces/backgroundUpdateInterface.emma">backgroundUpdateInterfaceFormController
+                <prop key="/interfaces/backgroundUpdateInterface.emma">backgroundUpdateInterfaceFormController
                 </prop>
                 <prop key="newsitems.emma">rssNewsController
                 </prop>
@@ -87,13 +89,17 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
                 </prop>  
                 <prop key="/pdfView.emma">PdfViewController
                 </prop>
-               <prop key="/publicSubmission/submissionForm.emma">submissionFormController
+                <prop key="/publicSubmission/submissionForm.emma">submissionFormController
                 </prop>
                 <!-- <prop key="/publicSubmission/submissionForm1.emma">submissionFormController
                 </prop>
                 <prop key="/publicSubmission/submissionForm2.emma">submissionFormController
                 </prop>-->
-<prop key="/publicSubmission/ajaxMutations.emma">submissionMutationsController
+                <prop key="/publicSubmission/ajaxMutations.emma">submissionMutationsController
+                </prop>
+                <prop key="/publicSubmission/ajaxBiblios.emma">submissioBibliosController<!--submissionMutationsController-->
+                </prop>
+                <prop key="/publicSubmission/fileUploadForm.emma">FileUploadController
                 </prop>
             </props>
         </property>
@@ -112,6 +118,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
           class="org.emmanet.controllers.RequestUpdateFormValidator" />
           
     <bean id="submissionFormValidator" class="org.emmanet.controllers.SubmissionFormValidator" />
+    <bean id="fileUploadValidator" class="org.emmanet.controllers.FileUploadValidator" />
           
     <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <!-- this will forward directly to view stored in /WEB-INF/jsp/index.jsp -->
@@ -171,7 +178,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         </property>
     </bean>
     <bean name="JSON" class="org.emmanet.controllers.JSON">
-       <!-- <property name="sheetSuccessView">
+        <!-- <property name="sheetSuccessView">
             <value>JSON</value>
         </property>-->
     </bean>
@@ -253,9 +260,9 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>http://www.emmanet.org/private/Recent/PDF/Requests/</value>
         </property>
         <property name="serverPDFLocation">
-           <!-- <value> /nfs/panda/emma/Archive/</value>/data/emma/Archive/  
-           changed for dynamic pdf creation 04112011
-           -->
+            <!-- <value> /nfs/panda/emma/Archive/</value>/data/emma/Archive/  
+            changed for dynamic pdf creation 04112011
+            -->
             <value>/nfs/panda/emma/tmp/</value>
         </property>
         <property name="serverPDFRecentLocation">
@@ -314,7 +321,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         <property name="archCompCTemplate" value="archiveCompleteC-Template.vm" />
         <property name="msgSubject" value="Your submission to EMMA" />
         <property name="cc" value="info@emmanet.org,webmaster@emmanet.org" />
-       <!-- replaced ,sabine.fessele@helmholtz-muenchen.de,Michael.hagn@helmholtz-muenchen.de with info@emmanet.org<property name="cc" value="phil.j.wilkinson@gmail.com,webmaster@emmanet.org" />-->
+        <!-- replaced ,sabine.fessele@helmholtz-muenchen.de,Michael.hagn@helmholtz-muenchen.de with info@emmanet.org<property name="cc" value="phil.j.wilkinson@gmail.com,webmaster@emmanet.org" />-->
         <property name="fileLocation">
             <value>/nfs/panda/emma/tmp/</value>
         </property>
@@ -342,7 +349,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>/Submissions/</value>
         </property>
         <property name="tmpDir">
-                    <!-- Location to save background list to for reading -->
+            <!-- Location to save background list to for reading -->
             <value>/nfs/panda/emma/tmp/</value>
         </property>
     </bean>
@@ -403,7 +410,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     </bean>
     
     <bean name="backgroundUpdateInterfaceFormController" class="org.emmanet.controllers.BackgroundUpdateInterfaceFormController">
-                <property name="successView">
+        <property name="successView">
             <value>redirect:../interfaces/backgroundUpdateInterface.emma</value>
         </property>
     </bean>
@@ -437,7 +444,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
     <bean name="submissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
         <property name="pages">
             <list>
-		<!-- follow sequence -->
+                <!-- follow sequence -->
                 <value>/publicSubmission/submissionForm</value>
                 <value>/publicSubmission/submissionForm1</value>
                 <value>/publicSubmission/submissionForm2</value>
@@ -453,9 +460,24 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             </list>
         </property>
         <property name="validator">
-		<!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
+            <!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
             <ref bean="submissionFormValidator" />
         </property>
     </bean>
-<bean name="submissionMutationsController" class="org.emmanet.controllers.SubmissionMutationsController"> </bean>
+    <bean name="submissionMutationsController" class="org.emmanet.controllers.SubmissionMutationsController"> </bean>
+<bean name="submissioBibliosController" class="org.emmanet.controllers.submissionBibliosController"> </bean>
+    <!-- FILE UPLOAD CONFIG -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--<property name="maxUploadSize" value="1000"/>-->
+            
+    </bean>
+    <bean class="org.emmanet.controllers.FileUploadController" name="FileUploadController">
+             <property name="validator">
+            <ref bean="fileUploadValidator" />
+        </property>
+                 <property name="successView">
+            <value>/publicSubmission/fileUploadSuccess</value>
+        </property>
+    </bean>
+
 </beans>
