@@ -17,7 +17,6 @@ public class Encrypter {
 
     private Cipher ecipher;
     private Cipher dcipher;
-    
     /*
      
      * Need to find a better more secure way to store keys.
@@ -76,11 +75,11 @@ public class Encrypter {
     }
 
     public String decrypt(String str) {
-        //System.out.println("todecrypt==" + str);
+        // System.out.println("todecrypt==" + str);
         try {
             // Decode base64 to get bytes
             byte[] dec = new sun.misc.BASE64Decoder().decodeBuffer(str);
-           //System.out.println("bystestring==" + dec.toString());
+            //System.out.println("bystestring==" + dec.toString());
             // Decrypt
             byte[] utf8 = dcipher.doFinal(dec);
             //System.out.println("decrypted string==" + new String(utf8, "UTF8"));
