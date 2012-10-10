@@ -226,7 +226,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     }
 
     /**
-     * @return the wsdlLocationsystems.eebi.ac.uk
+     * @return the wsdlLocationsystems.ebi.ac.uk
      * 
      */
     public String getWsdlLocation() {
