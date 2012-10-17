@@ -78,5 +78,6 @@
     <mapping resource="SubmissionsDAO.hbm.xml"/>
     <mapping resource="SubmissionBibliosDAO.hbm.xml"/>
     <mapping resource="SubmissionMutationsDAO.hbm.xml"/>
+    <mapping resource="CVEmbryoStateDAO.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
