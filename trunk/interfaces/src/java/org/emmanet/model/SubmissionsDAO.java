@@ -6,6 +6,7 @@ package org.emmanet.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -89,6 +90,7 @@ public class SubmissionsDAO implements Serializable {
     private String addReference;
     private String removeReference;
     
+    private Set SubmissionBibliosDAO; 
     
     private String genotyping;
     private String genotyping_file;
@@ -2452,4 +2454,25 @@ public class SubmissionsDAO implements Serializable {
     public void setPages(String pages) {
         this.pages = pages;
     }
+
+    /**
+     * @return the SubmissionBibliosDAO
+     */
+    public Set getSubmissionBibliosDAO() {
+        return SubmissionBibliosDAO;
+    }
+
+    /**
+     * @param SubmissionBibliosDAO the SubmissionBibliosDAO to set
+     */
+    public void setSubmissionBibliosDAO(Set SubmissionBibliosDAO) {
+        this.SubmissionBibliosDAO = SubmissionBibliosDAO;
+    }
+
+
+
+
+
+
+
 }
