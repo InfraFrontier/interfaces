@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
 
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
     <bean id="webRequests" class="org.emmanet.jobs.WebRequests" />
     <bean id="webRequest" class="org.emmanet.jobs.WebRequests" />
@@ -200,7 +208,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>rssItems</value>
         </property>
         <property name = "fileLocation">
-            <value>/nfs/panda/emma/tmp/</value><!-- /nfs/panda/emma -->
+            <value>${DATAFILES}/tmp/</value><!-- /nfs/panda/emma -->
         </property>
     </bean>
     <bean name="InterfacesFormController" class="org.emmanet.controllers.InterfacesFormController">
@@ -260,19 +268,19 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>http://www.emmanet.org/private/Recent/PDF/Requests/</value>
         </property>
         <property name="serverPDFLocation">
-            <!-- <value> /nfs/panda/emma/Archive/</value>/data/emma/Archive/  
+            <!-- <value> ${DATAFILES}/Archive/</value>/data/emma/Archive/  
             changed for dynamic pdf creation 04112011
             -->
-            <value>/nfs/panda/emma/tmp/</value>
+            <value>${DATAFILES}/tmp/</value>
         </property>
         <property name="serverPDFRecentLocation">
-            <value>/nfs/panda/emma/Recent/PDF</value> <!--     -->
+            <value>${DATAFILES}/Recent/PDF</value> <!--     -->
         </property>
         <property name="serverPDFLocationTail">
             <value>/Requests/</value>
         </property>
         <property name="pathToMTA">
-            <value>/nfs/panda/emma/mtas/</value>
+            <value>${DATAFILES}/mtas/</value>
         </property>
         <property name="simpleMailMessage" ref="simpleMailMessage"/>
         <property name="mailSender" ref="mailSender"/>
@@ -299,10 +307,10 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>http://www.emmanet.org/private/Recent/PDF/Submissions/</value>
         </property>
         <property name="serverPDFLocation">
-            <value>/nfs/panda/emma/Archive/</value><!--/data/emma/Archive/-->
+            <value>${DATAFILES}/Archive/</value><!--/data/emma/Archive/-->
         </property>
         <property name="serverPDFRecentLocation">
-            <value>/nfs/panda/emma/Recent/PDF</value>
+            <value>${DATAFILES}/Recent/PDF</value>
         </property>
         <property name="serverPDFLocationTail">
             <value>/Submissions/</value>
@@ -323,7 +331,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
         <property name="cc" value="info@emmanet.org,webmaster@emmanet.org" />
         <!-- replaced ,sabine.fessele@helmholtz-muenchen.de,Michael.hagn@helmholtz-muenchen.de with info@emmanet.org<property name="cc" value="phil.j.wilkinson@gmail.com,webmaster@emmanet.org" />-->
         <property name="fileLocation">
-            <value>/nfs/panda/emma/tmp/</value>
+            <value>${DATAFILES}/tmp/</value>
         </property>
     </bean>
     <bean name="strainsUpdateInterfaceFormController" class="org.emmanet.controllers.strainsUpdateInterfaceFormController">
@@ -340,17 +348,17 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>http://www.emmanet.org/private/Recent/PDF/Submissions/</value>
         </property>
         <property name="serverPDFLocation">
-            <value>/nfs/panda/emma/Archive/</value><!--/data/emma/Archive/   /home/phil/ -->
+            <value>${DATAFILES}/Archive/</value><!--/data/emma/Archive/   /home/phil/ -->
         </property>
         <property name="serverPDFRecentLocation">
-            <value>/nfs/panda/emma/Recent/PDF/</value>
+            <value>${DATAFILES}/Recent/PDF/</value>
         </property>
         <property name="serverPDFLocationTail">
             <value>/Submissions/</value>
         </property>
         <property name="tmpDir">
             <!-- Location to save background list to for reading -->
-            <value>/nfs/panda/emma/tmp/</value>
+            <value>${DATAFILES}/tmp/</value>
         </property>
     </bean>
     <bean name="poUpdateInterfaceFormController" class="org.emmanet.controllers.poUpdateInterfaceFormController">
@@ -405,7 +413,7 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
             <value>redirect:../interfaces/cryopreservationUpdateInterface.emma</value>
         </property>
         <property name="fileLocation">
-            <value>/nfs/panda/emma/tmp/</value>
+            <value>${DATAFILES}/tmp/</value>
         </property>
     </bean>
     

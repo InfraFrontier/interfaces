@@ -4,11 +4,28 @@ xmlns:security="http://www.springframework.org/schema/security"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd 
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-2.5.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+
+	<context:component-scan base-package="org.emmanet">
+		<context:include-filter type="regex" expression=".*" />
+	</context:component-scan>
+
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
         <property name="velocityProperties">
             <props>
@@ -94,7 +111,7 @@ xmlns:security="http://www.springframework.org/schema/security"
         <property name="jobDataAsMap">
             <map>
                 <entry key="fileLocation">
-                    <value>/nfs/panda/emma/tmp/</value><!-- /nfs/panda/emma-->
+                    <value>${DATAFILES}/tmp/<!-- /nfs/panda/emma/tmp/ --></value><!-- /nfs/panda/emma-->
                 </entry>
             </map>
         </property>
@@ -132,7 +149,7 @@ xmlns:security="http://www.springframework.org/schema/security"
                     <value>http://www.emmanet.org/images/emma_logo2.gif?rss</value>
                 </entry>
                 <entry key="fileLocation">
-                    <value>/nfs/panda/emma/tmp/</value><!-- /nfs/panda/emma/external/htdocs/ TODO CHANGE TO LIVE LOCATION -->
+                    <value>${DATAFILES}/tmp/<!-- /nfs/panda/emma/tmp/ --></value><!-- /nfs/panda/emma/external/htdocs/ TODO CHANGE TO LIVE LOCATION -->
                 </entry>
                 <entry key="filename">
                     <value>emmafeed.xml</value>

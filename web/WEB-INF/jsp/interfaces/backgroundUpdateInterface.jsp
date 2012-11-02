@@ -14,6 +14,7 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="org.emmanet.util.Configuration" %>
 
 
 <spring:bind path="command.*"></spring:bind>
@@ -60,7 +61,7 @@
                                     <form:option value="0">Create a new background >></form:option>
                                                                         <%
                                         try {
-                                            BufferedReader in = new BufferedReader(new FileReader("/nfs/panda/emma/tmp/bgNamesList.emma"));
+                                            BufferedReader in = new BufferedReader(new FileReader(Configuration.get("BGNAMESLIST")));
                                             String str;
 
                                             while ((str = in.readLine()) != null) {
