@@ -7,16 +7,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <c:set var="keyRef" value='${returnedOut}'></c:set>
-<%
-
-            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/cilist"));
-            String strInSources;
-            String strOutSources = "";
-
-            while ((strInSources = inSources.readLine()) != null) {
-                strOutSources = strOutSources + strInSources;
-            }
-%>
+<c:set var="strOutSources" value='${returnedOut.strOutSources}'></c:set>
+<% String strOutSources = (String)pageContext.getAttribute("strOutSources"); %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">

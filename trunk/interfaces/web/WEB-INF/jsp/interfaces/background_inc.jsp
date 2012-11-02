@@ -13,7 +13,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@page import="org.emmanet.util.Configuration" %>
 <%@page import="java.io.*"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,7 +33,7 @@ optionDisplay ="<form:option value=\"";
                 optionDisplayClose="</option>";
              }
             try {
-                BufferedReader in = new BufferedReader(new FileReader("/nfs/panda/emma/tmp/bgNamesList.emma"));
+                BufferedReader in = new BufferedReader(new FileReader(Configuration.get("BGNAMESLIST")));
                 String str;
 
                 while ((str = in.readLine()) != null) {

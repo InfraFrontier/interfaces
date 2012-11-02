@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>EMMA </name>
+    <name>EMMA</name>
     <description>Emma web site</description>
     <groupId>org.emmanet</groupId>
     <artifactId>emmanet</artifactId>
@@ -58,6 +58,8 @@
         <dom4j.version>1.6.1</dom4j.version>
         <antlr.version>2.7.6</antlr.version>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
+        
+        <DATAFILES>${user.home}/emma</DATAFILES>
     </properties>
 
     <dependencies>
@@ -370,53 +372,136 @@
 
     </dependencies>
 
-    <build>
-        <finalName>emma-internal</finalName>
-        <sourceDirectory>${project.basedir}/src/java</sourceDirectory>
-        <plugins>
+	<build>
+		<finalName>emma-internal</finalName>
+		<sourceDirectory>${project.basedir}/src/java</sourceDirectory>
+		<plugins>
 
-      <!-- Facilitates downloading source and javadoc in Eclipse -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.8</version>
-                <configuration>
-                    <wtpversion>2.0</wtpversion>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                </configuration>
-            </plugin>
+			<!-- Facilitates downloading source and javadoc in Eclipse -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-                <version>1.1</version>
-                <configuration>
-                    <path>/emma-trunk</path>
-                    <server>ves-ebi-d0.ebi.ac.uk:8100</server>
-                    <url>http://ves-ebi-d0.ebi.ac.uk:8100/manager/html</url>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<path>/emma</path>
+					<server>localhost:8080</server>
+					<url>http://localhost:8080/manager/html</url>
+				</configuration>
+			</plugin>
+
+			<!-- Put the date in the buildNumber variable -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+					<timestampFormat>{0, date, yyyy-MM-dd HH:mm:ss}</timestampFormat>
+				</configuration>
+			</plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-          <!-- Overiddes default Maven configuration for EMMA -->
+					<!-- Overiddes default Maven configuration for EMMA -->
+					<!-- <webXml>web/WEB-INF/web.xml</webXml> -->
+					<!-- <warSourceDirectory>WebContent</warSourceDirectory> -->
                     <warSourceDirectory>web</warSourceDirectory>
-          <!-- <warSourceDirectory>WebContent</warSourceDirectory> -->
-          <!-- <webXml>web/WEB-INF/web.xml</webXml> -->
+					<resources>
+						<resource>
+							<directory>java/main/resources</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/config.properties</include>
+							</includes>
+						</resource>
+					</resources>
+					<webResources>
+						<resource>
+							<directory>${basedir}/web/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>**/dispatcher-servlet.xml</include>
+								<include>**/applicationContext.xml</include>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
                 </configuration>
             </plugin>
+
+
+
+
+
+<!-- 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<webResources>
+						<resource>
+							<directory>${basedir}/WebContent/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>**/web.xml</include>
+								<include>**/app-config.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+					<attachClasses>true</attachClasses>
+					<classesClassifier>classes</classesClassifier>
+					<archive>
+						<addMavenDescriptor>true</addMavenDescriptor>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+					<archiveClasses>true</archiveClasses>
+				</configuration>
+			</plugin>
+ -->
+
+
 
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.0-beta-7</version>
                 <configuration>
-                    <tagBase>
-            https://svn.ebi.ac.uk/emma/tags/interfaces
-                    </tagBase>
+                    <tagBase>https://svn.ebi.ac.uk/emma/tags/interfaces</tagBase>
                 </configuration>
             </plugin>
 
@@ -428,6 +513,11 @@
 
         <profile>
             <id>development</id>
+
+			<properties>
+				<DATAFILES>/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config</DATAFILES>
+			</properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -446,6 +536,11 @@
         
          <profile>
             <id>experimental</id>
+
+			<properties>
+				<DATAFILES>/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config</DATAFILES>
+			</properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -464,6 +559,11 @@
         
          <profile>
             <id>staging</id>
+
+			<properties>
+				<DATAFILES>/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config</DATAFILES>
+			</properties>
+
             <build>
                 <plugins>
                     <plugin>
@@ -483,6 +583,11 @@
 <!--
     <profile>
       <id>production1</id>
+
+			<properties>
+				<DATAFILES>/nfs/panda/emma</DATAFILES>
+			</properties>
+
       <build>
         <plugins>
           <plugin>
@@ -501,6 +606,11 @@
 
     <profile>
       <id>production2</id>
+
+			<properties>
+				<DATAFILES>/nfs/panda/emma</DATAFILES>
+			</properties>
+
       <build>
         <plugins>
           <plugin>

@@ -11,6 +11,7 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="org.emmanet.util.Configuration" %>
 
 <c:set var="keyRef" value='${command}'></c:set>
 
@@ -26,8 +27,7 @@
             String id = request.getParameter("EditArch");
             String reqID = request.getParameter("Edit");
 
-            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/fslist"));///nfs/panda/emma
-///nfs/panda/emma/nfs/panda/emma
+            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("FSLIST")));
 
             String strInSources;
             String strOutSources = "";
@@ -35,7 +35,7 @@
             while ((strInSources = inSources.readLine()) != null) {
                 strOutSources = strOutSources + strInSources;
             }
-            java.io.BufferedReader inProjects = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/plist"));///nfs/panda/emma
+            java.io.BufferedReader inProjects = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("PLIST")));
 
             String strInProjects;
             String strOutProjects = "";

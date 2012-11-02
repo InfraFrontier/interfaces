@@ -4,15 +4,21 @@
  */
 package org.emmanet.controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Configuration;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +35,13 @@ public class InterfacesFormController extends SimpleFormController {
     private String strainsSuccessView;
     private String requestsSuccessView;
 
+	private String getOutSources() throws FileNotFoundException {
+		String filename = Configuration.get("CILIST");
+		String output = new Scanner(new File(filename)).useDelimiter("\\Z")
+				.next();
+		return output;
+	}
+	
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -43,6 +56,9 @@ public class InterfacesFormController extends SimpleFormController {
         WebRequests wr = new WebRequests();
 
         System.out.println("UID = " + uID.toUpperCase());
+        
+        returnedOut.put("strOutSources", getOutSources());
+
         returnedOut.put(
                 "UserName", o.toString());
 
