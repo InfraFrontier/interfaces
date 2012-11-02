@@ -248,6 +248,41 @@ public class ArchiveManager {
         return bgCount;
     }
     
+    //get controlled vocabulary for embryo state
+    
+       public List getCVEmbryoStateVals() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List embryoStates = null;
+        try {
+            embryoStates = session.createQuery(
+                    "SELECT description FROM CVEmbryoStateDAO").list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return embryoStates;
+    }
+       
+           //get controlled vocabulary for archiving method
+    
+       public List getCVArchivingMethodVals() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List archiveMethods = null;
+        try {
+            archiveMethods = session.createQuery(
+                    "FROM CVArchivingMethodDAO").list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        
+        return archiveMethods;
+    }
+    
     public void save(ArchiveDAO aDAO) {
         /*
          * A brief explanation for why this is here..

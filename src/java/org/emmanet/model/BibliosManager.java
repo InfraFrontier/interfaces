@@ -53,10 +53,14 @@ public class BibliosManager {
     public BibliosDAO getPubmedIDByID(int pmid) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        BibliosDAO bd = null;
+        BibliosDAO bd = null;//setParameter(0, pmid)
         try {
+            //NOTE: had to remove setparameter and ? from query as unable to solve 
+            //org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+            //error from org.emmanet.model.BibliosManager.getPubmedIDByID(BibliosManager.java:58)
+            // and org.emmanet.controllers.SubmissionFormController.processFinish(SubmissionFormController.java:579) despite an integer being used
 
-            bd = (BibliosDAO) session.createQuery("WHERE pubmed_id =?").setParameter(0, pmid);
+            bd = (BibliosDAO) session.createQuery("FROM BibliosDAO WHERE pubmed_id =" + pmid).uniqueResult();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
