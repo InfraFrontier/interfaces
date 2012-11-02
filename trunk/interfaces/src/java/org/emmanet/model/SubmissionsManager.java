@@ -30,6 +30,38 @@ public class SubmissionsManager {
 
         return sd;
     }
+    
+      public List getSubMutationsBySUBID(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List smd = null;
+        try {
+             smd = session.createQuery(
+                    "FROM SubmissionMutationsDAO WHERE id_sub=?").setParameter(0, id).list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+
+        return smd;
+    }
+
+    public List getSubBibliosBySUBID(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List sbd = null;
+        try {
+           sbd = session.createQuery(
+                    "FROM SubmissionBibliosDAO WHERE sub_id_sub=?").setParameter(0, id).list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+
+        return sbd;
+    }
 
     public List getSubsByEmail(String email) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -68,6 +100,7 @@ public class SubmissionsManager {
         session.beginTransaction();
 
         try {
+            System.out.println("AT SUBMISSION BIBLIOS SAVE OR UPDATE");
             session.saveOrUpdate(sbDAO);
             session.getTransaction().commit();
 
