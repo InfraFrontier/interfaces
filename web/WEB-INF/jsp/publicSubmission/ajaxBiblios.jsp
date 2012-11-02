@@ -46,7 +46,7 @@
             <c:forEach var="bib" items="${subBibliosDAO}">
                 <tr>
                     <td>${bib.pubmed_id}</td>
-                    <td>${bib.title}</td>
+                    <td>${fn:substring(bib.title,0,25)}...</td>
                     <td>${bib.author1}</td>
                     <td>${bib.journal} / ${bib.year} / ${bib.volume} / ${bib.pages}</td>
                     <td><a href="javascript:void(0)" title="${bib.id_biblio}" id="editReference_${bib.id_biblio}">Edit</a> / <a href="javascript:void(0)"  id="deleteReference_${bib.id_biblio}" title="${bib.id_biblio}">Remove</a></td>

@@ -119,7 +119,7 @@
                         <label class="label" for="${status.expression}"><strong>Phone Number
                                 <sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" alt="The phone number must
+                            <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must
                                          begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
                                          parentheses. An extension must begin with x followed by the extension number, 
                                          e.g., +1 (234) 567-8900 x123"></form:input>
@@ -135,7 +135,7 @@
                         <label class="label" for="${status.expression}"><strong>Fax Number
                                 <sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" alt="The fax number must 
+                            <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must 
                                          begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
                                          parentheses. An extension must begin with x followed by the extension number, 
                                          e.g., +1 (234) 567-8900 x123"></form:input></div>

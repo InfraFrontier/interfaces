@@ -43,7 +43,7 @@ while (enumeration.hasMoreElements()) {
         <div id="start" class="step">
             <h2> Start </h2>
             <p> Please enter your email address for identification. For your convenience, if you have started or 
-                completed a mutant mouse strain submission previously using this computer, you will be prompted to 
+                completed a mutant mouse strain submission previously in the last 12 months, you will be prompted to 
                 either resume your incomplete submission from where you left off, or, if the submission was completed, 
                 you will be asked whether you want to reuse your contact information. </p>
         <%--  <spring:bind path="command.peopleDAO.email">--%>

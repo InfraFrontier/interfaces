@@ -30,9 +30,7 @@
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js"></script>
-        <script  type="text/javascript">
-            $( document ).tooltip();
-        </script>
+
     </head>
     <body>
         <div id="producer" class="step">

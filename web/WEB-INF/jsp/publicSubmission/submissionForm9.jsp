@@ -292,7 +292,7 @@
                     <div class="field">
                         <label class="label" for="${status.expression}"><strong>Animal welfare</strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" alt="Please enter the mouse welfare terms that apply to this mutant mouse strain (from <http://www.mousewelfareterms.org>)."/>
+                            <form:input  id="${status.expression}" path="${status.expression}" title="Please enter the mouse welfare terms that apply to this mutant mouse strain (from <http://www.mousewelfareterms.org>)."/>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>

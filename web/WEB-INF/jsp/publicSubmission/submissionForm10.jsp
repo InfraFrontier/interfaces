@@ -30,7 +30,7 @@
             </h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
-
+                
             </p>
             <form:form method="POST" commandName="command">
 

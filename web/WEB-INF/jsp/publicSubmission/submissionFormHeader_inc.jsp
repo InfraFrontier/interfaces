@@ -10,7 +10,11 @@ Header for all pages in the form submission
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style type="text/css">@import url(../css/emmastyle.css);</style>
 <c:set var="percentageComplete" value="${(sessionScope.pageCount / sessionScope.totalStepCount * 100)}"></c:set>
+        <script  type="text/javascript">
+            $( document ).tooltip();
+        </script>
 <script>
     $(function() {
         $( "#progressbar" ).progressbar({
@@ -18,4 +22,18 @@ Header for all pages in the form submission
         });
     });
 </script>
+<br/>
+<div id="breadcrumbs" name="breadcrumbs" class="breadcrumbs">
+<center>
+    
+    <c:forEach var="title" items="${stepTitles}" varStatus="status">
+        <c:if test="${sessionScope.pageCount > status.count}"><c:set var="separator" value=" << "/></c:if>
+        <c:if test="${sessionScope.pageCount <= status.count}"><c:set var="separator" value=" >> "/></c:if>
+        <c:if test="${status.last}"><c:set var="title" value="${fn:replace(title, ']', '')}"/><c:set var="separator" value=""/></c:if>
+        <c:if test="${status.first}"><c:set var="title" value="${fn:replace(title, '[', '')}"/></c:if>
+        <font class="breadcrumbs"><c:if test="${sessionScope.pageCount == status.count}"><strong>${title}</strong></c:if><c:if test="${sessionScope.pageCount != status.count}">${title}</c:if>${separator}</font></c:forEach>
+                
+  </center>  
+</div>
+<br/>
 <div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto;}"></div>
