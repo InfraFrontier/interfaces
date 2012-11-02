@@ -86,14 +86,23 @@ encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
             msg.setTo(wrd.getSci_e_mail());
 
             msg.setBcc(bcc);
-
+ // TODO: my email for testing - pull from database/hibernate
+                    
+                    /*
+                     * 
+                     * http://www.ebi.ac.uk/panda/jira/browse/EMMA-273 add cc for shipping contact
+                     * 
+                     */
+                    
+                    String shipperMail=wrd.getCon_e_mail();
             Cc.clear();
             Cc.put("1", new String("info@emmanet.org"));
+            Cc.put("2", shipperMail);//EMMA-273 above
             // Get responsible centre mail address(es) and add to map
             List ccCentre = wr.ccArchiveMailAddresses(wrd.getStr_id_str());
             String[] ccAddress = null;
             //map key + 1
-            int im = 2;
+            int im = 3;
             Object[] o = null;
             Iterator it = ccCentre.iterator();
             while (it.hasNext()) {

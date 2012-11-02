@@ -34,6 +34,7 @@ import org.emmanet.model.ArchiveManager;
 import org.emmanet.model.BackgroundDAO;
 import org.emmanet.model.BackgroundManager;
 import org.emmanet.model.CVAvailabilitiesDAO;
+import org.emmanet.model.CVEmbryoStateDAO;
 
 import org.emmanet.model.ProjectsStrainsDAO;
 import org.emmanet.model.Sources_StrainsDAO;
@@ -48,6 +49,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+
 /**
  *
  * @author phil
@@ -62,6 +64,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
     private StrainsDAO sd;
     private ProjectsStrainsDAO psd;
     private Sources_StrainsDAO ssd;
+    private CVEmbryoStateDAO esDAO;
     private String baseURL;
     private String recentBaseURL;
     private String serverPDFLocation;
@@ -100,17 +103,27 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 createList();
             }
             /*
-            CODE BELOW TO CONVERT STRINGS TO DATES IF WE WORK WITH DATES RATHER THAN STRINGS
-            Date date = (Date) aDAO.getArchived();
-            calendar.setTime(date);
-            ArchiveDAO aDAO = (ArchiveDAO) command;
-            System.out.println("OK archivedao instantited");
-            aDAO.setArchived(date);
+             CODE BELOW TO CONVERT STRINGS TO DATES IF WE WORK WITH DATES RATHER THAN STRINGS
+             Date date = (Date) aDAO.getArchived();
+             calendar.setTime(date);
+             ArchiveDAO aDAO = (ArchiveDAO) command;
+             System.out.println("OK archivedao instantited");
+             aDAO.setArchived(date);
              */
 
             //build pdf string
             // int archID = sm.getArchID(strainID);
             sd = sm.getStrainByID(strainID);
+            List es =  am.getCVEmbryoStateVals();
+            List archMethod = am.getCVArchivingMethodVals();
+           
+            //List es = am.getCVEmbryoStateVals();
+            System.out.println("ES size = " + es.size());
+            System.out.println("archMethod size = " + archMethod.size());
+           /* for (Iterator it = es.iterator(); it.hasNext();) {
+                esDAO = (CVEmbryoStateDAO) it.next();
+            }*/
+
             //  ad = am.getReqByID(archID);
             //String subFile = "sub_";
             //baseURL = this.getBaseURL();
@@ -118,91 +131,92 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             //@@@@@
             // String date = ad.getSubmitted();
             //@@@@@
-            
-        
+
+
             /*
-            if (date != null) {
-                strippedDate = date.replace("-", "");
-                strippedDate = strippedDate.replace(":", "");
-                strippedDate = strippedDate.replace(".", "");
-                strippedDate = strippedDate.replace(" ", "");
-                //get year to determine search directory
-                String pdfYearDir = "PDF-";
-                pdfYearDir = pdfYearDir + strippedDate.substring(0, 4);
-                //Take out leading 2 digits of year
-                strippedDate = strippedDate.substring(2, strippedDate.length() - 1);
-                //server location of pdf to search for
-                String locatePDF = getServerPDFLocation() + pdfYearDir + getServerPDFLocationTail();
-                String pdfsources[] = {locatePDF, getServerPDFRecentLocation() + getServerPDFLocationTail()};
-                Boolean fileFound = false;
-                String pdfUrl = "";
-                subFile = subFile + strippedDate;
-                //ok lets search for...
-                for (int i = 0; i < pdfsources.length; i++) {
-                    File dir = new File(pdfsources[i]);
-                    locatePDF = pdfsources[i];
-                    System.out.println("SEARCHING DIRECTORY " + locatePDF + " FOR FILE " + subFile);
-                    if (i == 1) {
-                        System.out.println("Setting base url to (i=1 then) :: " + getRecentBaseURL());
-                        thisisthebase = getRecentBaseURL();
-                    } else if (i == 0) {
-                        System.out.println("Setting base url to (i=0 then):: " + getRecentBaseURL() + pdfYearDir);
-                        thisisthebase = getBaseURL() + pdfYearDir + this.getServerPDFLocationTail();
-                    }
-                    String[] children = dir.list();
-                    if (children == null) {
-                        // Either dir does not exist or is not a directory
-                        System.out.println("It appears that the directory " + locatePDF +
-                                " doesn't exist.");
-                    } else {
-                        System.out.println("Directory exists::" + locatePDF);
-                        for (int ii = 0; ii < children.length; ii++) {
-                            // Get filename of file or directory
-                            String filename = children[ii];
-                            System.out.println(filename + " located");
-                            System.out.println(subFile);
-                            if (filename.startsWith(subFile)) {
-                                subFile = filename;
-                                fileFound = true;
-                            } else {
-                                System.out.println("No file with this name " + subFile + " here");
-                            }
+             if (date != null) {
+             strippedDate = date.replace("-", "");
+             strippedDate = strippedDate.replace(":", "");
+             strippedDate = strippedDate.replace(".", "");
+             strippedDate = strippedDate.replace(" ", "");
+             //get year to determine search directory
+             String pdfYearDir = "PDF-";
+             pdfYearDir = pdfYearDir + strippedDate.substring(0, 4);
+             //Take out leading 2 digits of year
+             strippedDate = strippedDate.substring(2, strippedDate.length() - 1);
+             //server location of pdf to search for
+             String locatePDF = getServerPDFLocation() + pdfYearDir + getServerPDFLocationTail();
+             String pdfsources[] = {locatePDF, getServerPDFRecentLocation() + getServerPDFLocationTail()};
+             Boolean fileFound = false;
+             String pdfUrl = "";
+             subFile = subFile + strippedDate;
+             //ok lets search for...
+             for (int i = 0; i < pdfsources.length; i++) {
+             File dir = new File(pdfsources[i]);
+             locatePDF = pdfsources[i];
+             System.out.println("SEARCHING DIRECTORY " + locatePDF + " FOR FILE " + subFile);
+             if (i == 1) {
+             System.out.println("Setting base url to (i=1 then) :: " + getRecentBaseURL());
+             thisisthebase = getRecentBaseURL();
+             } else if (i == 0) {
+             System.out.println("Setting base url to (i=0 then):: " + getRecentBaseURL() + pdfYearDir);
+             thisisthebase = getBaseURL() + pdfYearDir + this.getServerPDFLocationTail();
+             }
+             String[] children = dir.list();
+             if (children == null) {
+             // Either dir does not exist or is not a directory
+             System.out.println("It appears that the directory " + locatePDF +
+             " doesn't exist.");
+             } else {
+             System.out.println("Directory exists::" + locatePDF);
+             for (int ii = 0; ii < children.length; ii++) {
+             // Get filename of file or directory
+             String filename = children[ii];
+             System.out.println(filename + " located");
+             System.out.println(subFile);
+             if (filename.startsWith(subFile)) {
+             subFile = filename;
+             fileFound = true;
+             } else {
+             System.out.println("No file with this name " + subFile + " here");
+             }
 
-                            if (fileFound) {
-                                System.out.println("OK file found let's stop the search");
-                                break;//stop searching now
-                            }
-                        }
-                    }
-                    if (fileFound) {
-                        break;
-                    }
-                }//end of pdfsources loop
+             if (fileFound) {
+             System.out.println("OK file found let's stop the search");
+             break;//stop searching now
+             }
+             }
+             }
+             if (fileFound) {
+             break;
+             }
+             }//end of pdfsources loop
 
-                if (fileFound) {
-                    //We have a pdf file located
-                    pdfUrl = null;
+             if (fileFound) {
+             //We have a pdf file located
+             pdfUrl = null;
 
-                    pdfUrl = thisisthebase + subFile;
+             pdfUrl = thisisthebase + subFile;
 
-                    am.setPdfURL(pdfUrl);
+             am.setPdfURL(pdfUrl);
 
-                    sd.getArchiveDAO().setPdfURL(pdfUrl);
+             sd.getArchiveDAO().setPdfURL(pdfUrl);
 
-                } else {
-                    System.out.println("No file can be found with the name " + subFile);
-                }
-            }
-            //TODO YUK THIS IS ORRIBLE ANOTHER FUGLEY HACK ADD URL TO SESSION COOKIE ENABLING RETRIEVAL IN JSP PAGE
+             } else {
+             System.out.println("No file can be found with the name " + subFile);
+             }
+             }
+             //TODO YUK THIS IS ORRIBLE ANOTHER FUGLEY HACK ADD URL TO SESSION COOKIE ENABLING RETRIEVAL IN JSP PAGE
              * 
              */
-                 
-            HttpSession session = request.getSession(true);
 
+            HttpSession session = request.getSession(true);
+ session.setAttribute("CVEmbryoStateDAO", es);
+ session.setAttribute("CVArchivingMethodsDAO", archMethod);
             //session.setAttribute("pdfUrl", sd.getArchiveDAO().getPdfURL());
-            
-      
-            
+
+
+
             //strainsavailabilities is a pain to retrieve atm needs work add to session
             // SET IN SESSION THE MTAPATH
             session.setAttribute("mtaPath", this.getMtaPath());
@@ -248,7 +262,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
 
             String MSGcontentArrv = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                     getTemplatePath() + getArchArrvTemplate(), model);
-            
+
             String MSGcontentFrz = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                     getTemplatePath() + getArchFrzeTemplate(), model);
 
@@ -278,19 +292,19 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             throws ServletException, Exception {
         if (request.getParameter("available_to_order") != null) {
             /* String orderAvailability = request.getParameter("available_to_order");
-            System.out.println("We are hitting save, this is ato param value:-- " + orderAvailability);
+             System.out.println("We are hitting save, this is ato param value:-- " + orderAvailability);
             
-            StrainsDAO sd = sm.getStrainByID( Integer.parseInt(request.getParameter("EditArch")) );
-            sd.setAvailable_to_order(request.getParameter("available_to_order"));
-            sm.save(sd);
-            System.out.println("strainsDAO saved");*/
+             StrainsDAO sd = sm.getStrainByID( Integer.parseInt(request.getParameter("EditArch")) );
+             sd.setAvailable_to_order(request.getParameter("available_to_order"));
+             sm.save(sd);
+             System.out.println("strainsDAO saved");*/
         }
 
         sDAO = (StrainsDAO) command;
-int id_str = sDAO.getId_str();
-        if (request.getParameter("sendEmailArch").equals("yes") ||
-                request.getParameter("sendEmailFreeze").equals("yes") ||
-                request.getParameter("sendEmailComplete").equals("yes")) {
+        int id_str = sDAO.getId_str();
+        if (request.getParameter("sendEmailArch").equals("yes")
+                || request.getParameter("sendEmailFreeze").equals("yes")
+                || request.getParameter("sendEmailComplete").equals("yes")) {
             String content = "";
             String toAddress = "";
             ////::  SimpleMailMessage msg = getSimpleMailMessage();
@@ -344,13 +358,13 @@ int id_str = sDAO.getId_str();
                     lCc.add(o[1].toString());
                 }
                 String[] ar = new String[lCc.size()];
-                
+
                 for (int i = 0; i < lCc.size(); i++) {
                     Object oo = lCc.get(i);
                     ar[i] = oo.toString();
                     System.out.println(oo.toString());
                 }
-                
+
                 msg.setCc(ar);
                 //END
                 if (request.getParameter("TEST") != null) {
@@ -359,8 +373,8 @@ int id_str = sDAO.getId_str();
                     msg.setTo(this.getTestMailRecipient());
                     msg.setBcc(this.getTestMailRecipient());
                     msg.setCc(this.getTestMailRecipient());
-                    emailFailAlert = " A TEST EMAIL TO " + this.getTestMailRecipient() +" HAS BEEN DISPATCHED";
-                    
+                    emailFailAlert = " A TEST EMAIL TO " + this.getTestMailRecipient() + " HAS BEEN DISPATCHED";
+
                 }
                 if (request.getParameter("sendEmailArch").equals("yes")) {
                     //we need to send a mail
@@ -368,7 +382,7 @@ int id_str = sDAO.getId_str();
                     content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                             getTemplatePath() + getArchArrvTemplate(), model);
                     msg.setText(content);
-                    
+
                     if (!toAddress.equals("")) {
                         System.out.println("msg1==" + msg);
                         ///::  getJavaMailSender().send(msg);
@@ -417,10 +431,10 @@ int id_str = sDAO.getId_str();
                 System.out.println("sendEmailArch==" + request.getParameter("sendEmailArch"));
                 System.out.println("toAddress==" + toAddress);
                 //equals("")
-                if (toAddress.isEmpty() &&
-                        (request.getParameter("sendEmailComplete").equals("yes") ||
-                        request.getParameter("sendEmailFreeze").equals("yes") ||
-                        request.getParameter("sendEmailArch").equals("yes"))) {
+                if (toAddress.isEmpty()
+                        && (request.getParameter("sendEmailComplete").equals("yes")
+                        || request.getParameter("sendEmailFreeze").equals("yes")
+                        || request.getParameter("sendEmailArch").equals("yes"))) {
                     //NEED AN ALERT
                     emailFailAlert = " BUT ** an e-mail was unable to be sent due to the recipient not having an address in the database **";
                 }
@@ -467,29 +481,29 @@ int id_str = sDAO.getId_str();
                 ssd.setStr_id_str(sDAO.getId_str());
                 ssd.setSour_id(sour_id);
                 //save only here not save or update
-               saveOnlySsd = true;
+                saveOnlySsd = true;
             }
 
             if (saveOnlyPsd) {
                 sDAO.getProjectsDAO().add(psd);
-            //    sm.saveOnlyPsd(psd);
-                
+                //    sm.saveOnlyPsd(psd);
+
                 System.out.println("Projects Strains saved using saveOnly");
             } else if (!saveOnlyPsd) {
                 psd.setProject_id(project_id);
-           //     sm.savePsd(psd);
+                //     sm.savePsd(psd);
                 sDAO.getProjectsDAO().add(psd);
                 System.out.println("Projects Strains saved");
             }
 
             if (saveOnlySsd) {
                 sDAO.getSources_StrainsDAO().add(ssd);
-             //   sm.saveOnlySsd(ssd);
+                //   sm.saveOnlySsd(ssd);
                 System.out.println("Sources Strains saved using saveOnly");
             } else if (!saveOnlySsd) {
                 ssd.setSour_id(sour_id);
                 sDAO.getSources_StrainsDAO().add(ssd);
-              //  sm.saveSsd(ssd); //TODO REMOVED FOR TESTING
+                //  sm.saveSsd(ssd); //TODO REMOVED FOR TESTING
                 System.out.println("Sources Strains saved");
             }
         }
@@ -526,9 +540,9 @@ int id_str = sDAO.getId_str();
             }
         }
 
-System.out.println("ABOUT TO BE saved");
+        System.out.println("ABOUT TO BE saved");
 
-sDAO=this.cleanDates(sDAO);
+        sDAO = this.cleanDates(sDAO);
         sm.saveArchive(sDAO);
         System.out.println("saved");
         request.getSession().setAttribute(
@@ -537,8 +551,8 @@ sDAO=this.cleanDates(sDAO);
                 "Your update submitted successfully" + emailFailAlert));
         emailFailAlert = "";
         return new ModelAndView(getSuccessView() + "?EditArch=" + request.getParameter("EditArch"));
-    // ModelAndView mav = showForm(request, response, errors);
-    //return mav;
+        // ModelAndView mav = showForm(request, response, errors);
+        //return mav;
     }
 
     public void createList() {
@@ -557,10 +571,10 @@ sDAO=this.cleanDates(sDAO);
             e.printStackTrace();
         }
     }
-    
-    public StrainsDAO cleanDates(StrainsDAO sDAO){
-        
-         if (sDAO.getGp_release() != null) {
+
+    public StrainsDAO cleanDates(StrainsDAO sDAO) {
+
+        if (sDAO.getGp_release() != null) {
 
             System.out.println(sDAO.getGp_release());
             if (sDAO.getGp_release().length() == 0) {
@@ -638,11 +652,11 @@ sDAO=this.cleanDates(sDAO);
                 sDAO.getArchiveDAO().setFrozen_sanger_embryos_arrived(null);
             }
         }
-        
-        
-       return sDAO; 
+
+
+        return sDAO;
     }
-    
+
     //TODO - MAY NOT BE NEEDED IF WE CONTINUE TO WORK WITH DATES AS STRINGS
     public Date formatDateString(String submittedDate) {
         SimpleDateFormat formatted = new SimpleDateFormat();
