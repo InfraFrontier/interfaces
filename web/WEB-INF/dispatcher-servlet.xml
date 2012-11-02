@@ -208,7 +208,7 @@
             <value>rssItems</value>
         </property>
         <property name = "fileLocation">
-            <value>${DATAFILES}/tmp/</value><!-- /nfs/panda/emma -->
+            <value>${DATAFILES}/tmp/</value>
         </property>
     </bean>
     <bean name="InterfacesFormController" class="org.emmanet.controllers.InterfacesFormController">
