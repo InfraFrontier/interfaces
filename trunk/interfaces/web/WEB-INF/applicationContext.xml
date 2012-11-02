@@ -111,7 +111,7 @@ xmlns:security="http://www.springframework.org/schema/security"
         <property name="jobDataAsMap">
             <map>
                 <entry key="fileLocation">
-                    <value>${DATAFILES}/tmp/<!-- /nfs/panda/emma/tmp/ --></value><!-- /nfs/panda/emma-->
+                    <value>${DATAFILES}/tmp/</value>
                 </entry>
             </map>
         </property>
@@ -149,7 +149,7 @@ xmlns:security="http://www.springframework.org/schema/security"
                     <value>http://www.emmanet.org/images/emma_logo2.gif?rss</value>
                 </entry>
                 <entry key="fileLocation">
-                    <value>${DATAFILES}/tmp/<!-- /nfs/panda/emma/tmp/ --></value><!-- /nfs/panda/emma/external/htdocs/ TODO CHANGE TO LIVE LOCATION -->
+                    <value>${DATAFILES}/tmp/</value>
                 </entry>
                 <entry key="filename">
                     <value>emmafeed.xml</value>
