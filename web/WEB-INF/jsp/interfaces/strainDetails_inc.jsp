@@ -25,8 +25,6 @@
 %>
 
 <c:set var="keyRef" value='${returnedOut}'></c:set>
-
-
  
 <html>
     <head>
