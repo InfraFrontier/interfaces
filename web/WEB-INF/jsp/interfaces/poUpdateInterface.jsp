@@ -24,9 +24,11 @@ keyRef["strainsDAO"]--%>
 
 <spring:bind path="command.*"></spring:bind>
 
+<%@page import="org.emmanet.util.Configuration" %>
+
 <%
 //read in option list from file source
-    java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/archlist"));
+    java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("ARCHLIST")));
     String strInSources;
     String strOutSources = "";
     while ((strInSources = inSources.readLine()) != null) {

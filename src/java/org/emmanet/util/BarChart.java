@@ -94,10 +94,7 @@ public class BarChart {
         // output the chart
 
         // TODO SET FROM CONFIG
-           String chartImage = c.makeTmpFile("/nfs/panda/emma/external/htdocs/tmpimage", 0);
-            //String chartImage = c.makeTmpFile("/nfs/panda/emma/tmp", 0);
- //       String chartImage = c.makeTmpFile("/home/phil/DEVCOPYRegisterInterest/build/web/images", 0);
-        // String chartImage = c.makeTmpFile("/usr/local/jakarta-tomcat-5.0.28/webapps/DEVCOPYRegisterInterest/images", 0);
+           String chartImage = c.makeTmpFile(Configuration.get("CHARTFILE"), 0);
         System.out.println("CHARTIMAGE1 LOCATION = " + chartImage);
         return chartImage;
 
@@ -191,10 +188,7 @@ c.xAxis().setTitle(sentXLabel);
         layer.addDataSet(sentData5, -1, "MRC");
         layer.addDataSet(sentData6, -1, "SANG");
 // output the chart
-           String chartImage = c.makeTmpFile("/nfs/panda/emma/external/htdocs/tmpimage", 0);
-           //String chartImage = c.makeTmpFile("/nfs/panda/emma/tmp", 0);
-       // String chartImage = c.makeTmpFile("/home/phil/DEVCOPYRegisterInterest/build/web/images", 0);
-        // String chartImage = c.makeTmpFile("/usr/local/jakarta-tomcat-5.0.28/webapps/DEVCOPYRegisterInterest/images", 0);
+           String chartImage = c.makeTmpFile(Configuration.get("CHARTFILE"), 0);
         System.out.println("CHARTIMAGE2 LOCATION = " + chartImage);
         return chartImage;
 

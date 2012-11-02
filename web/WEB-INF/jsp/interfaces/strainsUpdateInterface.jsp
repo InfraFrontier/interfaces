@@ -13,9 +13,10 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="org.emmanet.util.Configuration" %>
 
 <%
-            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/nslist"));
+            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("NSLIST")));
             String strIn;
             String strOut = "";
 

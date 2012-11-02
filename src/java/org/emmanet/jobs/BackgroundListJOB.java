@@ -12,6 +12,7 @@ import org.emmanet.model.BackgroundManager;
 import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.LabsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Configuration;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
@@ -22,7 +23,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  */
 public class BackgroundListJOB extends QuartzJobBean {
 
-    private String fileLocation="/nfs/panda/emma/tmp/";// = "/tmp/";
+    private String fileLocation=Configuration.get("TMPFILES");// = "/tmp/";
     private BackgroundManager bm = new BackgroundManager();
     private StrainsManager sm = new StrainsManager();
     private LaboratoriesManager lm = new LaboratoriesManager();

@@ -1,5 +1,3 @@
-//private String files[];
-// files = list.filteredFileList("/nfs/panda/emma/Recent/" + fileType.toUpperCase() + "/" + reqType + "/");
 package org.emmanet.util;
 
 import java.io.File;

@@ -110,7 +110,7 @@ c.setStartAngle(135);
 
 
         // TODO SET VIA CONFIG
-  String chartImage = c.makeTmpFile("/nfs/panda/emma/external/htdocs/tmpimage", 0);
+  String chartImage = c.makeTmpFile(Configuration.get("CHARTFILE"), 0);
     //  String chartImage = c.makeTmpFile("/home/phil/DEVCOPYRegisterInterest/build/web/images", 0);
        // String chartImage = c.makeTmpFile("/usr/local/jakarta-tomcat-5.0.28/webapps/DEVCOPYRegisterInterest/images", 0);
       // ServletContext scxt = null;

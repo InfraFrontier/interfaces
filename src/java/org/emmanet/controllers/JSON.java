@@ -22,6 +22,7 @@ import org.emmanet.model.StrainsDAO;
 import org.json.simple.*;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.emmanet.model.LabsDAO;
+import org.emmanet.util.Configuration;
 import org.emmanet.util.MedianFinder;
 
 /**
@@ -486,10 +487,7 @@ manualCalcFields2="freezing_started , received";
                 }
                 whereClause = (new StringBuilder()).append(whereClause).append("s.reporting_count IN " + multiMutInClause).toString();
             }
-            
-            whereClause = (new StringBuilder()).append(whereClause).append(" AND l.code IS NOT NULL ").toString();
         }
-        
         if (request.getParameter("view").equals("grid")) {
             groupClause = " GROUP BY l.code";
 
@@ -530,7 +528,7 @@ manualCalcFields2="freezing_started , received";
             ArrayList<Double> medianData = new ArrayList<Double>();
 
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter("/nfs/panda/emma/tmp/phil.txt", false));
+                BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.get("philsFile"), false));
 
                 for (Iterator it = list.listIterator(); it.hasNext();) {
                     int i = 0;

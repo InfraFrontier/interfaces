@@ -10,6 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="org.emmanet.util.Configuration" %>
 
 <c:set var="keyRef" value='${command}'></c:set>
 <spring:bind path="command.*"></spring:bind>
@@ -19,7 +20,7 @@
             String archID = request.getParameter("archID");
             String taEdit = request.getParameter("ta");
 
-            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/reqfslist"));
+            java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("REQFSLIST")));
             String strInSources;
             String strOutSources = "";
 

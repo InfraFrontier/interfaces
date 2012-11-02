@@ -15,32 +15,33 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.emmanet.jobs.WebRequests;
-import org.emmanet.model.WebRequestsDAO;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.validation.BindException;
 
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.ui.velocity.VelocityEngineUtils;
-import org.apache.velocity.app.VelocityEngine;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.velocity.app.VelocityEngine;
+import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.ProjectsStrainsDAO;
 import org.emmanet.model.RToolsDAO;
 import org.emmanet.model.Sources_RequestsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
-
+import org.emmanet.model.WebRequestsDAO;
+import org.emmanet.util.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
  *
@@ -544,7 +545,7 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
                 String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                         "org/emmanet/util/velocitytemplates/requestXml-Template.vm", model);
 
-                File file = new File("/nfs/panda/emma/tmp/sangerlinedistribution.xml");
+                File file = new File(Configuration.get("sangerLineDistribution"));
                 Writer out = new BufferedWriter(new OutputStreamWriter(
                         new FileOutputStream(file), "UTF8"));
                 out.write(xmlFileContent);
@@ -570,178 +571,176 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
         return new ModelAndView("redirect:requestsUpdateInterface.emma?Edit=" + request.getParameter("Edit").toString() + "&strainID=" + request.getParameter("strainID").toString() + "&archID=" + request.getParameter("archID").toString());
     }
 
-    public String escapeXml(String strToEscape) {
-        StringEscapeUtils seu = new StringEscapeUtils();
-        return seu.escapeXml(strToEscape);
+	public String escapeXml(String strToEscape) {
+		StringEscapeUtils seu = new StringEscapeUtils();
+		return seu.escapeXml(strToEscape);
+	}
 
-        // return strToEscape;
-    }
+	public String getSubFile() {
+		return subFile;
+	}
 
-    public String getSubFile() {
-        return subFile;
-    }
+	public void setSubFile(String subFile) {
+		this.subFile = subFile;
+	}
 
-    public void setSubFile(String subFile) {
-        this.subFile = subFile;
-    }
+	public String getBaseURL() {
+		return baseURL;
+	}
 
-    public String getBaseURL() {
-        return baseURL;
-    }
+	public void setBaseURL(String baseURL) {
+		this.baseURL = baseURL;
+	}
 
-    public void setBaseURL(String baseURL) {
-        this.baseURL = baseURL;
-    }
+	public String getRecentBaseURL() {
+		return recentBaseURL;
+	}
 
-    public String getRecentBaseURL() {
-        return recentBaseURL;
-    }
+	public void setRecentBaseURL(String recentBaseURL) {
+		this.recentBaseURL = recentBaseURL;
+	}
 
-    public void setRecentBaseURL(String recentBaseURL) {
-        this.recentBaseURL = recentBaseURL;
-    }
+	public String getServerPDFLocation() {
+		return serverPDFLocation;
+	}
 
-    public String getServerPDFLocation() {
-        return serverPDFLocation;
-    }
+	public void setServerPDFLocation(String serverPDFLocation) {
+		this.serverPDFLocation = serverPDFLocation;
+	}
 
-    public void setServerPDFLocation(String serverPDFLocation) {
-        this.serverPDFLocation = serverPDFLocation;
-    }
+	public String getServerPDFLocationTail() {
+		return serverPDFLocationTail;
+	}
 
-    public String getServerPDFLocationTail() {
-        return serverPDFLocationTail;
-    }
+	public void setServerPDFLocationTail(String serverPDFLocationTail) {
+		this.serverPDFLocationTail = serverPDFLocationTail;
+	}
 
-    public void setServerPDFLocationTail(String serverPDFLocationTail) {
-        this.serverPDFLocationTail = serverPDFLocationTail;
-    }
+	public String getServerPDFRecentLocation() {
+		return serverPDFRecentLocation;
+	}
 
-    public String getServerPDFRecentLocation() {
-        return serverPDFRecentLocation;
-    }
+	public void setServerPDFRecentLocation(String serverPDFRecentLocation) {
+		this.serverPDFRecentLocation = serverPDFRecentLocation;
+	}
 
-    public void setServerPDFRecentLocation(String serverPDFRecentLocation) {
-        this.serverPDFRecentLocation = serverPDFRecentLocation;
-    }
+	public String getPdfURL() {
+		return pdfURL;
+	}
 
-    public String getPdfURL() {
-        return pdfURL;
-    }
+	public void setPdfURL(String pdfURL) {
+		this.pdfURL = pdfURL;
+	}
 
-    public void setPdfURL(String pdfURL) {
-        this.pdfURL = pdfURL;
-    }
+	public MailSender getMailSender() {
+		return mailSender;
+	}
 
-    public MailSender getMailSender() {
-        return mailSender;
-    }
+	public void setMailSender(MailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
-    public void setMailSender(MailSender mailSender) {
-        this.mailSender = mailSender;
-    }
+	public VelocityEngine getVelocityEngine() {
+		return velocityEngine;
+	}
 
-    public VelocityEngine getVelocityEngine() {
-        return velocityEngine;
-    }
+	public void setVelocityEngine(VelocityEngine velocityEngine) {
+		this.velocityEngine = velocityEngine;
+	}
 
-    public void setVelocityEngine(VelocityEngine velocityEngine) {
-        this.velocityEngine = velocityEngine;
-    }
+	public SimpleMailMessage getSimpleMailMessage() {
+		return simpleMailMessage;
+	}
 
-    public SimpleMailMessage getSimpleMailMessage() {
-        return simpleMailMessage;
-    }
+	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
+		this.simpleMailMessage = simpleMailMessage;
+	}
 
-    public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-        this.simpleMailMessage = simpleMailMessage;
-    }
+	public String getMsgSubject() {
+		return msgSubject;
+	}
 
-    public String getMsgSubject() {
-        return msgSubject;
-    }
+	public void setMsgSubject(String msgSubject) {
+		this.msgSubject = msgSubject;
+	}
 
-    public void setMsgSubject(String msgSubject) {
-        this.msgSubject = msgSubject;
-    }
+	public String getTemplatePath() {
+		return templatePath;
+	}
 
-    public String getTemplatePath() {
-        return templatePath;
-    }
+	public void setTemplatePath(String templatePath) {
+		this.templatePath = templatePath;
+	}
 
-    public void setTemplatePath(String templatePath) {
-        this.templatePath = templatePath;
-    }
+	public String getTaOrRequestYesTemplate() {
+		return taOrRequestYesTemplate;
+	}
 
-    public String getTaOrRequestYesTemplate() {
-        return taOrRequestYesTemplate;
-    }
+	public void setTaOrRequestYesTemplate(String taOrRequestYesTemplate) {
+		this.taOrRequestYesTemplate = taOrRequestYesTemplate;
+	}
 
-    public void setTaOrRequestYesTemplate(String taOrRequestYesTemplate) {
-        this.taOrRequestYesTemplate = taOrRequestYesTemplate;
-    }
+	public String getTaOrRequestNoTemplate() {
+		return taOrRequestNoTemplate;
+	}
 
-    public String getTaOrRequestNoTemplate() {
-        return taOrRequestNoTemplate;
-    }
+	public void setTaOrRequestNoTemplate(String taOrRequestNoTemplate) {
+		this.taOrRequestNoTemplate = taOrRequestNoTemplate;
+	}
 
-    public void setTaOrRequestNoTemplate(String taOrRequestNoTemplate) {
-        this.taOrRequestNoTemplate = taOrRequestNoTemplate;
-    }
+	public String getTaOnlyNoTemplate() {
+		return taOnlyNoTemplate;
+	}
 
-    public String getTaOnlyNoTemplate() {
-        return taOnlyNoTemplate;
-    }
+	public void setTaOnlyNoTemplate(String taOnlyNoTemplate) {
+		this.taOnlyNoTemplate = taOnlyNoTemplate;
+	}
 
-    public void setTaOnlyNoTemplate(String taOnlyNoTemplate) {
-        this.taOnlyNoTemplate = taOnlyNoTemplate;
-    }
+	public String[] getCc() {
+		return cc;
+	}
 
-    public String[] getCc() {
-        return cc;
-    }
+	public void setCc(String[] cc) {
+		this.cc = cc;
+	}
 
-    public void setCc(String[] cc) {
-        this.cc = cc;
-    }
+	public String[] getBcc() {
+		return bcc;
+	}
 
-    public String[] getBcc() {
-        return bcc;
-    }
+	public void setBcc(String[] bcc) {
+		this.bcc = bcc;
+	}
 
-    public void setBcc(String[] bcc) {
-        this.bcc = bcc;
-    }
+	public JavaMailSender getJavaMailSender() {
+		return javaMailSender;
+	}
 
-    public JavaMailSender getJavaMailSender() {
-        return javaMailSender;
-    }
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
 
-    public void setJavaMailSender(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+	public String getSangerLineDistEmail() {
+		return sangerLineDistEmail;
+	}
 
-    public String getSangerLineDistEmail() {
-        return sangerLineDistEmail;
-    }
+	public void setSangerLineDistEmail(String sangerLineDistEmail) {
+		this.sangerLineDistEmail = sangerLineDistEmail;
+	}
 
-    public void setSangerLineDistEmail(String sangerLineDistEmail) {
-        this.sangerLineDistEmail = sangerLineDistEmail;
-    }
+	public String getPathToMTA() {
+		return pathToMTA;
+	}
 
-    public String getPathToMTA() {
-        return pathToMTA;
-    }
+	public void setPathToMTA(String pathToMTA) {
+		this.pathToMTA = pathToMTA;
+	}
 
-    public void setPathToMTA(String pathToMTA) {
-        this.pathToMTA = pathToMTA;
-    }
+	public String getFromAddress() {
+		return fromAddress;
+	}
 
-    public String getFromAddress() {
-        return fromAddress;
-    }
-
-    public void setFromAddress(String fromAddress) {
-        this.fromAddress = fromAddress;
-    }
+	public void setFromAddress(String fromAddress) {
+		this.fromAddress = fromAddress;
+	}
 }
