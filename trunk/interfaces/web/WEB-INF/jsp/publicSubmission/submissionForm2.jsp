@@ -30,7 +30,6 @@
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
         <script type="text/javascript" src="../js/jquery.floatobject-1.0.js"></script>
         <script type="text/javascript" src="../js/jquery.qtip-1.0.0-rc3.min.js"></script>
-
     </head>
     <body>
         <h2>
@@ -59,8 +58,7 @@
 
                     <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
                     <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
-                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-                        Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on ${submissionDAO.timestamp} but never completed?
+                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?
                         <br/><br/>
                         <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;<input type="submit" name="recall_window" value="Yes"></center>
                     </p>
@@ -178,7 +176,7 @@
                     <label class="label" for="${status.expression}"><strong>Phone Number
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
-                        <form:input  id="${status.expression}" path="${status.expression}" alt="The phone number must begin with + 
+                        <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must begin with + 
                                      followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                      An extension must begin with x followed by the extension number, 
                                      e.g., +1 (234) 567-8900 x123"></form:input>
@@ -194,7 +192,7 @@
                     <label class="label" for="${status.expression}"><strong>Fax Number
                             <sup><font color="red">*</font></sup></strong></label>
                     <div class="input">
-                        <form:input  id="${status.expression}" path="${status.expression}" alt="The fax number must begin with + 
+                        <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must begin with + 
                                      followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                      An extension must begin with x followed by the extension number, 
                                      e.g., +1 (234) 567-8900 x123"></form:input></div>

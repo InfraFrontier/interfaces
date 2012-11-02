@@ -17,7 +17,7 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
+        <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
@@ -44,8 +44,10 @@
                     <div class="field">
                         <label class="label" for="${status.expression}"><strong>Strain name<sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" 
-                                         alt="Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately."></form:input>
+                            <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="10" 
+                                           title="Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately."></form:textarea>
+                            </div>
+                            
                             </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
@@ -95,7 +97,7 @@
             <div class="field">
                 <label class="label" for="backcrosses"><strong>Number of generations backcrossed</strong></label>
                 <div class="input">
-                    <input type="text" id="${status.expression}" path="${status.expression}" alt="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
+                    <input type="text" id="${status.expression}" path="${status.expression}" title="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
                 </div>
                 <form:errors path="${status.expression}" cssClass="error" />
             </div>
@@ -105,7 +107,7 @@
             <div class="field">
                 <label class="label" for="${status.expression}"><strong>Number of generations sib-mated</strong></label>
                 <div class="input">
-                    <form:input  id="${status.expression}" path="${status.expression}"  alt="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)." />
+                    <form:input  id="${status.expression}" path="${status.expression}"  title="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)." />
                 </div>
                 <form:errors path="${status.expression}" cssClass="error" />
             </div>
@@ -115,7 +117,7 @@
             <div class="field">
                 <label class="label" for="breeding_history"><strong>Breeding history</strong></label>
                 <div class="input">
-                    <textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" alt="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></textarea>
+                    <textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></textarea>
                 </div>
                 <form:errors path="${status.expression}" cssClass="error" />
             </div>
