@@ -13,10 +13,11 @@
 
 <c:set var="PeopleDAO" value='${keyRef["peopleDAO"]}'></c:set>
 <c:set var="LabsDAO" value='${ArchiveDAO["labsDAO"]}'></c:set>
+<%@page import="org.emmanet.util.Configuration" %>
 
 <%
 //read in option list from file source
-    java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader("/nfs/panda/emma/tmp/bglist"));
+    java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("BACKGROUNDLIST")));
     String strInBGSources;
     String strOutBGSources = "";
     while ((strInBGSources = inSources.readLine()) != null) {

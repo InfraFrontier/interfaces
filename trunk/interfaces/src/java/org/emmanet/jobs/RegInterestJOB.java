@@ -32,6 +32,7 @@ import org.apache.velocity.app.VelocityEngine;
 
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.WebRequestsDAO;
+import org.emmanet.util.Configuration;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -69,7 +70,7 @@ import java.util.Map;
 public class RegInterestJOB extends QuartzJobBean {
     
     // Strainlist file constant
-    final static String ACCCEPTEDSTRAINS = "/nfs/panda/emma/tmp/strainsAccepted";//\ "/data/web/TESTsubmissions/strainsAccepted";
+    final static String ACCCEPTEDSTRAINS = Configuration.get("ACCCEPTEDSTRAINS");//\ "/data/web/TESTsubmissions/strainsAccepted";
     List                list             = new LinkedList();
     
     // Scheduled MailSender test

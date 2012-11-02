@@ -26,6 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.ListUtils;
+import org.emmanet.util.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 
 /**
@@ -57,7 +58,7 @@ public class standAloneMailer extends QuartzJobBean {
 
         //read from file
         try {
-            BufferedReader in = new BufferedReader(new FileReader("/nfs/panda/emma/tmp/content.html"));
+            BufferedReader in = new BufferedReader(new FileReader(Configuration.get("mailContent")));
             String str;
             while ((str = in.readLine()) != null) {
                 //content = content + str;
@@ -147,7 +148,7 @@ public class standAloneMailer extends QuartzJobBean {
             //helper.setBcc("philw@ebi.ac.uk");
             helper.setText(content, true);
             helper.setSubject(subject);
-            String filePath = "/nfs/panda/emma/tmp/";
+            String filePath = Configuration.get("tmpFiles");
             //String fileName = "PhenotypingSurveyCombinedNov2009.doc";
             //String fileName2 = "EMPReSSslimpipelines-1.pdf";
             //FileSystemResource file = new FileSystemResource(new File(filePath + fileName));
@@ -156,7 +157,7 @@ public class standAloneMailer extends QuartzJobBean {
             //helper.addAttachment(fileName2, file2);
             getJavaMailSender().send(message);
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter("/nfs/panda/emma/tmp/finalmailcount.txt"));
+                BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.get("finalMailCount")));
 
                 out.write("FINAL BCC SIZE IS::" + BccSize);
                 out.close();

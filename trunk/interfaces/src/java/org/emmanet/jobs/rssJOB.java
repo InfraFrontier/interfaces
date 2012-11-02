@@ -24,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.emmanet.util.Configuration;
 import org.emmanet.util.RunShell;
 
 public class rssJOB extends QuartzJobBean {
@@ -57,7 +59,7 @@ public class rssJOB extends QuartzJobBean {
 //insert body values from new rss input file.
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader("/nfs/panda/emma/tmp/rssItems"));
+            BufferedReader in = new BufferedReader(new FileReader(Configuration.get("rssItems")));
             String str;
 
             while ((str = in.readLine()) != null) {

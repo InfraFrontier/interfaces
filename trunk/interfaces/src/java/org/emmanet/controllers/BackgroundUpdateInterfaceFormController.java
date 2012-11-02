@@ -4,26 +4,29 @@
  */
 package org.emmanet.controllers;
 
-import org.springframework.validation.BindException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.emmanet.model.BackgroundDAO;
-import org.emmanet.model.BackgroundManager;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.security.userdetails.UserDetails;
 import javax.servlet.http.HttpSession;
+
 import org.emmanet.model.ArchiveManager;
+import org.emmanet.model.BackgroundDAO;
+import org.emmanet.model.BackgroundManager;
 import org.emmanet.model.MutationsDAO;
 import org.emmanet.model.MutationsManager;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Configuration;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 /**
  *
@@ -81,7 +84,7 @@ public class BackgroundUpdateInterfaceFormController extends SimpleFormControlle
 
         List bgs = bm.getBGSpecies();
         cryopreservationHistoryController chc = new cryopreservationHistoryController();
-        chc.setFileLocation("/nfs/panda/emma/tmp/");
+        chc.setFileLocation(Configuration.get("chcFileList"));
         System.out.println("BGLIST FILE LOCATION IS:: " + chc.getFileLocation());
         chc.createList();
         session.setAttribute("species", bgs);
