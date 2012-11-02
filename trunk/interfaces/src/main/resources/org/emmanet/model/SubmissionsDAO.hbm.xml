@@ -78,10 +78,10 @@
         <property column="volume" name="volume"/>
         <property column="pages" name="pages"/>
    
-         <set lazy="false" name="SubmissionBibliosDAO" table="submission_biblios">
+  <!--       <set lazy="false" name="SubmissionBibliosDAO" table="submission_biblios">
       <key column="sub_id_sub"/>
       <one-to-many class="org.emmanet.model.SubmissionBibliosDAO" not-found="ignore"/>
-    </set>
+    </set>-->
 
         <property column="genotyping" name="genotyping"/>
         <property column="genotyping_file" name="genotyping_file"/>
