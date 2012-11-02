@@ -22,7 +22,15 @@ public class MutationsDAO {
     private String mu_cause;
     private int alls_id_allel;
     private String bg_id_bg;
-    
+    private String str_id_str;
+    private String sex;
+    private String genotype;
+    private String ki_alter;
+    private String username;
+    private String last_change;
+    private int alls_id_allel_replaced;
+    private String chromosome;
+
     private AllelesDAO allelesDAO;
     private BackgroundDAO backgroundDAO;
 
@@ -120,6 +128,118 @@ public class MutationsDAO {
 
     public void setBg_id_bg(String bg_id_bg) {
         this.bg_id_bg = bg_id_bg;
+    }
+
+    /**
+     * @return the str_id_str
+     */
+    public String getStr_id_str() {
+        return str_id_str;
+    }
+
+    /**
+     * @param str_id_str the str_id_str to set
+     */
+    public void setStr_id_str(String str_id_str) {
+        this.str_id_str = str_id_str;
+    }
+
+    /**
+     * @return the sex
+     */
+    public String getSex() {
+        return sex;
+    }
+
+    /**
+     * @param sex the sex to set
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    /**
+     * @return the genotype
+     */
+    public String getGenotype() {
+        return genotype;
+    }
+
+    /**
+     * @param genotype the genotype to set
+     */
+    public void setGenotype(String genotype) {
+        this.genotype = genotype;
+    }
+
+    /**
+     * @return the ki_alter
+     */
+    public String getKi_alter() {
+        return ki_alter;
+    }
+
+    /**
+     * @param ki_alter the ki_alter to set
+     */
+    public void setKi_alter(String ki_alter) {
+        this.ki_alter = ki_alter;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the last_change
+     */
+    public String getLast_change() {
+        return last_change;
+    }
+
+    /**
+     * @param last_change the last_change to set
+     */
+    public void setLast_change(String last_change) {
+        this.last_change = last_change;
+    }
+
+    /**
+     * @return the alls_id_allel_replaced
+     */
+    public int getAlls_id_allel_replaced() {
+        return alls_id_allel_replaced;
+    }
+
+    /**
+     * @param alls_id_allel_replaced the alls_id_allel_replaced to set
+     */
+    public void setAlls_id_allel_replaced(int alls_id_allel_replaced) {
+        this.alls_id_allel_replaced = alls_id_allel_replaced;
+    }
+
+    /**
+     * @return the chromosome
+     */
+    public String getChromosome() {
+        return chromosome;
+    }
+
+    /**
+     * @param chromosome the chromosome to set
+     */
+    public void setChromosome(String chromosome) {
+        this.chromosome = chromosome;
     }
 
 }
