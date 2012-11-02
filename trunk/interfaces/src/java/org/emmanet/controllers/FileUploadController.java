@@ -87,8 +87,8 @@ public class FileUploadController extends SimpleFormController {
         long length = file.getSize();
 
         if (length > Integer.MAX_VALUE) {
-            // File is too large
-        }
+            // File is too large 
+       }
 
         // Create the byte array to hold the data
         byte[] bytes = new byte[(int) length];
@@ -114,7 +114,7 @@ public class FileUploadController extends SimpleFormController {
 
     public void writeBytes2File(byte[] bytes, File submissionFile) {
         System.out.println("writeBytes2File reached / " + bytes.length + " / File::" + submissionFile);
-        String path="/Users/setup/submissionsupportingfiles/";//TODO REMOVE TO CONFIG
+        String path="/nfs/web-hx/mouseinformatics/emma/filestore/";//TODO REMOVE TO CONFIG
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(path + submissionFile);
