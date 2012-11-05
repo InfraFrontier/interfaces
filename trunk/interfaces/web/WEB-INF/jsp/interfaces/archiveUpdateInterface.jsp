@@ -18,6 +18,7 @@
 <c:set var="ArchiveDAO" value='${keyRef["archiveDAO"]}'></c:set>
 <c:set var="LabsDAO" value='${ArchiveDAO["labsDAO"]}'></c:set>
 <c:set var="syn_strainsDAO" value='${keyRef["syn_strainsDAO"]}'></c:set>
+<c:set var="CVarchMethodDAO" value='${ArchiveDAO["cvamDAO"]}'></c:set>
 
 <%--<c:set var="availabilitiesDAO" value='${keyRef.AvailabilitiesStrainsDAO}'></c:set>--%>
 
@@ -463,7 +464,7 @@
             <td colspan="4"><b>Archiving method used:</b></td>
             
         </tr>
-        <tr>
+       <%-- <tr>
             <td  width="25%"><spring:bind path="command.archiveDAO.archiving_method_id"><input type="radio"  name="<c:out value='${status.expression}'/>" value="1" <c:if test="${status.value=='1'}">checked</c:if>/></spring:bind></td>
             <td width="25%">Embryo freezing / IVF</td>
             <td width="25%">&nbsp;</td>
@@ -486,6 +487,23 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
+        --%>
+        <%--                         --%>
+        <spring:bind path="command.archiveDAO.archiving_method_id">
+            <c:forEach var="archMethod" items="${CVArchivingMethodsDAO}">
+    
+                <tr>
+                    <td><form:radiobutton id="${archMethod.description}" path="${status.expression}" value="${archMethod.id}"/>
+                    <td colspan="2">${archMethod.description}</td>
+                    <td>&nbsp;</td>
+                </tr>
+            
+            </c:forEach>
+        </spring:bind>
+<%--                         --%> 
+        
+        
+        
         
         <tr>
             <td colspan="4">&nbsp;</td>
@@ -563,7 +581,7 @@
             <td colspan="4"><b>Embryos archived:</b></td>
             
         </tr>
-        <tr>
+      <%--  <tr>
             <td><spring:bind path="command.archiveDAO.embryo_state"><input type="radio"  name="<c:out value='${status.expression}'/>" value="2-cell" <c:if test="${status.value=='2-cell'}">checked</c:if>/></spring:bind></td>
             <td>2-cell</td>
             <td>&nbsp;</td>
@@ -576,6 +594,26 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
+        
+        --%>
+        
+        
+          <%--                         --%>
+          
+        <spring:bind path="command.archiveDAO.embryo_state">
+            <c:forEach var="state" items="${CVEmbryoStateDAO}">
+    
+                <tr>
+                    <td><form:radiobutton id="${status.expression}" path="${status.expression}" value="${state}" /></td>
+                    <td>${state}</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            
+            </c:forEach>
+        </spring:bind>
+    <%--                         --%> 
+
         <tr>
             <td colspan="4">&nbsp;</td>
         </tr>                
