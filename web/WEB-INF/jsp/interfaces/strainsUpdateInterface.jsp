@@ -95,7 +95,8 @@
             <td valign="top">International Strain Name:</td>
             <td valign="top">
                 <spring:bind path="command.name">
-                    <input type="text" name="<c:out value='${status.expression}'/>" value='${status.value}' size="70" />
+                    <%--<input type="textarea" name="<c:out value='${status.expression}'/>" value='${status.value}' size="70" /></textarea>--%>
+                    <textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='10' maxlength='500'>${status.value}</textarea>
                 </spring:bind>
             </td>
             <td>Code Internal:</td>
