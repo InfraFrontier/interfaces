@@ -444,7 +444,7 @@
         <!--<property name="msgSubject" value="Your application for free of charge Transnational Access to the EMMA strain " /> -->
         <property name="cc" value="info@emmanet.org" />
         <property name="bcc" value="philw@ebi.ac.uk" />
-        <property name="fromAddress" value="emma@emmanet.org"/>
+        <property name="fromAddress" value="emma@emmanet.org"/> 
          
     </bean>
 
@@ -470,6 +470,22 @@
         <property name="validator">
             <!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
             <ref bean="submissionFormValidator" />
+        </property>
+        <property name="stepTitles">
+                        <list>
+                <!-- follow sequence -->
+                <value>Submitter (e-mail)</value><!--- step 1 -->
+                <value>Submitter</value><!--- step 1 -->
+                <value>Producer</value><!--- step 2 -->
+                <value>Shipper</value><!--- step 3 -->
+                <value>Genotype</value><!--- step 4 -->
+                <value>Phenotype</value><!--- step 5 -->
+                <value>References</value><!--- step 6 -->
+                <value>Characterisation</value><!--- step 7 -->
+                <value>Breeding</value><!--- step 8 -->
+                <value>Research value</value><!--- step 9 -->
+                <value>Additional information</value><!--- step 10 -->
+            </list>
         </property>
     </bean>
     <bean name="submissionMutationsController" class="org.emmanet.controllers.SubmissionMutationsController"> </bean>
