@@ -48,11 +48,11 @@
             var element = document.getElementById("req_status");
 var optionSelected = element.options[element.selectedIndex].value;
 if(optionSelected == "CANC"){
-    ShowContent('cancellation');
-    return false;
-    //        alert("function called:" + optionSelected);
-        }
-        }
+                    ShowContent('cancellation');
+                    return false;
+                    //        alert("function called:" + optionSelected);
+                }
+            }
         
         </script>
         <title>EMMA Request Update Interface</title>
