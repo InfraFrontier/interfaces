@@ -340,7 +340,7 @@ div.syndiv {
     border-bottom-color: #0066cc;
     border-left-color: #0066cc;
     border-right-color: #0066cc;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: fantasy;
     font-weight: bold;
 }
 
@@ -365,6 +365,17 @@ div.helpdiv {
 }
 div.plain {
     display:none; 
+}
+
+div.breadcrumbs {
+    background-color: #ffffff;
+    font-family: Arial,Helvetica,sans-serif;
+    color: #cccccc;
+}
+div.breadcrumbs strong {
+    background-color: #ffffff;
+    font-family: Arial,Helvetica,sans-serif;
+    color: #0090D2;
 }
 
 .senginelabel {
