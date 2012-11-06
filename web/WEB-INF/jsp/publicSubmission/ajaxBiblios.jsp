@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <div name="addBib" id="addBib">
     <p>
-        <%--<c:choose><c:when test="${not empty edit}"><input value="Edit Biblio" type="button" id="edit_biblio" /></c:when><c:otherwise></c:otherwise>--%><input value="Add Biblio" type="button" id="add_biblio" /><%--</c:choose>--%> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
+       <input value="Add Biblio" type="button" id="add_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
 <div name="editBib" id="editBib" style="display: none">
