@@ -516,7 +516,7 @@ System.out.println("ARCHIVE ID IS::-" + ad.getId());
 
 
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
-        nsd.setResiduesDAO(rd);
+        //nsd.setResiduesDAO(rd); TODO MOVE LATER ON AFTER TESTING AFTER LINE536 MOST LIKELY
         //nsd.setRtoolsDAO(null);
         //nsd.setSources_StrainsDAO(null);
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
