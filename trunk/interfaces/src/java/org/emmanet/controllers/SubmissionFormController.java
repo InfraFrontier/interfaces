@@ -395,21 +395,21 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //OK now we need to take the submissions dao/submissions mutations dao and submissions biblios dao data
         //and start to populate a new strains dao.
         //might need to break this out into its own method to be accesible by restful web service for future bulk uploads
-            StrainsDAO nsd = new StrainsDAO();
+        StrainsDAO nsd = new StrainsDAO();
         //sm.save(nsd);
         Date dt = new Date();
-                SimpleDateFormat sdf =
+        SimpleDateFormat sdf =
                 new SimpleDateFormat("yyyy-MM-dd");
 
         String currentDate = sdf.format(dt);
-        
 
-    
+
+
 
         nsd.setAdditional_owner(sd.getExclusive_owner_text());//TODO CHECK CORRECT FIELD TO PULL DATA FROM
 
         //ARCHIVE OBJECT
-        
+
         ArchiveDAO ad = new ArchiveDAO();
         ad.setArchived(null);
         ad.setArchiving_method_id(null);
@@ -430,11 +430,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
         ad.setTimetoarchive(null);
         ad.setWt_received(null);
         ad.setWt_rederiv_started(null);
-ArchiveManager am = new ArchiveManager();
-am.save(ad);
+        ArchiveManager am = new ArchiveManager();
+        am.save(ad);
         //END ARCHIVE OBJECT
-System.out.println("ARCHIVE ID IS::-" + ad.getId());
-       // nsd.setArchiveDAO(ad);
+        System.out.println("ARCHIVE ID IS::-" + ad.getId());
+        // nsd.setArchiveDAO(ad);
         nsd.setArchive_id(ad.getId());
 
         //nsd.setAvailDAO(new AvailabilitiesStrainsDAO());
@@ -454,10 +454,10 @@ System.out.println("ARCHIVE ID IS::-" + ad.getId());
 
         nsd.setCode_internal("CODE INTERNAL VALUE");//TODO NEED TO FIND OUT WHERE THIS COMES FROM
 
-       // nsd.setDate_published(/*sd.getSubmissionBibliosDAO().getYear()*/"");
+        // nsd.setDate_published(/*sd.getSubmissionBibliosDAO().getYear()*/"");
         nsd.setDate_published(null);//TODO GET VALUE
         //int i = Integer.parseInt(nsd.getId_str();
-        
+
         nsd.setEx_owner_description(sd.getExclusive_owner_text());
         nsd.setExclusive_owner(sd.getExclusive_owner());
         nsd.setGeneration(sd.getBackcrosses());
@@ -469,7 +469,7 @@ System.out.println("ARCHIVE ID IS::-" + ad.getId());
         //nsd.setLast_change(null);
         nsd.setMaintenance(sd.getHusbandry_requirements());//TODO CHECK RIGHT FIELD
         nsd.setMgi_ref(null);//TODO GET VALUE
-        
+
         nsd.setMutant_fertile(/*"Heterozygous fertile: " + sd.getHeterozygous_fertile() + "Homozygous fertile: " + sd.getHomozygous_fertile()*/null);//todo get values
         nsd.setMutant_viable(sd.getHomozygous_viable());
         nsd.setName(sd.getStrain_name());
@@ -531,93 +531,94 @@ System.out.println("ARCHIVE ID IS::-" + ad.getId());
         //nsd.setSyn_strainsDAO(null);
         nsd.setUsername("EMMA");
         //nsd.setWrDAO(null);
-      
-        StrainsManager stm=new StrainsManager();
+
+        StrainsManager stm = new StrainsManager();
         stm.save(nsd);
-          System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
-          String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
+        System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
+        String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
         System.out.println("EMMA ID IS ::- EM:" + emmaID);
         nsd.setEmma_id("EM:" + emmaID);//tTODO NEED TO GET OBJECT ID BUT NEEDS TO BE SAVED FIRST
-        
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADDITIONAL OBJECTS
-        
+
         SubmissionsManager sm = new SubmissionsManager();
-        
+
         System.out.println("ADDITIONAL OBJECTS SECTION LINE 537::" + sd.getId_sub());
         List smd = sm.getSubMutationsBySUBID(Integer.parseInt(sd.getId_sub()));
         SubmissionMutationsDAO smdao = new SubmissionMutationsDAO();
         SubmissionBibliosDAO sbdao = new SubmissionBibliosDAO();
         List sbd = sm.getSubBibliosBySUBID(Integer.parseInt(sd.getId_sub()));
-        
-            //SUBMISSIONMUTATIONSDAO
-            for (Iterator it = smd.listIterator(); it.hasNext();) {
-                MutationsDAO mud = new MutationsDAO();
-                smdao = (SubmissionMutationsDAO) it.next();
-                mud.setBg_id_bg(smdao.getMutation_original_backg());
-                mud.setCh_ano_desc(smdao.getMutation_chrom_anomaly_descr());
-                mud.setCh_ano_name(smdao.getMutation_chrom_anomaly_name());
-                mud.setDominance(smdao.getMutation_dominance_pattern());
-                mud.setMain_type(smdao.getMutation_type());
-                mud.setSub_type(smdao.getMutation_subtype());
-                mud.setMu_cause(smdao.getMutation_mutagen());
-                mud.setTm_esline(smdao.getMutation_es_cell_line());
-                mud.setChromosome(smdao.getMutation_chrom());
-                //mud.setGenotype(smdao.); TODO
-                mud.setStr_id_str(nsd.getId_str() + "");
-                mud.setUsername("EMMA");
-                mud.setLast_change(currentDate);
-                // <property column="mu_cause" name="mu_cause"/>
-                // <property column="genotype" name="genotype"/>
-                
-                //now update strains_mutations with new id
+
+        //SUBMISSIONMUTATIONSDAO
+        for (Iterator it = smd.listIterator(); it.hasNext();) {
+            MutationsDAO mud = new MutationsDAO();
+            smdao = (SubmissionMutationsDAO) it.next();
+            mud.setBg_id_bg(smdao.getMutation_original_backg());
+            mud.setCh_ano_desc(smdao.getMutation_chrom_anomaly_descr());
+            mud.setCh_ano_name(smdao.getMutation_chrom_anomaly_name());
+            mud.setDominance(smdao.getMutation_dominance_pattern());
+            mud.setMain_type(smdao.getMutation_type());
+            mud.setSub_type(smdao.getMutation_subtype());
+            mud.setMu_cause(smdao.getMutation_mutagen());
+            mud.setTm_esline(smdao.getMutation_es_cell_line());
+            mud.setChromosome(smdao.getMutation_chrom());
+            //mud.setGenotype(smdao.); TODO
+            mud.setStr_id_str(nsd.getId_str() + "");
+            mud.setUsername("EMMA");
+            mud.setLast_change(currentDate);
+            // <property column="mu_cause" name="mu_cause"/>
+            // <property column="genotype" name="genotype"/>
+
+            //now update strains_mutations with new id
             MutationsStrainsDAO msd = new MutationsStrainsDAO();
-                msd.setMut_id(mud.getId());
-                msd.setStr_id_str(nsd.getId_str());
-            }
-            
+            msd.setMut_id(mud.getId());
+            msd.setStr_id_str(nsd.getId_str());
+        }
+
         //SET BIBLIOSDAO
-            BibliosManager bm = new BibliosManager();
+        BibliosManager bm = new BibliosManager();
         for (Iterator it = sbd.listIterator(); it.hasNext();) {
             sbdao = (SubmissionBibliosDAO) it.next();
             //need to check pubmedid not already in database
             System.out.println("TRIMMED PUBMED ID IS::- " + sbdao.getPubmed_id().trim());
             String trimmedPubmedId = sbdao.getPubmed_id();
-            int pmid=Integer.parseInt(trimmedPubmedId);
+            int pmid = Integer.parseInt(trimmedPubmedId);
             BibliosDAO chkBibDAO = new BibliosDAO();
-            chkBibDAO = (BibliosDAO)bm.getPubmedIDByID(pmid);
+            chkBibDAO = (BibliosDAO) bm.getPubmedIDByID(pmid);
             BibliosDAO bud = new BibliosDAO();
-            if(chkBibDAO != null) {
+            if (chkBibDAO != null) {
                 bud.setId_biblio(chkBibDAO.getId_biblio());
                 //do nothing else
-         } else {
-            bud.setAuthor1(sbdao.getAuthor1());
-            bud.setAuthor2(sbdao.getAuthor2());
-            bud.setJournal(sbdao.getJournal());
-            bud.setLast_change(currentDate);
-            bud.setNotes(sbdao.getNotes());
-            bud.setPages(sbdao.getPages());
-            bud.setPubmed_id(sbdao.getPubmed_id());
-            bud.setTitle(sbdao.getTitle());
-            bud.setUpdated(null);
-            bud.setUsername("EMMA");
-            bud.setVolume(sbdao.getVolume());
-            bud.setYear(sbdao.getYear());
-                }
+            } else {
+                bud.setAuthor1(sbdao.getAuthor1());
+                bud.setAuthor2(sbdao.getAuthor2());
+                bud.setJournal(sbdao.getJournal());
+                bud.setLast_change(currentDate);
+                bud.setNotes(sbdao.getNotes());
+                bud.setPages(sbdao.getPages());
+                bud.setPubmed_id(sbdao.getPubmed_id());
+                bud.setTitle(sbdao.getTitle());
+                bud.setUpdated(null);
+                bud.setUsername("EMMA");
+                bud.setVolume(sbdao.getVolume());
+                bud.setYear(sbdao.getYear());
+            }
 //now update strains_biblios with new id or add old exisitng biblio id
             BibliosStrainsDAO bsd = new BibliosStrainsDAO();
-                bsd.setBib_id_biblio(bud.getId_biblio());
-                bsd.setStr_id_str(nsd.getId_str());
+            bsd.setBib_id_biblio(bud.getId_biblio());
+            bsd.setStr_id_str(nsd.getId_str());
 
         }
-        Sources_StrainsDAO ss = new Sources_StrainsDAO();
+        
+        /*Sources_StrainsDAO ss = new Sources_StrainsDAO();
         ss.setSour_id(5);
         ss.setStr_id_str(nsd.getId_str());
         Set sourcesStrainsDAO = nsd.getSources_StrainsDAO();
         sourcesStrainsDAO.add(ss);
         //add DAO to StrainsDAO
-        nsd.setSources_StrainsDAO(sourcesStrainsDAO);
-stm.save(nsd);
+        nsd.setSources_StrainsDAO(sourcesStrainsDAO);*/
+        stm.save(nsd);
         return new ModelAndView("/success");
 
     }
