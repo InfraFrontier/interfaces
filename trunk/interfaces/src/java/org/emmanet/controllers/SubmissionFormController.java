@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +32,15 @@ import org.emmanet.model.CVRtoolsDAO;
 import org.emmanet.model.CategoriesStrainsDAO;
 import org.emmanet.model.LabsDAO;
 import org.emmanet.model.MutationsDAO;
+import org.emmanet.model.MutationsManager;
 import org.emmanet.model.MutationsStrainsDAO;
 import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
+import org.emmanet.model.ProjectsStrainsDAO;
+import org.emmanet.model.ProjectsStrainsManager;
+import org.emmanet.model.RToolsDAO;
 import org.emmanet.model.ResiduesDAO;
+import org.emmanet.model.SourcesStrainsManager;
 import org.emmanet.model.Sources_StrainsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
@@ -42,6 +48,8 @@ import org.emmanet.model.SubmissionBibliosDAO;
 import org.emmanet.model.SubmissionMutationsDAO;
 import org.emmanet.model.SubmissionsDAO;
 import org.emmanet.model.SubmissionsManager;
+import org.emmanet.model.Syn_StrainsDAO;
+import org.emmanet.model.Syn_StrainsManager;
 import org.emmanet.util.Encrypter;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -364,10 +372,32 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
                 Date date = new Date();
                 session.setAttribute("startYear", dateFormat.format(date));
+             
+                
+                
                 sda.setStep("10");
                 sm.save(sda);
                 break;
             case 11:
+                //get possible multiple rtools values from previous step 10
+                  if(request.getParameterValues("research_tools") != null){
+                 String[] rtoolsValues = request.getParameterValues("research_tools");
+                String RTools="";
+                 StringBuffer RToolsConcat = new StringBuffer("");
+                 System.out.println("RTOOLS VALUES::");
+                for (String s : rtoolsValues){
+                    
+                        System.out.println(s);
+                        RToolsConcat=new StringBuffer(RToolsConcat).append(s).append (":");
+                        
+                    }
+                if(RToolsConcat.toString().endsWith(":")){
+                  int i =RToolsConcat.lastIndexOf(":");
+                   RTools=RToolsConcat.toString().substring(0, i);
+                    System.out.println(RTools);
+                }
+                sda.setResearch_tools(RTools);
+               }
                 sda.setStep("11");
                 break;
 
@@ -461,8 +491,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setEx_owner_description(sd.getExclusive_owner_text());
         nsd.setExclusive_owner(sd.getExclusive_owner());
         nsd.setGeneration(sd.getBackcrosses());
-        nsd.setGp_release(sd.getDelayed_release());
-        nsd.setHealth_status(sd.getSanitary_status());
+        //nsd.setGp_release(sd.getDelayed_release()); TODO a datetime field in strains
+        //nsd.setHealth_status(sd.getSanitary_status());
         nsd.setHuman_model(sd.getHuman_condition());
         nsd.setHuman_model_desc(sd.getHuman_condition_text());
         nsd.setImmunocompromised(sd.getImmunocompromised());
@@ -517,7 +547,26 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
         //nsd.setResiduesDAO(rd); TODO MOVE LATER ON AFTER TESTING AFTER LINE536 MOST LIKELY
+       
+        
         //nsd.setRtoolsDAO(null);
+        Set setRtools = new LinkedHashSet();
+        String rToolsToParse = sd.getResearch_tools();
+        if(rToolsToParse != null){
+            String[] parsedRtools = rToolsToParse.split(":");
+        for (String s : parsedRtools){
+                    RToolsDAO rtd = new RToolsDAO();
+                        System.out.println("parsed value==" + s);
+                        rtd.setRtls_id(Integer.parseInt(s));
+                        rtd.setStr_id_str(nsd.getId_str());
+                        //set add dao here
+                        setRtools.add(rtd);
+                    }
+        }
+        
+        
+               nsd.setRtoolsDAO(setRtools);  
+        
         //nsd.setSources_StrainsDAO(null);
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             nsd.setStr_access("C");
@@ -543,6 +592,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //ADDITIONAL OBJECTS
 
         SubmissionsManager sm = new SubmissionsManager();
+        MutationsManager mm = new MutationsManager();
 
         System.out.println("ADDITIONAL OBJECTS SECTION LINE 537::" + sd.getId_sub());
         List smd = sm.getSubMutationsBySUBID(Integer.parseInt(sd.getId_sub()));
@@ -554,7 +604,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         for (Iterator it = smd.listIterator(); it.hasNext();) {
             MutationsDAO mud = new MutationsDAO();
             smdao = (SubmissionMutationsDAO) it.next();
-            mud.setBg_id_bg(smdao.getMutation_original_backg());
+         mud.setBg_id_bg(smdao.getMutation_original_backg());
             mud.setCh_ano_desc(smdao.getMutation_chrom_anomaly_descr());
             mud.setCh_ano_name(smdao.getMutation_chrom_anomaly_name());
             mud.setDominance(smdao.getMutation_dominance_pattern());
@@ -569,7 +619,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
             mud.setLast_change(currentDate);
             // <property column="mu_cause" name="mu_cause"/>
             // <property column="genotype" name="genotype"/>
-
             //now update strains_mutations with new id
             MutationsStrainsDAO msd = new MutationsStrainsDAO();
             msd.setMut_id(mud.getId());
@@ -578,6 +627,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         //SET BIBLIOSDAO
         BibliosManager bm = new BibliosManager();
+        Set BibliosStrains = new LinkedHashSet();
         for (Iterator it = sbd.listIterator(); it.hasNext();) {
             sbdao = (SubmissionBibliosDAO) it.next();
             //need to check pubmedid not already in database
@@ -588,9 +638,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
             chkBibDAO = (BibliosDAO) bm.getPubmedIDByID(pmid);
             BibliosDAO bud = new BibliosDAO();
             if (chkBibDAO != null) {
+                System.out.println("chkBibDAO is not null " + chkBibDAO.getId_biblio());
                 bud.setId_biblio(chkBibDAO.getId_biblio());
                 //do nothing else
             } else {
+                //new reference not in database
+                System.out.println("chkBibDAO is null, sub biblios dao id for pubmed is " + sbdao.getPubmed_id());
                 bud.setAuthor1(sbdao.getAuthor1());
                 bud.setAuthor2(sbdao.getAuthor2());
                 bud.setJournal(sbdao.getJournal());
@@ -604,22 +657,69 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 bud.setVolume(sbdao.getVolume());
                 bud.setYear(sbdao.getYear());
             }
+      
 //now update strains_biblios with new id or add old exisitng biblio id
+            //save new BibliosDAO then add reference to biblios_strains
+            bm.save(bud);
+            ////////////////////////
             BibliosStrainsDAO bsd = new BibliosStrainsDAO();
             bsd.setBib_id_biblio(bud.getId_biblio());
             bsd.setStr_id_str(nsd.getId_str());
 
+//nsd.setBibliosstrainsDAO(bsd);
+            
+            BibliosStrains.add(bsd);
+            
+            
+            
+            bm.save(bsd);
+            nsd.setSetBibliosStrainsDAO(BibliosStrains);
         }
-        
-        /*Sources_StrainsDAO ss = new Sources_StrainsDAO();
-        ss.setSour_id(5);
-        ss.setStr_id_str(nsd.getId_str());
-        Set sourcesStrainsDAO = nsd.getSources_StrainsDAO();
-        sourcesStrainsDAO.add(ss);
-        //add DAO to StrainsDAO
-        nsd.setSources_StrainsDAO(sourcesStrainsDAO);*/
+            
+            
+            //Syn_strains/////////////////////////////////////////////////////
+            Set synStrains = new LinkedHashSet();
+            Syn_StrainsDAO ssd = new Syn_StrainsDAO();
+            ssd.setStr_id_str(nsd.getId_str());
+            ssd.setName(nsd.getName());
+            ssd.setUsername("EMMA");
+            ssd.setLast_change(currentDate);
+         
+            stm.save(nsd);
+            //need a syn_strains manager to save new Syn_StrainsDAO
+            Syn_StrainsManager ssm = new Syn_StrainsManager();
+            ssm.save(ssd);
+            synStrains.add(ssd);
+            nsd.setSyn_strainsDAO(synStrains);
+            /////////////////////////////////////////////////////////////////////////
+
+            //projects - set all to unknown(id 1) or COMMU(id 2)
+            Set projectsStrains = new LinkedHashSet();
+            ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
+            psd.setProject_id(1);
+            psd.setStr_id_str(nsd.getId_str());
+            
+            ProjectsStrainsManager psm = new ProjectsStrainsManager();
+            psm.save(psd);
+            projectsStrains.add(psd);
+            nsd.setProjectsDAO(projectsStrains);
+            
+            //sources strains set to 5 unknown
+            
+            Set sourcesStrains = new LinkedHashSet();
+            Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
+            
+            srcsd.setSour_id(5);
+            srcsd.setStr_id_str(nsd.getId_str());
+            SourcesStrainsManager srcsm = new SourcesStrainsManager();
+            srcsm.save(srcsd);
+            sourcesStrains.add(srcsd);
+            nsd.setSources_StrainsDAO(sourcesStrains);
+            
+      
+           
         stm.save(nsd);
-        return new ModelAndView("/success");
+        return new ModelAndView("/publicSubmission/success");
 
     }
 
@@ -737,7 +837,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
             }
             session.setAttribute("pidaos", peopleDAOs);
         }
-
     }
 
     public SubmissionsDAO previousSubmission(SubmissionsDAO sd, String encryptedID) throws UnsupportedEncodingException {
