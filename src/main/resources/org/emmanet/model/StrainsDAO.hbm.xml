@@ -48,6 +48,10 @@
       <one-to-many class="org.emmanet.model.LaboratoriesStrainsDAO" not-found="ignore"/>
     </set>-->
     <!--<many-to-one cascade="all" class="org.emmanet.model.LaboratoriesStrainsDAO" column="id_str" foreign-key="str_id_str" insert="false" lazy="false" name="LaboratoriesStrainsDAO" not-found="ignore" update="false"/>-->
+     <set lazy="false" name="setBibliosStrainsDAO" table="biblios_strains">
+      <key column="str_id_str" update="false"/>
+      <one-to-many class="org.emmanet.model.BibliosStrainsDAO" not-found="ignore"/>
+    </set>
     <property column="code_internal" name="code_internal"/>
     <property column="name" name="name"/>
     <property column="health_status" name="health_status"/>
