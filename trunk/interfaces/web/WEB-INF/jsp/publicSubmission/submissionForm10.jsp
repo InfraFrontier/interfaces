@@ -101,7 +101,7 @@
                     </spring:bind>
                 </div>
                 
-                    <spring:bind path="command.research_areas">
+                    <spring:bind path="command.research_tools">
                     <div class="field"><label class="label"><strong>Research tools</strong></label>
                     <div class="input">
                         <form:select path="${status.expression}" id="${status.expression}" multiple="true">
