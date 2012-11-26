@@ -47,6 +47,25 @@ public class MutationsManager {
         }
         return mutIds;
     }
+    
+    public List MutationInExistence(int bgId, String main, String Sub, String dom) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List muts = null;
+        try {
+            muts = session.createQuery(
+                    "FROM MutationsStrainsDAO WHERE bg_id_bg=? AND main_type=? AND sub_type=? AND dominance=?")
+                    .setParameter(0, bgId)
+                    .setParameter(1, main)
+                    .setParameter(2, dom).list();
+
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return muts;
+    }
 
     public BigInteger getBackgroundIDCount(int bg_id) {
 
