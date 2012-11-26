@@ -276,10 +276,10 @@
                                &lt;a href='http://www.informatics.jax.org/mgihome/nomen/inc.shtml' 
                                target='_blank'&gt;International Committee on Standardized Genetic Nomenclature for 
                                Mice&lt;/a&gt;. If the producer does not have an ILAR code, it can be registered 
-                               on-line at &lt;a href='http://dels-old.nas.edu/ilar_n/ilarhome/labcode.shtml' 
-                               target='_blank'&gt;http://dels-old.nas.edu/ilar_n/ilarhome/labcode.shtml&lt;/a&gt;. 
+                               on-line at &lt;a href='http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php' 
+                               target='_blank'&gt;http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php;/a&gt;. 
                                The EMMA staff can assist with the registration procedure." />
-                    </div>
+                    <a href="http://dels-old.nas.edu/ilar_n/ilarhome/search_lc.php" target="_blank">Search ILAR for your code</a></div>
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />
                 </div>
             </spring:bind>

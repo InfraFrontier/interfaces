@@ -60,7 +60,7 @@
                             <form:checkbox onclick="" id="agree" value="" path=""/>
 
                             &nbsp;I have read the information above and agree to the 
-                            <a href="#">EMMA Terms &amp; Conditions</a>!</label>
+                            <a href="#">EMMA Terms &amp; Conditions</a></label>
                     </div>
 <form:errors path="" cssClass="error" />
                    
