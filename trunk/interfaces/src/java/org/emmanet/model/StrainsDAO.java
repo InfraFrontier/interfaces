@@ -69,6 +69,7 @@ public class StrainsDAO implements Serializable {
     // private RToolsDAO rtoolsDAO;
     private Set mutationsStrainsDAO;
     private Set wrDAO;
+    private Set setBibliosStrainsDAO;
     private LaboratoriesStrainsDAO LaboratoriesStrainsDAO;
     // private Set LaboratoriesStrainsDAO;
     //archiving mail messages for view
@@ -554,5 +555,19 @@ public class StrainsDAO implements Serializable {
      */
     public void setPer_id_per_sub(String per_id_per_sub) {
         this.per_id_per_sub = per_id_per_sub;
+    }
+
+    /**
+     * @return the setBibliosStrainsDAO
+     */
+    public Set getSetBibliosStrainsDAO() {
+        return setBibliosStrainsDAO;
+    }
+
+    /**
+     * @param setBibliosStrainsDAO the setBibliosStrainsDAO to set
+     */
+    public void setSetBibliosStrainsDAO(Set setBibliosStrainsDAO) {
+        this.setBibliosStrainsDAO = setBibliosStrainsDAO;
     }
 }
