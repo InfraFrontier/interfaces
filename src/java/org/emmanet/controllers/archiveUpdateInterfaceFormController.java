@@ -116,7 +116,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             sd = sm.getStrainByID(strainID);
             List es =  am.getCVEmbryoStateVals();
             List archMethod = am.getCVArchivingMethodVals();
-           
+               
             //List es = am.getCVEmbryoStateVals();
             System.out.println("ES size = " + es.size());
             System.out.println("archMethod size = " + archMethod.size());

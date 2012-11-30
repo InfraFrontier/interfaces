@@ -238,7 +238,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
                         for (Iterator it = people.listIterator(); it.hasNext();) {
                             pd = (PeopleDAO) it.next();
                             System.out.println("A U T H O R I T Y  : :  " + pd.getLabsDAO().getAuthority());
-                            peopleDAOs.add(pd);
+                            //RESTRICT PEOPLE LISTING ONLY TO AUTHORISED LIST
+                            if(pd.getLabsDAO().getAuthority() != null) {
+                                peopleDAOs.add(pd);
+                            }
+                           // peopleDAOs.add(pd);
                         }
                         /*session*/ request.setAttribute("userdaos", peopleDAOs);
 
