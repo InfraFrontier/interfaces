@@ -383,9 +383,11 @@ public class StrainsManager {
             status = session.createSQLQuery(
                     "SELECT * FROM cv_sources " +
                     "WHERE code NOT LIKE 'sTA%' " +
-                    "ORDER BY FIELD(code, 'UNKN','BASH','s1WP4','s2WP4','s3WP4','1JRA1'," +
+                    "ORDER BY FIELD(code, 'I3-p1','I3-p2','I3-p3','DONE','UNKN','CNR','Phenomin','MRC','BASH','MGP','BMBF',"
+                    + "'IMG-I','IMG-B','MEYS','MUGEN','s1WP4','s2WP4','s3WP4','1JRA1'," +
                     "'2JRA1','3JRA1','4JRA1','1JRA2','2JRA2','3JRA2','4JRA2','Del1','Del2'," +
-                    "'Lex1','Lex2')").list();
+                    "'Lex1','Lex2','sTA01','sTA02','sTA03','sTA04','sTA05','sTA06','sTA07','sTA08','sTA09','sTA10','sTA11','sTA12',"
+                    + "'sTA13','sTA14','sTA15')").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
