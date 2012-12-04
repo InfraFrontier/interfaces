@@ -498,7 +498,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //nsd.setGp_release(sd.getDelayed_release()); TODO a datetime field in strains
         //nsd.setHealth_status(sd.getSanitary_status());
         nsd.setHuman_model(sd.getHuman_condition());
-        nsd.setHuman_model_desc(sd.getHuman_condition_text());
+        nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
         nsd.setImmunocompromised(sd.getImmunocompromised());
         //nsd.setLast_change(null);
         nsd.setMaintenance(sd.getHusbandry_requirements());//TODO CHECK RIGHT FIELD
