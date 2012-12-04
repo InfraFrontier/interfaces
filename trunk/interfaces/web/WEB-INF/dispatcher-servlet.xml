@@ -35,6 +35,8 @@
                 <!--Do not need a custom controller for success page see above -->
                 <prop key="/success.emma">urlFilenameController
                 </prop>
+                <prop key="/publicSubmission/success.emma">urlFilenameController
+                </prop>
                  <prop key="/publicSubmission/fileUploadSuccess.emma">urlFilenameController
                 </prop>
                 <prop key="/dashboard.emma">DashboardController
