@@ -696,7 +696,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             synStrains.add(ssd);
             nsd.setSyn_strainsDAO(synStrains);
             /////////////////////////////////////////////////////////////////////////
-
+stm.save(nsd);
             //projects - set all to unknown(id 1) or COMMU(id 2)
             Set projectsStrains = new LinkedHashSet();
             ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
@@ -707,7 +707,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             psm.save(psd);
             projectsStrains.add(psd);
             nsd.setProjectsDAO(projectsStrains);
-            
+            stm.save(nsd);
             //sources strains set to 5 unknown
             
             Set sourcesStrains = new LinkedHashSet();
@@ -719,9 +719,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             srcsm.save(srcsd);
             sourcesStrains.add(srcsd);
             nsd.setSources_StrainsDAO(sourcesStrains);
-            
-      
-           
+System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
         stm.save(nsd);
         return new ModelAndView("/publicSubmission/success");
 
