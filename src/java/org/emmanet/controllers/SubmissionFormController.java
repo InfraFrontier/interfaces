@@ -528,7 +528,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setCrelox(null);
         rd.setCurrent_sanitary_status(sd.getSanitary_status());
         rd.setDelayed_description(sd.getDelayed_release_text());
-        rd.setDelayed_release(null);//date + 2 years TODO do we need to add this??
+        //rd.setDelayed_release(null);//date + 2 years TODO do we need to add this??
         rd.setDelayed_wanted(sd.getDelayed_release());
         rd.setDeposited_elsewhere(sd.getDeposited_elsewhere());//TODO MAKE NEW FIELD IN RESIDUES FOR IP TEXT  sd.getDeposited_elsewhere_text()
         rd.setFlp(null);
