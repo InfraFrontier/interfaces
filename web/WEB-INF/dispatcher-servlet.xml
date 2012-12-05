@@ -452,6 +452,7 @@
 
 
     <bean name="submissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
+        <property name="javaMailSender" ref="javaMailSender"/>
         <property name="pages">
             <list>
                 <!-- follow sequence -->
