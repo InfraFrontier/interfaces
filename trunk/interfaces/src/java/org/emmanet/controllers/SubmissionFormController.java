@@ -16,9 +16,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.velocity.app.VelocityEngine;
 import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.ArchiveDAO;
 import org.emmanet.model.ArchiveManager;
@@ -55,6 +58,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.json.simple.*;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 public class SubmissionFormController extends AbstractWizardFormController {
 
@@ -65,6 +72,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private WebRequests wr;
     private Encrypter encrypter = new Encrypter();
     private List stepTitles;
+    
+       private JavaMailSender javaMailSender;
+    private VelocityEngine velocityEngine;
 
     public SubmissionFormController() {
         setCommandName("command");
@@ -497,6 +507,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setGeneration(sd.getBackcrosses());
         //nsd.setGp_release(sd.getDelayed_release()); TODO a datetime field in strains
         //nsd.setHealth_status(sd.getSanitary_status());
+        
         nsd.setHuman_model(sd.getHuman_condition());
         nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
         nsd.setImmunocompromised(sd.getImmunocompromised());
@@ -721,6 +732,33 @@ stm.save(nsd);
             nsd.setSources_StrainsDAO(sourcesStrains);
 System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
         stm.save(nsd);
+        //MAIL OUT AND PDF ATTACHMENT + PDF LINK
+        Map model = new HashMap();
+        model.put("emailsubmitter", sd.getSubmitter_email());
+        model.put("strainname", nsd.getName());
+        model.put("strainid", nsd.getId_str());
+        
+        String velocTemplate = "org/emmanet/util/velocitytemplates/submissionFormRecept-Template.vm";
+
+String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
+                velocTemplate, model);
+MimeMessage message = getJavaMailSender().createMimeMessage();
+try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setReplyTo("webmaster@emmanet.org");//TODO SET REPLY TO EMMA@EMMANET.ORG
+            helper.setFrom("emma@emmanet.org");
+            helper.setBcc("webmaster@ebi.ac.uk");
+            helper.setTo(model.get("emailsubmitter").toString().trim());
+            helper.setSubject("TEST - Your submission to EMMA of strain " + model.get("strainname").toString());//todo remove test prefix
+            helper.setText(content);
+
+             getJavaMailSender().send(message);
+} catch (MessagingException ex) {
+            ex.printStackTrace();
+        }
+
+        
+        
         return new ModelAndView("/publicSubmission/success");
 
     }
@@ -869,4 +907,34 @@ System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
     public void setStepTitles(List stepTitles) {
         this.stepTitles = stepTitles;
     }
+
+    /**
+     * @return the velocityEngine
+     */
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
+
+    /**
+     * @param velocityEngine the velocityEngine to set
+     */
+    public void setVelocityEngine(VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
+    }
+
+    /**
+     * @return the javaMailSender
+     */
+    public JavaMailSender getJavaMailSender() {
+        return javaMailSender;
+    }
+
+    /**
+     * @param javaMailSender the javaMailSender to set
+     */
+    public void setJavaMailSender(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
+
+   
 }
