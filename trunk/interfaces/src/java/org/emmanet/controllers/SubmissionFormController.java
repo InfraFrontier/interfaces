@@ -700,7 +700,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             ssd.setUsername("EMMA");
             ssd.setLast_change(currentDate);
          
-            stm.save(nsd);
+           // stm.save(nsd);
             //need a syn_strains manager to save new Syn_StrainsDAO
             Syn_StrainsManager ssm = new Syn_StrainsManager();
             ssm.save(ssd);
