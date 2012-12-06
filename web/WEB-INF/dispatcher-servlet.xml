@@ -453,6 +453,7 @@
 
     <bean name="submissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
         <property name="javaMailSender" ref="javaMailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
         <property name="pages">
             <list>
                 <!-- follow sequence -->
