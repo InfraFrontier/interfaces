@@ -731,14 +731,14 @@ stm.save(nsd);
             sourcesStrains.add(srcsd);
             nsd.setSources_StrainsDAO(sourcesStrains);
 System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
-        stm.save(nsd);
+        //stm.save(nsd);
         //MAIL OUT AND PDF ATTACHMENT + PDF LINK
         Map model = new HashMap();
         model.put("emailsubmitter", sd.getSubmitter_email());
         model.put("strainname", nsd.getName());
         model.put("strainid", nsd.getId_str());
         
-        String velocTemplate = "org/emmanet/util/velocitytemplates/submissionFormRecept-Template.vm";
+        String velocTemplate = "org/emmanet/util/velocitytemplates/submissionFormReceipt-Template.vm";
 
 String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                 velocTemplate, model);
