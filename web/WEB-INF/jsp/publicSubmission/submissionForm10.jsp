@@ -95,7 +95,7 @@
                   </spring:bind>
                 
                 <div class="field">
-                    <label class="label"><strong>Research areas</strong></label>
+                    <label class="label"><strong>Other research areas</strong></label>
                     <spring:bind path="command.research_areas_other_text">
                         <form:input  id="${status.expression}" path="${status.expression}" /><form:errors path="${status.expression}" cssClass="error" />
                     </spring:bind>
