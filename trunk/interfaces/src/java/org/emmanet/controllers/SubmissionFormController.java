@@ -43,6 +43,7 @@ import org.emmanet.model.ProjectsStrainsDAO;
 import org.emmanet.model.ProjectsStrainsManager;
 import org.emmanet.model.RToolsDAO;
 import org.emmanet.model.ResiduesDAO;
+import org.emmanet.model.ResiduesManager;
 import org.emmanet.model.SourcesStrainsManager;
 import org.emmanet.model.Sources_StrainsDAO;
 import org.emmanet.model.StrainsDAO;
@@ -488,13 +489,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //nsd.setBackgroundDAO(new BackgroundDAO());
         nsd.setBibliosstrainsDAO(new BibliosStrainsDAO());
         //nsd.setCategoriesStrainsDAO(new CategoriesStrainsDAO());
-        nsd.setCharact_gen("" /* if (!sd.getGenotyping().isEmpty()) {
-                 sd.getGenotyping();
-                 } else if (!sd.getPhenotyping().isEmpty()) {
-                 sd.getPhenotyping();
-                 } else if (!sd.getOthertyping().isEmpty()) {
-                 sd.getOthertyping();
-                 }*/);//TODO NEED TO CHECK THESE AREE THE RIGHT FIELDS TO INSERT IN TO CHARACT_GEN USING OTHERTYPING/PHENO/GENO OR SUPPORTING FILE INFO
+        nsd.setCharact_gen(sd.getGenetic_descr());//TODO NEED TO CHECK THESE AREE THE RIGHT FIELDS TO INSERT IN TO CHARACT_GEN USING OTHERTYPING/PHENO/GENO OR SUPPORTING FILE INFO
 
         nsd.setCode_internal("CODE INTERNAL VALUE");//TODO NEED TO FIND OUT WHERE THIS COMES FROM
 
@@ -512,7 +507,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
         nsd.setImmunocompromised(sd.getImmunocompromised());
         //nsd.setLast_change(null);
-        nsd.setMaintenance(sd.getHusbandry_requirements());//TODO CHECK RIGHT FIELD
+        nsd.setMaintenance(sd.getBreeding_history());
         nsd.setMgi_ref(null);//TODO GET VALUE
 
         nsd.setMutant_fertile(/*"Heterozygous fertile: " + sd.getHeterozygous_fertile() + "Homozygous fertile: " + sd.getHomozygous_fertile()*/null);//todo get values
@@ -522,7 +517,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setPer_id_per("" + sd.getPer_id_per());
         nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
         nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
-        nsd.setPheno_text(sd.getPhenotyping());
+         StringBuffer PhenoText = new StringBuffer("");
+        
+        if (!/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr().isEmpty()) {
+            PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr() + " ");
+        } else if (!/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr().isEmpty()) {
+            PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr() + " ");
+       /* } else if (!sd.getOthertyping().isEmpty()) {
+            PhenoText = new StringBuffer().append(PhenoText).append(sd.getOthertyping() + " ");*/
+        }
+        nsd.setPheno_text(PhenoText.toString().trim());
         nsd.setRequire_homozygous(sd.getHomozygous_matings_required());
 
         //RESIDUES OBJECT
@@ -558,10 +562,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setWhen_mice_year(sd.getMice_avail_year());
 
         //END RESIDUES OBJECT
-
-
+//SAVE RESIDUES
+        ResiduesManager rm = new ResiduesManager();
+        rm.save(rd);
+System.out.println("R E S I D U E S  I D = = " + rd.getId());
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
-        //nsd.setResiduesDAO(rd); TODO MOVE LATER ON AFTER TESTING AFTER LINE536 MOST LIKELY
+        nsd.setResiduesDAO(rd);
        
         
         //nsd.setRtoolsDAO(null);
@@ -598,6 +604,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         StrainsManager stm = new StrainsManager();
         stm.save(nsd);
+        
         System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
         String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
         System.out.println("EMMA ID IS ::- EM:" + emmaID);
@@ -616,6 +623,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         List sbd = sm.getSubBibliosBySUBID(Integer.parseInt(sd.getId_sub()));
 
         //SUBMISSIONMUTATIONSDAO
+        
         for (Iterator it = smd.listIterator(); it.hasNext();) {
             MutationsDAO mud = new MutationsDAO();
             smdao = (SubmissionMutationsDAO) it.next();
@@ -632,12 +640,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
             mud.setStr_id_str(nsd.getId_str() + "");
             mud.setUsername("EMMA");
             mud.setLast_change(currentDate);
+            //SAVE MUTATION
+            mm.save(mud);
             // <property column="mu_cause" name="mu_cause"/>
             // <property column="genotype" name="genotype"/>
             //now update strains_mutations with new id
             MutationsStrainsDAO msd = new MutationsStrainsDAO();
             msd.setMut_id(mud.getId());
             msd.setStr_id_str(nsd.getId_str());
+            mm.save(msd);
+            
         }
 
         //SET BIBLIOSDAO
@@ -745,14 +757,13 @@ String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine()
 MimeMessage message = getJavaMailSender().createMimeMessage();
 try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setReplyTo("webmaster@emmanet.org");//TODO SET REPLY TO EMMA@EMMANET.ORG
+            helper.setReplyTo("emma@emmanet.org");//TODO SET REPLY TO EMMA@EMMANET.ORG
             helper.setFrom("emma@emmanet.org");
             helper.setBcc("webmaster@ebi.ac.uk");
             helper.setTo(model.get("emailsubmitter").toString().trim());
             helper.setSubject("TEST - Your submission to EMMA of strain " + model.get("strainname").toString());//todo remove test prefix
             helper.setText(content);
-
-             getJavaMailSender().send(message);
+            getJavaMailSender().send(message);
 } catch (MessagingException ex) {
             ex.printStackTrace();
         }

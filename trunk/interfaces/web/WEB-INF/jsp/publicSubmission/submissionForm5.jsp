@@ -115,9 +115,9 @@
 
         <spring:bind path="command.breeding_history">
             <div class="field">
-                <label class="label" for="breeding_history"><strong>Breeding history</strong></label>
+                <label class="label" for="${status.expression}"><strong>Breeding history</strong></label>
                 <div class="input">
-                    <textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></textarea>
+                    <textarea id="${status.expression}" path="${status.expression}" name="${status.expression}" cols="50" rows="5" title="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></textarea>
                 </div>
                 <form:errors path="${status.expression}" cssClass="error" />
             </div>

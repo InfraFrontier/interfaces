@@ -45,13 +45,13 @@
                     </div>
                 </spring:bind>
 
-                <spring:bind path="command.phenotyping"></spring:bind>
+                <spring:bind path="command.phenotyping">
                     <div class="field">
 
                         <label class="label" for="${status.expression}"><strong>By phenotyping</strong></label>
                         <div class="input">
                             <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="e.g., coat colour, etc."></form:textarea>
-                            <div><spring:bind path="command.phenotyping_file">
+                            <div>
                                     <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=PHENO',gmyWin);return false;" title="Opens a new window"><label>Upload as attachment</label></a>
                                 </div>
                             </div>

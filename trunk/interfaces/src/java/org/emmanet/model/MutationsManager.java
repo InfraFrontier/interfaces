@@ -146,6 +146,21 @@ System.out.println("at database update/insert for id " + smDAO.getId_sub());
             throw e;
         }
     }
+    
+        public void save(MutationsStrainsDAO msDAO) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.saveOrUpdate(msDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
 
     public void delete(int mutID) {
         SubmissionMutationsDAO smDAO = this.getSubMutationBySubMutID(mutID);
