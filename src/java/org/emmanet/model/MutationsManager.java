@@ -153,7 +153,7 @@ System.out.println("at database update/insert for id " + smDAO.getId_sub());
         session.beginTransaction();
 
         try {
-            session.saveOrUpdate(msDAO);
+            session.save(msDAO);
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
@@ -161,6 +161,54 @@ System.out.println("at database update/insert for id " + smDAO.getId_sub());
             throw e;
         }
     }
+        
+                public void saveSQL(int mutID, int strainID) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            //session.save(msDAO); 
+            session.createSQLQuery("INSERT INTO mutations_strains (str_id_str,mut_id) VALUES (strainID,mutID)");
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
+        
+          public void save(AllelesDAO aDAO) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.saveOrUpdate(aDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
+          
+          
+                  public void save(GenesDAO gDAO) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.saveOrUpdate(gDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
+          
 
     public void delete(int mutID) {
         SubmissionMutationsDAO smDAO = this.getSubMutationBySubMutID(mutID);

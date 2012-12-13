@@ -69,7 +69,7 @@ public class StrainsDAO implements Serializable {
     // private RToolsDAO rtoolsDAO;
     private Set mutationsStrainsDAO;
     private Set wrDAO;
-    private Set setBibliosStrainsDAO;
+        private Set setBibliosStrainsDAO;
     private LaboratoriesStrainsDAO LaboratoriesStrainsDAO;
     // private Set LaboratoriesStrainsDAO;
     //archiving mail messages for view

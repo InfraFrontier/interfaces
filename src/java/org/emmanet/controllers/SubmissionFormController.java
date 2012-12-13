@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.velocity.app.VelocityEngine;
 import org.emmanet.jobs.WebRequests;
+import org.emmanet.model.AllelesDAO;
 import org.emmanet.model.ArchiveDAO;
 import org.emmanet.model.ArchiveManager;
 import org.emmanet.model.AvailabilitiesStrainsDAO;
@@ -33,6 +34,7 @@ import org.emmanet.model.BibliosManager;
 import org.emmanet.model.BibliosStrainsDAO;
 import org.emmanet.model.CVRtoolsDAO;
 import org.emmanet.model.CategoriesStrainsDAO;
+import org.emmanet.model.GenesDAO;
 import org.emmanet.model.LabsDAO;
 import org.emmanet.model.MutationsDAO;
 import org.emmanet.model.MutationsManager;
@@ -73,8 +75,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private WebRequests wr;
     private Encrypter encrypter = new Encrypter();
     private List stepTitles;
-    
-       private JavaMailSender javaMailSender;
+    private JavaMailSender javaMailSender;
     private VelocityEngine velocityEngine;
 
     public SubmissionFormController() {
@@ -250,10 +251,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             pd = (PeopleDAO) it.next();
                             System.out.println("A U T H O R I T Y  : :  " + pd.getLabsDAO().getAuthority());
                             //RESTRICT PEOPLE LISTING ONLY TO AUTHORISED LIST
-                            if(pd.getLabsDAO().getAuthority() != null) {
+                            if (pd.getLabsDAO().getAuthority() != null) {
                                 peopleDAOs.add(pd);
                             }
-                           // peopleDAOs.add(pd);
+                            // peopleDAOs.add(pd);
                         }
                         /*session*/ request.setAttribute("userdaos", peopleDAOs);
 
@@ -387,32 +388,32 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
                 Date date = new Date();
                 session.setAttribute("startYear", dateFormat.format(date));
-             
-                
-                
+
+
+
                 sda.setStep("10");
                 sm.save(sda);
                 break;
             case 11:
                 //get possible multiple rtools values from previous step 10
-                  if(request.getParameterValues("research_tools") != null){
-                 String[] rtoolsValues = request.getParameterValues("research_tools");
-                String RTools="";
-                 StringBuffer RToolsConcat = new StringBuffer("");
-                 System.out.println("RTOOLS VALUES::");
-                for (String s : rtoolsValues){
-                    
+                if (request.getParameterValues("research_tools") != null) {
+                    String[] rtoolsValues = request.getParameterValues("research_tools");
+                    String RTools = "";
+                    StringBuffer RToolsConcat = new StringBuffer("");
+                    System.out.println("RTOOLS VALUES::");
+                    for (String s : rtoolsValues) {
+
                         System.out.println(s);
-                        RToolsConcat=new StringBuffer(RToolsConcat).append(s).append (":");
-                        
+                        RToolsConcat = new StringBuffer(RToolsConcat).append(s).append(":");
+
                     }
-                if(RToolsConcat.toString().endsWith(":")){
-                  int i =RToolsConcat.lastIndexOf(":");
-                   RTools=RToolsConcat.toString().substring(0, i);
-                    System.out.println(RTools);
+                    if (RToolsConcat.toString().endsWith(":")) {
+                        int i = RToolsConcat.lastIndexOf(":");
+                        RTools = RToolsConcat.toString().substring(0, i);
+                        System.out.println(RTools);
+                    }
+                    sda.setResearch_tools(RTools);
                 }
-                sda.setResearch_tools(RTools);
-               }
                 sda.setStep("11");
                 break;
 
@@ -502,7 +503,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setGeneration(sd.getBackcrosses());
         //nsd.setGp_release(sd.getDelayed_release()); TODO a datetime field in strains
         //nsd.setHealth_status(sd.getSanitary_status());
-        
+
         nsd.setHuman_model(sd.getHuman_condition());
         nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
         nsd.setImmunocompromised(sd.getImmunocompromised());
@@ -517,14 +518,14 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setPer_id_per("" + sd.getPer_id_per());
         nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
         nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
-         StringBuffer PhenoText = new StringBuffer("");
-        
+        StringBuffer PhenoText = new StringBuffer("");
+
         if (!/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr().isEmpty()) {
             PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr() + " ");
         } else if (!/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr().isEmpty()) {
             PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr() + " ");
-       /* } else if (!sd.getOthertyping().isEmpty()) {
-            PhenoText = new StringBuffer().append(PhenoText).append(sd.getOthertyping() + " ");*/
+            /* } else if (!sd.getOthertyping().isEmpty()) {
+             PhenoText = new StringBuffer().append(PhenoText).append(sd.getOthertyping() + " ");*/
         }
         nsd.setPheno_text(PhenoText.toString().trim());
         nsd.setRequire_homozygous(sd.getHomozygous_matings_required());
@@ -565,29 +566,29 @@ public class SubmissionFormController extends AbstractWizardFormController {
 //SAVE RESIDUES
         ResiduesManager rm = new ResiduesManager();
         rm.save(rd);
-System.out.println("R E S I D U E S  I D = = " + rd.getId());
+        System.out.println("R E S I D U E S  I D = = " + rd.getId());
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
         nsd.setResiduesDAO(rd);
-       
-        
+
+
         //nsd.setRtoolsDAO(null);
         Set setRtools = new LinkedHashSet();
         String rToolsToParse = sd.getResearch_tools();
-        if(rToolsToParse != null){
+        if (rToolsToParse != null) {
             String[] parsedRtools = rToolsToParse.split(":");
-        for (String s : parsedRtools){
-                    RToolsDAO rtd = new RToolsDAO();
-                        System.out.println("parsed value==" + s);
-                        rtd.setRtls_id(Integer.parseInt(s));
-                        rtd.setStr_id_str(nsd.getId_str());
-                        //set add dao here
-                        setRtools.add(rtd);
-                    }
+            for (String s : parsedRtools) {
+                RToolsDAO rtd = new RToolsDAO();
+                System.out.println("parsed value==" + s);
+                rtd.setRtls_id(Integer.parseInt(s));
+                rtd.setStr_id_str(nsd.getId_str());
+                //set add dao here
+                setRtools.add(rtd);
+            }
         }
-        
-        
-               nsd.setRtoolsDAO(setRtools);  
-        
+
+
+        nsd.setRtoolsDAO(setRtools);
+
         //nsd.setSources_StrainsDAO(null);
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             nsd.setStr_access("C");
@@ -604,7 +605,7 @@ System.out.println("R E S I D U E S  I D = = " + rd.getId());
 
         StrainsManager stm = new StrainsManager();
         stm.save(nsd);
-        
+
         System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
         String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
         System.out.println("EMMA ID IS ::- EM:" + emmaID);
@@ -621,13 +622,35 @@ System.out.println("R E S I D U E S  I D = = " + rd.getId());
         SubmissionMutationsDAO smdao = new SubmissionMutationsDAO();
         SubmissionBibliosDAO sbdao = new SubmissionBibliosDAO();
         List sbd = sm.getSubBibliosBySUBID(Integer.parseInt(sd.getId_sub()));
-
+//Set setMutationsStrainsDAO = new LinkedHashSet();
         //SUBMISSIONMUTATIONSDAO
-        
+
         for (Iterator it = smd.listIterator(); it.hasNext();) {
-            MutationsDAO mud = new MutationsDAO();
+
             smdao = (SubmissionMutationsDAO) it.next();
-         mud.setBg_id_bg(smdao.getMutation_original_backg());
+
+            //Oh crap genes needs an entry now :(
+            GenesDAO gd = new GenesDAO();
+            gd.setUsername("EMMA");
+            gd.setLast_change(currentDate);
+            gd.setName("Unknown at present");
+            gd.setChromosome(smdao.getMutation_chrom());
+            gd.setMgi_ref(smdao.getMutation_gene_mgi_symbol());
+            mm.save(gd);
+
+            //Oh crap alleles needs an entry now :(
+            AllelesDAO ald = new AllelesDAO();
+            ald.setUsername("EMMA");
+            ald.setLast_change(currentDate);
+            ald.setName(sd.getStrain_name());
+            ald.setAlls_form("Unknown at present");
+            ald.setGen_id_gene("" + gd.getId_gene());
+            ald.setMgi_ref(smdao.getMutation_gene_mgi_symbol());
+            ald.setGenesDAO(gd);
+            mm.save(ald);
+            
+            MutationsDAO mud = new MutationsDAO();
+            mud.setBg_id_bg(smdao.getMutation_original_backg());
             mud.setCh_ano_desc(smdao.getMutation_chrom_anomaly_descr());
             mud.setCh_ano_name(smdao.getMutation_chrom_anomaly_name());
             mud.setDominance(smdao.getMutation_dominance_pattern());
@@ -640,18 +663,22 @@ System.out.println("R E S I D U E S  I D = = " + rd.getId());
             mud.setStr_id_str(nsd.getId_str() + "");
             mud.setUsername("EMMA");
             mud.setLast_change(currentDate);
+            mud.setAlls_id_allel(ald.getId_allel());
+            mud.setAllelesDAO(ald);
             //SAVE MUTATION
-            mm.save(mud);
-            // <property column="mu_cause" name="mu_cause"/>
-            // <property column="genotype" name="genotype"/>
-            //now update strains_mutations with new id
-            MutationsStrainsDAO msd = new MutationsStrainsDAO();
-            msd.setMut_id(mud.getId());
-            msd.setStr_id_str(nsd.getId_str());
-            mm.save(msd);
-            
-        }
 
+            mm.save(mud);
+
+            //now update strains_mutations with new id
+
+//SET call method
+            
+           /////////////// createMutationStrain(mud.getId(),nsd.getId_str());
+           
+            //setMutationsStrainsDAO.add(msd);*/
+
+        }
+//nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
         //SET BIBLIOSDAO
         BibliosManager bm = new BibliosManager();
         Set BibliosStrains = new LinkedHashSet();
@@ -684,7 +711,7 @@ System.out.println("R E S I D U E S  I D = = " + rd.getId());
                 bud.setVolume(sbdao.getVolume());
                 bud.setYear(sbdao.getYear());
             }
-      
+
 //now update strains_biblios with new id or add old exisitng biblio id
             //save new BibliosDAO then add reference to biblios_strains
             bm.save(bud);
@@ -694,68 +721,68 @@ System.out.println("R E S I D U E S  I D = = " + rd.getId());
             bsd.setStr_id_str(nsd.getId_str());
 
 //nsd.setBibliosstrainsDAO(bsd);
-            
+
             BibliosStrains.add(bsd);
-            
-            
-            
+
+
+
             bm.save(bsd);
             nsd.setSetBibliosStrainsDAO(BibliosStrains);
         }
-            
-            
-            //Syn_strains/////////////////////////////////////////////////////
-            Set synStrains = new LinkedHashSet();
-            Syn_StrainsDAO ssd = new Syn_StrainsDAO();
-            ssd.setStr_id_str(nsd.getId_str());
-            ssd.setName(nsd.getName());
-            ssd.setUsername("EMMA");
-            ssd.setLast_change(currentDate);
-         
-           // stm.save(nsd);
-            //need a syn_strains manager to save new Syn_StrainsDAO
-            Syn_StrainsManager ssm = new Syn_StrainsManager();
-            ssm.save(ssd);
-            synStrains.add(ssd);
-            nsd.setSyn_strainsDAO(synStrains);
-            /////////////////////////////////////////////////////////////////////////
-stm.save(nsd);
-            //projects - set all to unknown(id 1) or COMMU(id 2)
-            Set projectsStrains = new LinkedHashSet();
-            ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
-            psd.setProject_id(1);
-            psd.setStr_id_str(nsd.getId_str());
-            
-            ProjectsStrainsManager psm = new ProjectsStrainsManager();
-            psm.save(psd);
-            projectsStrains.add(psd);
-            nsd.setProjectsDAO(projectsStrains);
-            stm.save(nsd);
-            //sources strains set to 5 unknown
-            
-            Set sourcesStrains = new LinkedHashSet();
-            Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
-            
-            srcsd.setSour_id(5);
-            srcsd.setStr_id_str(nsd.getId_str());
-            SourcesStrainsManager srcsm = new SourcesStrainsManager();
-            srcsm.save(srcsd);
-            sourcesStrains.add(srcsd);
-            nsd.setSources_StrainsDAO(sourcesStrains);
-System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
+
+
+        //Syn_strains/////////////////////////////////////////////////////
+        Set synStrains = new LinkedHashSet();
+        Syn_StrainsDAO ssd = new Syn_StrainsDAO();
+        ssd.setStr_id_str(nsd.getId_str());
+        ssd.setName(nsd.getName());
+        ssd.setUsername("EMMA");
+        ssd.setLast_change(currentDate);
+
+        // stm.save(nsd);
+        //need a syn_strains manager to save new Syn_StrainsDAO
+        Syn_StrainsManager ssm = new Syn_StrainsManager();
+        ssm.save(ssd);
+        synStrains.add(ssd);
+        nsd.setSyn_strainsDAO(synStrains);
+        /////////////////////////////////////////////////////////////////////////
+        stm.save(nsd);
+        //projects - set all to unknown(id 1) or COMMU(id 2)
+        Set projectsStrains = new LinkedHashSet();
+        ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
+        psd.setProject_id(1);
+        psd.setStr_id_str(nsd.getId_str());
+
+        ProjectsStrainsManager psm = new ProjectsStrainsManager();
+        psm.save(psd);
+        projectsStrains.add(psd);
+        nsd.setProjectsDAO(projectsStrains);
+        stm.save(nsd);
+        //sources strains set to 5 unknown
+
+        Set sourcesStrains = new LinkedHashSet();
+        Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
+
+        srcsd.setSour_id(5);
+        srcsd.setStr_id_str(nsd.getId_str());
+        SourcesStrainsManager srcsm = new SourcesStrainsManager();
+        srcsm.save(srcsd);
+        sourcesStrains.add(srcsd);
+        nsd.setSources_StrainsDAO(sourcesStrains);
+        System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
         //stm.save(nsd);
         //MAIL OUT AND PDF ATTACHMENT + PDF LINK
         Map model = new HashMap();
         model.put("emailsubmitter", sd.getSubmitter_email());
         model.put("strainname", nsd.getName());
         model.put("strainid", nsd.getId_str());
-        
+
         String velocTemplate = "org/emmanet/util/velocitytemplates/submissionFormReceipt-Template.vm";
 
-String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
+        String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                 velocTemplate, model);
-MimeMessage message = getJavaMailSender().createMimeMessage();
-try {
+        MimeMessage message = getJavaMailSender().createMimeMessage();
+        try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setReplyTo("emma@emmanet.org");//TODO SET REPLY TO EMMA@EMMANET.ORG
             helper.setFrom("emma@emmanet.org");
@@ -764,12 +791,12 @@ try {
             helper.setSubject("TEST - Your submission to EMMA of strain " + model.get("strainname").toString());//todo remove test prefix
             helper.setText(content);
             getJavaMailSender().send(message);
-} catch (MessagingException ex) {
+        } catch (MessagingException ex) {
             ex.printStackTrace();
         }
 
-        
-        
+
+
         return new ModelAndView("/publicSubmission/success");
 
     }
@@ -904,6 +931,17 @@ try {
         sd = sman.getSubByID(idDecrypt);///decrypt here
         return sd;
     }
+    
+    public void createMutationStrain(int mutID, int strainID) {
+        MutationsManager mutMan = new MutationsManager();
+        MutationsStrainsDAO msd = new MutationsStrainsDAO();
+        System.out.println("MUTATION ID IS::" + mutID);
+        System.out.println("STRAIN ID IS::" + strainID);
+            msd.setMut_id(mutID);
+            msd.setStr_id_str(strainID);
+            mutMan.saveSQL(strainID,mutID);
+        
+    }
 
     /**
      * @return the stepTitles
@@ -946,6 +984,4 @@ try {
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
-
-   
 }
