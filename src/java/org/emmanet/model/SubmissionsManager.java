@@ -78,6 +78,38 @@ public class SubmissionsManager {
         return prevSubmission;
     }
 
+        public List getCategories() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List cats = null;
+        try {
+            cats = session.createQuery(
+                    "SELECT id_cat,main_cat FROM CategoriesDAO ORDER BY main_cat").list();
+            // raffaele updates from testing SELECT  str_id_str,name FROM Syn_StrainsDAO ORDER BY str_id_str  SELECT id_str,name,emma_id,code_internal FROM StrainsDAO ORDER BY id_str
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return cats;
+    }
+        
+        public void save(CategoriesStrainsDAO csDAO) {
+        
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.saveOrUpdate(csDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
+
     public void save(SubmissionsDAO sDAO) {
         System.out.print("SUBMISSION DAO IS::" + sDAO.getId_sub());
 
