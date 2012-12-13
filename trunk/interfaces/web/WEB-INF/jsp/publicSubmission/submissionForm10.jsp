@@ -69,7 +69,20 @@
                     <div class="field">
                         <label class="label"><strong>Research areas</strong></label>
                         <div class="input">
-                            <form:select path="${status.expression}" id="${status.expression}">
+                            
+                            
+                            <form:select path="${status.expression}" id="${status.expression}"  title="Please specify the area of research relating to the strain that is being submitted.">
+
+                                <form:option value='0'>Please select...</form:option>
+                                <c:forEach var="researchArea" items="${command.catDAO}">
+
+                                    <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
+                                </c:forEach>               
+                            </form:select>
+                            
+                            
+                            
+                          <%--  <form:select path="${status.expression}" id="${status.expression}">
                                 <form:option value="">Please select..</form:option>
                                 <form:option value="apoptosis" >Apoptosis</form:option>
                                 <form:option value="cancer" >Cancer</form:option>
@@ -88,7 +101,7 @@
                                 <form:option value="sensorineural" >Sensorineural</form:option>
                                 <form:option value="virology" >Virology</form:option>
                                 <form:option value="Other" >Other (please specify)</form:option>
-                            </form:select>
+                            </form:select>--%>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>

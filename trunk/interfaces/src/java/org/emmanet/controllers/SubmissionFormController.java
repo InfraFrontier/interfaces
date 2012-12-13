@@ -44,6 +44,7 @@ import org.emmanet.model.PeopleManager;
 import org.emmanet.model.ProjectsStrainsDAO;
 import org.emmanet.model.ProjectsStrainsManager;
 import org.emmanet.model.RToolsDAO;
+import org.emmanet.model.RToolsManager;
 import org.emmanet.model.ResiduesDAO;
 import org.emmanet.model.ResiduesManager;
 import org.emmanet.model.SourcesStrainsManager;
@@ -151,6 +152,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         session.setAttribute("backgroundsDAO", bm.getCuratedBackgrounds());
         sda.setBgDAO(bm.getCuratedBackgrounds());
+        session.setAttribute("categories", sm.getCategories() );
+        
         return sda;
     }
 
@@ -502,8 +505,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setExclusive_owner(sd.getExclusive_owner());
         nsd.setGeneration(sd.getBackcrosses());
         //nsd.setGp_release(sd.getDelayed_release()); TODO a datetime field in strains
-        //nsd.setHealth_status(sd.getSanitary_status());
-
+        nsd.setHealth_status(sd.getSanitary_status());
         nsd.setHuman_model(sd.getHuman_condition());
         nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
         nsd.setImmunocompromised(sd.getImmunocompromised());
@@ -570,10 +572,22 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
         nsd.setResiduesDAO(rd);
 
-
-        //nsd.setRtoolsDAO(null);
+//CATEGORIES STRAINS
+        
+        Set setCategoriesStrains = new LinkedHashSet();
+        CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
+        SubmissionsManager subMan = new SubmissionsManager();
+        csd.setStr_id_str(nsd.getId_str());
+        csd.setCat_id_cat(Integer.parseInt( sd.getResearch_areas() ));
+        //save cat strains
+        subMan.save(csd);
+        setCategoriesStrains.add(csd);
+        
+        nsd.setCategoriesStrainsDAO(setCategoriesStrains);
+        
         Set setRtools = new LinkedHashSet();
         String rToolsToParse = sd.getResearch_tools();
+        RToolsManager rtm = new RToolsManager();
         if (rToolsToParse != null) {
             String[] parsedRtools = rToolsToParse.split(":");
             for (String s : parsedRtools) {
@@ -581,6 +595,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 System.out.println("parsed value==" + s);
                 rtd.setRtls_id(Integer.parseInt(s));
                 rtd.setStr_id_str(nsd.getId_str());
+                rtm.save(rtd);
                 //set add dao here
                 setRtools.add(rtd);
             }

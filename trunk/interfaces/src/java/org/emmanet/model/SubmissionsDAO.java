@@ -16,6 +16,7 @@ public class SubmissionsDAO implements Serializable {
 
     private List cvDAO;
     private List bgDAO;
+    private List catDAO;
     private String id_sub;
     private String encryptedId_sub;
     private String timestamp;
@@ -2467,6 +2468,20 @@ public class SubmissionsDAO implements Serializable {
      */
     public void setSubmissionBibliosDAO(Set SubmissionBibliosDAO) {
         this.SubmissionBibliosDAO = SubmissionBibliosDAO;
+    }
+
+    /**
+     * @return the catDAO
+     */
+    public List getCatDAO() {
+        return catDAO;
+    }
+
+    /**
+     * @param catDAO the catDAO to set
+     */
+    public void setCatDAO(List catDAO) {
+        this.catDAO = catDAO;
     }
 
 
