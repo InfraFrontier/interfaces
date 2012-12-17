@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import uk.ac.ebi.cdb.webservice.*;
+//import uk.ac.ebi.cdb.webservice.*;
 import java.util.List;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -20,6 +20,15 @@ import org.emmanet.model.BibliosManager;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+
+import ebi.ws.client.Authors;
+import ebi.ws.client.QueryException_Exception;
+import ebi.ws.client.ResponseWrapper;
+import ebi.ws.client.Result;
+import ebi.ws.client.WSCitationImpl;
+import ebi.ws.client.WSCitationImplService;
+
+
 
 /**
  *
@@ -59,8 +68,8 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     }
 
     /**
-     * @param cc the cc to set
-     */
+     * @param cc the cc to set 
+    */
     public void setCc(String[] cc) {
         this.cc = cc;
     }
@@ -162,16 +171,18 @@ public class EmmaBiblioJOB extends QuartzJobBean {
 }
     public FetchBiblio fetchPaper(int pmid) {
         FetchBiblio paper = new FetchBiblio();
-        wsdlLocation = getWsdlLocation();//"http://www.ebi.ac.uk/webservices/citexplore/v1.0/service?wsdl";
+        wsdlLocation = getWsdlLocation();//"http://www.ebi.ac.uk/webservices/citexplore/v1.0/service?sdl";
         WSCitationImplService service = new WSCitationImplService();
         try {
             WSCitationImpl port = service.getWSCitationImplPort();
             //System.out.println(" Invoking searchCitations operation on wscitationImpl port ");
-            ResultListBean resultListBean = port.searchCitations("EXT_ID:" + pmid, "core", 0, "");
+            //ResultListBean resultListBean = port.searchCitations("EXT_ID:" + pmid, "core", 0, "");
+            //ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false, "testclient@ebi.ac.uk");
+            ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false, "testclient@ebi.ac.uk");
             //System.out.println("\nNumber of hits:\t" + resultListBean.getHitCount());
             //schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultListBean.getHitCount()).append("\n").toString();
             //System.out.println("Off set:\t" + resultListBean.getOffSet());
-            List<ResultBean> resultBeanCollection = resultListBean.getResultBeanCollection();
+            List<Result> resultBeanCollection = resultsBean.getResultList().getResult();
             /*
              * Moved size of results here and used resultBeanCollection.size() rather than resultListBean.getHitCount() which always returned 0 for some reason (lines 171/2)
              * Suggest that this was a result of porting the old code over to this new code
@@ -179,12 +190,13 @@ public class EmmaBiblioJOB extends QuartzJobBean {
              */
             System.out.println("\nNumber of hits:\t" + resultBeanCollection.size());
             schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultBeanCollection.size()).append("\n").toString();
-            for (ResultBean resultBean : resultBeanCollection) {
-                Citation citation = resultBean.getCitation();
-                int size = citation.getAuthorCollection().size();
+            //for (ResultBean resultBean : resultBeanCollection) {
+            for (Result citation : resultBeanCollection) {
+               // Citation citation = resultBean.getCitation();
+                int size = citation.getAuthorList().getAuthor().size();
                 int counter = -1;
                 StringBuilder otherAuthors = new StringBuilder();
-                for (Author author : citation.getAuthorCollection()) {
+                for (Authors author : citation.getAuthorList().getAuthor()/*getAuthorCollection()*/) {
                     counter++;
                     String fullname = author.getFullName();
                     if (counter == 0) {
@@ -197,10 +209,16 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                 }
                 paper.paperid = "" + pmid;
                 paper.title = citation.getTitle();
-                paper.year = citation.getJournalIssue().getYearOfPublication();
+                /*paper.year = citation.getJournalIssue().getYearOfPublication();
                 paper.journal = citation.getJournalIssue().getJournal().getISOAbbreviation();
                 paper.volume = citation.getJournalIssue().getVolume();
-                paper.issue = citation.getJournalIssue().getIssue();
+                paper.issue = citation.getJournalIssue().getIssue();*/
+              //  paper.year = citation.getJournalInfo().getYearOfPublication();
+                System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().toString()/*.getDateOfPublication()*/);
+              paper.year = citation.getJournalInfo().getYearOfPublication();
+                paper.journal = citation.getJournalIssn();
+                paper.volume = citation.getJournalVolume();//.getJournalInfo().getVolume();
+               // paper.issue = citation.getJournalInfo().getIssue();**
                 paper.pages = citation.getPageInfo();
                 paper.author2 = otherAuthors.toString();
             }

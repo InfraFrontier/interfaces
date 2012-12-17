@@ -45,5 +45,23 @@ public class RToolsManager {
             throw e;
         }
     }
+
+    
+                   public void saveSQL(int rtlsID, int strainID) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            System.out.println("ABOUT TO SAVE RTOOLS");
+            session.createSQLQuery("INSERT INTO rtools_strains (str_id_str,rtls_id) VALUES (strainID,rtlsID)");
+            System.out.println("SAVED RTOOLS" + strainID);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
     
 }

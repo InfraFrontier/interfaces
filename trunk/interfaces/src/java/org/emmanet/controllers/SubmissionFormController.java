@@ -152,7 +152,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         session.setAttribute("backgroundsDAO", bm.getCuratedBackgrounds());
         sda.setBgDAO(bm.getCuratedBackgrounds());
-        session.setAttribute("categories", sm.getCategories() );
+        //session.setAttribute("categoriesDAO", sm.getCategories() );
+        sda.setCatDAO(sm.getCategories());
         
         return sda;
     }
@@ -432,6 +433,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         System.out.println("COMMAND==" + command.toString());
         SubmissionsDAO sd = (SubmissionsDAO) command;
+         StrainsManager stm = new StrainsManager();
 
         if (this.isFinishRequest(request)) {
             //SAVE IT
@@ -520,6 +522,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setPer_id_per("" + sd.getPer_id_per());
         nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
         nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
+        
+        stm.save(nsd);
+        
         StringBuffer PhenoText = new StringBuffer("");
 
         if (!/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr().isEmpty()) {
@@ -572,18 +577,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
         nsd.setResiduesDAO(rd);
 
-//CATEGORIES STRAINS
-        
-        Set setCategoriesStrains = new LinkedHashSet();
-        CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
-        SubmissionsManager subMan = new SubmissionsManager();
-        csd.setStr_id_str(nsd.getId_str());
-        csd.setCat_id_cat(Integer.parseInt( sd.getResearch_areas() ));
-        //save cat strains
-        subMan.save(csd);
-        setCategoriesStrains.add(csd);
-        
-        nsd.setCategoriesStrainsDAO(setCategoriesStrains);
         
         Set setRtools = new LinkedHashSet();
         String rToolsToParse = sd.getResearch_tools();
@@ -595,7 +588,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 System.out.println("parsed value==" + s);
                 rtd.setRtls_id(Integer.parseInt(s));
                 rtd.setStr_id_str(nsd.getId_str());
-                rtm.save(rtd);
+                System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
+                
+                rtm.saveSQL(rtd.getRtls_id(), rtd.getStr_id_str());
+                
                 //set add dao here
                 setRtools.add(rtd);
             }
@@ -618,8 +614,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setUsername("EMMA");
         //nsd.setWrDAO(null);
 
-        StrainsManager stm = new StrainsManager();
-        stm.save(nsd);
+       
+       stm.save(nsd);
 
         System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
         String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
@@ -638,6 +634,25 @@ public class SubmissionFormController extends AbstractWizardFormController {
         SubmissionBibliosDAO sbdao = new SubmissionBibliosDAO();
         List sbd = sm.getSubBibliosBySUBID(Integer.parseInt(sd.getId_sub()));
 //Set setMutationsStrainsDAO = new LinkedHashSet();
+        
+        //CATEGORIES STRAINS
+        if( sd.getResearch_areas() != null ||  sd.getResearch_areas() != "0") {
+            
+       
+        Set setCategoriesStrains = new LinkedHashSet();
+        CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
+        csd.setStr_id_str(nsd.getId_str());
+        csd.setCat_id_cat(Integer.parseInt( sd.getResearch_areas() ));
+        //save cat strains
+        System.out.println("categories strains cat id = " + csd.getCat_id_cat());
+        System.out.println("categories strains str_id = " + csd.getStr_id_str());
+        sm.save(csd);
+        setCategoriesStrains.add(csd);
+        
+        nsd.setCategoriesStrainsDAO(setCategoriesStrains);
+        
+         }
+        
         //SUBMISSIONMUTATIONSDAO
 
         for (Iterator it = smd.listIterator(); it.hasNext();) {
@@ -761,7 +776,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         synStrains.add(ssd);
         nsd.setSyn_strainsDAO(synStrains);
         /////////////////////////////////////////////////////////////////////////
-        stm.save(nsd);
+     stm.save(nsd);
         //projects - set all to unknown(id 1) or COMMU(id 2)
         Set projectsStrains = new LinkedHashSet();
         ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
@@ -772,9 +787,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         psm.save(psd);
         projectsStrains.add(psd);
         nsd.setProjectsDAO(projectsStrains);
-        stm.save(nsd);
+       stm.save(nsd);
         //sources strains set to 5 unknown
-
+//TODO SOURCES STRAINS NEEDS TO SAVE MANUALLY THEN DO FINAL SAVE ON LINE 803
         Set sourcesStrains = new LinkedHashSet();
         Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
 
@@ -785,7 +800,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         sourcesStrains.add(srcsd);
         nsd.setSources_StrainsDAO(sourcesStrains);
         System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
-        //stm.save(nsd);
+       // stm.save(nsd);
         //MAIL OUT AND PDF ATTACHMENT + PDF LINK
         Map model = new HashMap();
         model.put("emailsubmitter", sd.getSubmitter_email());
