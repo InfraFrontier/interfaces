@@ -124,7 +124,7 @@ xmlns:security="http://www.springframework.org/schema/security"
         <property name="jobDataAsMap">
             <map>
                 <entry key="wsdlLocation">
-                    <value>http://www.ebi.ac.uk/webservices/citexplore/v1.0/service?wsdl</value>
+                    <value>http://www.ebi.ac.uk/webservices/citexplore/v3.0.1/service?wsdl</value>
                 </entry>
                 <entry key="mailSender">
                     <ref bean="mailSender"/>
