@@ -90,8 +90,8 @@
         </dependency>-->
 
         <dependency>
-            <groupId>ebi.ws.client</groupId>
-            <artifactId>ebi-ws-client</artifactId>
+            <groupId>uk.ac.ebi</groupId>
+            <artifactId>cdb-webservice-all</artifactId>
             <version>3.0.1</version>
         </dependency>
 		<!-- Chartdirector internal dependency -->
