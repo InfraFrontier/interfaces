@@ -598,7 +598,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         }
 
 
-        nsd.setRtoolsDAO(setRtools);
+       ///////////.........>>> nsd.setRtoolsDAO(setRtools);
 
         //nsd.setSources_StrainsDAO(null);
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
