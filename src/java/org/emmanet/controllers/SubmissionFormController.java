@@ -774,7 +774,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         Syn_StrainsManager ssm = new Syn_StrainsManager();
         ssm.save(ssd);
         synStrains.add(ssd);
-        nsd.setSyn_strainsDAO(synStrains);
+       ///>>> nsd.setSyn_strainsDAO(synStrains);
         /////////////////////////////////////////////////////////////////////////
      stm.save(nsd);
         //projects - set all to unknown(id 1) or COMMU(id 2)
@@ -786,7 +786,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         ProjectsStrainsManager psm = new ProjectsStrainsManager();
         psm.save(psd);
         projectsStrains.add(psd);
-        nsd.setProjectsDAO(projectsStrains);
+      ////>>>>  nsd.setProjectsDAO(projectsStrains);
        stm.save(nsd);
         //sources strains set to 5 unknown
 //TODO SOURCES STRAINS NEEDS TO SAVE MANUALLY THEN DO FINAL SAVE ON LINE 803
