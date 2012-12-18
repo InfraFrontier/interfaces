@@ -646,7 +646,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //save cat strains
         System.out.println("categories strains cat id = " + csd.getCat_id_cat());
         System.out.println("categories strains str_id = " + csd.getStr_id_str());
-        sm.save(csd);
+      //  sm.save(csd);
         setCategoriesStrains.add(csd);
         
         nsd.setCategoriesStrainsDAO(setCategoriesStrains);
