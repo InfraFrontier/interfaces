@@ -41,9 +41,9 @@
                         <div class="input">
                             <label><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes</label><br />
                             <label><form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
-                            <label><form:radiobutton id="${status.expression}-only_males" path="${status.expression}" value="only_males" />Only males</label><br />
-                            <label><form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="only_females" />Only females</label><br />
-                            <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not_known" />Not known</label><br />
+                            <label><form:radiobutton id="${status.expression}-only_males" path="${status.expression}" value="males only" />Only males</label><br />
+                            <label><form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females</label><br />
+                            <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
@@ -55,9 +55,9 @@
                         <div class="input">
                             <label><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes</label><br />
                             <label><form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
-                            <label><form:radiobutton id="${status.expression}-only_males" path="${status.expression}" value="only_males" />Only males</label><br />
-                            <label><form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="only_females" />Only females</label><br />
-                            <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not_known" />Not known</label><br />
+                            <label><form:radiobutton id="${status.expression}-only_males" path="${status.expression}" value="males only" />Only males</label><br />
+                            <label><form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females</label><br />
+                            <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
@@ -69,9 +69,9 @@
                         <div class="input">
                             <label><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes</label><br />
                             <label><form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
-                            <label><form:radiobutton id="${status.expression}-only_males" path="${status.expression}" value="only_males" />Only males</label><br />
-                            <label><form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="only_females" />Only females</label><br />
-                            <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not_known" />Not known</label><br />
+                            <label><form:radiobutton id="${status.expression}-only_males" path="${status.expression}" value="males only" />Only males</label><br />
+                            <label><form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females</label><br />
+                            <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
