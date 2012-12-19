@@ -28,13 +28,11 @@ import ebi.ws.client.Result;
 import ebi.ws.client.WSCitationImpl;
 import ebi.ws.client.WSCitationImplService;
 
-
-
 /**
  *
  * @author ckchen
- * @author  philw
- * modified BY PHILW 08MAR2012 to run in Spring using quartz scheduling
+ * @author philw modified BY PHILW 08MAR2012 to run in Spring using quartz
+ * scheduling Modified by philw 19122012 to use new webservice.
  */
 public class EmmaBiblioJOB extends QuartzJobBean {
 
@@ -68,16 +66,16 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     }
 
     /**
-     * @param cc the cc to set 
-    */
+     * @param cc the cc to set
+     */
     public void setCc(String[] cc) {
         this.cc = cc;
     }
-    
-        public static void main(String args[]) {
-    	EmmaBiblioJOB ws = new EmmaBiblioJOB();
-    	ws.fetchPaper(19783817);//  345672
-    	
+
+    public static void main(String args[]) {
+        EmmaBiblioJOB ws = new EmmaBiblioJOB();
+        ws.fetchPaper(19783817);//  345672
+
     }
 
     public class FetchBiblio {
@@ -112,7 +110,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         BibliosDAO bdao = new BibliosDAO();
         List rset = bm.getPubmedID();
         schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Total number of records needing updating::- ").append(rset.size()).toString();
-        int pmid=0;
+        int pmid = 0;
         String spmid;
         int counter = 0;
         for (Iterator it = rset.listIterator(); it.hasNext();) {
@@ -133,8 +131,8 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                 bm.save(bdao);
             }
             FetchBiblio paper = new FetchBiblio();
-            if(pmid >=0){
-            paper = fetchPaper(pmid);
+            if (pmid >= 0) {
+                paper = fetchPaper(pmid);
             }
             updateBibliographicReferences(paper, bdao);
         }
@@ -143,51 +141,46 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     }
 
     public void updateBibliographicReferences(FetchBiblio paper, BibliosDAO bdao) {
-        
-        if(paper.issue != null){
-        System.out.println("Updating for PMID " + paper.paperid + "...");
-        schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nUpdating for PMID ").append(paper.paperid).append("...").toString();
+
+        if (paper.issue != null) {
+            System.out.println("Updating for PMID " + paper.paperid + "...");
+            schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nUpdating for PMID ").append(paper.paperid).append("...").toString();
 //System.out.println("PAPER ISSUE= " + paper.issue);
-        String vol = "";
-        if (paper.issue != null && !paper.issue.isEmpty()) {
-            vol = paper.volume + "(" + paper.issue + ")";
-        } else {
-            vol = paper.volume;
+            String vol = "";
+            if (paper.issue != null && !paper.issue.isEmpty()) {
+                vol = paper.volume + "(" + paper.issue + ")";
+            } else {
+                vol = paper.volume;
+            }
+
+            bdao.setTitle(paper.title);
+            bdao.setAuthor1(paper.author1);
+            bdao.setAuthor2(paper.author2);
+            bdao.setYear("" + paper.year);
+            bdao.setJournal(paper.journal);
+            bdao.setVolume(/*paper.volume*/vol);
+            bdao.setPages(paper.pages);
+            bdao.setUsername("EMMA");
+            bdao.setUpdated("Y");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = new Date();
+            //System.out.println(dateFormat.format(date));
+            bdao.setLast_change(dateFormat.format(date));
+
+
+
+            BibliosManager bm = new BibliosManager();
+            bm.save(bdao);
         }
-
-        bdao.setTitle(paper.title);
-        bdao.setAuthor1(paper.author1);
-        bdao.setAuthor2(paper.author2);
-        bdao.setYear("" + paper.year);
-        bdao.setJournal(paper.journal);
-        bdao.setVolume(/*paper.volume*/vol);
-        bdao.setPages(paper.pages);
-        bdao.setUsername("EMMA");
-        bdao.setUpdated("Y");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        //System.out.println(dateFormat.format(date));
-        bdao.setLast_change(dateFormat.format(date));
-
-
-
-        BibliosManager bm = new BibliosManager();
-        bm.save(bdao);
     }
-}
+
     public FetchBiblio fetchPaper(int pmid) {
         FetchBiblio paper = new FetchBiblio();
         wsdlLocation = getWsdlLocation();//"http://www.ebi.ac.uk/webservices/citexplore/v1.0/service?sdl";
         WSCitationImplService service = new WSCitationImplService();
         try {
             WSCitationImpl port = service.getWSCitationImplPort();
-            //System.out.println(" Invoking searchCitations operation on wscitationImpl port ");
-            //ResultListBean resultListBean = port.searchCitations("EXT_ID:" + pmid, "core", 0, "");
-            //ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false, "testclient@ebi.ac.uk");
-            ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false,"");
-            //System.out.println("\nNumber of hits:\t" + resultListBean.getHitCount());
-            //schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultListBean.getHitCount()).append("\n").toString();
-            //System.out.println("Off set:\t" + resultListBean.getOffSet());
+            ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false, "");
             List<Result> resultBeanCollection = resultsBean.getResultList().getResult().subList(0, 1);//philw: added a restriction here as we are not interested in citations
             /*
              * Moved size of results here and used resultBeanCollection.size() rather than resultListBean.getHitCount() which always returned 0 for some reason (lines 171/2)
@@ -197,15 +190,14 @@ public class EmmaBiblioJOB extends QuartzJobBean {
              */
             System.out.println("\nNumber of hits:\t" + resultBeanCollection.size());
             schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultBeanCollection.size()).append("\n").toString();
-            //for (ResultBean resultBean : resultBeanCollection) {
             for (Result citation : resultBeanCollection) {
-               // Citation citation = resultBean.getCitation();
                 int size = citation.getAuthorList().getAuthor().size();
                 int counter = -1;
                 StringBuilder otherAuthors = new StringBuilder();
-                for (Authors author : citation.getAuthorList().getAuthor()/*getAuthorCollection()*/) {
+                for (Authors author : citation.getAuthorList().getAuthor()) {
                     counter++;
                     String fullname = author.getFullName();
+
                     if (counter == 0) {
                         paper.author1 = fullname;
                     } else if (counter + 1 < size) {
@@ -216,21 +208,20 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                 }
                 paper.paperid = "" + pmid;
                 paper.title = citation.getTitle();
-                /*paper.year = citation.getJournalIssue().getYearOfPublication();
-                paper.journal = citation.getJournalIssue().getJournal().getISOAbbreviation();
-                paper.volume = citation.getJournalIssue().getVolume();
-                paper.issue = citation.getJournalIssue().getIssue();*/
-              //  paper.year = citation.getJournalInfo().getYearOfPublication();
-                System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().getDateOfPublication());
-                 System.out.println("Ciation get year of pub-- " + citation.getJournalInfo().getYearOfPublication().toString());
-                  System.out.println("Ciation get volume of pub-- " + citation.getJournalInfo().getVolume());
-                  System.out.println("Ciation get journal-- " + citation.getJournalInfo().getJournal().getTitle());
-              paper.year = citation.getJournalInfo().getYearOfPublication();
+                paper.year = citation.getJournalInfo().getYearOfPublication();
                 paper.journal = citation.getJournalInfo().getJournal().getTitle();//citation.getJournalIssn();
                 paper.volume = citation.getJournalInfo().getVolume();//citation.getJournalVolume();//.getJournalInfo().getVolume();
-               // paper.issue = citation.getJournalInfo().getIssue();**
+                paper.issue = citation.getJournalInfo().getIssue();
                 paper.pages = citation.getPageInfo();
                 paper.author2 = otherAuthors.toString();
+                //TESTING
+               /*System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().getDateOfPublication());
+                 System.out.println("Ciation get year of pub-- " + citation.getJournalInfo().getYearOfPublication().toString());
+                 System.out.println("Ciation get volume of pub-- " + citation.getJournalInfo().getVolume());
+                 System.out.println("Ciation get journal-- " + citation.getJournalInfo().getJournal().getTitle());
+                 System.out.println("Ciation get issue-- " + citation.getJournalInfo().getIssue());
+                 System.out.println("Ciation get author1-- " + paper.author1);
+                 */
             }
         } catch (QueryException_Exception qex) {
             System.out.printf("Caught QueryException_Exception: %s\n", qex.getFaultInfo().getMessage());
@@ -245,17 +236,17 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         System.out.println("EmmaBiblioJOB Kicking Off");
         check_for_updates();
         /* if (pmid != null) {
-        FetchBiblio paper = new FetchBiblio(pmid, conn);
-        } else {
-        FetchBiblio paper = new FetchBiblio(conn);
-        }*/
+         FetchBiblio paper = new FetchBiblio(pmid, conn);
+         } else {
+         FetchBiblio paper = new FetchBiblio(conn);
+         }*/
         System.out.println(schedulerMsg);
         webmasterJobMessage();
     }
 
     /**
      * @return the wsdlLocationsystems.ebi.ac.uk
-     * 
+     *
      */
     public String getWsdlLocation() {
         return wsdlLocation;
