@@ -73,6 +73,12 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     public void setCc(String[] cc) {
         this.cc = cc;
     }
+    
+        public static void main(String args[]) {
+    	EmmaBiblioJOB ws = new EmmaBiblioJOB();
+    	ws.fetchPaper(19783817);//  345672
+    	
+    }
 
     public class FetchBiblio {
 
@@ -178,14 +184,15 @@ public class EmmaBiblioJOB extends QuartzJobBean {
             //System.out.println(" Invoking searchCitations operation on wscitationImpl port ");
             //ResultListBean resultListBean = port.searchCitations("EXT_ID:" + pmid, "core", 0, "");
             //ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false, "testclient@ebi.ac.uk");
-            ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false, "testclient@ebi.ac.uk");
+            ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pmid, "metadata", "core", 0, false,"");
             //System.out.println("\nNumber of hits:\t" + resultListBean.getHitCount());
             //schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultListBean.getHitCount()).append("\n").toString();
             //System.out.println("Off set:\t" + resultListBean.getOffSet());
-            List<Result> resultBeanCollection = resultsBean.getResultList().getResult();
+            List<Result> resultBeanCollection = resultsBean.getResultList().getResult().subList(0, 1);//philw: added a restriction here as we are not interested in citations
             /*
              * Moved size of results here and used resultBeanCollection.size() rather than resultListBean.getHitCount() which always returned 0 for some reason (lines 171/2)
-             * Suggest that this was a result of porting the old code over to this new code
+             * Suggest that this was a result of porting the old code over to this new codeoh right
+             * 
              * PJW 11SEP2012
              */
             System.out.println("\nNumber of hits:\t" + resultBeanCollection.size());
@@ -214,10 +221,13 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                 paper.volume = citation.getJournalIssue().getVolume();
                 paper.issue = citation.getJournalIssue().getIssue();*/
               //  paper.year = citation.getJournalInfo().getYearOfPublication();
-                System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().toString()/*.getDateOfPublication()*/);
+                System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().getDateOfPublication());
+                 System.out.println("Ciation get year of pub-- " + citation.getJournalInfo().getYearOfPublication().toString());
+                  System.out.println("Ciation get volume of pub-- " + citation.getJournalInfo().getVolume());
+                  System.out.println("Ciation get journal-- " + citation.getJournalInfo().getJournal().getTitle());
               paper.year = citation.getJournalInfo().getYearOfPublication();
-                paper.journal = citation.getJournalIssn();
-                paper.volume = citation.getJournalVolume();//.getJournalInfo().getVolume();
+                paper.journal = citation.getJournalInfo().getJournal().getTitle();//citation.getJournalIssn();
+                paper.volume = citation.getJournalInfo().getVolume();//citation.getJournalVolume();//.getJournalInfo().getVolume();
                // paper.issue = citation.getJournalInfo().getIssue();**
                 paper.pages = citation.getPageInfo();
                 paper.author2 = otherAuthors.toString();
