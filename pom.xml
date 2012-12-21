@@ -63,7 +63,7 @@
         <antlr.version>2.7.6</antlr.version>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
         
-        <DATAFILES>${user.home}/emma</DATAFILES>
+        <DATAFILES>/nfs/panda/emma</DATAFILES><!--${user.home} removed as deployment to production still references my home directory needs to be as below with this file path held locally-->
     </properties>
 
     <dependencies>
