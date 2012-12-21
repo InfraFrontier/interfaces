@@ -4,7 +4,7 @@ function populateBibDetails(userString,refNo){
   //alert("User string="+ userString);
     var q = $.parseQuery(userString);
     $('#title').val(q.title);
-    $('#authors1').val(q.author1 + ", " + q.author2);
+    $('#author1').val(q.author1 + ", " + q.author2);
     $('#journal').val(q.journal);
     $('#year').val(q.year);
     $('#volume').val(q.volume);
@@ -18,7 +18,7 @@ function removeBibDetails(){
     $('#reference_descr').val(null);
     $('#notes').val(null);
     $('#title').val(null);
-    $('#authors1').val(null);
+    $('#author1').val(null);
     $('#journal').val(null);
     $('#year').val(null);
     $('#volume').val(null);

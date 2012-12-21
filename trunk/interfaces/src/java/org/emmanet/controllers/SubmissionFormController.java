@@ -35,6 +35,7 @@ import org.emmanet.model.BibliosStrainsDAO;
 import org.emmanet.model.CVRtoolsDAO;
 import org.emmanet.model.CategoriesStrainsDAO;
 import org.emmanet.model.GenesDAO;
+import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.LabsDAO;
 import org.emmanet.model.MutationsDAO;
 import org.emmanet.model.MutationsManager;
@@ -243,6 +244,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     peopleDAOs = new LinkedList();
                     if (people.isEmpty()) {
                         //OK no email address registered most likely a new user so let them submit their details
+                        //need to populate a new people entry to grab per_id_per
+                        
+                        
+                        
+                        
+                        
                     } else {
                         //OK email exists and likely user so present a view of user'lab details to choose from
                         //NEED TO PULL LAST SUBMISSION FROM DATABASE SUBMISSIONS TABLE USING E-MAIL SUBMITTER ADDRESS
@@ -353,7 +360,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     //sda.setStep("7");
                     //sm.save(sda);
                 } else {
-
                     sda.setStep("7");
                     sm.save(sda);
                 }
@@ -970,6 +976,23 @@ public class SubmissionFormController extends AbstractWizardFormController {
             msd.setMut_id(mutID);
             msd.setStr_id_str(strainID);
             mutMan.saveSQL(strainID,mutID);
+        
+    }
+    
+    public void addUser(SubmissionsDAO sda){
+        PeopleDAO pd = new PeopleDAO();
+        LaboratoriesManager lm = new LaboratoriesManager();
+        //new lm method
+        pd.setEmail(sda.getSubmitter_email());
+        pd.setFax(sda.getSubmitter_fax());
+        pd.setFirstname(sda.getSubmitter_firstname());
+        pd.setPhone(sda.getSubmitter_tel());
+        pd.setSurname(sda.getSubmitter_lastname());
+        pd.setTitle(sda.getSubmitter_title());
+        pd.setUsername("EMMA");
+        
+        //now a lab check
+        
         
     }
 
