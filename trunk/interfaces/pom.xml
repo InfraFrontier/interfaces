@@ -31,13 +31,13 @@
 			1.8.6 <!-- 1.6.0 -->
         </quartz.version>
         <mail.version>1.4</mail.version>
-        <taglibs.version>1.1.2</taglibs.version>
+        <taglibs.version>1.1.2</taglibs.version><!-- 1.1.2 removed for production as servlet container cannot support -->
         <taglibs.datetime.version>1.0.1</taglibs.datetime.version>
         <taglibs.request.version>1.0.1</taglibs.request.version>
         <java.version>1.6</java.version>
         <jta.version>1.1</jta.version>
         <jaf.version>1.1.1</jaf.version>
-        <jstl.version>1.2</jstl.version>
+        <jstl.version>1.2</jstl.version><!-- 1.2 replaced by 1.0 -->
         <json-simple.version>1.1</json-simple.version>
         <junit.version>4.8.2</junit.version>
         <itext.version>2.0.7</itext.version>
@@ -194,11 +194,6 @@
         </dependency>
 
 		<!-- jstl dependency -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
