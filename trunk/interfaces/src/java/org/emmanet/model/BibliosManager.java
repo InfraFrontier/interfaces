@@ -79,11 +79,12 @@ public class BibliosManager {
             bd = session.createQuery("FROM BibliosDAO WHERE (updated IS NULL OR updated != 'Y') "
                     + "AND (pubmed_id IS NOT NULL AND pubmed_id !='')").list();
             session.getTransaction().commit();
+            System.out.println("committed transaction");
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
         }
-
+System.out.println("bd :: " + bd.size());
         return bd;
     }
 
@@ -170,7 +171,7 @@ public class BibliosManager {
     }
 
     public void save(BibliosDAO bDAO) {
-
+System.out.println("S A V I N G ! !");
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
