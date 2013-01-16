@@ -87,6 +87,10 @@
                 </prop>
                 <prop key="/interfaces/backgroundUpdateInterface.emma">backgroundUpdateInterfaceFormController
                 </prop>
+                <prop key="/interfaces/alleleUpdateInterface.emma">alleleUpdateInterfaceFormController
+                </prop>
+                  <prop key="/interfaces/geneUpdateInterface.emma">geneUpdateInterfaceFormController
+                </prop>
                 <prop key="newsitems.emma">rssNewsController
                 </prop>
                 <prop key="/ajaxReturn.emma">ajaxReturnController
@@ -191,6 +195,9 @@
         <!-- <property name="sheetSuccessView">
             <value>JSON</value>
         </property>-->
+        <property name="fileLocation">
+            <value>${DATAFILES}/tmp/</value>
+        </property>
     </bean>
     <bean name="SpreadsheetController" class="org.emmanet.controllers.SpreadsheetController">
         <property name = "webRequest">
@@ -424,6 +431,19 @@
             <value>redirect:../interfaces/backgroundUpdateInterface.emma</value>
         </property>
     </bean>
+    
+        <bean name="alleleUpdateInterfaceFormController" class="org.emmanet.controllers.AlleleUpdateInterfaceFormController">
+        <property name="successView">
+            <value>redirect:../interfaces/alleleUpdateInterface.emma</value>
+        </property>
+    </bean>
+    
+        <bean name="geneUpdateInterfaceFormController" class="org.emmanet.controllers.GeneUpdateInterfaceFormController">
+        <property name="successView">
+            <value>redirect:../interfaces/geneUpdateInterface.emma</value>
+        </property>
+    </bean>
+    
     <bean name="ajaxReturnController" class="org.emmanet.controllers.AjaxReturnController">
     </bean>
     <bean name="statsSpreadsheetController" class="org.emmanet.controllers.statsSpreadsheetController">
