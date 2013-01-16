@@ -4,29 +4,27 @@
  */
 package org.emmanet.jobs;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-//import uk.ac.ebi.cdb.webservice.*;
-import java.util.List;
-import java.util.Iterator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.emmanet.model.BibliosDAO;
-import org.emmanet.model.BibliosManager;
-import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-
 import ebi.ws.client.Authors;
 import ebi.ws.client.QueryException_Exception;
 import ebi.ws.client.ResponseWrapper;
 import ebi.ws.client.Result;
 import ebi.ws.client.WSCitationImpl;
 import ebi.ws.client.WSCitationImplService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.emmanet.model.BibliosDAO;
+import org.emmanet.model.BibliosManager;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  *
@@ -72,12 +70,11 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         this.cc = cc;
     }
 
-    public static void main(String args[]) {
-        EmmaBiblioJOB ws = new EmmaBiblioJOB();
-        ws.fetchPaper(19783817);//  345672
+ /*    public static void main(String args[]) {
+     EmmaBiblioJOB ws = new EmmaBiblioJOB();
+     ws.fetchPaper(22986526);//  345672//19783817//22772436
 
-    }
-
+     }*/
     public class FetchBiblio {
 
         //   @WebServiceRef(wsdlLocation=)
@@ -92,7 +89,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         public String paperid;
         public int year;
     }
-
+    
     public BibliosDAO check_pmid_exists(int pmid) {
         BibliosManager bm = new BibliosManager();
         BibliosDAO bdao = (BibliosDAO) bm.getPubmedIDByID(pmid);
@@ -102,57 +99,75 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         }
         return bdao;
     }
-
+    
     public void check_for_updates() {
         //   try {
         // select the pubmed ids of not updated biblios
         BibliosManager bm = new BibliosManager();
         BibliosDAO bdao = new BibliosDAO();
-        List rset = bm.getPubmedID();
+        List rset;
+        rset = bm.getPubmedID();
+       // System.out.println("rset size :: " + rset.size());
         schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Total number of records needing updating::- ").append(rset.size()).toString();
+       // System.out.println(schedulerMsg);
         int pmid = 0;
         String spmid;
         int counter = 0;
         for (Iterator it = rset.listIterator(); it.hasNext();) {
             bdao = (BibliosDAO) it.next();
             counter++;
+           // System.out.println("counter value==" + counter);
             //pmid = Integer.parseInt(bdao.getPubmed_id());
             spmid = bdao.getPubmed_id();
+           // System.out.println("pubmedid==" + spmid);
             // removeleading non-digits of a pmid
-            Pattern replace = Pattern.compile("[^\\d+]");
-            Matcher matcher = replace.matcher(spmid);
-            String goodPmid = null;
-            while (matcher.find()) {
-                goodPmid = matcher.replaceAll("");
-                System.out.println("Corrected '" + spmid + "' as " + "'" + goodPmid + "'");
-                schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nCorrected ").append(spmid).append(" as ").append(goodPmid).append("\n").toString();
+            String goodPmid = spmid;//null;
+            try {
                 pmid = Integer.parseInt(goodPmid);
-                bdao.setId_biblio(pmid);
-                bm.save(bdao);
+            } catch (NumberFormatException ex) {
+                Pattern replace = Pattern.compile("[^\\d+]");
+                Matcher matcher = replace.matcher(goodPmid/*spmid*/);
+                
+                while (matcher.find()) {
+                    goodPmid = matcher.replaceAll("");
+                    System.out.println("Corrected '" + spmid + "' as " + "'" + goodPmid + "'");
+                    schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nCorrected ").append(spmid).append(" as ").append(goodPmid).append("\n").toString();
+                   // System.out.println(schedulerMsg);
+                    pmid = Integer.parseInt(goodPmid);
+                   // bdao.setId_biblio(pmid);  
+                    bdao.setPubmed_id(""+ pmid);
+                    bm.save(bdao);
+                }
             }
             FetchBiblio paper = new FetchBiblio();
-            if (pmid >= 0) {
+            if (pmid > 0) {
                 paper = fetchPaper(pmid);
+            } else {
+               // System.out.println("pubmed issue ++ " + spmid);
             }
+            //System.out.println("About to call updatebibrefs");
             updateBibliographicReferences(paper, bdao);
         }
         System.out.println("\nUpdated " + counter + " biblios records");
         schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nUpdated ").append(counter).append(" biblios records").toString();
+       // System.out.println(schedulerMsg);
     }
-
+    
     public void updateBibliographicReferences(FetchBiblio paper, BibliosDAO bdao) {
-
+       // System.out.println("line 157 paper title == " + paper.title.toString());
+        String vol = "";
         if (paper.issue != null) {
-            System.out.println("Updating for PMID " + paper.paperid + "...");
+          //  System.out.println("Updating for PMID " + paper.paperid + "...");
             schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nUpdating for PMID ").append(paper.paperid).append("...").toString();
+           // System.out.println(schedulerMsg);
 //System.out.println("PAPER ISSUE= " + paper.issue);
-            String vol = "";
-            if (paper.issue != null && !paper.issue.isEmpty()) {
+            
+            if (/*paper.issue != null &&*/ !paper.issue.isEmpty()) {
                 vol = paper.volume + "(" + paper.issue + ")";
             } else {
                 vol = paper.volume;
             }
-
+        }
             bdao.setTitle(paper.title);
             bdao.setAuthor1(paper.author1);
             bdao.setAuthor2(paper.author2);
@@ -166,17 +181,24 @@ public class EmmaBiblioJOB extends QuartzJobBean {
             Date date = new Date();
             //System.out.println(dateFormat.format(date));
             bdao.setLast_change(dateFormat.format(date));
-
-
-
+            
+          /*  System.out.println(bdao.getTitle());
+            System.out.println(bdao.getAuthor1());
+            System.out.println(bdao.getAuthor2());
+            System.out.println(bdao.getYear());
+            System.out.println(bdao.getJournal());
+            System.out.println(bdao.getUsername());
+            System.out.println(bdao.getUpdated());*/
+            
             BibliosManager bm = new BibliosManager();
             bm.save(bdao);
-        }
+        
     }
-
+    
     public FetchBiblio fetchPaper(int pmid) {
+        System.out.println("fetching paper" + pmid);
         FetchBiblio paper = new FetchBiblio();
-        wsdlLocation = getWsdlLocation();//"http://www.ebi.ac.uk/webservices/citexplore/v1.0/service?sdl";
+        wsdlLocation = getWsdlLocation();
         WSCitationImplService service = new WSCitationImplService();
         try {
             WSCitationImpl port = service.getWSCitationImplPort();
@@ -190,20 +212,25 @@ public class EmmaBiblioJOB extends QuartzJobBean {
              */
             System.out.println("\nNumber of hits:\t" + resultBeanCollection.size());
             schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("Number of hits:\t").append(resultBeanCollection.size()).append("\n").toString();
+            //System.out.println(schedulerMsg);
             for (Result citation : resultBeanCollection) {
                 int size = citation.getAuthorList().getAuthor().size();
                 int counter = -1;
                 StringBuilder otherAuthors = new StringBuilder();
+                //authors could be zero
+                
                 for (Authors author : citation.getAuthorList().getAuthor()) {
                     counter++;
-                    String fullname = author.getFullName();
-
-                    if (counter == 0) {
-                        paper.author1 = fullname;
-                    } else if (counter + 1 < size) {
-                        otherAuthors.append(fullname).append(", ");
-                    } else {
-                        otherAuthors.append(fullname);
+                    if (!author.getFullName().isEmpty()) {
+                        String fullname = author.getFullName();
+                        
+                        if (counter == 0) {
+                            paper.author1 = fullname;
+                        } else if (counter + 1 < size) {
+                            otherAuthors.append(fullname).append(", ");
+                        } else {
+                            otherAuthors.append(fullname);
+                        }
                     }
                 }
                 paper.paperid = "" + pmid;
@@ -215,26 +242,31 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                 paper.pages = citation.getPageInfo();
                 paper.author2 = otherAuthors.toString();
                 //TESTING
-               /*System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().getDateOfPublication());
-                 System.out.println("Ciation get year of pub-- " + citation.getJournalInfo().getYearOfPublication().toString());
-                 System.out.println("Ciation get volume of pub-- " + citation.getJournalInfo().getVolume());
-                 System.out.println("Ciation get journal-- " + citation.getJournalInfo().getJournal().getTitle());
-                 System.out.println("Ciation get issue-- " + citation.getJournalInfo().getIssue());
-                 System.out.println("Ciation get author1-- " + paper.author1);
-                 */
+                System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().getDateOfPublication());
+                System.out.println("Ciation get year of pub-- " + citation.getJournalInfo().getYearOfPublication().toString());
+                System.out.println("Ciation get volume of pub-- " + citation.getJournalInfo().getVolume());
+                System.out.println("Ciation get journal-- " + citation.getJournalInfo().getJournal().getTitle());
+                System.out.println("Ciation get issue-- " + citation.getJournalInfo().getIssue());
+                System.out.println("Ciation get author1-- " + paper.author1);
+                
             }
         } catch (QueryException_Exception qex) {
             System.out.printf("Caught QueryException_Exception: %s\n", qex.getFaultInfo().getMessage());
             schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nCaught QueryException_Exception: %s\n").append(qex.getFaultInfo().getMessage()).toString();
+            System.out.println(schedulerMsg);
+            webmasterJobMessage();
+            
         }
         return paper;
     }
-
+    
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("EmmaBiblioJOB Kicking Off").append("\n\n").toString();
         System.out.println("EmmaBiblioJOB Kicking Off");
+        System.out.println("checking updates");
         check_for_updates();
+        System.out.println("returned from checking updates");
         /* if (pmid != null) {
          FetchBiblio paper = new FetchBiblio(pmid, conn);
          } else {
@@ -258,7 +290,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     public void setWsdlLocation(String wsdlLocation) {
         this.wsdlLocation = wsdlLocation;
     }
-
+    
     public void webmasterJobMessage() {
         SimpleMailMessage msg = new SimpleMailMessage();
         String[] cc = {"koscieln@ebi.ac.uk", "webmaster@emmanet.org"};
