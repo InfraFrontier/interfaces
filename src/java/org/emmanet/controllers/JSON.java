@@ -46,6 +46,7 @@ public class JSON extends SimpleFormController {
     private boolean reportPeriod = false;
     private String manualCalcFields1="";
     private String manualCalcFields2="";
+    private String fileLocation;
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -528,7 +529,7 @@ manualCalcFields2="freezing_started , received";
             ArrayList<Double> medianData = new ArrayList<Double>();
 
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.get("philsFile"), false));
+                BufferedWriter out = new BufferedWriter(new FileWriter(getFileLocation() + "philsFile", false));
 
                 for (Iterator it = list.listIterator(); it.hasNext();) {
                     int i = 0;
@@ -1151,5 +1152,19 @@ JSONObject objMan = new JSONObject();
 
     public void setLm(LaboratoriesManager lm) {
         this.lm = lm;
+    }
+
+    /**
+     * @return the fileLocation
+     */
+    public String getFileLocation() {
+        return fileLocation;
+    }
+
+    /**
+     * @param fileLocation the fileLocation to set
+     */
+    public void setFileLocation(String fileLocation) {
+        this.fileLocation = fileLocation;
     }
 }
