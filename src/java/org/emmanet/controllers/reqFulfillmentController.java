@@ -130,6 +130,7 @@ encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
 
             msg.setText(content);
             try {
+                //System.out.println(msg);
                 getJavaMailSender().send(msg);
                 System.out.println(msg);
             } catch (MailException ex) {
