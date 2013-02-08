@@ -23,7 +23,7 @@ public class GenesManager {
         List strains = null;
         try {
             strains = session.createQuery(
-                    "FROM GenesDAO").list();
+                    "SELECT id_gene,name FROM GenesDAO").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -46,5 +46,4 @@ public class GenesManager {
             throw e;
         }
     }
-    
 }
