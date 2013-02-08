@@ -159,7 +159,7 @@ xmlns:security="http://www.springframework.org/schema/security"
     </bean>
     <bean id="smailerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="smailerJob"/>
-        <property name="cronExpression" value="0 0 0 * * ?"/><!--//   5 0 0 23 2 ? 2012   // 5 0 0 18 9 ? 2009    0 0 0 * * ?   5 0 0 9 12 ? 2009  5 0 0 7 1 ? 2010-->
+        <property name="cronExpression" value="0 0 0 * * ?"/><!--5 59 23 31 1 ? 2013//   5 0 0 23 2 ? 2012   // 5 0 0 18 9 ? 2009    0 0 0 * * ?   5 0 0 9 12 ? 2009  5 0 0 7 1 ? 2010-->
     </bean>
     <bean id="bglistTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="bgListJob"/>
@@ -174,17 +174,17 @@ xmlns:security="http://www.springframework.org/schema/security"
 
     <bean id="updateBibliosTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="updateBibliosJob"/>
-        <property name="cronExpression" value="0 30 5 * * ?"/>
+        <property name="cronExpression" value="10 30 5 * * ?"/><!--0 30 5 * * ?-->
     </bean>
     
     <!-- SCHEDULER -->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-                
                 <ref bean="bglistTrigger"/>
-                <ref bean="rssTrigger"/>
-                <ref bean="updateBibliosTrigger"/> <!-- <ref bean="smailerTrigger"/>-->
+                <ref bean="updateBibliosTrigger"/>
+           <!--      <ref bean="rssTrigger"/>
+                <ref bean="updateBibliosTrigger"/> <ref bean="smailerTrigger"/>-->
             </list>
         </property>
     </bean>
