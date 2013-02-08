@@ -19,6 +19,8 @@ public class AllelesDAO {
     private String last_change;
     private String gen_id_gene;
     
+    private String strainID;
+    
     private GenesDAO genesDAO;
     private MutationsDAO mutationsDAO;
 
@@ -92,6 +94,20 @@ public class AllelesDAO {
 
     public void setMutationsDAO(MutationsDAO mutationsDAO) {
         this.mutationsDAO = mutationsDAO;
+    }
+
+    /**
+     * @return the strainID
+     */
+    public String getStrainID() {
+        return strainID;
+    }
+
+    /**
+     * @param strainID the strainID to set
+     */
+    public void setStrainID(String strainID) {
+        this.strainID = strainID;
     }
 
     
