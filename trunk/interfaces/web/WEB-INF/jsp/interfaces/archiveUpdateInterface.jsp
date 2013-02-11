@@ -239,7 +239,7 @@
             strOutSources = strOutSources.replace("<option value=\"" + pageContext.getAttribute("sourid").toString() + "\">", "<option value=\"" + pageContext.getAttribute("sourid").toString() + "\" selected>");
         %>
         <tr>
-            <td>Project: </td>
+            <td>Producer type: </td>
             <td>
             <select name="<c:out value='projectID'/>"><%= strOutProjects%>
             </select>

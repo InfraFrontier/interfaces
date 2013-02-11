@@ -202,7 +202,6 @@ else this.checked=false;">
                     <input name="Clear updates" value="Clear updates" class="button" type="reset">
                 </td>
             </tr>
-
         </table>
     </form:form>
 </body>

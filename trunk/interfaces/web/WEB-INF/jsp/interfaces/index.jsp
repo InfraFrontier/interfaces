@@ -206,7 +206,7 @@
                             </select>
                             <br />
                         </td>
-                        <td>Projects</td>
+                        <td>Producer type</td>
                         <td><select name="projects"  id="projects" class="ifSelect" onchange="optionVal();">
                                 <option selected value=''>Please select</option>
                                 <c:forEach var="projects" items='${keyRef["projects"]}'>

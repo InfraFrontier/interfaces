@@ -97,7 +97,7 @@
         <form>
             <table align="center" width="75%" id="searchFilters" >
                 <tr>
-                    <th align="left">Project</th>
+                    <th align="left">Producer type</th>
                     <th align="left">Research Tools</th>
                     <th align="left">Funding source</th>
                     <th align="left">In stock</th>
