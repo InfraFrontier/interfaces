@@ -1529,13 +1529,12 @@ public class WebRequests {
                     "AND " + field + " LIKE '%@%' " +
                     "AND ta_panel_decision='yes' AND req_status='SHIP' " +
                     "ORDER BY " + field + "").list();*/
-            
+           //+ "AND ta_panel_decision_date BETWEEN '2012-01-01' AND '2012-12-31' " 
                         sciMails = session.createSQLQuery(
                                     "SELECT DISTINCT sci_e_mail "
                                 + "FROM web_requests "
                                 + "WHERE ta_panel_decision='yes' "
                                 + "AND application_type IN ('ta_or_request','ta_only') "
-                                + "AND ta_panel_decision_date BETWEEN '2010-07-01' AND '2011-12-31' "
                                 + "ORDER BY ta_panel_decision_date").list();
             
             session.getTransaction().commit();

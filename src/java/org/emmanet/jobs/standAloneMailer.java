@@ -58,7 +58,7 @@ public class standAloneMailer extends QuartzJobBean {
 
         //read from file
         try {
-            BufferedReader in = new BufferedReader(new FileReader(Configuration.get("mailContent")));
+            BufferedReader in = new BufferedReader(new FileReader(Configuration.get("MAILCONTENT")));
             String str;
             while ((str = in.readLine()) != null) {
                 //content = content + str;
@@ -70,7 +70,7 @@ public class standAloneMailer extends QuartzJobBean {
             e.printStackTrace();
 
         }
-        subject = "EMMAservice – Transnational Access program – User group questionnaire";//New Cre driver mouse lines";
+        subject = "EMMAservice TA / impact assessment";//New Cre driver mouse lines"
         System.out.println("Subject: " + subject + "\n\nContent: " + content);
 
         //iterate over database email results adding to bcc use map keys ae address to prevent dups
@@ -148,16 +148,17 @@ public class standAloneMailer extends QuartzJobBean {
             //helper.setBcc("philw@ebi.ac.uk");
             helper.setText(content, true);
             helper.setSubject(subject);
-            String filePath = Configuration.get("tmpFiles");
+            String filePath = Configuration.get("TMPFILES");
             //String fileName = "PhenotypingSurveyCombinedNov2009.doc";
             //String fileName2 = "EMPReSSslimpipelines-1.pdf";
             //FileSystemResource file = new FileSystemResource(new File(filePath + fileName));
            // FileSystemResource file2 = new FileSystemResource(new File(filePath + fileName2));
             //helper.addAttachment(fileName, file);
             //helper.addAttachment(fileName2, file2);
-            getJavaMailSender().send(message);
+            System.out.println(message);
+           getJavaMailSender().send(message);
             try {
-                BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.get("finalMailCount")));
+                BufferedWriter out = new BufferedWriter(new FileWriter(Configuration.get("FINALMAILCOUNT")));
 
                 out.write("FINAL BCC SIZE IS::" + BccSize);
                 out.close();
