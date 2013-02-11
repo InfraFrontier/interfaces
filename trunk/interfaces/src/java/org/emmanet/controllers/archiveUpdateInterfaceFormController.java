@@ -114,15 +114,15 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             //build pdf string
             // int archID = sm.getArchID(strainID);
             sd = sm.getStrainByID(strainID);
-            List es =  am.getCVEmbryoStateVals();
+            List es = am.getCVEmbryoStateVals();
             List archMethod = am.getCVArchivingMethodVals();
-               
+
             //List es = am.getCVEmbryoStateVals();
             System.out.println("ES size = " + es.size());
             System.out.println("archMethod size = " + archMethod.size());
-           /* for (Iterator it = es.iterator(); it.hasNext();) {
-                esDAO = (CVEmbryoStateDAO) it.next();
-            }*/
+            /* for (Iterator it = es.iterator(); it.hasNext();) {
+             esDAO = (CVEmbryoStateDAO) it.next();
+             }*/
 
             //  ad = am.getReqByID(archID);
             //String subFile = "sub_";
@@ -211,8 +211,8 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
              */
 
             HttpSession session = request.getSession(true);
- session.setAttribute("CVEmbryoStateDAO", es);
- session.setAttribute("CVArchivingMethodsDAO", archMethod);
+            session.setAttribute("CVEmbryoStateDAO", es);
+            session.setAttribute("CVArchivingMethodsDAO", archMethod);
             //session.setAttribute("pdfUrl", sd.getArchiveDAO().getPdfURL());
 
 
@@ -448,6 +448,9 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             sDAO.setStr_status("ARCHD");
         }
 
+        
+        cleanDates(sDAO);
+        
         //now save sourceid and projectid
         if (!request.getParameter("sourceID").isEmpty() || !request.getParameter("projectID").isEmpty()) {
 
@@ -455,25 +458,68 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
 
             int sour_id = Integer.parseInt(request.getParameter("sourceID"));
             int project_id = Integer.parseInt(request.getParameter("projectID"));
-            psd = new ProjectsStrainsDAO();
 
-            ssd = sm.getSourcesByID(sDAO.getId_str());
-            psd = sm.getProjectsByID(sDAO.getId_str());
-            boolean saveOnlyPsd = false;
-            boolean saveOnlySsd = false;
-            try {
-                psd.getProject_id();
-            } catch (NullPointerException np) {
-                psd = new ProjectsStrainsDAO();
-                psd.setStr_id_str(sDAO.getId_str());
 
-                psd.setProject_id(project_id);
-
-                System.out.println(" id string is " + sDAO.getId_str());
-                //save only here not save or update
-                saveOnlyPsd = true;
+            if (sDAO.getProjectsDAO() != null) {
+                Set sPDAO = sDAO.getProjectsDAO();
+                for (Iterator i = sPDAO.iterator(); i.hasNext();) {
+                    ProjectsStrainsDAO o = (ProjectsStrainsDAO) i.next();
+                    if (o.getProject_id() != project_id) {
+                        o.setProject_id(project_id);
+                        sm.savePsd(o);
+                        sPDAO.add(o);
+                    }
+                    sDAO.setProjectsDAO(sPDAO);
+                }
+                Iterator i = sPDAO.iterator();
+                if (!i.hasNext()) {
+                    //new dao
+                    psd = new ProjectsStrainsDAO();
+                    psd.setStr_id_str(id_str);
+                    psd.setProject_id(project_id);
+                    sm.saveOnlyPsd(psd);
+                }
             }
 
+            if (sDAO.getSources_StrainsDAO() != null) {
+                Set sSDAO = sDAO.getSources_StrainsDAO();
+                for (Iterator i = sSDAO.iterator(); i.hasNext();) {
+                    Sources_StrainsDAO o = (Sources_StrainsDAO) i.next();
+                    if (o.getSour_id() != sour_id) {
+                        o.setSour_id(sour_id);
+                        sm.saveSsd(o);
+                        sSDAO.add(o);
+                    }
+                    sDAO.setSources_StrainsDAO(sSDAO);
+                }
+
+                Iterator i = sSDAO.iterator();
+                if (!i.hasNext()) {
+                    //new dao
+                    ssd = new Sources_StrainsDAO();
+                    ssd.setStr_id_str(id_str);
+                    ssd.setSour_id(sour_id);
+                    sm.saveOnlySsd(ssd);
+                }
+            }
+//to delete commented out code below once happy that project and sources changes are being saved and created properley
+           // ssd = sm.getSourcesByID(sDAO.getId_str());
+            //  psd = sm.getProjectsByID(sDAO.getId_str());
+            //  boolean saveOnlyPsd = false;
+           // boolean saveOnlySsd = false;
+            /*       try {
+             psd.getProject_id();
+             } catch (NullPointerException np) {
+             psd = new ProjectsStrainsDAO();
+             psd.setStr_id_str(sDAO.getId_str());
+
+             psd.setProject_id(project_id);
+
+             System.out.println(" id string is " + sDAO.getId_str());
+             //save only here not save or update
+             saveOnlyPsd = true;
+             }
+           
             try {
                 ssd.getSour_id();
             } catch (NullPointerException np) {
@@ -483,31 +529,34 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 //save only here not save or update
                 saveOnlySsd = true;
             }
+  */
+            /*       if (saveOnlyPsd) {
+             sDAO.getProjectsDAO().add(psd);
+             sm.saveOnlyPsd(psd);
 
-            if (saveOnlyPsd) {
-                sDAO.getProjectsDAO().add(psd);
-                //    sm.saveOnlyPsd(psd);
-
-                System.out.println("Projects Strains saved using saveOnly");
-            } else if (!saveOnlyPsd) {
-                psd.setProject_id(project_id);
-                //     sm.savePsd(psd);
-                sDAO.getProjectsDAO().add(psd);
-                System.out.println("Projects Strains saved");
-            }
+             System.out.println("Projects Strains saved using saveOnly");
+             } else if (!saveOnlyPsd) {
+             psd.setProject_id(project_id);
+             sm.savePsd(psd);
+             //sDAO.getProjectsDAO().add(psd);
+             System.out.println("Projects Strains saved");
+             }
+            
 
             if (saveOnlySsd) {
                 sDAO.getSources_StrainsDAO().add(ssd);
-                //   sm.saveOnlySsd(ssd);
+                sm.saveOnlySsd(ssd);
                 System.out.println("Sources Strains saved using saveOnly");
             } else if (!saveOnlySsd) {
                 ssd.setSour_id(sour_id);
-                sDAO.getSources_StrainsDAO().add(ssd);
-                //  sm.saveSsd(ssd); //TODO REMOVED FOR TESTING
+                //sDAO.getSources_StrainsDAO().add(ssd);
+                sm.saveSsd(ssd); //TODO REMOVED FOR TESTING
                 System.out.println("Sources Strains saved");
             }
         }
 
+ * */
+        }
 
         if (request.getParameter("male_bg_id_new") != null) {
             //This is a new entry for the table backgrounds
@@ -542,7 +591,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
 
         System.out.println("ABOUT TO BE saved");
 
-        sDAO = this.cleanDates(sDAO);
+      //  sDAO = this.cleanDates(sDAO);
         sm.saveArchive(sDAO);
         System.out.println("saved");
         request.getSession().setAttribute(

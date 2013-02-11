@@ -105,8 +105,8 @@ public class DashboardController implements Controller {
         double[] hold = null;
         String[] holdDate = null;
         int currYear = getYear() + 1;
-        double[] sendData = {4, 13, 44, 85, 172, 334, 688, 1377,2039,2723};
-        String[] sendDataLabels = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011"};
+        double[] sendData = {4, 13, 44, 85, 172, 334, 688, 1377,2039,2723,3395};
+        String[] sendDataLabels = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011","2012"};
         int index = Arrays.binarySearch(sendDataLabels, "" + getYear() + "");
 
         if (index > 0) {
@@ -151,8 +151,8 @@ public class DashboardController implements Controller {
         double[] hold = null;
         String[] holdDate = null;
         int currYear = getYear() + 1;
-        double[] sendData2 = {4, 9, 31, 41, 87, 162, 354, 689, 662, 684};
-        String[] sendDataLabels2 = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011"};
+        double[] sendData2 = {4, 9, 31, 41, 87, 162, 354, 689, 662, 684,672};
+        String[] sendDataLabels2 = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011","2012"};
         int index = Arrays.binarySearch(sendDataLabels2, "" + getYear() + "");
 
         if (index > 0) {
@@ -316,8 +316,8 @@ public class DashboardController implements Controller {
         double[] hold = null;
         String[] holdDate = null;
         int currYear = getYear() + 1;
-        double[] sendData2 = {121, 176, 272, 290, 237, 235, 307,437,344,358};
-        String[] sendDataLabels2 = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011"};
+        double[] sendData2 = {121, 176, 272, 290, 237, 235, 307,437,344,358,505};
+        String[] sendDataLabels2 = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011","2012"};
         int index = Arrays.binarySearch(sendDataLabels2, "" + getYear() + "");
 
         if (index > 0) {
@@ -355,8 +355,8 @@ public class DashboardController implements Controller {
         double[] hold = null;
         String[] holdDate = null;
         int currYear = getYear() + 1;
-        double[] sendData = {121, 297, 569, 859, 1096, 1331, 1638,2075,2419,2777};
-        String[] sendDataLabels = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011"};
+        double[] sendData = {121, 297, 569, 859, 1096, 1331, 1638,2075,2419,2777,3282};
+        String[] sendDataLabels = {"2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009","2010","2011","2012"};
         int index = Arrays.binarySearch(sendDataLabels, "" + getYear() + "");
 
         if (index > 0) {
