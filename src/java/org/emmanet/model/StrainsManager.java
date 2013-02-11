@@ -1033,7 +1033,7 @@ System.out.println("DAO FROM SM==" + rtd.getRtls_id());
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
+        
         try {
             session.saveOrUpdate(psDAO);
             session.getTransaction().commit();
