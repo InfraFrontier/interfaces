@@ -129,8 +129,8 @@ window.open("http://www.informatics.jax.org/searches/accession_report.cgi?id=MGI
                 <td>&nbsp;</td>
                 <td align="right"><input type="button" name="Edit allele ${allelesDAO.id_allel}" value="Edit Allele" onClick="parent.location='?action=edit&alleleID=${allelesDAO.id_allel}&strainID=${sessionScope.emmaID}&strainName=${sessionScope.strainName}'"/></td>
             </tr> 
-            <tr>
-                <td colspan="4" class="boxoutB"></td>
+            <tr> 
+               <td colspan="4" class="boxoutB"></td>
                 </tr>
         </c:forEach>
     </c:if>
