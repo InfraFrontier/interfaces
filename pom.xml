@@ -51,7 +51,7 @@
         <commons.collection.version>3.2.1</commons.collection.version>
         <commons.logging.version>1.1</commons.logging.version>
         <commons.net.version>3.1</commons.net.version>
-        <commons.codec.version>1.3</commons.codec.version>
+        <commons.codec.version>1.7</commons.codec.version><!--Was 1.3 upgarde to commons-codec-1.7.jar-->
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.io.version>1.3.2</commons.io.version>
         <servlet.api.version>2.3</servlet.api.version>
