@@ -109,7 +109,6 @@
         <property column="sanitary_status" name="sanitary_status"/>
         <property column="sanitary_status_file" name="sanitary_status_file"/>
         <property column="welfare" name="welfare"/>
-        <property column="health_status" name="health_status"/>
 
         
         <property column="human_condition" name="human_condition"/>
