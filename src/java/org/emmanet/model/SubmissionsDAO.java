@@ -73,6 +73,7 @@ public class SubmissionsDAO implements Serializable {
     private String backcrosses;
     private String sibmatings;
     private String breeding_history;
+    private String health_status;
     private String homozygous_phenotypic_descr;
     private String heterozygous_phenotypic_descr;
     //mutations
@@ -2482,6 +2483,20 @@ public class SubmissionsDAO implements Serializable {
      */
     public void setCatDAO(List catDAO) {
         this.catDAO = catDAO;
+    }
+
+    /**
+     * @return the health_status
+     */
+    public String getHealth_status() {
+        return health_status;
+    }
+
+    /**
+     * @param health_status the health_status to set
+     */
+    public void setHealth_status(String health_status) {
+        this.health_status = health_status;
     }
 
 

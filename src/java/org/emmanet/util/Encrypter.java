@@ -12,6 +12,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import org.apache.commons.codec.binary.Base64;
 
 public class Encrypter {
 
@@ -29,8 +30,6 @@ public class Encrypter {
     final static String IV = "ZH5q0%amzsN5UTGt";//must be 16 long
 
     public Encrypter() {
-
-
         try {
             ecipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
@@ -63,7 +62,10 @@ public class Encrypter {
             byte[] enc = ecipher.doFinal(utf8);
 
             // Encode bytes to base64 to get a string
-            return new sun.misc.BASE64Encoder().encode(enc);
+            // return new sun.misc.BASE64Encoder().encode(enc);
+            byte[] encodedBytes = Base64.encodeBase64URLSafe(enc);
+            System.out.println("NEW COMMONS CODEC ENCRYPTED STRING IS :: " + new String(encodedBytes) + " AND STRING WAS ::  " + str);
+            return new String(encodedBytes);
 
         } catch (BadPaddingException ex) {
             Logger.getLogger(Encrypter.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,16 +77,20 @@ public class Encrypter {
     }
 
     public String decrypt(String str) {
-        // System.out.println("todecrypt==" + str);
+        System.out.println("todecrypt==" + str);
         try {
             // Decode base64 to get bytes
-            byte[] dec = new sun.misc.BASE64Decoder().decodeBuffer(str);
+         //   byte[] dec = new sun.misc.BASE64Decoder().decodeBuffer(str);
+            byte[] decodedBytes = Base64.decodeBase64(str.getBytes("UTF8"));
             //System.out.println("bystestring==" + dec.toString());
             // Decrypt
-            byte[] utf8 = dcipher.doFinal(dec);
+           // byte[] utf8 = dcipher.doFinal(dec);
+             byte[] utf8 = dcipher.doFinal(decodedBytes);
             //System.out.println("decrypted string==" + new String(utf8, "UTF8"));
             // Decode using utf-8
-            return new String(utf8, "UTF8");
+            //return new String(utf8, "UTF8");
+            System.out.println("NEW COMMONS CODEC DECRYPTED STRING IS :: " + new String(utf8));
+            return new String(utf8);
 
         } catch (BadPaddingException ex) {
             Logger.getLogger(Encrypter.class.getName()).log(Level.SEVERE, null, ex);
