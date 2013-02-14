@@ -522,7 +522,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             nsd.setGp_release(null);
         }
 
-        nsd.setHealth_status(sd.getHealth_status());
+        //nsd.setHealth_status(sd.getHealth_status());
         nsd.setHuman_model(sd.getHuman_condition());
         nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
         nsd.setImmunocompromised(sd.getImmunocompromised());
