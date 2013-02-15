@@ -18,7 +18,7 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <script type="text/javascript" src="../js/popWin.js"></script>
-       <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
@@ -85,13 +85,29 @@
                             <label><form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
 
                             <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
-                            <spring:bind path="command.homozygous_matings_required_text"><form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please explain why homozygous matings are required."></form:textarea></spring:bind>
+                            <div id="homoReqText"  style="display: none">
+                                <spring:bind path="command.homozygous_matings_required_text">
+                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please explain why homozygous matings are required."></form:textarea>
+                                </spring:bind>
+                            </div>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
 
                 </spring:bind>
-
+                <script>
+                    $("#homozygous_matings_required-yes").click(function () {
+                        $("#homoReqText").show("slow");
+                    });
+                            
+                    $("#homozygous_matings_required-no").click(function () {
+                        $("#homoReqText").hide("slow");
+                    });
+                            
+                    $("#homozygous_matings_required-not_known").click(function () {
+                        $("#homoReqText").hide("slow");
+                    });            
+                </script>
 
 
                 <spring:bind path="command.reproductive_maturity_age">
@@ -257,7 +273,7 @@
                         <div class="input">
 
                             <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please describe any special dietary, environmental, medical, housing, handling requirements."></form:textarea>
-                        </div>
+                            </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
                 </spring:bind>
@@ -303,24 +319,24 @@
                         <label class="label" for="${status.expression}"><strong>Remedial actions</strong></label>
                         <div class="input">
                             <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please enter the remedial actions necessary to ensure the welfare of this mutant mouse strain."></form:textarea>
-                        </div>
+                            </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
                 </spring:bind>
-<p>
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Next" name="_target10" /><br/></td>
-            </tr>
-            <tr>
-                <td ><input type="submit" value="Previous" name="_target8" /></td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
-    </p>
-                <br/><br/>
-            </form:form>
-        </div>
+                <p>
+                <table width="150" cellspacing="8" class="formNav">
+                    <tr>
+                        <td colspan="2" align='center'><input type="submit" value="Next" name="_target10" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td ><input type="submit" value="Previous" name="_target8" /></td>
+                        <td ><input type="submit" value="Cancel" name="_cancel" /></td>
+                    </tr>
+                </table>
+            </p>
+            <br/><br/>
+        </form:form>
+    </div>
 
-    </body>
+</body>
 </html>
