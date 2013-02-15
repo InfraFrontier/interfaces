@@ -67,13 +67,27 @@
                             <label><form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
                             <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                         </spring:bind>
-
-                        <spring:bind path="command.deposited_elsewhere_text">
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                        <div id="depositedElsewhereText" style="display: none">
+                            <spring:bind path="command.deposited_elsewhere_text">
+                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                                </div>
+                            <form:errors path="${status.expression}" cssClass="error" />
                         </div>
-                        <form:errors path="${status.expression}" cssClass="error" />
-                    </div>
-                </spring:bind>
+                    </spring:bind>
+                </div>
+                <script>
+                    $("#deposited_elsewhere-yes").click(function () {
+                        $("#depositedElsewhereText").show("slow");
+                    });
+                            
+                    $("#deposited_elsewhere-no").click(function () {
+                        $("#depositedElsewhereText").hide("slow");
+                    });
+                            
+                    $("#deposited_elsewhere-not_known").click(function () {
+                        $("#depositedElsewhereText").hide("slow");
+                    });            
+                </script>
 
                 <spring:bind path="command.similar_strains">
                     <div class="field">
@@ -96,13 +110,27 @@
                             <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                             <form:errors path="${status.expression}" cssClass="error" />
                         </spring:bind>
-                        <spring:bind path="command.ip_rights_text">
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                        <div id="ipRightsText"  style="display: none">
+                            <spring:bind path="command.ip_rights_text">
+                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                            </div>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
                 </spring:bind>
-
+                <script>
+                    $("#ip_rights-yes").click(function () {
+                        $("#ipRightsText").show("slow");
+                    });
+                            
+                    $("#ip_rights-no").click(function () {
+                        $("#ipRightsText").hide("slow");
+                    });
+                            
+                    $("#ip_rights-not_known").click(function () {
+                        $("#ipRightsText").hide("slow");
+                    });            
+                </script>
                 <spring:bind path="command.exclusive_owner">
                     <div class="field">
                         <label class="label" for="${status.expression}"><strong>Is the producer the exclusive owner of this strain<sup><font color="red">*</font></sup></strong></label>
@@ -112,12 +140,27 @@
                             <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                             <form:errors path="${status.expression}" cssClass="error" />
                         </spring:bind>
-                        <spring:bind path="command.exclusive_owner_text">
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                        <div id="exclOwnerText"  style="display: none">
+                            <spring:bind path="command.exclusive_owner_text">
+                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                            </div>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
                 </spring:bind>
+                <script>
+                    $("#exclusive_owner-yes").click(function () {
+                        $("#exclOwnerText").hide("slow");
+                    });
+                            
+                    $("#exclusive_owner-no").click(function () {
+                        $("#exclOwnerText").show("slow");
+                    });
+                            
+                    $("#exclusive_owner-not_known").click(function () {
+                        $("#exclOwnerText").hide("slow");
+                    });            
+                </script>
 
                 <spring:bind path="command.owner_permission">
                     <div class="field">
@@ -128,13 +171,27 @@
                             <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                             <form:errors path="${status.expression}" cssClass="error" />
                         </spring:bind>
-                        <spring:bind path="command.owner_permission_text">  
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                        <div id="ownerPermissionText"  style="display: none">
+                            <spring:bind path="command.owner_permission_text">  
+                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                            </div>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
                 </spring:bind>
-
+                <script>
+                    $("#owner_permission-yes").click(function () {
+                        $("#ownerPermissionText").hide("slow");
+                    });
+                            
+                    $("#owner_permission-no").click(function () {
+                        $("#ownerPermissionText").show("slow");
+                    });
+                            
+                    $("#owner_permission-not_known").click(function () {
+                        $("#ownerPermissionText").hide("slow");
+                    });            
+                </script>
                 <spring:bind path="command.delayed_release">
                     <div class="field">
                         <label class="label" for="${status.expression}"><strong>Do you require <a target="PDF" href="/delayed_release.php">delayed release</a> for this strain?<sup><font color="red">*</font></sup></strong></label>
@@ -143,13 +200,27 @@
                             <label><form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
                             <label><form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</label><br />
                         </spring:bind>
-                        <spring:bind path="command.delayed_release_text">
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                        <div id="delayedReleaseText"  style="display: none">
+                            <spring:bind path="command.delayed_release_text">
+                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                             </div>
+                        </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
                 </spring:bind>
-
+                <script>
+                    $("#delayed_release-yes").click(function () {
+                        $("#delayedReleaseText").show("slow");
+                    });
+                            
+                    $("#delayed_release-no").click(function () {
+                        $("#delayedReleaseText").hide("slow");
+                    });
+                            
+                    $("#delayed_release-not_known").click(function () {
+                        $("#delayedReleaseText").hide("slow");
+                    });            
+                </script>
 
                 <div class="field">
                     <label class="label"><strong>How many mice of breeding age could you provide and when?</strong><br />
@@ -240,31 +311,31 @@
                     <label class="label"><strong>Additional materials of interest (you can upload up to five attachments)</strong></label>
                     <div class="input">
                         <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL',gmyWin);return false;" title="Opens a new window">Upload attachment</a>
-                       <%-- <spring:bind path="command.additional_materials_file_1"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-<spring:bind path="command.additional_materials_file_2"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-<spring:bind path="command.additional_materials_file_3"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-<spring:bind path="command.additional_materials_file_4"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-<spring:bind path="command.additional_materials_file_5"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>--%>                    </div>
+                        <%-- <spring:bind path="command.additional_materials_file_1"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
+ <spring:bind path="command.additional_materials_file_2"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
+ <spring:bind path="command.additional_materials_file_3"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
+ <spring:bind path="command.additional_materials_file_4"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
+ <spring:bind path="command.additional_materials_file_5"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>--%>                    </div>
                     <div class="validation_error_message">
                         &nbsp;
                     </div>
                 </div>
-<p>
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Submit" name="_finish" /><br/></td>
-            </tr>
-            <tr>
-                <td ><input type="submit" value="Previous" name="_target10" /></td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
-    </p>
+                <p>
+                <table width="150" cellspacing="8" class="formNav">
+                    <tr>
+                        <td colspan="2" align='center'><input type="submit" value="Submit" name="_finish" /><br/></td>
+                    </tr>
+                    <tr>
+                        <td ><input type="submit" value="Previous" name="_target10" /></td>
+                        <td ><input type="submit" value="Cancel" name="_cancel" /></td>
+                    </tr>
+                </table>
+            </p>
 
-                <br/><br/>
-                
-            </form:form>
-        </div>
+            <br/><br/>
 
-    </body>
+        </form:form>
+    </div>
+
+</body>
 </html>
