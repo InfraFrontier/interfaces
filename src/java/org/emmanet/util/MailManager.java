@@ -21,9 +21,19 @@ import org.springframework.mail.MailException;
  * @author phil
  */
 public interface MailManager {
-    void send(String senderName, String senderAddress, Map from, Map to, 
-            Map cc, Map bcc, String subject, Map mergeObjects, String template)
-    throws MailException;
+	
+    void send(
+    		String senderName, 
+    		String senderAddress, 
+    		Map from, 
+    		Map to, 
+            Map cc, 
+            Map bcc, 
+            String subject, 
+            Map mergeObjects, 
+            String template
+            ) throws MailException;
+    
     void send(Map to, List objects, String template)
     throws MailException;   
 }
