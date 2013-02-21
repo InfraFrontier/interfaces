@@ -49,7 +49,6 @@ public class Mailer implements MailManager {
     
     private String defaultToAddress;
     
-    @Override
     public void send(String senderName,
             String senderAddress,
             Map from,
@@ -162,7 +161,6 @@ public class Mailer implements MailManager {
         
     }
     
-    @Override
     public void send(Map to,
             List objects,
             String template)
