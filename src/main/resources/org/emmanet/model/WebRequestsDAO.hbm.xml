@@ -72,7 +72,14 @@
     <property column="bil_country" name="bil_country"/>
     <property column="PO_ref" name="PO_ref"/>
     <property column="bil_vat" name="bil_vat"/>
+    
+    <!-- EUCOMM -->
     <property column="eucomm_funding" name="eucomm_funding"/>
+    
+    <!-- EuroPhenome and WTSI MGP -->
+    <property column="wtsi_mouse_portal" name="wtsi_mouse_portal"/>
+    <property column="europhenome" name="europhenome"/>
+    
     <!--- BILLING FIELDS -->
     <!--  <many-to-one  name="AvailabilitiesStrainsDAO" class="org.emmanet.model.AvailabilitiesStrainsDAO" column="str_id_str">
             
