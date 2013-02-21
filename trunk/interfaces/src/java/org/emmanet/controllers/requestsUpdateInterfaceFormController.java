@@ -540,6 +540,9 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
                 }
                 model.put("ROI", webRequest.getRegister_interest());
 
+                model.put("europhenome", webRequest.getEurophenome());
+                model.put("wtsi_mouse_portal", webRequest.getWtsi_mouse_portal());
+                
                 //now create xml file
 
                 String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
