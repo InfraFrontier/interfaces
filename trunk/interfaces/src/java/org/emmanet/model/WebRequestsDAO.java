@@ -94,6 +94,12 @@ public class WebRequestsDAO {
     private String projectID;
     private String user;
 
+    /**
+     * Set a default value for these 2 following fields
+     * reproducing what are the default values in the schema.
+     */
+    private String europhenome = "no";
+    private String wtsi_mouse_portal = "no";
     
     private List cvDAO;
     
@@ -696,4 +702,34 @@ public class WebRequestsDAO {
     public void setAll_paperwork_date(String all_paperwork_date) {
         this.all_paperwork_date = all_paperwork_date;
     }
+
+	/**
+	 * @return the europhenome
+	 */
+	public String getEurophenome() {
+		return europhenome;
+	}
+
+	/**
+	 * @param europhenome the europhenome to set
+	 */
+	public void setEurophenome(String europhenome) {
+		this.europhenome = europhenome;
+	}
+
+	/**
+	 * @return the wtsi_mouse_portal
+	 */
+	public String getWtsi_mouse_portal() {
+		return wtsi_mouse_portal;
+	}
+
+	/**
+	 * @param wtsi_mouse_portal the wtsi_mouse_portal to set
+	 */
+	public void setWtsi_mouse_portal(String wtsi_mouse_portal) {
+		this.wtsi_mouse_portal = wtsi_mouse_portal;
+	}
+    
+    
 }
