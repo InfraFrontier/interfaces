@@ -181,6 +181,8 @@ public class PdfView extends AbstractPdfView {
                 table.addCell("" + wrd.getBil_postcode());
                 table.addCell("Country");
                 table.addCell("" + wrd.getBil_country());
+                
+                // TODO add europhenome and wtsi_mouse_portal info
             }
 
             PdfPCell cellStrain = new PdfPCell(new Paragraph(
