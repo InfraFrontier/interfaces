@@ -36,12 +36,10 @@ public class SubmissionFormValidator implements
 
     private static final String FAXTEL_PATTERN = "^\\+\\d+[\\d\\-\\(\\)\\s]+(x\\d+)?$";
 
-    @Override
     public boolean supports(Class type) {
         return type.equals(StrainsDAO.class);
     }
 
-    @Override
     public void validate(Object o, Errors errors) {
        // StrainsDAO sd = (StrainsDAO) o;
         SubmissionsDAO sd = (SubmissionsDAO) o;
