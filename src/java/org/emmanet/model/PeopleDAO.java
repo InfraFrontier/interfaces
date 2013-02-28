@@ -24,7 +24,7 @@ public class PeopleDAO {
     private String username;
     private String last_change;
     private String lab_id_labo;
-    private String ilar_code;
+    private int id_ilar;
     //relationship mapping
     private LabsDAO labsDAO;
     
@@ -118,18 +118,16 @@ public class PeopleDAO {
     }
 
     /**
-     * @return the ilar_code
+     * @return the id_ilar
      */
-    public String getIlar_code() {
-        return ilar_code;
+    public int getId_ilar() {
+        return id_ilar;
     }
 
     /**
-     * @param ilar_code the ilar_code to set
+     * @param id_ilar the id_ilar to set
      */
-    public void setIlar_code(String ilar_code) {
-        this.ilar_code = ilar_code;
+    public void setId_ilar(int id_ilar) {
+        this.id_ilar = id_ilar;
     }
-
-
 }
