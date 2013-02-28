@@ -445,6 +445,21 @@ public class SubmissionFormController extends AbstractWizardFormController {
             sm.save(sd);
         }
 
+        String ilarCode = sd.getProducer_ilar();
+        //LOOKUP IN ILAR TABLE FOR ID
+        // ## IMPORTANT ## INTERNAL USE ONLY DO NOT DISPLAY, LEGAL COMPLICATIONS
+        System.out.println("ILAR CODE SUBMITTED==" + ilarCode);
+        PeopleManager pm = new PeopleManager();
+        PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
+        int ilarID = 0;
+        ilarID = pm.ilarID(ilarCode);
+        if (ilarID > 0) {
+            System.out.println("ILAR ID==" + ilarID);
+
+            pd.setId_ilar(ilarID);
+            pm.save(pd);
+        }
+
         //OK now we need to take the submissions dao/submissions mutations dao and submissions biblios dao data
         //and start to populate a new strains dao.
         //might need to break this out into its own method to be accesible by restful web service for future bulk uploads
@@ -509,14 +524,15 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setExclusive_owner(sd.getExclusive_owner());
         nsd.setGeneration(sd.getBackcrosses());
 
-        if (sd.getDelayed_release().equals("yes")) {
+        if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             //current date + 2 years
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.YEAR, 2);
             sdf =
                     new SimpleDateFormat("yyyy-MM-dd");
 
-            String releaseDate = sdf.format(sdf.format(cal.getTime()));
+            // String releaseDate = sdf.format(sdf.format(cal.getTime()));
+            String releaseDate = sdf.format(cal.getTime());
             nsd.setGp_release(releaseDate);
         } else {
             nsd.setGp_release(null);
@@ -621,8 +637,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 setRtools.add(rtd);
             }
         }
-
-
         ///////////.........>>> nsd.setRtoolsDAO(setRtools);
 
         //nsd.setSources_StrainsDAO(null);
@@ -899,11 +913,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
-
-
-
         return new ModelAndView("/publicSubmission/success");
-
     }
 
     protected ModelAndView processCancel(HttpServletRequest request,
@@ -1003,7 +1013,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     obj.put("email", pd.getEmail());
                     obj.put("phone", pd.getPhone());
                     obj.put("fax", pd.getFax());
-                    obj.put("ilar", pd.getIlar_code());
+                    obj.put("ilar", pd.getId_ilar());
                     //laboratory details
                     obj.put("institution", pd.getLabsDAO().getName());
                     obj.put("dept", pd.getLabsDAO().getName());
@@ -1045,7 +1055,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         msd.setMut_id(mutID);
         msd.setStr_id_str(strainID);
         mutMan.saveSQL(strainID, mutID);
-
     }
 
     public void addUser(SubmissionsDAO sda) {
@@ -1061,8 +1070,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         pd.setUsername("EMMA");
 
         //now a lab check
-
-
     }
 
     /**

@@ -64,8 +64,24 @@ public class PeopleManager {
         }
         return personDetails;
     }
-
-    public void save(PeopleDAO pDAO) {
+    
+        public int ilarID(String labcode) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        int id=0;
+        try {
+            id = (Integer) session.createSQLQuery(
+                    "SELECT id FROM ilar " +
+                    "WHERE labcode=? AND status='active'").setParameter(0, labcode).uniqueResult();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return id;
+    }
+    
+        public void save(PeopleDAO pDAO) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();

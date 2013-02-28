@@ -15,6 +15,6 @@
     <property column="username" name="username"/>
     <property column="last_change" name="last_change"/>
     <property column="lab_id_labo" name="lab_id_labo"/>
-   <!-- <property column="ilar_code" name="ilar_code"/>-->
+    <property column="id_ilar" name="id_ilar"/>
   </class>
 </hibernate-mapping>

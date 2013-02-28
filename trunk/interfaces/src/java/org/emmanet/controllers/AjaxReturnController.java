@@ -103,7 +103,7 @@ public class AjaxReturnController extends SimpleFormController {
                         obj.put("email", pd.getEmail());
                         obj.put("phone", pd.getPhone());
                         obj.put("fax", pd.getFax());
-                        obj.put("ilar", pd.getIlar_code());
+                        obj.put("ilar", pd.getId_ilar());
                         //laboratory details
                         obj.put("institution", pd.getLabsDAO().getName());
                         obj.put("dept", pd.getLabsDAO().getName());
