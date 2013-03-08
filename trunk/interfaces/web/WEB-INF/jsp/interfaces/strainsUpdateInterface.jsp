@@ -42,6 +42,7 @@
 <c:set var="bibliosstrainsDAO" value='${keyRef["bibliosstrainsDAO"]}'></c:set>
 <c:set var="backgroundDAO" value='${keyRef["backgroundDAO"]}'></c:set>
 
+<c:set var="ilarDAO" value='${peopleDAO["ilarDAO"]}'></c:set>
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -327,8 +328,8 @@
         </tr>
         
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td><c:if test="${not empty ilarDAO}">ILAR Code:</c:if>&nbsp;</td>
+            <td><c:if test="${not empty ilarDAO}"><spring:bind path="command.peopleDAO.ilarDAO.labcode"> <input type="text" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if>&nbsp;</td>
             <td>Country:</td>
             <td>
                 <spring:bind path="command.peopleDAO.labsDAO.country">
@@ -637,6 +638,25 @@
             <td>Animal Husbandry:</td>
             <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.animal_husbandry"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
         </tr>
+         <%-- Additional Files Supporting strain from submission --%>
+    
+        <c:forEach var="file" items="${requestScope.associatedFiles}" varStatus="status"> 
+            <c:if test="${fn:contains(file, 'SANITARYSTATUS')}">
+                
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <a href='${( sessionScope.SUBFORMUPLOAD)}${file}'>
+                            <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.SUBFORMUPLOAD)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                        </a>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </c:if>
+                
+        </c:forEach>
+        
     </table>
     <%-- End of Breeding procedures/sanitary status of strain --%>
             
@@ -681,6 +701,26 @@
             <td colspan="2"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_other"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
             </td>
         </tr>
+        
+                 <%-- Additional Files Supporting strain from submission --%>
+    
+        <c:forEach var="file" items="${requestScope.associatedFiles}" varStatus="status"> 
+            <c:if test="${fn:contains(file, 'GENO') || fn:contains(file, 'PHENO') || fn:contains(file, 'OTHER')}">
+                
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <a href='${( sessionScope.SUBFORMUPLOAD)}${file}'>
+                            <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.SUBFORMUPLOAD)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                        </a>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </c:if>
+                
+        </c:forEach>
+        
     </table>
     <%-- End of strain characterisation --%>
 
@@ -876,6 +916,7 @@
             strOut = strOut.replace("<option value=\"\" selected>", "<option value=\"\">");
             strOut = strOut.replace("<option value=\"" + pageContext.getAttribute("name_status").toString() + "\">", "<option value=\"" + pageContext.getAttribute("name_status").toString() + "\" selected>");
                 %> 
+                
                 <spring:bind path="command.name_status">
                     <select name="<c:out value='${status.expression}'/>">
                         <%=strOut%>
@@ -884,6 +925,24 @@
                 
             </td>
         </tr>
+        <%-- Additional Files Supporting strain from submission --%>
+    
+        <c:forEach var="file" items="${requestScope.associatedFiles}" varStatus="status"> 
+            <c:if test="${fn:contains(file, 'ADDITIONAL')}">
+                
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <a href='${( sessionScope.SUBFORMUPLOAD)}${file}'>
+                            <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download submission supporting file ${( sessionScope.SUBFORMUPLOAD)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                        </a>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </c:if>
+                
+        </c:forEach>
     </table>
     <table border="0" width="85%" align="center" >
         <tr>

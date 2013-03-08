@@ -87,5 +87,6 @@
     <property column="ex_owner_description" name="ex_owner_description"/>
     <property column="additional_owner" name="additional_owner"/>
     <property column="reporting_count" name="reporting_count"/>
+    <property column="sub_id_sub" name="sub_id_sub"/>
   </class>
 </hibernate-mapping>

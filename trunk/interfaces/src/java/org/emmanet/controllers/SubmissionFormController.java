@@ -27,8 +27,6 @@ import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.AllelesDAO;
 import org.emmanet.model.ArchiveDAO;
 import org.emmanet.model.ArchiveManager;
-import org.emmanet.model.AvailabilitiesStrainsDAO;
-import org.emmanet.model.BackgroundDAO;
 import org.emmanet.model.BackgroundManager;
 import org.emmanet.model.BibliosDAO;
 import org.emmanet.model.BibliosManager;
@@ -64,7 +62,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.json.simple.*;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.velocity.VelocityEngineUtils;
@@ -80,7 +77,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private List stepTitles;
     private JavaMailSender javaMailSender;
     private VelocityEngine velocityEngine;
-
     public SubmissionFormController() {
         setCommandName("command");
         setAllowDirtyBack(true);
@@ -335,7 +331,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 // Encrypt
                 String encrypted = encrypter.encrypt(sda.getId_sub());
                 session.setAttribute("getprev", encrypted);
-
+ 
                 sda.setStep("5");
                 sm.save(sda);
                 break;
@@ -452,7 +448,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
         PeopleManager pm = new PeopleManager();
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         int ilarID = 0;
-        ilarID = pm.ilarID(ilarCode);
+        if(ilarCode != null){
+            ilarID = pm.ilarID(ilarCode);
+        }
+        
         if (ilarID > 0) {
             System.out.println("ILAR ID==" + ilarID);
 
@@ -540,7 +539,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         //nsd.setHealth_status(sd.getHealth_status());
         nsd.setHuman_model(sd.getHuman_condition());
-        nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more() + sd.getHuman_condition_omim());
+        nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more());// + sd.getHuman_condition_omim()
         nsd.setImmunocompromised(sd.getImmunocompromised());
         //nsd.setLast_change(null);
         nsd.setMaintenance(sd.getBreeding_history());
@@ -826,6 +825,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
         psm.save(psd);
         projectsStrains.add(psd);
         ////>>>>  nsd.setProjectsDAO(projectsStrains);
+        
+        
+        //associate uploaded file prefix with new strain id by adding sub_id_sub
+        nsd.setSub_id_sub(Integer.parseInt(sd.getId_sub()));
+        
         stm.save(nsd);
         //sources strains set to 5 unknown
 //TODO SOURCES STRAINS NEEDS TO SAVE MANUALLY THEN DO FINAL SAVE ON LINE 803
@@ -874,14 +878,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
             srcsd.setSour_id(47);//I3-p3
         }
         System.out.println("source is " + srcsd.getSour_id());
-
-
-
-
-
-
-
-
 
         srcsd.setStr_id_str(nsd.getId_str());
         SourcesStrainsManager srcsm = new SourcesStrainsManager();

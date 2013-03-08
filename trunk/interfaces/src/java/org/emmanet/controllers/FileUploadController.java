@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.emmanet.model.FileUpload;
+import org.emmanet.util.Configuration;
 import org.emmanet.util.DirFileList;
 import org.emmanet.util.Encrypter;
 import org.springframework.validation.BindException;
@@ -31,14 +32,13 @@ public class FileUploadController extends SimpleFormController {
     FileUpload file = new FileUpload();
     Encrypter encrypter = new Encrypter();
     HttpServletRequest request;
-   // String toDecrypt="";
+    final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
+    // String toDecrypt="";
 
     public FileUploadController() {
         setCommandClass(FileUpload.class);
         setCommandName("fileUploadForm");//TODO MAY NEED CHANGING
     }
-    
-
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
@@ -46,36 +46,35 @@ public class FileUploadController extends SimpleFormController {
         System.out.println("##SUBMIT BUTTON " + request.getParameter("upload"));
         String isSubmitted = request.getParameter("upload");
         // file.setFile(null);
-        if (isSubmitted != null){
-        
-  
-        file = (FileUpload) command;
-        MultipartFile multipartFile = file.getFile();
-        String decryptedID=encrypter.decrypt(request.getParameter("submissionID"));
-        System.out.println(request.getParameter("submissionID") + " UNENCRYPTED AND DECRYPTED ID ==" + decryptedID);
+        if (isSubmitted != null) {
 
-        String fileName = "";
-        if (multipartFile != null) {
-            fileName = multipartFile.getOriginalFilename();
 
-            System.out.println("FileName of Uploaded file==" + fileName + " || Size = " + multipartFile.getSize() + " || Type == " + multipartFile.getContentType());
-            //read file into byte array method call
-            byte[] bytes = getBytesFromFile(multipartFile);
-            fileName = decryptedID + "_" + request.getParameter("submissionFileType").toString() + "_" + fileName;
-            //write bytes to file
-            File outFile = new File(fileName);
-            writeBytes2File(bytes, outFile);
-                    request.getSession().setAttribute(
-                "message",
-                getMessageSourceAccessor().getMessage("Message", " Your file " + multipartFile.getOriginalFilename() + " uploaded successfully"));
-                    
+            file = (FileUpload) command;
+            MultipartFile multipartFile = file.getFile();
+            String decryptedID = encrypter.decrypt(request.getParameter("submissionID"));
+            System.out.println(request.getParameter("submissionID") + " UNENCRYPTED AND DECRYPTED ID ==" + decryptedID);
+
+            String fileName = "";
+            if (multipartFile != null) {
+                fileName = multipartFile.getOriginalFilename();
+
+                System.out.println("FileName of Uploaded file==" + fileName + " || Size = " + multipartFile.getSize() + " || Type == " + multipartFile.getContentType());
+                //read file into byte array method call
+                byte[] bytes = getBytesFromFile(multipartFile);
+                fileName = decryptedID + "_" + request.getParameter("submissionFileType").toString() + "_" + fileName;
+                //write bytes to file
+                File outFile = new File(fileName);
+                writeBytes2File(bytes, outFile);
+                request.getSession().setAttribute(
+                        "message",
+                        getMessageSourceAccessor().getMessage("Message", " Your file " + multipartFile.getOriginalFilename() + " uploaded successfully"));
+
+            }
         }
-        
-          }
 //return new ModelAndView("publicSubmission/fileUploadForm","fileName",fileName);
 //return new ModelAndView(getSuccessView());
-       // return new ModelAndView("fileUploadForm.emma");
-       return new ModelAndView(getSuccessView(),"fileName",file);
+        // return new ModelAndView("fileUploadForm.emma");
+        return new ModelAndView(getSuccessView(), "fileName", file);
     }
 
     // Returns the contents of the file in a byte array.
@@ -88,7 +87,7 @@ public class FileUploadController extends SimpleFormController {
 
         if (length > Integer.MAX_VALUE) {
             // File is too large 
-       }
+        }
 
         // Create the byte array to hold the data
         byte[] bytes = new byte[(int) length];
@@ -114,7 +113,7 @@ public class FileUploadController extends SimpleFormController {
 
     public void writeBytes2File(byte[] bytes, File submissionFile) {
         System.out.println("writeBytes2File reached / " + bytes.length + " / File::" + submissionFile);
-        String path="/nfs/web-hx/mouseinformatics/emma/filestore/";//TODO REMOVE TO CONFIG
+        String path = SUBFORMUPLOAD;
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(path + submissionFile);

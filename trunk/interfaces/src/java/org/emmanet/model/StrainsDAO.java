@@ -79,6 +79,8 @@ public class StrainsDAO implements Serializable {
     private List cvDAO;
     private String reporting_count;
     private Set categoriesStrainsDAO;
+    
+    private int sub_id_sub;
 
     public int getId_str() {
         return id_str;
@@ -569,5 +571,19 @@ public class StrainsDAO implements Serializable {
      */
     public void setSetBibliosStrainsDAO(Set setBibliosStrainsDAO) {
         this.setBibliosStrainsDAO = setBibliosStrainsDAO;
+    }
+
+    /**
+     * @return the sub_id_sub
+     */
+    public int getSub_id_sub() {
+        return sub_id_sub;
+    }
+
+    /**
+     * @param sub_id_sub the sub_id_sub to set
+     */
+    public void setSub_id_sub(int sub_id_sub) {
+        this.sub_id_sub = sub_id_sub;
     }
 }

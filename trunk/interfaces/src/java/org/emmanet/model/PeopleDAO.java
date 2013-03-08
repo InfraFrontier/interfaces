@@ -27,6 +27,7 @@ public class PeopleDAO {
     private int id_ilar;
     //relationship mapping
     private LabsDAO labsDAO;
+    private IlarDAO ilarDAO;
     
     
     public String getId_per() {
@@ -129,5 +130,19 @@ public class PeopleDAO {
      */
     public void setId_ilar(int id_ilar) {
         this.id_ilar = id_ilar;
+    }
+
+    /**
+     * @return the ilarDAO
+     */
+    public IlarDAO getIlarDAO() {
+        return ilarDAO;
+    }
+
+    /**
+     * @param ilarDAO the ilarDAO to set
+     */
+    public void setIlarDAO(IlarDAO ilarDAO) {
+        this.ilarDAO = ilarDAO;
     }
 }
