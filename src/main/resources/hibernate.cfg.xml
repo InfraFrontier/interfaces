@@ -57,5 +57,6 @@
 		<mapping resource="org/emmanet/model/SubmissionBibliosDAO.hbm.xml" />
 		<mapping resource="org/emmanet/model/SubmissionMutationsDAO.hbm.xml" />
 		<mapping resource="org/emmanet/model/CVEmbryoStateDAO.hbm.xml" />
+                <mapping resource="org/emmanet/model/IlarDAO.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

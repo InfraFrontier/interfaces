@@ -94,6 +94,25 @@ public class SubmissionsManager {
         return cats;
     }
         
+        
+    public List getesCellLines(String q) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List esCellLines = null;
+        System.out.println("Query string from manager == " + q);
+        try {
+            esCellLines = session.createSQLQuery(
+                    "SELECT name FROM es_cell_lines WHERE name like '" + q + "%'").list();
+            session.getTransaction().commit();
+          System.out.println("ES response " + esCellLines.size());  
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return esCellLines;
+    }
+            
+        
         public void save(CategoriesStrainsDAO csDAO) {
         
 

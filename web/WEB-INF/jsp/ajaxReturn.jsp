@@ -50,6 +50,12 @@
                 </c:otherwise>
             </c:choose>
         </c:if>
+                <c:if test='${param.query=="es"}'>
+            
+                    <c:forEach var="es"  items='${keyRef["ajaxReturn"]}'>
+                        ${es}
+                    </c:forEach>
+        </c:if>
     </c:otherwise>
 </c:choose>
 <c:if test='${empty keyRef["ajaxReturn"] &&  not empty param.display}'>

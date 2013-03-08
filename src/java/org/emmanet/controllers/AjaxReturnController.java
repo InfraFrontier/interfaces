@@ -19,6 +19,7 @@ import org.emmanet.model.BibliosManager;
 import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
 import org.emmanet.model.SubmissionBibliosDAO;
+import org.emmanet.model.SubmissionsManager;
 import org.json.simple.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -50,7 +51,15 @@ public class AjaxReturnController extends SimpleFormController {
             bm.
             }
             }*/
-            if (!request.getParameter("q").startsWith("em:") && request.getParameter("query") == null) {
+            if(request.getParameter("funct") != null && request.getParameter("funct").equals("esCellLineCall")){
+                
+             System.out.println("q value is::" + request.getParameter("q"));
+             SubmissionsManager sm = new SubmissionsManager();
+             returnedResults=sm.getesCellLines(request.getParameter("q"));
+             returnedOut.put("ajaxReturn", returnedResults);
+                 System.out.println("returned out size==" + returnedResults.size());
+            }
+            else if (!request.getParameter("q").startsWith("em:") && request.getParameter("query") == null) {
                 System.out.println("query will be from webrequests");
                 webRequest = new WebRequests();
                 int query = Integer.parseInt(request.getParameter("q"));
@@ -162,6 +171,8 @@ public class AjaxReturnController extends SimpleFormController {
             System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }
+         
+
       
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
         //  return returnedResults;

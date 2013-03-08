@@ -5,6 +5,8 @@
 package org.emmanet.controllers;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,8 @@ import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Configuration;
+import org.emmanet.util.DirFileList;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.validation.BindException;
@@ -40,6 +44,9 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
     private String serverPDFRecentLocation;
     private String thisisthebase;
     private String tmpDir;
+    private List assocFiles;
+    
+        final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -185,7 +192,17 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         session.setAttribute("bibCount", bm.BibliosStrainCount(strainID));
         //NOW SET NUMBER OF RTOOLS REFS
         session.setAttribute("rtCount", sm.getRToolsCount(strainID));
-
+//RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
+        request.setAttribute("associatedFiles", null);
+        DirFileList files = new DirFileList();
+        String fileList[] = files.filteredFileList(SUBFORMUPLOAD, "pdf");
+         assocFiles = new ArrayList();
+        for (int i = 0; i < fileList.length; i++) {
+            if (fileList[i].startsWith("" + sd.getSub_id_sub())) {
+                assocFiles.add(fileList[i]);
+            }
+        }
+        request.setAttribute("associatedFiles", assocFiles);
 
         // SET IN SESSION THE MTAPATH
         // HttpSession session = request.getSession(true);
@@ -278,5 +295,19 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
 
     public void setTmpDir(String tmpDir) {
         this.tmpDir = tmpDir;
+    }
+
+    /**
+     * @return the assocFiles
+     */
+    public List getAssocFiles() {
+        return assocFiles;
+    }
+
+    /**
+     * @param assocFiles the assocFiles to set
+     */
+    public void setAssocFiles(List assocFiles) {
+        this.assocFiles = assocFiles;
     }
 }
