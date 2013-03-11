@@ -469,10 +469,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 new SimpleDateFormat("yyyy-MM-dd");
 
         String currentDate = sdf.format(dt);
-
-
-
-
         nsd.setAdditional_owner(sd.getExclusive_owner_text());//TODO CHECK CORRECT FIELD TO PULL DATA FROM
 
         //ARCHIVE OBJECT

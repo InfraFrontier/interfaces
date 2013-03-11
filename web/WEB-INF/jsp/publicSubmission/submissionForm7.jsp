@@ -83,7 +83,7 @@
                     <div id="bibRef" name="bibRef"></div>
                     <script type="text/javascript" > 
                     $('#pubmed_id').focusout(function() {
-                        $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#pubmed_id').val(), funct: "pubMed"});
+                        $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#pubmed_id').val(), funct: "pubMed",query: "biblios"});
                     });
                     
                 </script>
