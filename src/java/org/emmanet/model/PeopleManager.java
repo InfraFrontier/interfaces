@@ -65,12 +65,12 @@ public class PeopleManager {
         return personDetails;
     }
     
-        public int ilarID(String labcode) {
+        public String ilarID(String labcode) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        int id=0;
+       String id="";
         try {
-            id = (Integer) session.createSQLQuery(
+            id = (String)session.createSQLQuery(
                     "SELECT id FROM ilar " +
                     "WHERE labcode=? AND status='active'").setParameter(0, labcode).uniqueResult();
             session.getTransaction().commit();

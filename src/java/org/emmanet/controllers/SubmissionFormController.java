@@ -447,12 +447,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
         System.out.println("ILAR CODE SUBMITTED==" + ilarCode);
         PeopleManager pm = new PeopleManager();
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
-        int ilarID = 0;
+        String ilarID = "";
         if(ilarCode != null){
             ilarID = pm.ilarID(ilarCode);
         }
         
-        if (ilarID > 0) {
+        if (ilarID != null) {
             System.out.println("ILAR ID==" + ilarID);
 
             pd.setId_ilar(ilarID);
@@ -558,8 +558,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setMutant_fertile(mutantFertile);
         nsd.setMutant_viable(sd.getHomozygous_viable());
         nsd.setName(sd.getStrain_name());
-        nsd.setName_status(null);
-        nsd.setPer_id_per("" + sd.getPer_id_per());
+        nsd.setName_status(null); 
+       nsd.setPer_id_per("" + sd.getPer_id_per());
         nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
         nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
 
