@@ -152,16 +152,7 @@ JSON return for submission form people data fro PI and contact
          </c:if>
     
            
-             <c:set var="mut" value="${keyRef.SubMutDAO}" />  
-         <c:if test="${not mut}">
-             <script type="text/javascript" >
-                 populateBibDetails("?mutation_plasmid${mut[2]}&mutation_founder_line_number=${mut[3]}&mutation_promoter=${mut[4]}\
-&mutation_mutagen=${mut[5]}&mutation_es_cell_line=${mut[6]}&mutation_chrom_anomaly_descr=${mut[7]}&mutation_chrom_anomaly_name=${mut[8]}&mutation_original_backg=${mut[8]}\
-&mutation_original_backg_text=${mut[9]}&mutation_dominance_pattern=${mut[10]}&mutation_chrom=${mut[11]}&mutation_allele_mgi_symbol=${mut[12]}\
-&mutation_gene_mgi_symbol=${mut[13]}&mutation_subtype=${mut[14]}&mutation_type=${mut[15]}",0);
-
-             </script>
-         </c:if>
+      
 
 
             
