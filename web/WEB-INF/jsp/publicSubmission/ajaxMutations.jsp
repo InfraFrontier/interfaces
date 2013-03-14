@@ -78,11 +78,12 @@
 </c:choose>
 <script type="text/javascript" > 
     $("a[id^='editmutation']").click(function() {
-        alert("Handler for edit mutation called. FUNCTIONALITY NOT IN PLACE YET!");
+        //alert("Handler for edit mutation called. FUNCTIONALITY NOT IN PLACE YET!");
         //testcall();
-        //alert($('#encID').val() + "    " + $('#mutation_type').val() + "      " );
+        alert($('#mutation_type').val() + "    " + $('#mutation_type').val() + "      " );
         $('#subMutations').load('ajaxMutations.emma',{
             action: "edit",
+            action2: "editRecord",
             Id_sub:$('#encID').val(),
             Id_mut:$(this).attr("title"),
             mutation_allele_mgi_symbol:$('#mutation_allele_mgi_symbol').val(),
@@ -95,14 +96,14 @@
             mutation_gene_mgi_symbol:$('#mutation_gene_mgi_symbol').val(), 
             mutation_mutagen:$('#mutation_mutagen').val(), 
             mutation_original_backg:$('#mutation_original_backg').val(), 
-            mutation_original_backg_text:$('#mutation_original_backg option:selected').text(), 
+            mutation_original_backg_text:$('#mutation_original_backg_text').val(), 
             mutation_plasmid:$('#mutation_plasmid').val(), 
             mutation_promoter:$('#mutation_promoter').val(),
             mutation_subtype:$('#mutation_subtype').val(),
             mutation_transgene_mgi_symbol:$('#mutation_transgene_mgi_symbol').val(),
            mutation_type:$('#mutation_type').val()
         });
-        alert($(this).attr("title"));
+        //alert($(this).attr("title"));
     });
         
     $("a[id^='deletemutation']").click(function() {

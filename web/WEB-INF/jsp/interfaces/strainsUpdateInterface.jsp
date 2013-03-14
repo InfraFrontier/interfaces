@@ -147,6 +147,28 @@
                             </a><%--</c:if>--%>
             </td>
         </tr>
+        <c:choose><c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || 'CURATOR'}"><c:set var="fieldStatus" value=""></c:set></c:when><c:otherwise><c:set var="fieldStatus" value="disabled"></c:set></c:otherwise></c:choose>
+        <tr>
+            <td valign="top">MGI Strain ID:</td>
+            <td valign="top"><spring:bind path="command.mgi_ref"><input type='text'  name="<c:out value='${status.expression}'/>"  value='${status.value}' size='10' maxsize='10' ${fieldStatus}/></spring:bind></td>
+                <c:choose>
+                <c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || 'CURATOR'}">
+                
+                    <td>Edit MTA file: </td>
+                    <td>
+                        <spring:bind path="command.mta_file"><input type="text" size="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind>
+                        </td>
+                </c:when>
+                
+                <c:otherwise>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </c:otherwise>
+            </c:choose>
+                
+        </tr>
         <tr>
             <td>Repository:</td>
             <td><c:if test="${not empty Repository['code']}">${Repository["code"]}, ${Repository["country"]}</c:if></td>
@@ -188,6 +210,35 @@
             <td><c:choose><c:when test="${keyRef['str_access'] == 'P'}">Public</c:when><c:when test="${keyRef['str_access'] == 'R'}">Retracted</c:when><c:when test="${keyRef['str_access'] == 'C'}">Confidential</c:when>
                     <c:when test="${keyRef['str_access'] == 'N'}">Not for distribution</c:when><c:otherwise>${keyRef['str_access']}</c:otherwise>
             </c:choose></td>
+        </tr>
+        <tr>
+            <td valign="top">Name status:</td>
+            <td valign="top">
+                <c:if test="${not empty keyRef['name_status']}">
+                    <c:set var="name_status" value="${keyRef['name_status']}"/>
+                </c:if> 
+               <c:if test="${empty keyRef['name_status']}">
+                    <c:set var="name_status" value=""/>
+                </c:if>
+                <%
+            strOut = strOut.replace("<option value=\"\" selected>", "<option value=\"\">");
+            strOut = strOut.replace("<option value=\"" + pageContext.getAttribute("name_status").toString() + "\">", "<option value=\"" + pageContext.getAttribute("name_status").toString() + "\" selected>");
+                %> 
+                <spring:bind path="command.name_status">
+                <c:choose>
+                    <c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || 'CURATOR'}">
+                        <select name="<c:out value='${status.expression}'/>">
+                        <%=strOut%>
+                    </select>
+                    </c:when>
+                    <c:otherwise>
+                        ${status.value} 
+                    </c:otherwise>
+                </c:choose>            
+               </spring:bind>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td colspan="4" class="sectHead">
@@ -875,14 +926,7 @@
             
         </c:if>
         <%-- End of additional information --%>
-        <tr>
-            <td>MTA file: </td>
-            <td>
-                <spring:bind path="command.mta_file"><input type="text" size="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind>
-            </td>
-            <td valign="top">MGI ID:</td>
-            <td valign="top"><%--<c:if test="${not empty keyRef['mgi_ref']}">--%><spring:bind path="command.mgi_ref"><input type='text'  name="<c:out value='${status.expression}'/>"  value='${status.value}' size='10' maxsize='10'/></spring:bind><%--</c:if>--%></td>
-        </tr>
+        
         <tr>
         <td>Exclusive owner:</td>
         <td>
@@ -904,26 +948,7 @@
                 <%--
                         ALTER TABLE `strains` ADD `additional_owner` VARCHAR( 250 ) NULL DEFAULT NULL AFTER `exclusive_owner` ;--%>
             <%-- <c:if test="${not empty keyRef['additional_owner']}">--%><spring:bind path="command.additional_owner"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8' maxlength="250">${status.value}</textarea></spring:bind><%--</c:if>--%></td>
-            <td valign="top">Name status:</td>
-            <td valign="top">
-                <c:if test="${not empty keyRef['name_status']}">
-                    <c:set var="name_status" value="${keyRef['name_status']}"/>
-                </c:if>
-                <c:if test="${empty keyRef['name_status']}">
-                    <c:set var="name_status" value=""/>
-                </c:if>
-                <%
-            strOut = strOut.replace("<option value=\"\" selected>", "<option value=\"\">");
-            strOut = strOut.replace("<option value=\"" + pageContext.getAttribute("name_status").toString() + "\">", "<option value=\"" + pageContext.getAttribute("name_status").toString() + "\" selected>");
-                %> 
-                
-                <spring:bind path="command.name_status">
-                    <select name="<c:out value='${status.expression}'/>">
-                        <%=strOut%>
-                    </select>
-                </spring:bind>
-                
-            </td>
+            
         </tr>
         <%-- Additional Files Supporting strain from submission --%>
     

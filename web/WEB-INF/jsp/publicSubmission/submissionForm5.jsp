@@ -27,6 +27,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/submission.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
+        <script type="text/javascript" src="../js/mutData.js?<%= new java.util.Date()%>"></script>
         <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
         <script type="text/javascript">
             $(document).ready(function(){

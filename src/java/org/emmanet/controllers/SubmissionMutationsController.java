@@ -126,8 +126,38 @@ public class SubmissionMutationsController implements Controller {
             //get record from id
             //mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
             System.out.print("id_Mut==" + Integer.parseInt(request.getParameter("Id_mut")));
+
+   
+            
+            System.out.println("EDITING, ");
+            if (request.getParameter("action2").equals("editRecord")) {
             SubmissionMutationsDAO smd = mm.getSubMutationBySubMutID(Integer.parseInt(request.getParameter("Id_mut")));
             returnedOut.put("SubMutDAO", smd);
+             smd.setMutation_allele_mgi_symbol(alleleMGI);
+            smd.setMutation_chrom(chrom);
+            smd.setMutation_chrom_anomaly_name(chromName);
+            smd.setMutation_chrom_anomaly_descr(chromDesc);
+            smd.setMutation_dominance_pattern(domPattern);
+            smd.setMutation_es_cell_line(esCell);
+            smd.setMutation_founder_line_number(lineNumber);
+
+            smd.setMutation_gene_mgi_symbol(geneMGI);
+            smd.setMutation_mutagen(mut);
+            smd.setMutation_original_backg(bg);
+            smd.setMutation_original_backg_text(bgText);
+            smd.setMutation_plasmid(plasmid);
+            smd.setMutation_promoter(promoter);
+            smd.setMutation_subtype(subtype);
+            smd.setMutation_transgene_mgi_symbol(transMGI);
+            smd.setMutation_type(type);
+            
+            System.out.println("CHECK FOR  CURRENT DAO AND THAT IT IS CORRECT: " + smd.getMutation_type() + " == " + smd.getMutation_original_backg());
+       //save
+             mm.save(smd);   
+            }
+            
+            
+            
             //load record in fields
 
         } else if (request.getParameter("action").equals("get")) {
