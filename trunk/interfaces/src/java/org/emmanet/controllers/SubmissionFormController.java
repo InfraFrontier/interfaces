@@ -824,7 +824,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         
         
         //associate uploaded file prefix with new strain id by adding sub_id_sub
-        nsd.setSub_id_sub(Integer.parseInt(sd.getId_sub()));
+        nsd.setSub_id_sub(sd.getId_sub());
         
         stm.save(nsd);
         //sources strains set to 5 unknown

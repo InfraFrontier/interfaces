@@ -185,6 +185,7 @@
         <script type="text/javascript" > 
             $('#subBiblios').load('ajaxBiblios.emma',{
                 action: "${action}",
+                query: "edit",
                 Id_sub:$('#encID').val()
             });
         </script>
