@@ -195,7 +195,8 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
 //RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
         request.setAttribute("associatedFiles", null);
         DirFileList files = new DirFileList();
-        String fileList[] = files.filteredFileList(SUBFORMUPLOAD, "pdf");
+        String fileList[];
+        fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
          assocFiles = new ArrayList();
         for (int i = 0; i < fileList.length; i++) {
             if (fileList[i].startsWith("" + sd.getSub_id_sub())) {
