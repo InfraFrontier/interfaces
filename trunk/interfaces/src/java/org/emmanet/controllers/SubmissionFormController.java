@@ -237,7 +237,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     //LOOK TO PULL USER/LAB DATA TO POPULATE STRAINS
                     pd = new PeopleDAO();
                     pm = new PeopleManager();
-                    people = pm.getPeopleByEMail(sda.getSubmitter_email()/*sd.getPeopleDAO().getEmail()*/);
+                    people = pm.getPeopleByEMail(sda.getSubmitter_email().toString()/*sd.getPeopleDAO().getEmail()*/);
                     peopleDAOs = new LinkedList();
                     if (people.isEmpty()) {
                         //OK no email address registered most likely a new user so let them submit their details
@@ -449,10 +449,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         String ilarID = "";
         if(ilarCode != null){
-            ilarID = pm.ilarID(ilarCode);
+            ilarID = "" + pm.ilarID(ilarCode);
         }
         
-        if (ilarID != null) {
+        if (ilarID != null || !ilarID.isEmpty()) {
             System.out.println("ILAR ID==" + ilarID);
 
             pd.setId_ilar(ilarID);
@@ -469,7 +469,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 new SimpleDateFormat("yyyy-MM-dd");
 
         String currentDate = sdf.format(dt);
-        nsd.setAdditional_owner(sd.getExclusive_owner_text());//TODO CHECK CORRECT FIELD TO PULL DATA FROM
+        nsd.setAdditional_owner(sd.getExclusive_owner_text());//TODO not exclusive owner!!!!
 
         //ARCHIVE OBJECT
 
@@ -542,7 +542,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setMgi_ref(null);//TODO GET VALUE
 
         String mutantFertile = "";
-        if (!sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
+        if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
             if (!sd.getHeterozygous_fertile().isEmpty()) {
                 mutantFertile = sd.getHeterozygous_fertile();
             } else {
@@ -589,7 +589,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setDelayed_description(sd.getDelayed_release_text());
         //rd.setDelayed_release(null);//date + 2 years TODO do we need to add this??
         rd.setDelayed_wanted(sd.getDelayed_release());
-        rd.setDeposited_elsewhere(sd.getDeposited_elsewhere());//TODO MAKE NEW FIELD IN RESIDUES FOR IP TEXT  sd.getDeposited_elsewhere_text()
+        rd.setDelayed_description(sd.getDelayed_release_text());
+        rd.setDelayed_release(nsd.getGp_release());
+        rd.setDeposited_elsewhere(sd.getDeposited_elsewhere());
+         rd.setDeposited_elsewhere_text(sd.getDeposited_elsewhere_text());
+         rd.setOwner_permission(sd.getOwner_permission());
+         rd.setOwner_permission_text(sd.getOwner_permission_text());
         rd.setFlp(null);
         rd.setIp_rights(sd.getIp_rights());
         rd.setIpr_description(sd.getIp_rights_text());
@@ -810,7 +815,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         synStrains.add(ssd);
         ///>>> nsd.setSyn_strainsDAO(synStrains);
         /////////////////////////////////////////////////////////////////////////
-        stm.save(nsd);
+        /////////stm.save(nsd);
         //projects - set all to unknown(id 1) or COMMU(id 2)
         Set projectsStrains = new LinkedHashSet();
         ProjectsStrainsDAO psd = new ProjectsStrainsDAO();

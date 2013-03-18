@@ -856,7 +856,12 @@
                         <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
                         <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
                     </spring:bind>
-                    
+                    <c:if test="${status.value=='yes'}">
+                        <spring:bind path="command.residuesDAO.deposited_elsewhere_text">
+                            <textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea> 
+                    </spring:bind>
+                        </c:if>
+                        
                     </td>
             </tr>
             <tr>
@@ -882,8 +887,15 @@
             
             
             <tr>
+                <c:choose>
+                <c:when test="${residuesDAO.ip_rights=='yes'}">
                 <td colspan="4">IP description:
-                <spring:bind path="command.residuesDAO.ipr_description"><input type="text" size="60" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <spring:bind path="command.residuesDAO.ipr_description"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind></td>
+                </c:when>
+                <c:otherwise>
+                <td>&nbsp;</td>
+                </c:otherwise>
+                </c:choose>
             </tr>
             
             
@@ -919,9 +931,13 @@
                 <td valign="top">Delayed release: </td>
                 <td valign="top"><c:if test="${not empty residuesDAO && not empty residuesDAO['delayed_wanted']}"><spring:bind path="command.residuesDAO.delayed_wanted">
                 <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
-                    <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No</spring:bind></c:if></td>
-                <td valign="top"><c:if test="${not empty residuesDAO && residuesDAO['delayed_wanted'] != 'no'}">Delay reason: </c:if></td>
-                <td valign="top"><c:if test="${not empty residuesDAO && residuesDAO['delayed_wanted'] != 'no'}"><spring:bind path="command.residuesDAO.delayed_description"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind></c:if></td>
+                    <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
+                    <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
+                        </spring:bind>
+                    </c:if>
+                </td>
+                <td valign="top"><c:if test="${not empty residuesDAO && residuesDAO['delayed_wanted'] == 'yes'}">Delay reason: </c:if></td>
+                <td valign="top"><c:if test="${not empty residuesDAO && residuesDAO['delayed_wanted'] == 'yes'}"><spring:bind path="command.residuesDAO.delayed_description"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind></c:if></td>
             </tr>
             
         </c:if>
@@ -935,12 +951,42 @@
                 <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
                 <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
             </spring:bind></td>
-        <td><%--<c:if test="${residues.exclusive_owner == 'no'}">--%>Exclusive owner details:<%--</c:if>--%></td>
-        <td><%--<c:if test="${residues.exclusive_owner == 'no'}">--%>
+        <c:choose>
+            <c:when test="${exclusive_owner=='no'}">
+            <td>Exclusive owner details:</td>
+        <td>
             <spring:bind path="command.ex_owner_description"><textarea  name="<c:out value='${status.expression}'/>"  cols='80' rows='4'>${status.value}</textarea></spring:bind>
-        <%--</c:if>--%></td>
+      </td>
+            </c:when>
+            <c:otherwise>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </c:otherwise>
+        </c:choose>
         
+        </tr>
+        <tr>
+        <td>Owner permission:</td>
+        <td>
+        <spring:bind path="command.residuesDAO.owner_permission">
+            <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
+                <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
+                <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
+            </spring:bind></td>
+        <c:choose>
+            <c:when test="${residuesDAO.owner_permission=='no'}">
+            <td>Exclusive owner details:</td>
+        <td>
+            <spring:bind path="command.residuesDAO.owner_permission_text"><textarea  name="<c:out value='${status.expression}'/>"  cols='80' rows='4'>${status.value}</textarea></spring:bind>
+      </td>
+            </c:when>
+            <c:otherwise>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </c:otherwise>
+        </c:choose>
         
+        </tr>
         
         <tr>
             <td valign="top">Additional Owner:</td>
