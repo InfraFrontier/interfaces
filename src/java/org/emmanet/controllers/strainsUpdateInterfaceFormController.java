@@ -198,9 +198,11 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         String fileList[];
         fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
          assocFiles = new ArrayList();
-        for (int i = 0; i < fileList.length; i++) {
-            if (fileList[i].startsWith("" + sd.getSub_id_sub())) {
-                assocFiles.add(fileList[i]);
+        if (fileList != null) {
+            for (int i = 0; i < fileList.length; i++) {
+                if (fileList[i].startsWith("" + sd.getSub_id_sub())) {
+                    assocFiles.add(fileList[i]);
+                }
             }
         }
         request.setAttribute("associatedFiles", assocFiles);
