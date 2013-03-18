@@ -18,6 +18,9 @@
     <property column="flp" name="flp"/>
     <property column="tet" name="tet"/>
     <property column="deposited_elsewhere" name="deposited_elsewhere"/>
+    <property column="deposited_elsewhere_text" name="deposited_elsewhere_text"/>
+    <property column="owner_permission" name="owner_permission"/>
+    <property column="owner_permission_text" name="owner_permission_text"/>
     <property column="when_how_many_females" name="when_how_many_females"/>
     <property column="when_how_many_males" name="when_how_many_males"/>
     <property column="when_how_many_month" name="when_how_many_month"/>

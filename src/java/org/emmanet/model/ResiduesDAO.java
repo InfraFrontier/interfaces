@@ -25,6 +25,9 @@ private String crelox;
 private String flp;
 private String tet;
 private String deposited_elsewhere;
+private String deposited_elsewhere_text;
+private String owner_permission;
+private String owner_permission_text;
 private String when_how_many_females;
 private String when_how_many_males;
 private String when_how_many_month;
@@ -253,6 +256,48 @@ private String delayed_release;
 
     public void setDelayed_release(String delayed_release) {
         this.delayed_release = delayed_release;
+    }
+
+    /**
+     * @return the deposited_elsewhere_text
+     */
+    public String getDeposited_elsewhere_text() {
+        return deposited_elsewhere_text;
+    }
+
+    /**
+     * @param deposited_elsewhere_text the deposited_elsewhere_text to set
+     */
+    public void setDeposited_elsewhere_text(String deposited_elsewhere_text) {
+        this.deposited_elsewhere_text = deposited_elsewhere_text;
+    }
+
+    /**
+     * @return the owner_permission
+     */
+    public String getOwner_permission() {
+        return owner_permission;
+    }
+
+    /**
+     * @param owner_permission the owner_permission to set
+     */
+    public void setOwner_permission(String owner_permission) {
+        this.owner_permission = owner_permission;
+    }
+
+    /**
+     * @return the owner_permission_text
+     */
+    public String getOwner_permission_text() {
+        return owner_permission_text;
+    }
+
+    /**
+     * @param owner_permission_text the owner_permission_text to set
+     */
+    public void setOwner_permission_text(String owner_permission_text) {
+        this.owner_permission_text = owner_permission_text;
     }
 
 }
