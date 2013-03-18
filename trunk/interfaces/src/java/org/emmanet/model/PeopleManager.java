@@ -69,8 +69,9 @@ public class PeopleManager {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
        String id="";
+        int iId=0;
         try {
-            id = (String)session.createSQLQuery(
+             iId = (Integer)session.createSQLQuery(
                     "SELECT id FROM ilar " +
                     "WHERE labcode=? AND status='active'").setParameter(0, labcode).uniqueResult();
             session.getTransaction().commit();
@@ -78,6 +79,7 @@ public class PeopleManager {
             session.getTransaction().rollback();
             throw e;
         }
+        id="" + iId;
         return id;
     }
     
