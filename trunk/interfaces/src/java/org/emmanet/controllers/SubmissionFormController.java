@@ -237,7 +237,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     //LOOK TO PULL USER/LAB DATA TO POPULATE STRAINS
                     pd = new PeopleDAO();
                     pm = new PeopleManager();
-                    people = pm.getPeopleByEMail(sda.getSubmitter_email().toString()/*sd.getPeopleDAO().getEmail()*/);
+                    System.out.println("SUBMITTER EMAIL IS:::---" + sda.getSubmitter_email());
+                    people = pm.getPeopleByEMail(sda.getSubmitter_email()/*sd.getPeopleDAO().getEmail()*/);
                     peopleDAOs = new LinkedList();
                     if (people.isEmpty()) {
                         //OK no email address registered most likely a new user so let them submit their details
@@ -449,10 +450,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         String ilarID = "";
         if(ilarCode != null){
-            ilarID = "" + pm.ilarID(ilarCode);
+            ilarID = pm.ilarID(ilarCode);
         }
         
-        if (ilarID != null || !ilarID.isEmpty()) {
+        if (ilarID != "" || !ilarID.isEmpty()) {
             System.out.println("ILAR ID==" + ilarID);
 
             pd.setId_ilar(ilarID);
