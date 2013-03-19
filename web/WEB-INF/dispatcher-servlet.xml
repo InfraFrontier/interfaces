@@ -37,6 +37,8 @@
                 </prop>
                 <prop key="/publicSubmission/success.emma">urlFilenameController
                 </prop>
+                <prop key="/publicSubmission/cancel.emma">urlFilenameController
+                </prop>
                  <prop key="/publicSubmission/fileUploadSuccess.emma">urlFilenameController
                 </prop>
                 <prop key="/dashboard.emma">DashboardController

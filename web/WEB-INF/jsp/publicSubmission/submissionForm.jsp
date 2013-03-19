@@ -31,7 +31,7 @@
                     request is approved the information you provide will be published on the EMMA website.
                 </p>
                 <p>
-                    Please fill the form as accurately as you can using "unknown", "not applicable" or "none" if you do not 
+                    The online form is a step-through form and you will be able to download a printable version before form submission. Please fill the form as accurately as you can using "unknown", "not applicable" or "none" if you do not 
                     possess the information requested. A sample submission is provided <a href="#">here</a> for your 
                     convenience to examine all the information that is required.
                 </p>
@@ -39,18 +39,16 @@
                     <b>Multiple strains must be submitted separately. One strain per submission.</b>
                 </p>
                 <p>
+                    If the information provided through the submission form is clear enough, EMMA will forward it to the external 
+                    EMMA Evaluation Committee and inform depositors about the outcome of the evaluation by e-mail within 60 days.
+                </p>
+                <p>
                     We strongly recommend that you carefully read the <a target="emma" href="<%-- TODO PATH TO EMMA FROM CONFIG --%>/procedures/costs.php">
                         EMMA Procedures</a> on this website. These documents describe the responsibilities EMMA has in 
                     maintaining and distributing the submitted strains as well as the responsibilities assumed by the 
                     submitter.
                 </p>
-                <p>
-                    If your browser does not support forms you can <a href="mailto:info@emmanet.org">e-mail</a> all 
-                    the complete strain information to EMMA.
-                </p>
-                <p>
-                    Within 60 days you will be notified by e-mail of the result of the evaluation of your submission request.
-                </p>
+                
                 <p>
                     Thank you for your interest in the European Mouse Mutant Archive.
                 </p>
@@ -72,7 +70,7 @@
                 <td colspan="2" align='center'><input type="submit" value="Next" name="_target1" /><br/></td>
             </tr>
             <tr>
-                <td ><input type="submit" value="Previous" name="" disabled/></td>
+                <td ><%--<input type="submit" value="Previous" name="" disabled/>--%>&nbsp;</td>
                 <td ><input type="submit" value="Cancel" name="_cancel" /></td>
             </tr>
         </table>
