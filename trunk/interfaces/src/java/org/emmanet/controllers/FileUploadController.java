@@ -112,8 +112,9 @@ public class FileUploadController extends SimpleFormController {
     }
 
     public void writeBytes2File(byte[] bytes, File submissionFile) {
-        System.out.println("writeBytes2File reached / " + bytes.length + " / File::" + submissionFile);
+        
         String path = SUBFORMUPLOAD;
+        System.out.println("writeBytes2File reached / " + bytes.length + " / path=" + path + "File::" + submissionFile);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(path + submissionFile);

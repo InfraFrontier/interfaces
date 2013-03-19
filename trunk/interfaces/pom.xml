@@ -510,7 +510,8 @@
             <id>staging</id>
 
 			<properties>
-				<DATAFILES>/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config</DATAFILES>
+				<!--/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config-->
+                               <DATAFILES> /nfs/web-hx/mouseinformatics/emma/filestore</DATAFILES>
 			</properties>
 
             <build>
