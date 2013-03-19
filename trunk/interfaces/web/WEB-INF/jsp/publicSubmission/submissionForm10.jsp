@@ -49,7 +49,7 @@
 
                 <spring:bind path="command.human_condition_more">        
                     <div class="field" id="${status.expression}">
-                        <label for="${status.expression}">Please enter the <a href="http://www.ncbi.nlm.nih.gov/omim" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</label>
+                        <label for="${status.expression}">Please enter the <a href="http://omim.org/search?index=entry&sort=score+desc%2C+prefix_sort+desc&start=1&limit=10&search=" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</label>
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}" /><form:errors path="${status.expression}" cssClass="error" />
                             <br/>

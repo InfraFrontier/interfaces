@@ -465,7 +465,7 @@
 
 			<properties>
 				<!--<DATAFILES>/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config</DATAFILES>-->
-                                 <DATAFILES> /nfs/web-hx/mouseinformatics/emma/filestore</DATAFILES>
+                                 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
 			</properties>
 
             <build>
@@ -489,7 +489,7 @@
 
 			<properties>
 				<!--<DATAFILES>/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config</DATAFILES>-->
-                                 <DATAFILES> /nfs/web-hx/mouseinformatics/emma/filestore</DATAFILES>
+                                 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
 			</properties>
 
             <build>
@@ -513,7 +513,7 @@
 
 			<properties>
 				<!--/nfs/web-hx/webadmin/tomcat/bases/mouseinformatics/emma-config-->
-                               <DATAFILES> /nfs/web-hx/mouseinformatics/emma/filestore</DATAFILES>
+                               <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
 			</properties>
 
             <build>

@@ -914,12 +914,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
         return new ModelAndView("/publicSubmission/success");
     }
 
-    protected ModelAndView processCancel(HttpServletRequest request,
-            HttpServletResponse response, Object command, BindException errors)
-            throws Exception {
-
-        //where is the cancel page?
-        return new ModelAndView("/publicSubmission/submissionForm");
+    
+    @Override
+    protected ModelAndView processCancel(HttpServletRequest request, HttpServletResponse response, Object command, org.springframework.validation.BindException errors) throws Exception {
+        return new ModelAndView("/publicSubmission/cancel");
     }
 
     @Override
@@ -1111,4 +1109,5 @@ public class SubmissionFormController extends AbstractWizardFormController {
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
+
 }
