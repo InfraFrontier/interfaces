@@ -27,9 +27,10 @@ public class FileUploadValidator implements Validator {
             errors.reject("Message","No file selected for upload");
         }
         
-        if (file.getFile().getSize() > 1258291) {
-            //around 1MB
-            errors.reject("Message","The file you are trying to upload is too large.");
+        if (file.getFile().getSize() > 2097152) {
+            //around 1MB = 1258291
+            //around 2MB = 2097152
+            errors.reject("Message","The file you are trying to upload is too large. A maximum size of approximately 2MB is set.");
         }
         
         if (!file.getFile().getContentType().endsWith("pdf")) {

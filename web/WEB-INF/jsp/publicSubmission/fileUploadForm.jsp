@@ -35,7 +35,7 @@
         <br/>
     <input type="hidden" value="${sessionScope.getprev}" name="submissionID" id="submissionID">
     <input type="hidden" value="${param.submissionFileType}" name="submissionFileType" id="submissionFileType">
-    Please select a file to upload : <input type="file" name="file" id="file"></input>
+    Please select a PDF file only to upload and one with a maximum size not exceeding 2MB : <input type="file" name="file" id="file"></input>
     <input type="submit" id="upload" name="upload" value="upload" />
     <span>
         <form:errors path="file" cssClass="error" />
