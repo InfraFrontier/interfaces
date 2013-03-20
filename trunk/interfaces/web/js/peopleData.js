@@ -23,12 +23,11 @@ function populateUserDetails(userString){
     $('#'+q.fieldset+'_dept').val(q.dept);
     $('#'+q.fieldset+'_addr_1').val(q.addr_line_1);
     $('#'+q.fieldset+'_addr_2').val(q.addr_line_2);
-    $('#'+q.fieldset+'_town').val(q.town);
+    $('#'+q.fieldset+'_city').val(q.town);
     $('#'+q.fieldset+'_county').val(q.county);
     $('#'+q.fieldset+'_postcode').val(q.postcode);
     $('#'+q.fieldset+'_country').val(q.country);
     $('#'+q.fieldset+'_authority').val(q.auth);
-    
 }
 
 $('#peopleDAO\\.email').focusout(function() {

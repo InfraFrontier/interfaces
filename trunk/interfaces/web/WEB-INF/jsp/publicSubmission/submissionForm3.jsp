@@ -29,7 +29,7 @@
         <script type="text/javascript" src="../js/modalwindows.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
-        <script type="text/javascript" src="../js/peopleData.js"></script>
+        <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
 
     </head>
     <body>
