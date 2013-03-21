@@ -17,7 +17,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
-        <link type="text/css" rel="stylesheet" href="../css/jquery.qtip.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -26,11 +25,13 @@
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
-        <script type="text/javascript" src="../js/jquery.qtip-2.0.0.min.js"></script>
     </head>
     <body>
- <script type="text/javascript" >
-     </script>
+<script>
+  $(function() {
+    $( document ).tooltip();
+  });
+  </script>
         <form:form method="POST" commandName="command">
             <form:errors path="*" cssClass="errorblock"/>
             <div id="shipper" class="step">
@@ -122,10 +123,7 @@
                         <label class="label" for="${status.expression}"><strong>Phone Number
                                 <sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must
-                                         begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
-                                         parentheses. An extension must begin with x followed by the extension number, 
-                                         e.g., +1 (234) 567-8900 x123"></form:input>
+                            <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must begin with + followed by the country code and contain only numbers, hyphens, spaces, or parentheses. An extension must begin with x followed by the extension number, e.g., +1 (234) 567-8900 x123"></form:input>
                             </div>
 
                         <form:errors path="${status.expression}" cssClass="error" />
@@ -138,10 +136,7 @@
                         <label class="label" for="${status.expression}"><strong>Fax Number
                                 <sup><font color="red">*</font></sup></strong></label>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must 
-                                         begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
-                                         parentheses. An extension must begin with x followed by the extension number, 
-                                         e.g., +1 (234) 567-8900 x123"></form:input></div>
+                            <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must begin with + followed by the country code and contain only numbers, hyphens, spaces, or parentheses. An extension must begin with x followed by the extension number, e.g., +1 (234) 567-8900 x123"></form:input></div>
 
                         <form:errors path="${status.expression}" cssClass="validation_error_message" />
 
