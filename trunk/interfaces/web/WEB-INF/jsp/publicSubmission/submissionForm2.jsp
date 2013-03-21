@@ -112,7 +112,7 @@
                                value="Yes"/><br/>
                     </p>
                 </c:forEach>
-                    Or click anywhere to escape.
+                    Or click anywhere else to return to the form.
             </c:if>
         </div>
         <form:form method="POST" commandName="command">

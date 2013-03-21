@@ -137,6 +137,7 @@ JSON return for submission form people data fro PI and contact
                        value="Yes"/><br/>
             </p>
         </c:forEach>
+            Or click anywhere else to return to the form.
     </c:if>
     <%--</body>
 </html> --%>
