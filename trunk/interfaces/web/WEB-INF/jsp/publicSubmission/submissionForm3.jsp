@@ -30,7 +30,11 @@
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
-
+<script>
+  $(function() {
+    $( document ).tooltip();
+  });
+  </script>
     </head>
     <body>
         <div id="producer" class="step">
@@ -270,14 +274,13 @@
                     <label class="label" for="${status.expression}"><strong>ILAR Code</strong></label>
 
                     <div class="input">
-                        <input type="text" name="${status.expression}"  id="${status.expression}" title="Please enter the 
-                               producer's ILAR-registered laboratory code to be used for developing the official strain designation
-                               consistent with the rules and guidelines established by the 
-                               &lt;a href='http://www.informatics.jax.org/mgihome/nomen/inc.shtml' 
-                               target='_blank'&gt;International Committee on Standardized Genetic Nomenclature for 
-                               Mice&lt;/a&gt;. If the producer does not have an ILAR code, it can be registered 
-                               on-line at &lt;a href='http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php' 
-                               target='_blank'&gt;http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php;/a&gt;. 
+                        <input type="text" name="${status.expression}"  id="${status.expression}" title="Please enter the producer's 
+                               ILAR-registered laboratory code to be used for developing the official strain designation consistent 
+                               with the rules and guidelines established by the 
+                               &lt;a href='http://www.informatics.jax.org/mgihome/nomen/inc.shtml' target='_blank'&gt;International 
+                               Committee on Standardized Genetic Nomenclature for Mice&lt;/a&gt;. If the producer does not have an 
+                               ILAR code, it can be registered on-line at 
+                               &lt;a href='http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php' target='_blank'&gt;http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php;/a&gt;. 
                                The EMMA staff can assist with the registration procedure." />
                     <a href="http://dels-old.nas.edu/ilar_n/ilarhome/search_lc.php" target="_blank">Search ILAR for your code</a></div>
                     <form:errors path="${status.expression}" cssClass="validation_error_message" />

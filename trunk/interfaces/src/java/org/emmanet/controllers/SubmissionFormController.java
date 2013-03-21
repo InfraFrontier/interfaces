@@ -442,14 +442,15 @@ public class SubmissionFormController extends AbstractWizardFormController {
             sm.save(sd);
         }
 
-        String ilarCode = sd.getProducer_ilar();
+        String ilarCode = "";
+        ilarCode = sd.getProducer_ilar();
         //LOOKUP IN ILAR TABLE FOR ID
         // ## IMPORTANT ## INTERNAL USE ONLY DO NOT DISPLAY, LEGAL COMPLICATIONS
         System.out.println("ILAR CODE SUBMITTED==" + ilarCode);
         PeopleManager pm = new PeopleManager();
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         String ilarID = "";
-        if(ilarCode != null){
+        if(ilarCode != null || ilarCode != ""){
             ilarID = pm.ilarID(ilarCode);
         }
         
