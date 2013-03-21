@@ -27,11 +27,7 @@
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
     </head>
     <body>
-<script>
-  $(function() {
-    $( document ).tooltip();
-  });
-  </script>
+
         <form:form method="POST" commandName="command">
             <form:errors path="*" cssClass="errorblock"/>
             <div id="shipper" class="step">

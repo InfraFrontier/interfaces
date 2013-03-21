@@ -450,7 +450,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         PeopleManager pm = new PeopleManager();
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         String ilarID = "";
-        if(ilarCode != null || ilarCode != ""){
+        if(ilarCode != "" || !ilarCode.isEmpty()){
             ilarID = pm.ilarID(ilarCode);
         }
         
