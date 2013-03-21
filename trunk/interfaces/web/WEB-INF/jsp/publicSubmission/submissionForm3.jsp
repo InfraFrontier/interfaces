@@ -30,11 +30,7 @@
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
-<script>
-  $(function() {
-    $( document ).tooltip();
-  });
-  </script>
+
     </head>
     <body>
         <div id="producer" class="step">
