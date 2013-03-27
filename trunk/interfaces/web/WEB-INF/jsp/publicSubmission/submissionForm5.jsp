@@ -14,12 +14,14 @@
 
 <spring:bind path="command.*" />
 <%@page import="java.io.*"%>
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
+        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -44,7 +46,7 @@
 
     <body>
         <div id="genotype" class="step">
-            <h2>Genotype (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})</h2>
+            <h2>Genotype (Step ${stepCurrent} of ${stepTotal})</h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
                 Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions.
@@ -183,7 +185,7 @@
             <label class="label" for="mutation_subtype"><strong>Subtype<sup><font color="red">*</font></sup></strong></label>
             <div class="input">
                 <!--TODO MUTS SUBS FROM DATABASE-->
-                <select name="mutation_subtype" id="mutation_subtype">
+                <select name="mutation_subtypeCH" id="mutation_subtypeCH">
                     <option value="">
                         &nbsp;
                     </option>
@@ -216,7 +218,7 @@
             <label class="label" for="mutation_subtype"><strong>Subtype<sup><font color="red">*</font></sup></strong></label>
             <div class="input">
 
-                <select name="mutation_subtype" id="mutation_subtype">
+                <select name="mutation_subtypeIN" id="mutation_subtypeIN">
                     <option value="">
                         &nbsp;
                     </option>
@@ -238,7 +240,7 @@
 
             <div class="input">
                 <!--TODO MUTS SUBS FROM DATABASE-->
-                <select name="mutation_subtype" id="mutation_subtype">
+                <select name="mutation_subtypeTM" id="mutation_subtypeTM">
                     <option value="">
                         &nbsp;
                     </option>
@@ -260,6 +262,7 @@
 
                 </select>
             </div>
+           
             <div class="validation_error_message">
                 &nbsp;
             </div>

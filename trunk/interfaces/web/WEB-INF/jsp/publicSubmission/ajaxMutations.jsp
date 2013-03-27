@@ -139,7 +139,9 @@
             mutation_original_backg_text:$('#mutation_original_backg option:selected').text(), 
             mutation_plasmid:$('#mutation_plasmid').val(), 
             mutation_promoter:$('#mutation_promoter').val(),
-            mutation_subtype:$('#mutation_subtype').val(),
+            mutation_subtypeCH:$('#mutation_subtypeCH').val(),
+            mutation_subtypeIN:$('#mutation_subtypeIN').val(),
+            mutation_subtypeTM:$('#mutation_subtypeTM').val(),
             mutation_transgene_mgi_symbol:$('#mutation_transgene_mgi_symbol').val(),
             mutation_type:$('#mutation_type').val()
         });

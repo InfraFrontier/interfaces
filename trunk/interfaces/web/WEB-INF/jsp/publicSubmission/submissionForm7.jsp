@@ -11,11 +11,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <spring:bind path="command.*" />
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
+        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -28,7 +30,7 @@
     <body>
         <div id="references" class="step">
             <h2>
-                References (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
+                References (Step ${stepCurrent} of ${stepTotal})
             </h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>

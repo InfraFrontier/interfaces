@@ -13,12 +13,14 @@
 
 
 <spring:bind path="command.*" />
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
+        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -29,7 +31,7 @@
     <body>
         <div id="miscellanea" class="step">
             <h2>
-                Additional information (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
+                Additional information (Step ${stepCurrent} of ${stepTotal})
             </h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
