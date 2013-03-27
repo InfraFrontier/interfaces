@@ -13,6 +13,8 @@
 <spring:bind path="command.*" />
 <c:set var="PeopleDAO" value='${sessionScope.pidaos}'></c:set>
 <c:set var="email" value='${command.submitter_email}'></c:set>
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +22,7 @@
         <meta http-equiv='cache-control' content='no-cache'>
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
-        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
+        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -35,7 +37,7 @@
     <body>
         <div id="producer" class="step">
             <h2>
-                Producer (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})
+                Producer (Step ${stepCurrent} of ${stepTotal})
             </h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>

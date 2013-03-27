@@ -22,7 +22,7 @@
         <!-- ARCHIVING CENTRE STATS START -->
         
         <p style="text-align: center;">
-            <a href="wp4dashboard.emma">WP4 reporting tool</a> || <a href="dashboard.emma?page=eucomm">View EUCOMM Charts</a> || <a href="http://www.emmanet.org/internal/webstats/latest/awstats.147-20120127.html" target="_blank">View current website statistics report</a>
+            <a href="wp4dashboard.emma">WP4 reporting tool</a> || <a href="dashboard.emma?page=eucomm">View EUCOMM Charts</a> || <a href="http://www.emmanet.org/internal/webstats/latest/awstats.147-20121218.html" target="_blank">View current website statistics report</a>
         </p>
         
         

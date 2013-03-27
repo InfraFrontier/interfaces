@@ -11,6 +11,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <spring:bind path="command.*" />
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <% java.util.Enumeration EditStrain = session.getAttributeNames();
 
 java.util.Enumeration enumeration = session.getAttributeNames();
@@ -26,7 +28,7 @@ while (enumeration.hasMoreElements()) {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)}</title>
+        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
         <script type="text/javascript" src="../js/submission.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
@@ -35,7 +37,7 @@ while (enumeration.hasMoreElements()) {
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body>
-        <h1>Submitter (Step ${(sessionScope.pageCount)} of ${(sessionScope.totalStepCount)})</h1>
+        <h1>Submitter (Step ${stepCurrent} of ${stepTotal})</h1>
         <%@include file="submissionFormHeader_inc.jsp"%>
         <form:form method="POST" commandName="command">
             
