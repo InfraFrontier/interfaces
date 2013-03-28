@@ -27,7 +27,7 @@
         <script type="text/javascript" src="../js/biblioData.js?<%= new java.util.Date()%>"></script>
         <style type="text/css">@import url(../css/emmastyle.css);</style>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <div id="references" class="step">
             <h2>
                 References (Step ${stepCurrent} of ${stepTotal})

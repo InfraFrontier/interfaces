@@ -42,6 +42,7 @@ public class AjaxReturnController extends SimpleFormController {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getParameter("q") != null) {
             System.out.println("we are here");
+            
             //this is an jquery ajax call for autocomplete strain names from insert form
         /*    if (request.getParameter("list") != null) {
             if (request.getParameter("list").equals("cryo")) {
@@ -52,7 +53,7 @@ public class AjaxReturnController extends SimpleFormController {
             }
             }*/
             if(request.getParameter("funct") != null && request.getParameter("funct").equals("esCellLineCall")){
-                
+                returnedOut = new HashMap();
              System.out.println("q value is::" + request.getParameter("q"));
              SubmissionsManager sm = new SubmissionsManager();
              returnedResults=sm.getesCellLines(request.getParameter("q"));
@@ -60,6 +61,7 @@ public class AjaxReturnController extends SimpleFormController {
                  System.out.println("returned out size==" + returnedResults.size());
             }
             else if (!request.getParameter("q").startsWith("em:") && request.getParameter("query") == null) {
+                returnedOut = new HashMap();
                 System.out.println("query will be from webrequests");
                 webRequest = new WebRequests();
                 int query = Integer.parseInt(request.getParameter("q"));
@@ -69,6 +71,7 @@ public class AjaxReturnController extends SimpleFormController {
 
             } // 
             else if (request.getParameter("query") != null && request.getParameter("query").equals("bg")) {
+                returnedOut = new HashMap();
                 System.out.println("query will be from backgrounds");
                 BackgroundManager bm = new BackgroundManager();
                 String backGround = request.getParameter("q");
@@ -85,9 +88,10 @@ public class AjaxReturnController extends SimpleFormController {
         }
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("peopleCall")) {
-
+returnedOut = new HashMap();
             System.out.println("AJAXCONTROLLERFUNCTIONCALLED " + request.getParameter("email"));
             if (request.getParameter("email") != null || !request.getParameter("email").equals("")) {
+                
                 PeopleDAO pd = new PeopleDAO();
                 PeopleManager pm = new PeopleManager();
                 List people = pm.getPeopleByEMail(request.getParameter("email"));
@@ -134,6 +138,7 @@ public class AjaxReturnController extends SimpleFormController {
 
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("pubMed")) {
+            returnedOut = new HashMap();
             List paper = new LinkedList();
             EmmaBiblioJOB ej = new EmmaBiblioJOB();
             int pmID = Integer.parseInt(request.getParameter("pubmedid"));
@@ -150,6 +155,7 @@ public class AjaxReturnController extends SimpleFormController {
             returnedOut.put("paper", paper);
         }
          if (request.getParameter("funct") != null && request.getParameter("funct").equals("bibliosEdit")) {
+             returnedOut = new HashMap();
             List paper = new LinkedList();
             
             BibliosManager bm = new BibliosManager();
@@ -172,8 +178,6 @@ public class AjaxReturnController extends SimpleFormController {
             returnedOut.put("paper", paper);
         }
          
-
-      
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
         //  return returnedResults;
 

@@ -33,7 +33,7 @@
         <script type="text/javascript" src="../js/jquery.floatobject-1.0.js"></script>
         <script type="text/javascript" src="../js/jquery.qtip-1.0.0-rc3.min.js"></script>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <h2>
     Submitter (Step ${stepCurrent} of ${stepTotal})
 </h2>

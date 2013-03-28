@@ -10,8 +10,11 @@ Header for all pages in the form submission
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <style type="text/css">@import url(../css/emmastyle.css);</style>
-<c:set var="percentageComplete" value="${(sessionScope.pageCount / sessionScope.totalStepCount * 100)}"></c:set>
+
+<c:set var="percentageComplete" value="${(stepCurrent / stepTotal * 100)}"></c:set>
         <script  type="text/javascript">
             $( document ).tooltip();
         </script>
@@ -21,6 +24,20 @@ Header for all pages in the form submission
             value: "${percentageComplete}"
         });
     });
+</script>
+<script language="JavaScript">
+function disableEnterKey(e)
+{
+var key;
+if(window.event)
+    key = window.event.keyCode;     //IE
+else
+    key = e.which;     //firefox
+if(key == 13)
+    return false;
+else
+    return true;
+}
 </script>
 <br/>
 <div id="breadcrumbs" name="breadcrumbs" class="breadcrumbs">
@@ -37,4 +54,4 @@ Header for all pages in the form submission
 </div>
 <br/>
 <div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto;}"></div>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.0.6</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.0.7</div>
