@@ -28,7 +28,7 @@
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
 
         <form:form method="POST" commandName="command">
             <form:errors path="*" cssClass="errorblock"/>

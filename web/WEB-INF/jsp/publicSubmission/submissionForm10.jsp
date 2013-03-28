@@ -25,7 +25,7 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <div id="research_value" class="step">
             <h2>
                 Research value (Step ${stepCurrent} of ${stepTotal})
@@ -81,9 +81,6 @@
                                     <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
                                 </c:forEach>               
                             </form:select>
-                            
-                            
-                            
                           <%--  <form:select path="${status.expression}" id="${status.expression}">
                                 <form:option value="">Please select..</form:option>
                                 <form:option value="apoptosis" >Apoptosis</form:option>

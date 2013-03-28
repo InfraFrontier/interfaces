@@ -36,7 +36,7 @@ while (enumeration.hasMoreElements()) {
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <h1>Submitter (Step ${stepCurrent} of ${stepTotal})</h1>
         <%@include file="submissionFormHeader_inc.jsp"%>
         <form:form method="POST" commandName="command">

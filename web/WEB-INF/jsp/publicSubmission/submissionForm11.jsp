@@ -28,7 +28,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/popWin.js"></script>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <div id="miscellanea" class="step">
             <h2>
                 Additional information (Step ${stepCurrent} of ${stepTotal})

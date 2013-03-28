@@ -44,7 +44,7 @@
         </script>
     </head>
 
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <div id="genotype" class="step">
             <h2>Genotype (Step ${stepCurrent} of ${stepTotal})</h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
@@ -124,7 +124,7 @@
         <div class="field">
             <label class="label" for="${status.expression}"><strong>Number of generations sib-mated</strong></label>
             <div class="input">
-                <form:input  id="${status.expression}" path="${status.expression}"  title="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)." />
+                <form:input  id="${status.expression}" path="${status.expression}"  title="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)."/>
             </div>
             <form:errors path="${status.expression}" cssClass="error" />
         </div>
@@ -496,7 +496,7 @@
         <label class="label" for="mutation_plasmid"><strong>Plasmid/construct name or symbol</strong></label>
 
         <div class="input">
-            <input type="text" name="mutation_plasmid" value="" id="mutation_plasmid" />
+            <input type="text" name="mutation_plasmid" value="" id="mutation_plasmid" onKeyPress="return disableEnterKey(event)"/>
         </div>
         <div class="validation_error_message">
             &nbsp;

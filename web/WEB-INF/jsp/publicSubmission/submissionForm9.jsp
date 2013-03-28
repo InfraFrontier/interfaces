@@ -25,7 +25,7 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <div id="breeding" class="step">
             <h2>
                 Breeding (Step ${stepCurrent} of ${stepTotal})
@@ -228,7 +228,7 @@
                     <div class="field">
                         <label class="label" for="${status.expression}"><strong>Recommended weaning age (days)</strong></label>
                         <div class="input">
-                            <form:input id="${status.expression}" path="${status.expression}"/>
+                            <form:input id="${status.expression}" path="${status.expression}" size="2" maxlength="2"/>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>

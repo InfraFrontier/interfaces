@@ -34,7 +34,7 @@
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
 
     </head>
-    <body>
+    <body onKeyPress="return disableEnterKey(event)">
         <div id="producer" class="step">
             <h2>
                 Producer (Step ${stepCurrent} of ${stepTotal})
