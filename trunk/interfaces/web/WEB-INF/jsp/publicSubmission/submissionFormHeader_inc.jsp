@@ -54,4 +54,4 @@ else
 </div>
 <br/>
 <div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto;}"></div>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.0.7</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.0.8</div>
