@@ -44,7 +44,7 @@
                     <div class="input">
                         <form:radiobutton path="${status.expression}" value="yes" id="published-yes" />Yes (please enter bibliographic information below)<br />
                         <form:radiobutton path="${status.expression}" value="no" id="published-no" />No<br />
-                        <form:radiobutton path="${status.expression}" value="not_known" id="published-not_known" />Not known<br />
+                        <form:radiobutton path="${status.expression}" value="not known" id="published-not_known" />Not known<br />
                     </div>
                     <form:errors path="${status.expression}" cssClass="error" />
 
