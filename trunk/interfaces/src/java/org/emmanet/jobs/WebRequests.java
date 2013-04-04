@@ -1599,6 +1599,27 @@ public class WebRequests {
         }
         return strainList;
     }
+      
+          public int fieldMaxLength(String field, String table) {
+        BigInteger maxLength;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+
+            maxLength = (BigInteger) session.createSQLQuery("SELECT CHARACTER_MAXIMUM_LENGTH " +
+                    "FROM information_schema.COLUMNS " +
+                    "WHERE TABLE_NAME=? " +
+                    "AND COLUMN_NAME=? LIMIT 1").setString(0, table).setString(1, field).uniqueResult();
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        String s = maxLength.toString();
+        int i = Integer.parseInt(s);
+        return i;
+    }
 
 
     public void saveRequest(WebRequestsDAO saveWebReq) {
