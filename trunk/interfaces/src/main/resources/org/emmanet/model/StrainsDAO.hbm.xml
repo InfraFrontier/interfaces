@@ -56,6 +56,7 @@
     <property column="name" name="name"/>
     <property column="health_status" name="health_status"/>
     <property column="generation" name="generation"/>
+    <property column="sibmatings" name="sibmatings"/>
     <property column="maintenance" name="maintenance"/>
     <property column="charact_gen" name="charact_gen"/>
     <property column="str_access" name="str_access"/>

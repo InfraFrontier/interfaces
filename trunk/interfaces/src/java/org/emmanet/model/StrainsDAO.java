@@ -24,6 +24,7 @@ public class StrainsDAO implements Serializable {
     private String name;
     private String health_status;
     private String generation;
+    private String sibmatings;
     private String maintenance;
     private String charact_gen;
     private String str_access;
@@ -585,5 +586,19 @@ public class StrainsDAO implements Serializable {
      */
     public void setSub_id_sub(String sub_id_sub) {
         this.sub_id_sub = sub_id_sub;
+    }
+
+    /**
+     * @return the sibmatings
+     */
+    public String getSibmatings() {
+        return sibmatings;
+    }
+
+    /**
+     * @param sibmatings the sibmatings to set
+     */
+    public void setSibmatings(String sibmatings) {
+        this.sibmatings = sibmatings;
     }
 }

@@ -12,7 +12,7 @@ Header for all pages in the form submission
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
-<style type="text/css">@import url(../css/emmastyle.css);</style>
+<style type="text/css">@import url(../css/default.css);</style>
 
 <c:set var="percentageComplete" value="${(stepCurrent / stepTotal * 100)}"></c:set>
         <script  type="text/javascript">
@@ -40,18 +40,31 @@ else
 }
 </script>
 <br/>
-<div id="breadcrumbs" name="breadcrumbs" class="breadcrumbs">
+<%--<div id="breadcrumbs" name="breadcrumbs" class="breadcrumbs">--%>
+<div id="block-infrablocks-infraformtest" class="block block-infrablocks">
 <center>
     
-    <c:forEach var="title" items="${stepTitles}" varStatus="status">
-        <c:if test="${sessionScope.pageCount > status.count}"><c:set var="separator" value=" << "/></c:if>
+  <%--  <c:forEach var="title" items="${stepTitles}" varStatus="status">
+        <c:if test="${sessionScope.pageCount > status.count}"><c:set var="separator" value=" << "/><c:set var="liStyle" value="last"/></c:if>
         <c:if test="${sessionScope.pageCount <= status.count}"><c:set var="separator" value=" >> "/></c:if>
-        <c:if test="${status.last}"><c:set var="title" value="${fn:replace(title, ']', '')}"/><c:set var="separator" value=""/></c:if>
-        <c:if test="${status.first}"><c:set var="title" value="${fn:replace(title, '[', '')}"/></c:if>
-        <font class="breadcrumbs"><c:if test="${sessionScope.pageCount == status.count}"><strong>${title}</strong></c:if><c:if test="${sessionScope.pageCount != status.count}">${title}</c:if>${separator}</font></c:forEach>
-                
+        <c:if test="${status.last}"><c:set var="title" value="${fn:replace(title, ']', '')}"/><c:set var="separator" value=""/><c:set var="liStyle" value="last"/></c:if>
+        <c:if test="${status.first}"><c:set var="title" value="${fn:replace(title, '[', '')}"/><c:set var="class" value="first active"/></c:if>
+        <font class="breadcrumbs"><c:if test="${sessionScope.pageCount == status.count}"><strong>${title}</strong></c:if><c:if test="${sessionScope.pageCount != status.count}">${title}</c:if>${separator}</font>
+         </c:forEach>
+  --%>
+        <ul class="progress clearfix">
+  <c:forEach var="title" items="${stepTitles}" varStatus="status">
+      <c:set var="liStyle" value=""/>
+       <c:if test="${sessionScope.pageCount > status.count}"><c:set var="separator" value=" << "/><c:set var="liStyle" value="last"/></c:if>
+        <c:if test="${sessionScope.pageCount <= status.count}"><c:set var="separator" value=" >> "/></c:if>
+      <c:if test="${status.last}"><c:set var="title" value="${fn:replace(title, ']', '')}"/><c:set var="separator" value=""/><c:set var="liStyle" value="last"/></c:if>
+        <c:if test="${status.first}"><c:set var="title" value="${fn:replace(title, '[', '')}"/><c:set var="liStyle" value=""/></c:if>
+        <c:if test="${sessionScope.pageCount == status.count}"><c:set var="liStyle" value="first active"/></c:if>
+        <li class="${liStyle}"><c:if test="${sessionScope.pageCount == status.count}">${title}</c:if><c:if test="${sessionScope.pageCount != status.count}">${title}</c:if>${separator}</li>
+    </c:forEach>
+      </ul>           
   </center>  
 </div>
 <br/>
 <div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto;}"></div>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.0.8</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.0</div>

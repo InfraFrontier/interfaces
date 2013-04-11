@@ -644,6 +644,21 @@ System.out.println("DAO FROM SM==" + rtd.getRtls_id());
         return strains;
     }
 
+    public BigInteger getStrainsWithName(String name) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        BigInteger count;
+        try {
+            count = (BigInteger) session.createSQLQuery(
+                    "SELECT COUNT(*) FROM strains WHERE name=?").setParameter(0, name).uniqueResult();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return count;
+    }
     public List getStrainsByGene(String name) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

@@ -37,8 +37,7 @@ public class AjaxReturnController extends SimpleFormController {
     private LinkedList JSONobjects;
 
     @Override
-    //  public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    //   protected Object formBackingObject(HttpServletRequest request) {
+    
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getParameter("q") != null) {
             System.out.println("we are here");
