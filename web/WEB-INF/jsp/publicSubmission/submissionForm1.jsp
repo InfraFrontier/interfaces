@@ -41,7 +41,7 @@ while (enumeration.hasMoreElements()) {
         <%@include file="submissionFormHeader_inc.jsp"%>
         <form:form method="POST" commandName="command">
             
-            <form:errors path="*" cssClass="errorblock"/><%--cssClass="errorblock" --%>
+          
         <div id="start" class="step">
             <h2> Start </h2>
             <p> Please enter your email address for identification. For your convenience, if you have started or 
@@ -60,10 +60,10 @@ while (enumeration.hasMoreElements()) {
                     </strong>
                 </label>
                 <div class="input">
-                    <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                    <form:input  id="${status.expression}" path="${status.expression}"></form:input><form:errors path="submitter_email" cssClass="error" />
                     
                 </div>
-                <form:errors path="${status.expression}" cssClass="error" />
+                
             </div>
           
          </spring:bind>

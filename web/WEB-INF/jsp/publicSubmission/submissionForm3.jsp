@@ -154,7 +154,7 @@
                                          parentheses. An extension must begin with x followed by the extension number, 
                                          e.g., +1 (234) 567-8900 x123"></form:input></div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -167,7 +167,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -179,7 +179,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -192,7 +192,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -204,7 +204,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -217,7 +217,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>   
@@ -229,7 +229,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -242,7 +242,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind> 
@@ -259,7 +259,7 @@
                             </form:select>
                         </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -280,7 +280,7 @@
                                ILAR code, it can be registered on-line at 
                                &lt;a href='http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php' target='_blank'&gt;http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php;/a&gt;. 
                                The EMMA staff can assist with the registration procedure."></form:input>             
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
                 </div>
             </spring:bind>
         </div>

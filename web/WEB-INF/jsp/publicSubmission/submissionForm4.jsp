@@ -136,7 +136,7 @@
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must begin with + followed by the country code and contain only numbers, hyphens, spaces, or parentheses. An extension must begin with x followed by the extension number, e.g., +1 (234) 567-8900 x123"></form:input></div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -149,7 +149,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -161,7 +161,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -174,7 +174,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -188,7 +188,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -202,7 +202,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>  
@@ -217,7 +217,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>
@@ -231,7 +231,7 @@
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind> 
@@ -248,7 +248,7 @@
                             </form:select>
                         </div>
 
-                        <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                        <form:errors path="${status.expression}" cssClass="error" />
 
                     </div>
                 </spring:bind>

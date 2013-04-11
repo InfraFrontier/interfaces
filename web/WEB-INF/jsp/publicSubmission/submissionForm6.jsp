@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -56,6 +56,7 @@
                 </div>
             </spring:bind>
 <p>
+<div class="boxcontainer">
         <table width="150" cellspacing="8" class="formNav">
             <tr>
                 <td colspan="2" align='center'><input type="submit" value="Next" name="_target7" /><br/></td>
@@ -65,6 +66,7 @@
                 <td ><input type="submit" value="Cancel" name="_cancel" /></td>
             </tr>
         </table>
+    </div>
     </p>
         </form:form>
     </div>

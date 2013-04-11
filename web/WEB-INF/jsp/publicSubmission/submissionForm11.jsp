@@ -35,7 +35,7 @@
             </h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
-
+                STRAINNAME = <spring:bind path="command.strain_name">${status.value}</spring:bind>
             </p>
             <form:form method="POST" commandName="command">
 

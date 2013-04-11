@@ -4,9 +4,11 @@
  */
 package org.emmanet.controllers;
 
+import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.emmanet.model.StrainsDAO;
+import org.emmanet.model.StrainsManager;
 import org.emmanet.model.SubmissionsDAO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -47,8 +49,8 @@ public class SubmissionFormValidator implements
             return;
         } else {
             validateSubmissionForm0(sd, errors);
-            validateSubmissionForm1(sd, errors);
-            validateSubmissionForm2(sd, errors,"");
+            validateSubmissionForm1(sd, errors,"");
+            //validateSubmissionForm2(sd, errors,"");
 
         }
     }
@@ -57,13 +59,11 @@ public class SubmissionFormValidator implements
        System.out.println("STEP0 EMAIL IS " + sd.getSubmitter_email());
           if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
             errors.rejectValue("submitter_email", "incorrect.email",
-                    "The submitted Email address field appears to be incorrect");
+                    "The submitted Email address field appears to be incorrect. A correct Email address is a required field.");
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_email",
-                "required.email", "Email is a required field.");
     }
 
-    public void validateSubmissionForm1(SubmissionsDAO sd, Errors errors) {
+    public void validateSubmissionFormx(SubmissionsDAO sd, Errors errors) {
 
         if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
             errors.rejectValue("submitter_email", "incorrect.email",
@@ -75,7 +75,7 @@ public class SubmissionFormValidator implements
 
     }
 
-    public void validateSubmissionForm2(SubmissionsDAO sd, Errors errors, String fieldSet) {
+    public void validateSubmissionForm1(SubmissionsDAO sd, Errors errors, String fieldSet) {
         String fax = "";
         String tel = "";
 
@@ -125,42 +125,49 @@ public class SubmissionFormValidator implements
 
     }
 
-    public void validateSubmissionForm3(StrainsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_addr_1", "required.submitter_addr_1",
-                "The address line 1 field is required");
+
+    public void validateSubmissionForm4(SubmissionsDAO sd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "strain_name",
+                "required.strain_name", "The Strain name is a required field");
+        StrainsManager sm = new StrainsManager();
+        BigInteger i;
+        i = sm.getStrainsWithName(sd.getStrain_name());
+        System.out.println("validator strain name list size is :: " + i);
+        if (i.intValue() >= 1) {
+            errors.rejectValue("strain_name", "strain_name",
+                    "A strain with this name already exists.");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "genetic_descr", "required.genetic_descr",
+                "The genetic description is a required field");
+        if(sd.getCurrent_backg() == 0){
+        errors.rejectValue("current_backg", "current_backg",
+                    "A current genetic backround must be selected");
+        }
     }
 
-    public void validateSubmissionForm4(StrainsDAO sd, Errors errors) {
+    public void validateSubmissionForm5(SubmissionsDAO sd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_phenotypic_descr",
+                "required.homozygous_phenotypic_descr", "The Phenotypic description of homozygous mice is a required field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heterozygous_phenotypic_descr", "required.heterozygous_phenotypic_descr",
+                "The Phenotypic description of heterozygous mice is a required field");
+    }
+
+    public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
                 "required.userName", "The Scientists firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
                 "The Scientists family name is a required field");
     }
 
-    public void validateSubmissionForm5(StrainsDAO sd, Errors errors) {
+    public void validateSubmissionForm7(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
                 "required.userName", "The Scientists firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
                 "The Scientists family name is a required field");
     }
 
-    public void validateSubmissionForm6(StrainsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
-    }
-
-    public void validateSubmissionForm7(StrainsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
-    }
-
-    public void validateSubmissionForm8(StrainsDAO sd, Errors errors) {
+    public void validateSubmissionForm8(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
                 "required.userName", "The Scientists firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
@@ -172,14 +179,14 @@ public class SubmissionFormValidator implements
                 "required.breeding_performance", "The breeding performance selection needs to be made");
     }
 
-    public void validateSubmissionForm10(StrainsDAO sd, Errors errors) {
+    public void validateSubmissionForm10(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
                 "required.userName", "The Scientists firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
                 "The Scientists family name is a required field");
     }
 
-    public void validateSubmissionForm11(StrainsDAO sd, Errors errors) {
+    public void validateSubmissionForm11(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
                 "required.userName", "The Scientists firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",

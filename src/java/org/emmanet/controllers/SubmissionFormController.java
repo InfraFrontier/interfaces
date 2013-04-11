@@ -5,7 +5,9 @@ package org.emmanet.controllers;
  * @author phil
  */
 import java.io.UnsupportedEncodingException;
-import java.net.BindException;
+//import java.net.BindException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -77,19 +79,33 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private List stepTitles;
     private JavaMailSender javaMailSender;
     private VelocityEngine velocityEngine;
+
     public SubmissionFormController() {
         setCommandName("command");
         setAllowDirtyBack(true);
-        setAllowDirtyForward(true);
+       // setAllowDirtyForward(true);
     }
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
-
+System.out.println("AT THE FORMBACKING OBJECT");
         StrainsDAO sd = new StrainsDAO();
-        SubmissionsDAO sda = new SubmissionsDAO();//#################
+        SubmissionsDAO sda = new SubmissionsDAO();
         wr = new WebRequests();
+         SubmissionsManager sm = new SubmissionsManager();
+         
+        if (request.getParameter("getprev") != null) {
+            String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
 
+             if (request.getParameter("recall_window") != null) {
+                 if (request.getParameter("recall_window").equals("Yes")) {
+                     sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+                                 System.out.println("g e t p r e v::" + idDecrypt);
+                                 System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
+                                 System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
+                 }
+             }
+        } 
         //////////////////////////////////////////////
         BackgroundManager bm = new BackgroundManager();
         String getprev = "";
@@ -118,10 +134,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
          } catch (Exception e) {
          }*/
 
-        encrypter = new Encrypter();
+       // encrypter = new Encrypter();
         //#####sda = new SubmissionsDAO();
 
-        SubmissionsManager sm = new SubmissionsManager();
+       
 
         /*/decode
          try {
@@ -136,7 +152,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         
          sda = sm.getSubByID(idDecrypt);///decrypt here
         
-         }*/
+       
 
         if (request.getParameter("getprev") != null) {
             String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
@@ -144,7 +160,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
             sda = sm.getSubByID(Integer.parseInt(idDecrypt));
             System.out.println("SUBID::FBO2 = " + sda.getEncryptedId_sub());
         }
-
+        
+  }*/
         sda.setCvDAO(wr.isoCountries());
 
 
@@ -162,7 +179,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Errors errors,
             int page)
             throws Exception {
-        SubmissionsDAO sda = (SubmissionsDAO) command;
+        
+        SubmissionsDAO sda=new SubmissionsDAO();// = (SubmissionsDAO) command;
         SubmissionsManager sm = new SubmissionsManager();
         encrypter = new Encrypter();
 
@@ -172,10 +190,20 @@ public class SubmissionFormController extends AbstractWizardFormController {
             sda = sm.getSubByID(Integer.parseInt(idDecrypt));
 
             System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
+            System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
+             if (request.getParameter("recall_window") != null) {
+                 if (request.getParameter("recall_window").equals("Yes")) {
+                     System.out.println("SETTING COMMAND TO SDA");
+                    // command = new Object();
+                    // command = sda;
+                     command = this.formBackingObject(request);
+                 }
+             }
+            
+        } else {
+            sda=(SubmissionsDAO) command;
         }
-
-
-
+        
         Map refData = new HashMap();
         int pageCount = page;
         session.setAttribute("pageCount", "" + pageCount);
@@ -332,7 +360,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 // Encrypt
                 String encrypted = encrypter.encrypt(sda.getId_sub());
                 session.setAttribute("getprev", encrypted);
- 
+
                 sda.setStep("5");
                 sm.save(sda);
                 break;
@@ -430,7 +458,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
     protected ModelAndView processFinish(HttpServletRequest request, HttpServletResponse response,
             Object command, org.springframework.validation.BindException be) throws Exception {
 
-        System.out.println("COMMAND==" + command.toString());
         SubmissionsDAO sd = (SubmissionsDAO) command;
         StrainsManager stm = new StrainsManager();
 
@@ -450,10 +477,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
         PeopleManager pm = new PeopleManager();
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         String ilarID = "";
-        if(ilarCode != "" || !ilarCode.isEmpty()){
+        if (ilarCode != "" || !ilarCode.isEmpty()) {
             ilarID = pm.ilarID(ilarCode);
         }
-        
+
         if (ilarID != "" || !ilarID.isEmpty()) {
             System.out.println("ILAR ID==" + ilarID);
 
@@ -520,6 +547,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setEx_owner_description(sd.getExclusive_owner_text());
         nsd.setExclusive_owner(sd.getExclusive_owner());
         nsd.setGeneration(sd.getBackcrosses());
+        nsd.setSibmatings(sd.getSibmatings());
 
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             //current date + 2 years
@@ -556,8 +584,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setMutant_fertile(mutantFertile);
         nsd.setMutant_viable(sd.getHomozygous_viable());
         nsd.setName(sd.getStrain_name());
-        nsd.setName_status(null); 
-       nsd.setPer_id_per("" + sd.getPer_id_per());
+        nsd.setName_status(null);
+        nsd.setPer_id_per("" + sd.getPer_id_per());
         nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
         nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
 
@@ -594,9 +622,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setDelayed_description(sd.getDelayed_release_text());
         rd.setDelayed_release(nsd.getGp_release());
         rd.setDeposited_elsewhere(sd.getDeposited_elsewhere());
-         rd.setDeposited_elsewhere_text(sd.getDeposited_elsewhere_text());
-         rd.setOwner_permission(sd.getOwner_permission());
-         rd.setOwner_permission_text(sd.getOwner_permission_text());
+        rd.setDeposited_elsewhere_text(sd.getDeposited_elsewhere_text());
+        rd.setOwner_permission(sd.getOwner_permission());
+        rd.setOwner_permission_text(sd.getOwner_permission_text());
         rd.setFlp(null);
         rd.setIp_rights(sd.getIp_rights());
         rd.setIpr_description(sd.getIp_rights_text());
@@ -828,11 +856,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
         psm.save(psd);
         projectsStrains.add(psd);
         ////>>>>  nsd.setProjectsDAO(projectsStrains);
-        
-        
+
+
         //associate uploaded file prefix with new strain id by adding sub_id_sub
         nsd.setSub_id_sub(sd.getId_sub());
-        
+
         stm.save(nsd);
         //sources strains set to 5 unknown
 //TODO SOURCES STRAINS NEEDS TO SAVE MANUALLY THEN DO FINAL SAVE ON LINE 803
@@ -915,7 +943,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         return new ModelAndView("/publicSubmission/success");
     }
 
-    
     @Override
     protected ModelAndView processCancel(HttpServletRequest request, HttpServletResponse response, Object command, org.springframework.validation.BindException errors) throws Exception {
         return new ModelAndView("/publicSubmission/cancel");
@@ -932,25 +959,30 @@ public class SubmissionFormController extends AbstractWizardFormController {
         switch (page) {
             case 0: //if page 1 , go validate with validatePage1Form
                 //validator.validatePage1Form(command, errors);
+                
                 break;
             case 1: //if page 2 , go validate with validatePage2Form
                 //validator.validatePage2Form(command, errors);
-                validator.validateSubmissionForm1(sd, errors);
+                //validator.validateSubmissionForm2(sd, errors,"submitter");
+                //validator.validateSubmissionForm0(sd, errors);
+                validator.validateSubmissionForm0(sd, errors);
                 break;
             case 2:
-                //validator.validateSubmissionForm2(sd, errors);
+               ////////// validator.validateSubmissionForm1(sd, errors,"submitter");
                 break;
             case 3:
-                //validator.validateSubmissionForm3(sd, errors);
+                //uses validator 2 to redice code duplication
+               //////////// validator.validateSubmissionForm1(sd, errors,"producer");
                 break;
             case 4:
-                //validator.validateSubmissionForm4(sd, errors);
+                //uses validator 2 to redice code duplication 
+             //////////////// validator.validateSubmissionForm1(sd, errors,"shipper");
                 break;
             case 5:
-                //validator.validateSubmissionForm5(sd, errors);
+                validator.validateSubmissionForm4(sd, errors);
                 break;
             case 6:
-                //validator.validateSubmissionForm6(sd, errors);
+                validator.validateSubmissionForm5(sd, errors);
                 break;
             case 7:
                 //validator.validateSubmissionForm7(sd, errors);
@@ -1110,5 +1142,4 @@ public class SubmissionFormController extends AbstractWizardFormController {
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
-
 }

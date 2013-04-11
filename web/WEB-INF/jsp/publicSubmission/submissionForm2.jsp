@@ -118,9 +118,6 @@
             </c:if>
         </div>
         <form:form method="POST" commandName="command">
-
-
-            <form:errors path="*" cssClass="errorblock"/>
             <%-- <spring:bind path="command.peopleDAO.email">--%>
             <spring:bind path="command.submitter_email">
                 <div class="field">
@@ -200,7 +197,7 @@
                                      An extension must begin with x followed by the extension number, 
                                      e.g., +1 (234) 567-8900 x123"></form:input></div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>
@@ -213,7 +210,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>
@@ -225,7 +222,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>
@@ -238,7 +235,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>
@@ -250,7 +247,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>
@@ -263,7 +260,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>   
@@ -275,7 +272,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>
@@ -288,7 +285,7 @@
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind> 
@@ -305,7 +302,7 @@
                         </form:select>
                     </div>
 
-                    <form:errors path="${status.expression}" cssClass="validation_error_message" />
+                    <form:errors path="${status.expression}" cssClass="error" />
 
                 </div>
             </spring:bind>

@@ -133,7 +133,7 @@
     <bean id="RequestUpdateFormValidator"
           class="org.emmanet.controllers.RequestUpdateFormValidator" />
           
-    <bean id="submissionFormValidator" class="org.emmanet.controllers.SubmissionFormValidator" />
+    
     <bean id="fileUploadValidator" class="org.emmanet.controllers.FileUploadValidator" />
           
     <bean name="indexController" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
@@ -495,7 +495,7 @@
         </property>
         <property name="validator">
             <!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
-            <ref bean="submissionFormValidator" />
+            <bean class="org.emmanet.controllers.SubmissionFormValidator" />
         </property>
         <property name="stepTitles">
                         <list>
