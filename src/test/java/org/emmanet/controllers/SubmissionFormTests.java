@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.BackgroundDAO;
 import org.emmanet.model.BackgroundManager;
+import org.emmanet.model.MutationsDAO;
+import org.emmanet.model.MutationsManager;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
 import org.junit.runner.RunWith;
@@ -60,6 +62,8 @@ public class SubmissionFormTests {
 	private BackgroundManager bm = new BackgroundManager();
 	
 	private StrainsManager smg = new StrainsManager();
+	
+	private MutationsManager mutationManager = new MutationsManager();
 	
 
 /*	@Test
@@ -215,6 +219,47 @@ public class SubmissionFormTests {
 		String breedingHistory = (strain.getMaintenance() != null) ? strain.getMaintenance() : "TESTBREEDINGHISTORY";
 		
 		System.out.println("background " + background.getSymbol());
+		
+		// play with mutations
+		int nbMutations = randomGenerator.nextInt(10);
+		for (int i=0; i <= nbMutations; i++) {
+			
+			String[] mutationTypes = { "CH", "GT", "IN", "SP", "TG", "TM", "XX" };
+			String[] mutationSubtypes = { "INS","INV","DEL","DUP","TRL","TRP"};
+			
+			params.clear();
+			// "CH" Chromosomal Anomaly
+			//"GT Gene-trap
+			//"IN" Induced
+            // "SP" Spontaneous
+            //"TG" Transgenic
+		    // "TM" Targeted
+            //"XX" Undefined
+			
+			/*
+			 * Choose randomly a mutation
+			 */
+			int mutationIndex = randomGenerator.nextInt(7);
+			String mutationType = mutationTypes[mutationIndex];
+			
+			List<MutationsDAO> mutations = mutationManager.getMutationByMainType(mutationType);
+			int index = randomGenerator.nextInt(mutations.size());
+			MutationsDAO mutation = mutations.get(index);
+			
+			params.clear();
+			params.setProperty("mutation_type", mutationType);
+			
+			
+			switch (mutationIndex) {
+			
+			case 0: // CH
+				params.setProperty("mutation_subtypeCH", mutation.getSub_type());
+				break;
+			}
+			
+		}
+		
+		
 		
 		params.clear();
 		
