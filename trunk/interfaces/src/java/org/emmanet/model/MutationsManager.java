@@ -67,6 +67,29 @@ public class MutationsManager {
         return muts;
     }
 
+    /**
+     * List the EMMA mutations by main type.
+     * @param maintype the main mutation type
+     * @return a list of mutations of this type.
+     * @see MutationTypes
+     */
+    public List<MutationsDAO> getMutationByMainType(String maintype) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List muts = null;
+        try {
+            muts = session.createQuery(
+                    "FROM MutationsDAO WHERE main_type=?")
+                    .setParameter(0, maintype).list();
+
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return muts;
+    }
+    
     public BigInteger getBackgroundIDCount(int bg_id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
