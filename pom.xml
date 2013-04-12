@@ -39,7 +39,7 @@
         <jaf.version>1.1.1</jaf.version>
         <jstl.version>1.1.2</jstl.version><!-- 1.2 replaced by 1.0  >>1.1.2 -->
         <json-simple.version>1.1</json-simple.version>
-        <junit.version>4.8.2</junit.version>
+        <junit.version>4.4</junit.version><!--  4.8.2 replaced with 4.4 -->
         <itext.version>2.0.7</itext.version>
         <poi.version>3.0.2-FINAL</poi.version>
         <c3p0.version>0.9.1</c3p0.version>
@@ -185,6 +185,12 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring.security.version}</version>
         </dependency>
+        
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<!-- JTA dependency -->
         <dependency>
@@ -378,6 +384,11 @@
             <scope>compile</scope>
         </dependency>
 
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+			<version>2.0</version>
+		</dependency>
     </dependencies>
 
 	<build>
