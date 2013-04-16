@@ -25,11 +25,17 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-        <div id="phenotype" class="step">
+       <%-- <div id="phenotype" class="step">--%>
             <h2>
                 Phenotype (Step ${stepCurrent} of ${stepTotal})
             </h2>
 <%@include file="submissionFormHeader_inc.jsp"%>
+
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
             <p>
                 Please enter the phenotype information of the mouse mutant strain you want to deposit in EMMA.
             </p>
@@ -56,19 +62,15 @@
                 </div>
             </spring:bind>
 <p>
-<div class="boxcontainer">
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Next" name="_target7" /><br/></td>
-            </tr>
-            <tr>
-                <td ><input type="submit" value="Previous" name="_target5" /></td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
-    </div>
+<%@include file="submissionFormControlButtons_inc.jsp"%>
     </p>
         </form:form>
+ <%--       </div>
+    </div>
+             </div>--%>
+            </div>
+        </div>
+        </div>
     </div>
 </body>
 </html>

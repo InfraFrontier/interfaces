@@ -132,6 +132,10 @@ p + .innerbox			{ margin-top: 20px; }
 #emmastrains-searchbox i { font-size: 11px; line-height: 1em; }
 
 /* Buttons */
+input.btn					{ background: #606060; color: #fff !important; text-decoration: none; padding: 4px 6px; font-size: 12px; cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -ms-border-radius: 3px; }
+input.btn:hover				{ text-decoration: underline; }
+input.btn.big				{ display: inline-block; font-size: 14px; padding: 5px 10px; min-width: 70px; text-align: center; }
+input.btn.big:hover			{ background: #ea5b0b; }
 a.btn					{ background: #606060; color: #fff !important; text-decoration: none; padding: 4px 6px; font-size: 12px; cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -ms-border-radius: 3px; }
 a.btn:hover				{ text-decoration: underline; }
 a.btn.big				{ display: inline-block; font-size: 14px; padding: 5px 10px; min-width: 70px; text-align: center; }

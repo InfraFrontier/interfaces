@@ -95,10 +95,10 @@ public class SubmissionFormValidator implements
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_lastname", "required.lastname",
                 "The " + fieldSet + " family name is a required field");
         if (!patternMatch(FAXTEL_PATTERN, tel)) {
-            errors.rejectValue("submitter_tel", "incorrect.tel",
+            errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
                     "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_tel", "required.tel",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet +"_tel", "required.tel",
                 "The telephone number is a required field");
         
         if (!patternMatch(FAXTEL_PATTERN, fax)) {

@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <style type="text/css">@import url(../css/default.css);</style>
         <script type="text/javascript" src="../js/popWin.js"></script>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -31,6 +31,12 @@
                 Breeding (Step ${stepCurrent} of ${stepTotal})
             </h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
+             <div id="wrapper">
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
             <p>
                 Fertility and reproduction statistics, husbandry requirements and sanitary status of the mutant mouse strain you want to deposit in EMMA.
             </p>
@@ -326,18 +332,15 @@
                     </div>
                 </spring:bind>
                 <p>
-                <table width="150" cellspacing="8" class="formNav">
-                    <tr>
-                        <td colspan="2" align='center'><input type="submit" value="Next" name="_target10" /><br/></td>
-                    </tr>
-                    <tr>
-                        <td ><input type="submit" value="Previous" name="_target8" /></td>
-                        <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-                    </tr>
-                </table>
+<%@include file="submissionFormControlButtons_inc.jsp"%>
             </p>
-            <br/><br/>
         </form:form>
+                </div>
+    </div>
+             </div>
+            </div>
+        </div>
+        </div>
     </div>
 
 </body>

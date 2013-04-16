@@ -37,9 +37,7 @@
         <h2>
     Submitter (Step ${stepCurrent} of ${stepTotal})
 </h2>
-        <%@include file="submissionFormHeader_inc.jsp"%>
-      
-        
+<%@include file="submissionFormHeader_inc.jsp"%>
         <c:if test="${not empty requestScope.previousSub}">
             <c:set var="submissionDAO"  value="${requestScope.previousSub}"/>
             <c:set var="step"  value="${submissionDAO.step}"/>
@@ -53,9 +51,15 @@
                     });
                 });
             </script>
-
-            <div id="dialog-confirm" title="Recall Previous Submission?">
-
+<div id="dialog-confirm" title="Recall Previous Submission?">
+            
+ <div id="wrapper">
+     
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
                 <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}">
 
                     <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
@@ -314,17 +318,15 @@
             </spring:bind>
             <input type="hidden" name="submitter_authority" id="submitter_authority"/>
             <p>
-            <table width="150" cellspacing="8" class="formNav">
-                <tr>
-                    <td colspan="2" align='center'><input type="submit" value="Next" name="_target3" /><br/></td>
-                </tr>
-                <tr>
-                    <td ><input type="submit" value="Previous" name="_target1" /></td>
-                    <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-                </tr>
-            </table>
+            <%@include file="submissionFormControlButtons_inc.jsp"%>
         </p>
     </div>
 </form:form>
+        </div>
+    </div>
+             </div>
+            </div>
+        </div>
+        
 </body>
 </html>
