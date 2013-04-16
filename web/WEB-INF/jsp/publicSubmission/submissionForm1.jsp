@@ -25,7 +25,7 @@ while (enumeration.hasMoreElements()) {
 %>
 
 <!DOCTYPE html>
-<html>
+<html >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
@@ -37,8 +37,15 @@ while (enumeration.hasMoreElements()) {
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
+       
         <h1>Submitter (Step ${stepCurrent} of ${stepTotal})</h1>
         <%@include file="submissionFormHeader_inc.jsp"%>
+         <div id="wrapper">
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
         <form:form method="POST" commandName="command">
             
           
@@ -70,16 +77,14 @@ while (enumeration.hasMoreElements()) {
 
         </div>
 <p>
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Next" name="_target2" /><br/></td>
-            </tr>
-            <tr>
-                <td ><input type="submit" value="Previous" name="_target0" /></td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
+       <%@include file="submissionFormControlButtons_inc.jsp"%>
     </p>
         </form:form>
+    </div>
+    </div>
+             </div>
+            </div>
+        </div>
+        </div>
     </body>
 </html>

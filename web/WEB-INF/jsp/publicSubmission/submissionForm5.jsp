@@ -48,12 +48,19 @@
         <div id="genotype" class="step">
             <h2>Genotype (Step ${stepCurrent} of ${stepTotal})</h2>
             <%@include file="submissionFormHeader_inc.jsp"%>
+             <div id="wrapper">
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
             <p>
                 Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions.
             </p>
             <p>
                 For the definitions of terms <a target="IMSR" href="http://www.informatics.jax.org/imsr/glossary.jsp">see the IMSR glossary</a>. For gene/allele symbols and identifiers please <a target='MGI' href='http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerQF'>search MGI</a>.
             </p>
+            
             <form:form method="POST" commandName="command"> 
                 <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
                 <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
@@ -104,10 +111,10 @@
             </spring:bind>   
 
 
-            <%--<input type="text" name="command.current_backg_text" id="current_backg_text" />--%>
+            <%--<input type="text" name="command.current_backg_text" id="current_backg_text" />
         </div>
-        <form:errors path="${status.expression}" cssClass="error" />
-    </div>
+      
+    </div>--%>
 
 
     <spring:bind path="command.backcrosses">         
@@ -139,9 +146,10 @@
             <form:errors path="${status.expression}" cssClass="error" />
         </div>
     </spring:bind>
-
+    <div class="boxcontainer">
+        <div class="clear"></div>
     <fieldset class="mutation" id="mutation">
-        <legend>Mutation</legend>
+        <h4>Mutation</h4>
         <div class="field mutation_type">
             <label class="label" for="mutation_type"><strong>Type<sup><font color="red">*</font></sup></strong></label>
             <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
@@ -504,10 +512,11 @@
     </div>
     <br/>
     <div>
-        <input value="Clear mutation" type="button" class="clearMutation" id="clearMutation" onclick="clear_form_elements(document.getElementById('mutation'))" />
+        <input value="Clear mutation" type="button" class="btn big" id="clearMutation" onclick="clear_form_elements(document.getElementById('mutation'))" />
 
     </div>
 </fieldset>
+            </div>
 <%--<div name="addMut" id="addMut">
     <p>
         <input value="Add mutation" type="button" id="add_mutation" />
@@ -523,21 +532,17 @@
                 });
     </script>
 </div>
-</div>
+<%--</div>--%>
 
 <p>
-<table width="150" cellspacing="8" class="formNav">
-    <tr>
-        <td colspan="2" align='center'><input type="submit" value="Next" name="_target6" /><br/></td>
-    </tr>
-    <tr>
-        <td ><input type="submit" value="Previous" name="_target4" /></td>
-        <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-    </tr>
-</table>
+<%@include file="submissionFormControlButtons_inc.jsp"%>
 </p>
 </form:form>  
-<br/>
-<br/>
+    </div>
+    </div>
+             </div>
+            </div>
+        </div>
+        </div>
 </body>
 </html>

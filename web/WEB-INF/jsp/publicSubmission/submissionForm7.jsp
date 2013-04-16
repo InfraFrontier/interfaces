@@ -25,13 +25,19 @@
                     <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/biblioData.js?<%= new java.util.Date()%>"></script>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+       <style type="text/css">@import url(../css/default.css);</style>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <div id="references" class="step">
             <h2>
                 References (Step ${stepCurrent} of ${stepTotal})
             </h2>
+             <div id="wrapper">
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
             <%@include file="submissionFormHeader_inc.jsp"%>
             <p>
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
@@ -194,16 +200,14 @@
     </div>
             
 <p>
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Next" name="_target8" /><br/></td>
-            </tr>
-            <tr>
-                <td ><input type="submit" value="Previous" name="_target6" /></td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
+<%@include file="submissionFormControlButtons_inc.jsp"%>
     </p> </form:form>
+        </div>
+                </div>
+    </div>
+             </div>
+            </div>
+        </div>
         </div>
     </body>
 </html>

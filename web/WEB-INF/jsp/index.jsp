@@ -36,6 +36,21 @@
         <script type="text/javascript" src="/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
         <script type="text/javascript" src="/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
 
+        <script type="text/javascript">
+            var srchInput = $('div#emmastrains-searchbox input[type=text]');
+            var srchSubmit = $('div#emmastrains-searchbox input[type=submit]');
+
+            srchSubmit.click(function(){
+                var sInput = srchInput.val();
+                if ( sInput == 'Search strains...' ){
+                    alert('Sorry, but the search keyword is missing ...');
+                    return false;
+                }
+                else {
+                    window.open('/search?keyword=' +  sInput);
+                }
+            });
+        </script>
     </head>
 
     <body class="html front not-logged-in no-sidebars emma">	

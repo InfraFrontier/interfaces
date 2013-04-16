@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <style type="text/css">@import url(../css/default.css);</style>
 <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -31,24 +31,31 @@
     <body onKeyPress="return disableEnterKey(event)">
 
         <form:form method="POST" commandName="command">
+            
             <form:errors path="*" cssClass="errorblock"/>
             <div id="shipper" class="step">
                 <h2> Shipper (Step ${stepCurrent} of ${stepTotal})</h2>
                 <%@include file="submissionFormHeader_inc.jsp"%>
+                 <div id="wrapper">
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
                 <p> Please enter the contact information of the person in charge of shipping the mice to EMMA (e.g., animal facility manager or lab head). </p>
                 <div id='mask' class='close_modal'></div>
                 <div id='user_window' class='modal_window'>
                     <%-- DIV HOLDS USER DATA RETURNED FROM ajaxReturn.emma?funct=peopleCall&email=xxxxxxx@xxx.xxx --%>
                 </div><div>
                     <div>
-                         <input type="button" name="fill_shipper_with_submitter_data" 
+                         <input class="btn" type="button" name="fill_shipper_with_submitter_data" 
                                id="fill_producer_with_submitter_data" value="Fill with Submitter data" onClick="populateUserDetails('?uid=${command.per_id_per_sub}\
 &email=${command.submitter_email}&title=${command.submitter_title}&firstname=${command.submitter_firstname}&surname=${command.submitter_lastname}&phone=${command.submitter_tel}\
 &fax=${command.submitter_fax}&institute=${command.submitter_inst}&dept=${command.submitter_dept}\
 &addr_line_1=${command.submitter_addr_1}&addr_line_2=${command.submitter_addr_2}\
 &town=${command.submitter_city}&county=${command.submitter_county}\
 &postcode=${command.submitter_postcode}&country=${command.submitter_country}&fieldset=shipper')"/>
-                        <input id="fill_shipper_with_producer_data" class="ui-wizard-content" type="button" value="Fill with Producer data" name="fill_shipper_with_producer_data" onClick="populateUserDetails('?uid=${command.per_id_per}\
+                        <input id="fill_shipper_with_producer_data" class="btn" type="button" value="Fill with Producer data" name="fill_shipper_with_producer_data" onClick="populateUserDetails('?uid=${command.per_id_per}\
 &email=${command.producer_email}&title=${command.producer_title}&firstname=${command.producer_firstname}&surname=${command.producer_lastname}&phone=${command.producer_tel}\
 &fax=${command.producer_fax}&institute=${command.producer_inst}&dept=${command.producer_dept}\
 &addr_line_1=${command.producer_addr_1}&addr_line_2=${command.producer_addr_2}\
@@ -254,26 +261,23 @@
                 </spring:bind>
             </div>
 
-            <div class="validation_error_message"> &nbsp; </div>
-        </div>
+      <%--      <div class="validation_error_message"> &nbsp; </div>
+        </div>--%>
     </div>
 </div>
 <spring:bind path="command.per_id_per_contact">
     <form:hidden path="${status.expression}" id="${status.expression}"></form:hidden>
 </spring:bind>
 <p>
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Next" name="_target5" /><br/></td>
-            </tr>
-            <tr>
-                <td ><input type="submit" value="Previous" name="_target3" /></td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
+<%@include file="submissionFormControlButtons_inc.jsp"%>
     </p>
 
 </form:form>
-
+    </div>
+    </div>
+             </div>
+            </div>
+        </div>
+        </div>
 </body>
 </html>

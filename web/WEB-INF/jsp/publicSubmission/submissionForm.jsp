@@ -11,14 +11,26 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <spring:bind path="command.*" />
+<c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
+<c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EMMA Mutant Mouse Strain Submission Wizard </title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <title>EMMA Mutant Mouse Strain Submission Wizard</title>
+        <style type="text/css">@import url(../css/default.css);</style>
     </head>
-    <body><%-- commandName="submissionForm" --%>
+    <body>
+        <h2>EMMA Mutant Mouse Strain Submission Wizard</h2>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+         <div id="wrapper">
+            <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
+                
         <form:form method="POST" >
 
             <div id="splash" class="step">
@@ -52,29 +64,21 @@
                 <p>
                     Thank you for your interest in the European Mouse Mutant Archive.
                 </p>
-                <div class="field">
-                    <div class="input">
-                        <label>
-                            <form:checkbox onclick="" id="agree" value="" path=""/>
-
-                            &nbsp;I have read the information above and agree to the 
-                            <a href="#">EMMA Terms &amp; Conditions</a></label>
-                    </div>
-<form:errors path="" cssClass="error" />
-                   
-                </div>
-            </div>
+                    <p>&nbsp;</p>
+                    <center>
+                    <p>
+                        <form:checkbox onclick="" id="agree" value="" path=""/>&nbsp;I have read the information above and agree to the <a href="#">EMMA Terms &amp; Conditions</a><form:errors path="" cssClass="error" />
+          </p>
+          </center>
 <p>
-        <table width="150" cellspacing="8" class="formNav">
-            <tr>
-                <td colspan="2" align='center'><input type="submit" value="Next" name="_target1" /><br/></td>
-            </tr>
-            <tr>
-                <td ><%--<input type="submit" value="Previous" name="" disabled/>--%>&nbsp;</td>
-                <td ><input type="submit" value="Cancel" name="_cancel" /></td>
-            </tr>
-        </table>
+       <%@include file="submissionFormControlButtons_inc.jsp"%>
     </p>
         </form:form>
+    </div>
+    </div>
+             </div>
+            </div>
+        </div>
+        </div>
     </body>
 </html>
