@@ -29,7 +29,7 @@
             <h2>
                 Phenotype (Step ${stepCurrent} of ${stepTotal})
             </h2>
-<%@include file="submissionFormHeader_inc.jsp"%>
+<jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
 
             <div id="container">
         <div class="region region-content">

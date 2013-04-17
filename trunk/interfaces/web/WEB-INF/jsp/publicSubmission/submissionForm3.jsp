@@ -39,7 +39,7 @@
             <h2>
                 Producer (Step ${stepCurrent} of ${stepTotal})
             </h2>
-            <%@include file="submissionFormHeader_inc.jsp"%>
+            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
 
             <div id='mask' class='close_modal'></div>
             <div id='user_window' class='modal_window'><%-- DIV HOLDS USER DATA RETURNED FROM ajaxReturn.emma?funct=peopleCall&email=xxxxxxx@xxx.xxx --%></div>

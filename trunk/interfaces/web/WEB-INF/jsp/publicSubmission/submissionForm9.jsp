@@ -30,7 +30,7 @@
             <h2>
                 Breeding (Step ${stepCurrent} of ${stepTotal})
             </h2>
-            <%@include file="submissionFormHeader_inc.jsp"%>
+            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
              <div id="wrapper">
             <div id="container">
         <div class="region region-content">

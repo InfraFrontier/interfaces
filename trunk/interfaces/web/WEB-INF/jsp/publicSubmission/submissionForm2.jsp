@@ -37,7 +37,7 @@
         <h2>
             Submitter (Step ${stepCurrent} of ${stepTotal})
         </h2>
-        <%@include file="submissionFormHeader_inc.jsp"%>
+        <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
         <div id="dialog-confirm" title="Recall Previous Submission?">
             <c:if test="${not empty requestScope.previousSub}">
                 <c:set var="submissionDAO"  value="${requestScope.previousSub}"/>
