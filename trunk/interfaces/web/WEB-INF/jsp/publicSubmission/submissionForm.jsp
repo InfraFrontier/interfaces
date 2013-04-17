@@ -33,7 +33,7 @@
                 
         <form:form method="POST" >
 
-            <div id="splash" class="step">
+            
                 <p>
                     Dear Submitting Investigator,
                 </p>
@@ -74,11 +74,12 @@
        <%@include file="submissionFormControlButtons_inc.jsp"%>
     </p>
         </form:form>
-    </div>
+
     </div>
              </div>
             </div>
         </div>
         </div>
+             </div>
     </body>
 </html>

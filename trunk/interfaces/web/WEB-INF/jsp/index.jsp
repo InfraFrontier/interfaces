@@ -25,18 +25,19 @@
         <base href="http://dev.infrafrontier.eu" />
 
         <!-- css -->
-        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
-        <link href="/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
+        <link href="http://dev.infrafrontier.eu/fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
+        <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
         <link href="http://www.byte-box.com/projekte/infrafrontier/emma/emma.css" rel="stylesheet" type="text/css" />
 
         <!-- js -->
-        <script type="text/javascript" src="/misc/jquery.js?v=1.4.4"></script>
-        <script type="text/javascript" src="/sites/infrafrontier.eu/themes/custom/infrafrontier/js/head.min.js"></script>
-        <script type="text/javascript" src="/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
-        <script type="text/javascript" src="/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/head.min.js"></script>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
 
         <script type="text/javascript">
+            $(document).ready(function(){
             var srchInput = $('div#emmastrains-searchbox input[type=text]');
             var srchSubmit = $('div#emmastrains-searchbox input[type=submit]');
 
@@ -47,8 +48,9 @@
                     return false;
                 }
                 else {
-                    window.open('/search?keyword=' +  sInput);
+                    window.open('search?keyword=' +  sInput);
                 }
+            });
             });
         </script>
     </head>
@@ -98,10 +100,10 @@
                             <div class="head">EMMA strains</div>
                             <div class="boxcontent">
                                 <h6>Search EMMA strains</h6>
-                                <p><form><input type="text" placeholder="Search strains..." /><input class="loupe" type="submit" value="" /></form></p>
+                                <p><form><input type="text" placeholder="Search strains..." class="hasPlaceholder"/><input class="loupe" type="submit" value="" /></form></p>
                                 <p><i><b>Search by:</b> Gene name/symbol, strain name, EMMA ID, OMIM name/ID, phenotype, ...</i></p>
                                 <h4>Browse EMMA strains</h4>
-                                <p><a class="btn" href="#">Genes</a> <a class="btn" href="#">Phenotypes</a> <a class="btn" href="#">Human Diseases</a></p>
+                                <p><a class="btn" href="http://dev.infrafrontier.eu/search?keyword=browse_strain_types">Strain Types</a> <a class="btn" href="http://dev.infrafrontier.eu/search?keyword=browse_genes">Genes</a> <a class="btn" href="http://dev.infrafrontier.eu/search?keyword=browse_human_diseases">Human Diseases</a></p>
                                 <p>&nbsp;</p>
                                 <div class="splithalf">
                                     <div class="box half">
@@ -175,9 +177,9 @@
                         <div id="box-partnership" class="box w300">
                             <div class="head">European Partnership</div>
                             <div class="boxcontent">
-                                <p><img src="/media/upload/img/logo-esfri.jpg" class="floatleft" height="60" width="60">Infrastructure on the ESFRI Roadmap</p><p><a href="/infrafrontier-research-infrastructure/organisation" class="icon more">Learn more</a></p>                    </div>
+                                <p><img src="/sites/infrafrontier.eu/files/upload/img/logo-esfri.jpg" class="floatleft" height="60" width="60">Infrastructure on the ESFRI Roadmap</p><p><a href="/infrafrontier-research-infrastructure/organisation" class="icon more">Learn more</a></p>                    </div>
                             <div class="boxcontent">
-                                <p><img src="/media/upload/img/logo-eu.jpg" class="floatleft" height="40" width="60">Infrafrontier is supported by the partner institutions, national research programmes and by the European Commission.</p>                    </div>
+                                <p><img src="/sites/infrafrontier.eu/files/upload/img/logo-eu.jpg" class="floatleft" height="40" width="60">Infrafrontier is supported by the partner institutions, national research programmes and by the European Commission.</p>                    </div>
                         </div>
 
                         <div class="clear"></div>
