@@ -38,7 +38,7 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
-            <%@include file="submissionFormHeader_inc.jsp"%>
+            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
             <p>
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
             </p>

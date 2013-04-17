@@ -55,16 +55,16 @@ else
         <ul class="progress clearfix">
   <c:forEach var="title" items="${stepTitles}" varStatus="status">
       <c:set var="liStyle" value=""/>
-       <c:if test="${sessionScope.pageCount > status.count}"><c:set var="separator" value=" << "/><c:set var="liStyle" value="last"/></c:if>
-        <c:if test="${sessionScope.pageCount <= status.count}"><c:set var="separator" value=" >> "/></c:if>
+       <c:if test="${stepCurrent > status.count}"><c:set var="separator" value=" << "/><c:set var="liStyle" value="last"/></c:if>
+        <c:if test="${stepCurrent <= status.count}"><c:set var="separator" value=" >> "/></c:if>
       <c:if test="${status.last}"><c:set var="title" value="${fn:replace(title, ']', '')}"/><c:set var="separator" value=""/><c:set var="liStyle" value="last"/></c:if>
         <c:if test="${status.first}"><c:set var="title" value="${fn:replace(title, '[', '')}"/><c:set var="liStyle" value=""/></c:if>
-        <c:if test="${sessionScope.pageCount == status.count}"><c:set var="liStyle" value="first active"/></c:if>
-        <li class="${liStyle}"><c:if test="${sessionScope.pageCount == status.count}">${title}</c:if><c:if test="${sessionScope.pageCount != status.count}">${title}</c:if>${separator}</li>
+        <c:if test="${stepCurrent == status.count}"><c:set var="liStyle" value="first active"/></c:if>
+        <li class="${liStyle}"><c:if test="${stepCurrent == status.count}">${title}</c:if><c:if test="${stepCurrent != status.count}">${title}</c:if>${separator}</li>
     </c:forEach>
       </ul>           
   </center>  
 </div>
 <br/>
 <div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto;}"></div>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.2</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.3</div>

@@ -47,7 +47,8 @@
     <body onKeyPress="return disableEnterKey(event)">
         <div id="genotype" class="step">
             <h2>Genotype (Step ${stepCurrent} of ${stepTotal})</h2>
-            <%@include file="submissionFormHeader_inc.jsp"%>
+            
+            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
              <div id="wrapper">
             <div id="container">
         <div class="region region-content">

@@ -30,8 +30,9 @@
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
         <link href="http://www.byte-box.com/projekte/infrafrontier/emma/emma.css" rel="stylesheet" type="text/css" />
 
-        <!-- js -->
-        <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script>
+        <!-- js
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script> -->
+         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/head.min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
@@ -48,7 +49,7 @@
                     return false;
                 }
                 else {
-                    window.open('search?keyword=' +  sInput);
+                    window.open('http://dev.infrafrontier.eu/search?keyword=' +  sInput);
                 }
             });
             });
