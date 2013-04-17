@@ -75,7 +75,7 @@
                     <div class="input">
                         <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                         
-                    <div id="user_details_link" style="display: none"><p><a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a>&nbsp;&nbsp;<a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a></p>
+                    <div id="user_details_link" style="display: none"><p><a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a>&nbsp;<a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a></p>
                     
                     </div>
 

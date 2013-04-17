@@ -516,8 +516,8 @@
 
     </div>
 </fieldset>
-            </div>
-<%--<div name="addMut" id="addMut">
+           
+<%-- </div><div name="addMut" id="addMut">
     <p>
         <input value="Add mutation" type="button" id="add_mutation" />
     </p>
