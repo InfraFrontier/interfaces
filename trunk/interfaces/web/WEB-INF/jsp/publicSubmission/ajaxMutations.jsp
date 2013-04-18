@@ -26,54 +26,41 @@
         <input value="Add mutation" class="btn big" type="button" id="add_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
-<h3>Mutations for Submission</h3>
+    <p>&nbsp;</p>
+<h4>Mutations for Submission</h4>
 <script type="text/javascript" >  $("#addMut").show(); </script>
 <c:choose>
     <c:when test="${count<=0}">No mutations added.</c:when>
     <c:otherwise>
-        <table width="60%" align="center">
+        <div class="boxcontainer">
+            <div class="box full">
+        <table width="100%">
+            <thead>
             <tr>
                 <th>Original Background</th>
                 <th>Mutation Type</th>
                 <th>Mutation Subtype</th>
                 <th>Dominance Pattern</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                
                 <th>Action</th>
             </tr>
+            </thead>
+            <tbody>
             <c:forEach var="mut" items="${subMutsDAO}">
                 <tr>
                     <td>${mut.mutation_original_backg_text} (${mut.mutation_original_backg})</td>
                     <td>${mut.mutation_type}</td>
                     <td>${mut.mutation_subtype}</td>
-                    <td>${mut.mutation_dominance_pattern}</td>
-                    <td><c:if test="${not empty mut.mutation_plasmid}"/></td>
-                    <td><c:if test="${not empty mut.mutation_founder_line_number}"/></td>
-                    <td><c:if test="${not empty mut.mutation_founder_line_number}"/></td>
-                    <td><c:if test="${not empty mut.mutation_promoter}"/></td>
-                    <td><c:if test="${not empty mut.mutation_mutagen}"/></td>
-                    <td><c:if test="${not empty mut.mutation_es_cell_line}"/></td>
-                    <td><c:if test="${not empty mut.mutation_chrom_anomaly_name}"/></td>
-                    <td><c:if test="${not empty mut.mutation_chrom_anomaly_descr}"/></td>
-                    <td><c:if test="${not empty mut.mutation_chrom}"/></td>
-                    <td><c:if test="${not empty mut.mutation_allele_mgi_symbol}"/></td>
-                    <td><c:if test="${not empty mut.mutation_gene_mgi_symbol}"/></td>
-                    <td><c:if test="${not empty mut.mutation_transgene_mgi_symbol}"/></td>
+                    <td>${mut.mutation_dominance_pattern}</td>                
 
-                    <td><a href="javascript:void(0)" title="${mut.id}" id="editmutation_${mut.id}">Edit</a> / <a href="javascript:void(0)"  id="deletemutation_${mut.id}" title="${mut.id}">Remove</a></td>
+                    <td><a href="javascript:void(0)" class="icon edit" title="${mut.id}" id="editmutation_${mut.id}">Edit</a>&nbsp;&nbsp;<a href="javascript:void(0)"  class="icon remove" id="deletemutation_${mut.id}" title="${mut.id}">Remove</a></td>
                 </tr>
+               
             </c:forEach> 
+                </tbody>
         </table>
+            </div>
+        </div>
     </c:otherwise>
 </c:choose>
 <script type="text/javascript" > 

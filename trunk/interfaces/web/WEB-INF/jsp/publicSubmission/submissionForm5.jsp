@@ -513,11 +513,11 @@
     </div>
     <br/>
     <div>
-        <input value="Clear mutation" type="button" class="btn big" id="clearMutation" onclick="clear_form_elements(document.getElementById('mutation'))" />
+        <input value="Clear mutation fields" type="button" class="btn big" id="clearMutation" onclick="clear_form_elements(document.getElementById('mutation'))" />
 
     </div>
 </fieldset>
-           
+            <p>&nbsp;</p>  
 <%-- </div><div name="addMut" id="addMut">
     <p>
         <input value="Add mutation" type="button" id="add_mutation" />

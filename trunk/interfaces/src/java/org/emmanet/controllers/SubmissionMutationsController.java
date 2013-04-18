@@ -4,6 +4,7 @@
  */
 package org.emmanet.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class SubmissionMutationsController implements Controller {
         //System.out.println("Encrypted parameter::-");
         //System.out.println("id sub::" + request.getParameter("Id_sub"));
         //System.out.println("decrypted:" + enc.decrypt(request.getParameter("Id_sub")));
-
+mutdaos = new ArrayList();
 
         int ID = 0;
         /*  String id_sub;

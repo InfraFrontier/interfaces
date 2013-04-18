@@ -59,22 +59,20 @@
                         <label class="label" for="${status.expression}"><strong>By phenotyping</strong></label>
                         <div class="input">
                             <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="e.g., coat colour, etc."></form:textarea>
-                            <div>
-                                    <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=PHENO',gmyWin);return false;" title="Opens a new window"><label>Upload as attachment</label></a>
-                                </div>
-                            </div>
+                            
+                                    <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=PHENO',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>
+                                
+                            
                             <form:errors path="${status.expression}" cssClass="error" />
+                            </div>
                               </spring:bind>
                         </div>
                   
                     <spring:bind path="command.othertyping">           
                         <div class="field">
-                            <label class="label" for="${status.expression}"><strong>By any other means that are not genotyping or phenotyping</strong></label>
+                            <p><strong>By any other means that are not genotyping or phenotyping</strong></p>
                             <div class="input">
-                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" ></form:textarea>
-                                    
-                                        <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=OTHER',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>
-                                
+                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" ></form:textarea><a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=OTHER',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>                            
                             </div>
                             <form:errors path="${status.expression}" cssClass="error" />
                         </div>

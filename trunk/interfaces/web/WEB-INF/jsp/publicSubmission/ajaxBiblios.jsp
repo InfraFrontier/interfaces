@@ -22,20 +22,24 @@
 <!DOCTYPE html>
 <div name="addBib" id="addBib">
     <p>
-       <input value="Add Biblio" type="button" id="add_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
+       <input value="Add Biblio" class="btn" type="button" id="add_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
 <div name="editBib" id="editBib" style="display: none">
     <p>
-        <input value="Edit Biblio" type="button" id="edit_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
+        <input value="Edit Biblio" class="btn" type="button" id="edit_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
-<h3>Bibliographic references for Submission</h3>
+    <p>&nbsp;</p>
+<h4>Bibliographic references for Submission</h4>
 <script type="text/javascript" >  $("#addBib").show(); </script>
 <c:choose>
     <c:when test="${empty count || count<=0}">No references added.</c:when>
     <c:otherwise>
-        <table width="60%" align="center">
+         <div class="boxcontainer">
+            <div class="box full">
+        <table width="100%">
+            <thead>
             <tr>
                 <th>Pubmed ID</th>
                 <th>Title</th>
@@ -43,15 +47,18 @@
                 <th>Journal/Year/Volume/Pages</th>
                 <th>Action</th>
             </tr>
+            </thead>
+            <tbody>
             <c:forEach var="bib" items="${subBibliosDAO}">
                 <tr>
                     <td>${bib.pubmed_id}</td>
                     <td>${fn:substring(bib.title,0,25)}...</td>
                     <td>${bib.author1}</td>
-                    <td>${bib.journal} / ${bib.year} / ${bib.volume} / ${bib.pages}</td>
-                    <td><a href="javascript:void(0)" title="${bib.id_biblio}" id="editReference_${bib.id_biblio}">Edit</a> / <a href="javascript:void(0)"  id="deleteReference_${bib.id_biblio}" title="${bib.id_biblio}">Remove</a></td>
+                    <td>${bib.journal} / ${bib.year} / ${bib.volume} / ${bib.pages}</td> 
+                    <td><a href="javascript:void(0)" class="icon edit" title="${bib.id_biblio}" id="editReference_${bib.id_biblio}">Edit</a>&nbsp;&nbsp;<a href="javascript:void(0)"  class="icon remove" id="deleteReference_${bib.id_biblio}" title="${bib.id_biblio}">Remove</a></td>
                 </tr>
             </c:forEach> 
+                </tbody>
         </table>
     </c:otherwise>
 </c:choose>

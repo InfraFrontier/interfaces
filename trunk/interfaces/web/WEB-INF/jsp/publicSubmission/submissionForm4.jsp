@@ -263,8 +263,7 @@
 
       <%--      <div class="validation_error_message"> &nbsp; </div>
         </div>--%>
-    </div>
-</div>
+
 <spring:bind path="command.per_id_per_contact">
     <form:hidden path="${status.expression}" id="${status.expression}"></form:hidden>
 </spring:bind>
@@ -277,7 +276,7 @@
     </div>
              </div>
             </div>
-       <%-- </div>
-        </div>--%>
+       </div>
+        </div>
 </body>
 </html>

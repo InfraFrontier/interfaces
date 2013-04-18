@@ -226,16 +226,14 @@
                         $("#delayedReleaseText").hide("slow");
                     });            
                 </script>
-
-                <div class="field">
-                    <label class="label"><strong>How many mice of breeding age could you provide and when?</strong><br />
-                        <font color="gray" size="2">Mice of breeding age must be provided. Minimum of 5 females and 5 males for freezing as homozygotes. Minimum of 5 males for freezing as heterozygotes.<br />
-                        Provision of more mice than the specified minimum will considerably accelerate the freezing process.</font></label>
-                    <div class="input">
-                        <table>
-                            <tr>
-                                <td>
-                                    <spring:bind path="command.mice_avail_month">
+                 <div class="boxcontainer">
+                     <p>&nbsp;</p>
+<p><strong>How many mice of breeding age could you provide and when?</strong><br />
+                        Mice of breeding age must be provided. Minimum of 5 females and 5 males for freezing as homozygotes. Minimum of 5 males for freezing as heterozygotes.<br />
+                        Provision of more mice than the specified minimum will considerably accelerate the freezing process</font></p>
+               <p>&nbsp;</p>
+                    <div class="box half first"><label>Month</label>
+                        <spring:bind path="command.mice_avail_month">
                                         <form:select path="${status.expression}" id="${status.expression}">
                                             <form:option value="">Please select..</form:option>
                                             <c:forEach var="it" begin="1" end="12" varStatus="status">
@@ -243,22 +241,8 @@
                                             </c:forEach> 
                                         </form:select>
                                     </spring:bind>
-                                </td>
-
-                                <td>
-
-                                    <spring:bind path="command.mice_avail_year">
-                                        <form:select path="${status.expression}" id="${status.expression}">
-                                            <form:option value="">Please select..</form:option>
-                                            <c:forEach var="it" begin="0" end="5" varStatus="status">
-                                                <form:option value="${(sessionScope.startYear)+it}">${(sessionScope.startYear)+it}</form:option>
-                                            </c:forEach> 
-                                        </form:select>
-                                    </spring:bind>
-                                </td>
-                                <td>
-
-                                    <spring:bind path="command.mice_avail_males">
+                                            
+                                            <label>Males</label><spring:bind path="command.mice_avail_males">
                                         <form:select path="${status.expression}" id="${status.expression}">
                                             <form:option value="">Please select..</form:option>
                                             <c:forEach var="it" begin="0" end="7" varStatus="status">
@@ -271,10 +255,17 @@
                                             </c:forEach> 
                                         </form:select>
                                     </spring:bind>
-
-                                </td>
-                                <td>
-                                    <spring:bind path="command.mice_avail_females">
+                    </div>
+                    <div class="box half second"><label>Year</label>
+                        <spring:bind path="command.mice_avail_year">
+                                        <form:select path="${status.expression}" id="${status.expression}">
+                                            <form:option value="">Please select..</form:option>
+                                            <c:forEach var="it" begin="0" end="5" varStatus="status">
+                                                <form:option value="${(sessionScope.startYear)+it}">${(sessionScope.startYear)+it}</form:option>
+                                            </c:forEach> 
+                                        </form:select>
+                                    </spring:bind>
+                                            <label>Females</label><spring:bind path="command.mice_avail_females">
                                         <form:select path="${status.expression}" id="${status.expression}">
                                             <form:option value="">Please select..</form:option>
                                             <c:forEach var="it" begin="0" end="11" varStatus="status">
@@ -287,33 +278,12 @@
                                             </c:forEach> 
                                         </form:select>
                                     </spring:bind>
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>
-                                    <label for="mice_avail_month">Month</label>
-                                </td>
-                                <td>
-                                    <label for="mice_avail_year">Year</label>
-                                </td>
-                                <td>
-                                    <label for="mice_avail_males">Males</label>
-
-                                </td>
-                                <td>
-                                    <label for="mice_avail_females">Females</label>
-                                </td>
-                            </tr>
-                        </table>
                     </div>
-                    <div class="validation_error_message">
-
-                        &nbsp;
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label"><strong>Additional materials of interest (you can upload up to five attachments)</strong></label>
+                    
+                
+                <div class="boxcontainer">
+                    <p><strong>Additional materials of interest (you can upload up to five attachments)</strong></p>
                     <div class="input">
                         <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL',gmyWin);return false;" title="Opens a new window">Upload attachment</a>
                         <%-- <spring:bind path="command.additional_materials_file_1"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
@@ -332,7 +302,7 @@
             <br/><br/>
 
         </form:form>
-                </div>
+               
     </div>
              </div>
             </div>
