@@ -4,6 +4,7 @@
  */
 package org.emmanet.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ public class submissionBibliosController implements Controller {
     private Encrypter enc = new Encrypter();
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        subBiblios = new ArrayList();
         System.out.println("from sub biblios controller ::-- " + request.getParameter("Id_sub"));
          int ID = 0;
          

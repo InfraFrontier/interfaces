@@ -131,7 +131,7 @@ p + .innerbox			{ margin-top: 20px; }
 #emmastrains-searchbox	{ height: 300px; overflow: hidden; }
 #emmastrains-searchbox i { font-size: 11px; line-height: 1em; }
 
-/* Buttons */
+/* Buttons ../img/icon/pen.png ../img/icon/remove.png */
 input.btn					{ background: #606060; color: #fff !important; text-decoration: none; padding: 4px 6px; font-size: 12px; cursor: pointer; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -ms-border-radius: 3px; }
 input.btn:hover				{ text-decoration: underline; }
 input.btn.big				{ display: inline-block; font-size: 14px; padding: 5px 10px; min-width: 70px; text-align: center; }
@@ -144,8 +144,8 @@ a.icon.help				{ color: #909090; text-decoration: none; background: url(../img/i
 p.icon.more a,
 a.icon.more				{ background: url(../img/icon/link_arrow.png) right 7px no-repeat; padding-right: 10px; }
 a.icon.pdf				{ background: url(../img/icon/pdf.png) left top no-repeat; padding-left: 25px; }
-a.icon.edit				{ background: url(../img/icon/pen.png) left 2px no-repeat; padding-left: 12px; }
-a.icon.remove			{ background: url(../img/icon/remove.png) left 3px no-repeat; padding-left: 16px; }
+a.icon.edit				{ background: url(http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/pen.png) left 2px no-repeat; padding-left: 12px; }
+a.icon.remove			{ background: url(http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/remove.png) left 3px no-repeat; padding-left: 16px; }
 p.icon a:hover,
 a.icon					{ text-decoration: none; cursor: pointer; }
 a.icon:hover			{ text-decoration: underline; }

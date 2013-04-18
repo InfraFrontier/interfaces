@@ -28,17 +28,16 @@
        <style type="text/css">@import url(../css/default.css);</style>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-        <div id="references" class="step">
+       
             <h2>
                 References (Step ${stepCurrent} of ${stepTotal})
             </h2>
-             <div id="wrapper">
-            <div id="container">
+            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+                        <div id="container">
         <div class="region region-content">
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
-            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
             <p>
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
             </p>
@@ -161,12 +160,12 @@
                     <form:errors path="${status.expression}" cssClass="error" />
                 </div>
                  </spring:bind>
-                    
+                    <p>&nbsp;</p>
                  <%--<spring:bind path="command.removeReference">--%>    
                 <div>
-                    <input value="Clear" type="button" class="remove_reference" id="removeReference" onClick="javascript:removeBibDetails();" />
+                    <input value="Clear input fields" type="button" class="btn" id="removeReference" onClick="javascript:removeBibDetails();" />
                 </div>
-                   
+                   <p>&nbsp;</p>
                 <input type="hidden" name="id_biblio" id="id_biblio"  value=""/>
             </fieldset>
         <%--    <p>
@@ -201,13 +200,14 @@
             
 <p>
 <%@include file="submissionFormControlButtons_inc.jsp"%>
-    </p> </form:form>
+    </p> 
+            </form:form>
         </div>
                 </div>
     </div>
              </div>
             </div>
-        </div>
-        </div>
+       
+       
     </body>
 </html>

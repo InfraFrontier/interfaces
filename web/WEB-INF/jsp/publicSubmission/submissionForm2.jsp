@@ -47,7 +47,7 @@
                     $(function() {   
                         $( "#dialog-confirm" ).dialog({
                             resizable: false,
-                            height:180,
+                            height:220,
                             modal: true       
                         });
                     });

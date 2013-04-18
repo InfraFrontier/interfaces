@@ -55,7 +55,7 @@
                     EMMA Evaluation Committee and inform depositors about the outcome of the evaluation by e-mail within 60 days.
                 </p>
                 <p>
-                    We strongly recommend that you carefully read the <a target="emma" href="<%-- TODO PATH TO EMMA FROM CONFIG --%>/procedures/costs.php">
+                    We strongly recommend that you carefully read the <a target="emma" href="http://dev.infrafrontier.eu/procedures">
                         EMMA Procedures</a> on this website. These documents describe the responsibilities EMMA has in 
                     maintaining and distributing the submitted strains as well as the responsibilities assumed by the 
                     submitter.
@@ -67,7 +67,7 @@
                     <p>&nbsp;</p>
                     <center>
                     <p>
-                        <form:checkbox onclick="" id="agree" value="" path=""/>&nbsp;I have read the information above and agree to the <a href="#">EMMA Terms &amp; Conditions</a><form:errors path="" cssClass="error" />
+                        <form:checkbox onclick="" id="agree" value="" path=""/>&nbsp;I have read the information above and agree to the <a href="http://dev.infrafrontier.eu/procedures/legal-issues/emma-repository-conditions-and-mtas">EMMA Terms &amp; Conditions</a><form:errors path="" cssClass="error" />
           </p>
           </center>
 <p>
