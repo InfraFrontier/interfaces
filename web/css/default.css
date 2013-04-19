@@ -43,7 +43,7 @@ input[type="text"],
 input[type="password"]	{ font-family: 'Open Sans', Arial, Helvetica, sans-serif; border: 1px solid #c0c0c0; padding: 4px 5px; margin: 0; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; -ms-border-radius: 3px; }
 input.hasPlaceholder 	{ color: #909090; }
 input[type="submit"]	{ cursor: pointer; }
-input.loupe				{ position: absolute; z-index: 600; margin: 4px 0 0 -29px; background: #fff url(../images/icon/loupe.png) center center no-repeat; height: 20px; width: 28px; border: none; border-left: #c0c0c0 1px solid; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; -ms-border-radius: 0; }
+input.loupe				{ position: absolute; z-index: 600; margin: 4px 0 0 -29px; background: #fff url(../images/infrafrontier/icon/loupe.png) center center no-repeat; height: 20px; width: 28px; border: none; border-left: #c0c0c0 1px solid; border-radius: 0; -moz-border-radius: 0; -webkit-border-radius: 0; -ms-border-radius: 0; }
 .form-required			{ color: #aaa; }
 .form-item				{ margin-bottom: 15px; }
 .description			{ color: #aaa; font-size: 12px; padding-left: 140px; padding-top: 3px; }
@@ -144,8 +144,8 @@ a.icon.help				{ color: #909090; text-decoration: none; background: url(../image
 p.icon.more a,
 a.icon.more				{ background: url(../images/infrafrontier/icon/link_arrow.png) right 7px no-repeat; padding-right: 10px; }
 a.icon.pdf				{ background: url(../images/infrafrontier/icon/pdf.png) left top no-repeat; padding-left: 25px; }
-a.icon.edit				{ background: url(http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/images/infrafrontier/icon/pen.png) left 2px no-repeat; padding-left: 12px; }
-a.icon.remove			{ background: url(http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/images/infrafrontier/icon/remove.png) left 3px no-repeat; padding-left: 16px; }
+a.icon.edit				{ background: url(../images/infrafrontier/icon/pen.png) left 2px no-repeat; padding-left: 12px; }
+a.icon.remove			{ background: url(../images/infrafrontier/icon/remove.png) left 3px no-repeat; padding-left: 16px; }
 p.icon a:hover,
 a.icon					{ text-decoration: none; cursor: pointer; }
 a.icon:hover			{ text-decoration: underline; }
