@@ -13,7 +13,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<!DOCTYPE HTML>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -45,7 +44,9 @@
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
 
-        <script type="text/javascript">
+		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/search_browse_strains_genes.js?mlctcw"></script>
+
+        <!--  >script type="text/javascript">
             $(document).ready(function(){
             var srchInput = $('div#emmastrains-searchbox input[type=text]');
             var srchSubmit = $('div#emmastrains-searchbox input[type=submit]');
@@ -61,7 +62,7 @@
                 }
             });
             });
-        </script>
+        </script-->
     </head>
 
     <body class="html front not-logged-in no-sidebars emma">	
