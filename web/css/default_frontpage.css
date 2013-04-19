@@ -1,0 +1,8 @@
+/* additional css for the emma frontpage */
+.emma .floatingboxes .floatbox          { width: 287px; }
+.emma .floatbox.last                            { margin-left: 5px; }
+.emma .boxicon                                          { margin-left: 240px; }
+.emma #box-abouttext .boxcontent        { min-height: 190px; }
+.emma #footer                                           { padding-top: 0; border-top: 0; background: transparent; }
+.emma #toplink                                          { margin-top: -21px; }
+.emma #emmastrains-searchbox .boxcontent { height: 218px; }
