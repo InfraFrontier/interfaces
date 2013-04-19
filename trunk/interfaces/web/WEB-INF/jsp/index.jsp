@@ -36,6 +36,7 @@
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
         <link href="<%=path%>/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="<%=path%>/css/default_frontpage.css" rel="stylesheet" type="text/css" />
 
         <!-- js
         <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script> -->
