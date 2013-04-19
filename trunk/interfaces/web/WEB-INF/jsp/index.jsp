@@ -28,7 +28,7 @@
         <link href="http://dev.infrafrontier.eu/fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
-        <link href="http://www.byte-box.com/projekte/infrafrontier/emma/emma.css" rel="stylesheet" type="text/css" />
+        <link href="/emma/css/default.css" rel="stylesheet" type="text/css" />
 
         <!-- js
         <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script> -->
@@ -63,7 +63,7 @@
             <header id="header">        
                 <div id="innerheader">    
                     <div id="logo">
-                        <a href="/" title="Infrafrontier"><img src="http://www.byte-box.com/projekte/infrafrontier/emma/logo-emma.png" /></a>
+                        <a href="/emma" title="Infrafrontier"><img src="/emma/images/logo-emma.png" /></a>
                     </div>      
                     <div class="clear"></div>        
                 </div>    
@@ -138,27 +138,27 @@
                             <div class="head">Resources and Services</div>
 
                             <div class="floatbox">
-                                <div class="boxicon"><img src="/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/deposit.png" /></div>
-                                <h3><a href="/resources-and-services/deposit-mice-emma-repository">Deposit mice</a></h3><p><a href="/resources-and-services/deposit-mice-emma-repository" class="icon more">EMMA archives your mouse mutant free of charge</a></p>                    </div>
+                                <div class="boxicon"><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/deposit.png" /></div>
+                                <h3><a href="http://dev.infrafrontier.eu/resources-and-services/deposit-mice-emma-repository">Deposit mice</a></h3><p><a href="http://dev.infrafrontier.eu/resources-and-services/deposit-mice-emma-repository" class="icon more">EMMA archives your mouse mutant free of charge</a></p>                    </div>
 
                             <div class="floatbox last">
-                                <div class="boxicon"><img src="/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/order.png" /></div>
-                                <h3><a href="/resources-and-services/access-emma-mouse-resources">Order mice</a></h3><p><a href="/resources-and-services/access-emma-mouse-resources" class="icon more">Over 3000 mouse mutants, major collections and research tools</a></p>                    </div>
+                                <div class="boxicon"><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/order.png" /></div>
+                                <h3><a href="http://dev.infrafrontier.eu/resources-and-services/access-emma-mouse-resources">Order mice</a></h3><p><a href="http://dev.infrafrontier.eu/resources-and-services/access-emma-mouse-resources" class="icon more">Over 3000 mouse mutants, major collections and research tools</a></p>                    </div>
 
                             <div class="floatbox">
-                                <div class="boxicon"><img src="/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/axenic.png" /></div>
-                                <h3><a href="/resources-and-services/axenic-service">Axenic service</a></h3><p><a href="/resources-and-services/axenic-service" class="icon more">EMMA produces germ-free mice free of charge</a></p>                    </div>
+                                <div class="boxicon"><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/axenic.png" /></div>
+                                <h3><a href="http://dev.infrafrontier.eu/resources-and-services/axenic-service">Axenic service</a></h3><p><a href="http://dev.infrafrontier.eu/resources-and-services/axenic-service" class="icon more">EMMA produces germ-free mice free of charge</a></p>                    </div>
 
                             <div class="floatbox last">
-                                <div class="boxicon"><img src="/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/training.png" /></div>
-                                <h3><a href="/resources-and-services/training-and-consulting-services">Training and consulting</a></h3><p><a href="/resources-and-services/training-and-consulting-services" class="icon more">Hands-on courses in cryopreservation and phenotyping</a></p>                    </div>
+                                <div class="boxicon"><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/icon/boxicon/training.png" /></div>
+                                <h3><a href="http://dev.infrafrontier.eu/resources-and-services/training-and-consulting-services">Training and consulting</a></h3><p><a href="http://dev.infrafrontier.eu/resources-and-services/training-and-consulting-services" class="icon more">Hands-on courses in cryopreservation and phenotyping</a></p>                    </div>
 
                         </div>
 
                         <div class="box w300">
                             <div class="head">Information</div>
-                            <div class="boxcontent"><h3>Procedures</h3><p>Information on service fees, legal issues, health monitoring and animal welfare.</p><p><a href="/procedures" class="icon more">Read more</a></p></div>
-                            <div class="boxcontent"><h3>Knowledgebase</h3><p>Validated laboratory protocols and a comprehensive list of relevant publications.</p><p><a href="/knowledgebase" class="icon more">Read more</a></p></div>
+                            <div class="boxcontent"><h3>Procedures</h3><p>Information on service fees, legal issues, health monitoring and animal welfare.</p><p><a href="http://dev.infrafrontier.eu/procedures" class="icon more">Read more</a></p></div>
+                            <div class="boxcontent"><h3>Knowledgebase</h3><p>Validated laboratory protocols and a comprehensive list of relevant publications.</p><p><a href="http://dev.infrafrontier.eu/knowledgebase" class="icon more">Read more</a></p></div>
                         </div>
 
                         <div class="clear"></div>
@@ -178,9 +178,9 @@
                         <div id="box-partnership" class="box w300">
                             <div class="head">European Partnership</div>
                             <div class="boxcontent">
-                                <p><img src="/sites/infrafrontier.eu/files/upload/img/logo-esfri.jpg" class="floatleft" height="60" width="60">Infrastructure on the ESFRI Roadmap</p><p><a href="/infrafrontier-research-infrastructure/organisation" class="icon more">Learn more</a></p>                    </div>
+                                <p><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/files/upload/img/logo-esfri.jpg" class="floatleft" height="60" width="60">Infrastructure on the ESFRI Roadmap</p><p><a href="http://dev.infrafrontier.eu/infrafrontier-research-infrastructure/organisation" class="icon more">Learn more</a></p>                    </div>
                             <div class="boxcontent">
-                                <p><img src="/sites/infrafrontier.eu/files/upload/img/logo-eu.jpg" class="floatleft" height="40" width="60">Infrafrontier is supported by the partner institutions, national research programmes and by the European Commission.</p>                    </div>
+                                <p><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/files/upload/img/logo-eu.jpg" class="floatleft" height="40" width="60">Infrafrontier is supported by the partner institutions, national research programmes and by the European Commission.</p>                    </div>
                         </div>
 
                         <div class="clear"></div>
@@ -193,8 +193,8 @@
                             <div class="next"></div>
                         </div>            	
                         <div id="logoslidercontainer">
-                            <div class="logoslide"><img src="/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logoslider/1.jpg" /></div>
-                            <div class="logoslide"><img src="/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logoslider/1.jpg" /></div>
+                            <div class="logoslide"><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logoslider/1.jpg" /></div>
+                            <div class="logoslide"><img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logoslider/1.jpg" /></div>
                         </div>
                     </div>
 
@@ -212,7 +212,7 @@
                                 <div class="menu-block-wrapper menu-block-4 menu-name-user-menu parent-mlid-0 menu-level-1">
                                     <ul class="menu"><li class="first leaf menu-mlid-433"><a href="/infrafrontier-research-infrastructure/public-relations/contacts" title="">Contact</a></li>
                                         <li class="leaf menu-mlid-506"><a href="/imprint" title="">Imprint</a></li>
-                                        <li class="last leaf menu-mlid-409"><a href="/user/login" title="">Login / Register</a></li>
+                                        <li class="last leaf menu-mlid-409"><a href="http://dev.infrafrontier.eu/user/login" title="">Login / Register</a></li>
                                     </ul></div>
 
                             </div>
@@ -233,9 +233,9 @@
                                             <div id="block-menu-block-4" class="block block-menu-block">
 
                                                 <div class="menu-block-wrapper menu-block-4 menu-name-user-menu parent-mlid-0 menu-level-1">
-                                                    <ul class="menu"><li class="first leaf menu-mlid-433"><a href="/infrafrontier-research-infrastructure/public-relations/contacts" title="">Contact</a></li>
-                                                        <li class="leaf menu-mlid-506"><a href="/imprint" title="">Imprint</a></li>
-                                                        <li class="last leaf menu-mlid-409"><a href="/user/login" title="">Login / Register</a></li>
+                                                    <ul class="menu"><li class="first leaf menu-mlid-433"><a href="http://dev.infrafrontier.eu/infrafrontier-research-infrastructure/public-relations/contacts" title="">Contact</a></li>
+                                                        <li class="leaf menu-mlid-506"><a href="http://dev.infrafrontier.eu/imprint" title="">Imprint</a></li>
+                                                        <li class="last leaf menu-mlid-409"><a href="http://dev.infrafrontier.eu/user/login" title="">Login / Register</a></li>
                                                     </ul></div>
 
                                             </div>
