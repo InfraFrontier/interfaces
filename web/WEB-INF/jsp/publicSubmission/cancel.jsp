@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Submission Form Cancelled</title>
+        <style type="text/css">@import url(../css/default.css);</style>
     </head>
     <body>
          <h1>EMMA Submission Form Cancelled</h1>

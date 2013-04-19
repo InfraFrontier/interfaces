@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <style type="text/css">@import url(../css/default.css);</style>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
@@ -35,8 +35,8 @@
         <br/>
     <input type="hidden" value="${sessionScope.getprev}" name="submissionID" id="submissionID">
     <input type="hidden" value="${param.submissionFileType}" name="submissionFileType" id="submissionFileType">
-    Please select a PDF file, with a maximum size, not exceeding 2MB to upload : <input type="file" name="file" id="file"></input>
-    <input type="submit" id="upload" name="upload" value="upload" />
+    Please select a PDF file, with a maximum size, not exceeding 2MB to upload : <input type="file"  name="file" id="file"></input>
+    <input type="submit" id="upload" class="btn big" name="upload" value="upload" />
     <span>
         <form:errors path="file" cssClass="error" />
     </span>

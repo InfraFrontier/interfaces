@@ -437,7 +437,7 @@
                 </div>
                 <form:errors path="${status.expression}" cssClass="error" />
             </div>
-        </div>
+       
 
     </spring:bind>
 
@@ -517,6 +517,9 @@
 
     </div>
 </fieldset>
+        <div class="box half first"></div
+         <div class="box half last"></div>
+         </div>
             <p>&nbsp;</p>  
 <%-- </div><div name="addMut" id="addMut">
     <p>
@@ -533,8 +536,8 @@
                 });
     </script>
 </div>
-<%--</div>--%>
-
+</div>
+ </div>
 <p>
 <%@include file="submissionFormControlButtons_inc.jsp"%>
 </p>
