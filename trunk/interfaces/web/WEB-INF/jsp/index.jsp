@@ -30,7 +30,7 @@
         <meta name="keywords" content="EMMA, Infrafrontier" />
         <meta name="copyright" content="Infrafrontier" />
         <link rel="canonical" href="http://www.emmanet.org" />
-        <base href="http://dev.infrafrontier.eu" />
+        <base href="<%=path%>/" />
 
         <!-- css -->
         <link href="http://dev.infrafrontier.eu/fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
@@ -71,7 +71,7 @@
             <header id="header">        
                 <div id="innerheader">    
                     <div id="logo">
-                        <a href="<%=path%>" title="Infrafrontier"><img src="<%=path%>/images/logo-emma.png" /></a>
+                        <a href="<%=path%>/" title="Infrafrontier"><img src="<%=path%>/images/logo-emma.png" /></a>
                     </div>      
                     <div class="clear"></div>        
                 </div>    
