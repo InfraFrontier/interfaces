@@ -2,6 +2,14 @@
 <%@page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%
+        String path = request.getContextPath();
+        String basePath = request.getScheme() + "://"
+                        + request.getServerName() + ":" + request.getServerPort()
+                        + path + "/";
+%>
+
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -28,7 +36,7 @@
         <link href="http://dev.infrafrontier.eu/fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
-        <link href="/emma/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="<%=path%>/css/default.css" rel="stylesheet" type="text/css" />
 
         <!-- js
         <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script> -->
@@ -63,7 +71,7 @@
             <header id="header">        
                 <div id="innerheader">    
                     <div id="logo">
-                        <a href="/emma" title="Infrafrontier"><img src="/emma/images/logo-emma.png" /></a>
+                        <a href="<%=path%>" title="Infrafrontier"><img src="<%=path%>/images/logo-emma.png" /></a>
                     </div>      
                     <div class="clear"></div>        
                 </div>    
