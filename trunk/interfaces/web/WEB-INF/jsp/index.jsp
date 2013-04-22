@@ -49,6 +49,7 @@
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-ui-1.8.18.min.js"></script>
+		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/DataTables-1.9.4/media/js/jquery.dataTables.min.js?mlctcw"></script>
 		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/search_browse_strains_genes.js"></script>
 
         <!--  >script type="text/javascript">
