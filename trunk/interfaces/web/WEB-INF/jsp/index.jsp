@@ -40,14 +40,15 @@
 
         <!-- js
         <script type="text/javascript" src="http://dev.infrafrontier.eu/misc/jquery.js?v=1.4.4"></script> -->
-        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-1.8.1.min.js?mlctcw"></script>
-		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-ui-1.8.18.min.js?mlctcw"></script>
-         
+       
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/head.min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
-
-		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/search_browse_strains_genes.js?mlctcw"></script>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-1.8.1.min.js"></script>
+		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-ui-1.8.18.min.js"></script>
+		<script src="http://jquery-ui.googlecode.com/svn/tags/1.8.18/jquery-1.7.1.js"></script>
+		<script src="http://jquery-ui.googlecode.com/svn/tags/1.8.18/ui/jquery-ui.js"></script>
+		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/search_browse_strains_genes.js"></script>
 
         <!--  >script type="text/javascript">
             $(document).ready(function(){
