@@ -55,7 +55,7 @@ function mutFieldDisplay() {
         $("#field\\ mutation_subtype\\ conditional\\ TM").show("slow");
         $("#field\\ mutation_gene_mgi_symbol\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
         $("#field\\ mutation_allele_mgi_symbol\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
-        $("#field\\ mutation_chrom conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
+        $("#field\\ mutation_chrom\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
         $("#field\\ mutation_es_cell_line\\ conditional\\ GT\\ TM").show("slow");
     }else if(value=="XX"){
         $("#field\\ mutation_gene_mgi_symbol\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
