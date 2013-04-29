@@ -1,12 +1,13 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.emmanet.model.MgiMarkerDAO" table="mgi_marker">
+    <class name="org.emmanet.model.MgiAlleleDAO" table="mgi_allele">
         <id column="acc" name="acc">
             <generator class="native"/>
         </id>
+        <property column="marker_acc" name="marker_acc"/>
         <property column="symbol" name="symbol"/>
         <property column="name" name="name"/>
-        <property column="status" name="status"/>
     </class>
 </hibernate-mapping>
