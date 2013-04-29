@@ -83,29 +83,29 @@ public class SubmissionFormController extends AbstractWizardFormController {
     public SubmissionFormController() {
         setCommandName("command");
         setAllowDirtyBack(true);
-       // setAllowDirtyForward(true);
+        // setAllowDirtyForward(true);
     }
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
-System.out.println("AT THE FORMBACKING OBJECT");
+        System.out.println("AT THE FORMBACKING OBJECT");
         StrainsDAO sd = new StrainsDAO();
         SubmissionsDAO sda = new SubmissionsDAO();
         wr = new WebRequests();
-         SubmissionsManager sm = new SubmissionsManager();
-         
+        SubmissionsManager sm = new SubmissionsManager();
+
         if (request.getParameter("getprev") != null) {
             String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
 
-             if (request.getParameter("recall_window") != null) {
-                 if (request.getParameter("recall_window").equals("Yes")) {
-                     sda = sm.getSubByID(Integer.parseInt(idDecrypt));
-                                 System.out.println("g e t p r e v::" + idDecrypt);
-                                 System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
-                                 System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
-                 }
-             }
-        } 
+            if (request.getParameter("recall_window") != null) {
+                if (request.getParameter("recall_window").equals("Yes")) {
+                    sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+                    System.out.println("g e t p r e v::" + idDecrypt);
+                    System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
+                    System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
+                }
+            }
+        }
         //////////////////////////////////////////////
         BackgroundManager bm = new BackgroundManager();
         String getprev = "";
@@ -134,10 +134,10 @@ System.out.println("AT THE FORMBACKING OBJECT");
          } catch (Exception e) {
          }*/
 
-       // encrypter = new Encrypter();
+        // encrypter = new Encrypter();
         //#####sda = new SubmissionsDAO();
 
-       
+
 
         /*/decode
          try {
@@ -154,14 +154,14 @@ System.out.println("AT THE FORMBACKING OBJECT");
         
        
 
-        if (request.getParameter("getprev") != null) {
-            String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
-            System.out.println("g e t p r e v::" + idDecrypt);
-            sda = sm.getSubByID(Integer.parseInt(idDecrypt));
-            System.out.println("SUBID::FBO2 = " + sda.getEncryptedId_sub());
-        }
+         if (request.getParameter("getprev") != null) {
+         String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
+         System.out.println("g e t p r e v::" + idDecrypt);
+         sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+         System.out.println("SUBID::FBO2 = " + sda.getEncryptedId_sub());
+         }
         
-  }*/
+         }*/
         sda.setCvDAO(wr.isoCountries());
 
 
@@ -179,8 +179,8 @@ System.out.println("AT THE FORMBACKING OBJECT");
             Errors errors,
             int page)
             throws Exception {
-        
-        SubmissionsDAO sda=new SubmissionsDAO();// = (SubmissionsDAO) command;
+
+        SubmissionsDAO sda = new SubmissionsDAO();// = (SubmissionsDAO) command;
         SubmissionsManager sm = new SubmissionsManager();
         encrypter = new Encrypter();
 
@@ -191,19 +191,19 @@ System.out.println("AT THE FORMBACKING OBJECT");
 
             System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
             System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
-             if (request.getParameter("recall_window") != null) {
-                 if (request.getParameter("recall_window").equals("Yes")) {
-                     System.out.println("SETTING COMMAND TO SDA");
+            if (request.getParameter("recall_window") != null) {
+                if (request.getParameter("recall_window").equals("Yes")) {
+                    System.out.println("SETTING COMMAND TO SDA");
                     // command = new Object();
                     // command = sda;
-                     command = this.formBackingObject(request);
-                 }
-             }
-            
+                    command = this.formBackingObject(request);
+                }
+            }
+
         } else {
-            sda=(SubmissionsDAO) command;
+            sda = (SubmissionsDAO) command;
         }
-        
+
         Map refData = new HashMap();
         int pageCount = page;
         session.setAttribute("pageCount", "" + pageCount);
@@ -279,14 +279,20 @@ System.out.println("AT THE FORMBACKING OBJECT");
 
                         System.out.println("PERSON LIST SIZE " + people.size());
                         JSONobjects = new LinkedList();
+                        peopleListLoop:
                         for (Iterator it = people.listIterator(); it.hasNext();) {
                             pd = (PeopleDAO) it.next();
                             System.out.println("A U T H O R I T Y  : :  " + pd.getLabsDAO().getAuthority());
                             //RESTRICT PEOPLE LISTING ONLY TO AUTHORISED LIST
                             if (pd.getLabsDAO().getAuthority() != null) {
                                 peopleDAOs.add(pd);
+                            }else{
+                                // peopleDAOs.add(pd);
+                                //person not authorised to pick addresses but we need to populate submitter per_id_per_sub with id
+                                sda.setPer_id_per_sub(Integer.parseInt(pd.getId_per()));
+                                break peopleListLoop;
                             }
-                            // peopleDAOs.add(pd);
+                            
                         }
                         /*session*/ request.setAttribute("userdaos", peopleDAOs);
 
@@ -313,12 +319,20 @@ System.out.println("AT THE FORMBACKING OBJECT");
                         //OK email exists and likely user so present a view of user'lab details to choose from
                         System.out.println("PERSON LIST SIZE " + people.size());
                         JSONobjects = new LinkedList();
+                        peopleListLoopProducer:
                         for (Iterator it = people.listIterator(); it.hasNext();) {
                             pd = (PeopleDAO) it.next();
-                            peopleDAOs.add(pd);
+                             if (pd.getLabsDAO().getAuthority() != null) {
+                                peopleDAOs.add(pd);
+                            }else{
+                                // peopleDAOs.add(pd);
+                                //person not authorised to pick addresses but we need to populate producer per_id_per with id
+                                 //we'll take the first and discard the rest
+                                sda.setPer_id_per(Integer.parseInt(pd.getId_per()));
+                                break peopleListLoopProducer;
+                            }
                         }
                         session.setAttribute("pidaos", peopleDAOs);
-                        //refData.put("pi", peopleDAOs);
                     }
                 }
                 sda.setStep("3");
@@ -326,9 +340,7 @@ System.out.println("AT THE FORMBACKING OBJECT");
                 break;
 
             case 4:
-
-
-                if (sda.getShipper_email()/*.getPeopleDAO().getEmail()*/ != null) {
+ if (sda.getShipper_email()/*.getPeopleDAO().getEmail()*/ != null) {
                     //LOOK TO PULL USER/LAB DATA TO POPULATE STRAINS
                     pd = new PeopleDAO();
                     pm = new PeopleManager();
@@ -340,9 +352,18 @@ System.out.println("AT THE FORMBACKING OBJECT");
                         //OK email exists and likely user so present a view of user'lab details to choose from
                         System.out.println("PERSON LIST SIZE " + people.size());
                         JSONobjects = new LinkedList();
+                        peopleListLoopShipper:
                         for (Iterator it = people.listIterator(); it.hasNext();) {
                             pd = (PeopleDAO) it.next();
-                            peopleDAOs.add(pd);
+                            if (pd.getLabsDAO().getAuthority() != null) {
+                                peopleDAOs.add(pd);
+                            }else{
+                                // peopleDAOs.add(pd);
+                                //person not authorised to pick addresses but we need to populate shipper per_id_per with id
+                                 //we'll take the first and discard the rest
+                                sda.setPer_id_per_contact(Integer.parseInt(pd.getId_per()));
+                                break peopleListLoopShipper;
+                            }
                         }
                         session.setAttribute("pidaos", peopleDAOs);
                         //refData.put("pi", peopleDAOs);
@@ -477,17 +498,21 @@ System.out.println("AT THE FORMBACKING OBJECT");
         PeopleManager pm = new PeopleManager();
         PeopleDAO pd = pm.getPerson("" + sd.getPer_id_per());
         String ilarID = "";
-        if (ilarCode != "" || !ilarCode.isEmpty()) {
-            ilarID = pm.ilarID(ilarCode);
+        if (ilarCode != null) {
+            if (ilarCode != "" || !ilarCode.isEmpty()) {
+                ilarID = pm.ilarID(ilarCode);
+            }
+            if (pd != null) {
+                if (ilarID != "" || !ilarID.isEmpty()) {
+                    System.out.println("ILAR ID==" + ilarID);
+
+                    pd.setId_ilar(ilarID);
+                    pm.save(pd);
+                }
+            } else {
+                //set ilar in submission to ilar id
+            }
         }
-
-        if (ilarID != "" || !ilarID.isEmpty()) {
-            System.out.println("ILAR ID==" + ilarID);
-
-            pd.setId_ilar(ilarID);
-            pm.save(pd);
-        }
-
         //OK now we need to take the submissions dao/submissions mutations dao and submissions biblios dao data
         //and start to populate a new strains dao.
         //might need to break this out into its own method to be accesible by restful web service for future bulk uploads
@@ -572,6 +597,7 @@ System.out.println("AT THE FORMBACKING OBJECT");
         nsd.setMgi_ref(null);//TODO GET VALUE
 
         String mutantFertile = "";
+        //TODO FAILS HERE WHEN RECALLING SUBMISSION AND SUBMITTING CHECK
         if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
             if (!sd.getHeterozygous_fertile().isEmpty()) {
                 mutantFertile = sd.getHeterozygous_fertile();
@@ -579,15 +605,43 @@ System.out.println("AT THE FORMBACKING OBJECT");
                 mutantFertile = sd.getHomozygous_fertile();
             }
         }
-
-
         nsd.setMutant_fertile(mutantFertile);
         nsd.setMutant_viable(sd.getHomozygous_viable());
         nsd.setName(sd.getStrain_name());
         nsd.setName_status(null);
-        nsd.setPer_id_per("" + sd.getPer_id_per());
-        nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
-        nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
+
+        //if per ids are 0 then need to create new people/laboratory refs
+SubmissionsManager sMan = new SubmissionsManager();
+        if (sd.getPer_id_per() == 0) {
+            int idProd = addUser(sd, "producer");
+            sd.setPer_id_per(idProd);
+            //save submission
+            sMan.save(sd);
+            nsd.setPer_id_per("" + idProd);
+            
+        } else {
+            nsd.setPer_id_per("" + sd.getPer_id_per());
+        }
+
+        if (sd.getPer_id_per_contact() == 0) {
+            int idShip = addUser(sd, "shipper");
+            sd.setPer_id_per_contact(idShip);
+                        //save submission
+            sMan.save(sd);
+            nsd.setPer_id_per_contact("" + idShip);
+        } else {
+            nsd.setPer_id_per_contact("" + sd.getPer_id_per_contact());
+        }
+
+        if (sd.getPer_id_per_sub() == 0) {
+            int idSub = addUser(sd, "submitter");
+            sd.setPer_id_per_sub(idSub);
+                        //save submission
+            sMan.save(sd);
+            nsd.setPer_id_per_sub("" + idSub);
+        } else {
+            nsd.setPer_id_per_sub("" + sd.getPer_id_per_sub());
+        }
 
         stm.save(nsd);
 
@@ -959,7 +1013,7 @@ System.out.println("AT THE FORMBACKING OBJECT");
         switch (page) {
             case 0: //if page 1 , go validate with validatePage1Form
                 //validator.validatePage1Form(command, errors);
-                
+
                 break;
             case 1: //if page 2 , go validate with validatePage2Form
                 //validator.validatePage2Form(command, errors);
@@ -968,21 +1022,21 @@ System.out.println("AT THE FORMBACKING OBJECT");
                 validator.validateSubmissionForm0(sd, errors);
                 break;
             case 2:
-               ////////// validator.validateSubmissionForm1(sd, errors,"submitter");
+                ////////// validator.validateSubmissionForm1(sd, errors,"submitter");
                 break;
             case 3:
                 //uses validator 2 to redice code duplication
-               //////////// validator.validateSubmissionForm1(sd, errors,"producer");
+                //////////// validator.validateSubmissionForm1(sd, errors,"producer");
                 break;
             case 4:
                 //uses validator 2 to redice code duplication 
-             //////////////// validator.validateSubmissionForm1(sd, errors,"shipper");
+                //////////////// validator.validateSubmissionForm1(sd, errors,"shipper");
                 break;
             case 5:
-                validator.validateSubmissionForm4(sd, errors);
+                //  validator.validateSubmissionForm4(sd, errors);
                 break;
             case 6:
-                validator.validateSubmissionForm5(sd, errors);
+                //  validator.validateSubmissionForm5(sd, errors);
                 break;
             case 7:
                 //validator.validateSubmissionForm7(sd, errors);
@@ -991,7 +1045,7 @@ System.out.println("AT THE FORMBACKING OBJECT");
                 //validator.validateSubmissionForm8(sd, errors);
                 break;
             case 9:
-                validator.validateSubmissionForm9(sd, errors);
+                //   validator.validateSubmissionForm9(sd, errors);
                 break;
             case 10:
                 //validator.validateSubmissionForm10(sd, errors);
@@ -1086,19 +1140,153 @@ System.out.println("AT THE FORMBACKING OBJECT");
         mutMan.saveSQL(strainID, mutID);
     }
 
-    public void addUser(SubmissionsDAO sda) {
+    public int addUser(SubmissionsDAO sda, String type) {
+        
         PeopleDAO pd = new PeopleDAO();
         LaboratoriesManager lm = new LaboratoriesManager();
+        PeopleManager pm = new PeopleManager();
+        String email = "";
+        String fax = "";
+        String phone = "";
+        String firstname = "";
+        String surname = "";
+        String title = "";
+        int ilarID = 0;
+        int labID = 0;
+        int per_id_per = 0;
+
+        //lab info
+        String department = "";
+        String name = "";
+        String town = "";
+        String postcode = "";
+        String country = "";
+        String province = "";
+        String address1 = "";
+        String address2 = "";
+
+        List checkPerson = pm.getPeopleByEMail(sda.getSubmitter_email());
+
+        if (type.equals("submitter")) {
+            email = sda.getSubmitter_email();
+            fax = sda.getSubmitter_fax();
+            phone = sda.getSubmitter_tel();
+            surname = sda.getSubmitter_lastname();
+            title = sda.getSubmitter_title();
+            firstname = sda.getSubmitter_firstname();
+
+            department = sda.getSubmitter_dept();
+            name = sda.getSubmitter_inst();
+            town = sda.getSubmitter_city();
+            postcode = sda.getSubmitter_postcode();
+            country = sda.getSubmitter_country();
+            province = sda.getSubmitter_county();
+            address1 = sda.getSubmitter_addr_1();
+            address2 = sda.getSubmitter_addr_2();
+        } else if (type.equals("shipper")) {
+            email = sda.getShipper_email();
+            fax = sda.getShipper_fax();
+            phone = sda.getShipper_tel();
+            surname = sda.getShipper_lastname();
+            title = sda.getShipper_title();
+            firstname = sda.getShipper_firstname();
+
+            department = sda.getShipper_dept();
+            name = sda.getShipper_inst();
+            town = sda.getShipper_city();
+            postcode = sda.getShipper_postcode();
+            country = sda.getShipper_country();
+            province = sda.getShipper_county();
+            address1 = sda.getShipper_addr_1();
+            address2 = sda.getShipper_addr_2();
+        } else if (type.equals("producer")) {
+            email = sda.getProducer_email();
+            fax = sda.getProducer_fax();
+            phone = sda.getProducer_tel();
+            surname = sda.getProducer_lastname();
+            title = sda.getProducer_title();
+            firstname = sda.getProducer_firstname();
+
+            //need to take ilar code and get id
+            //pm = new PeopleManager();
+            ilarID = Integer.parseInt(pm.ilarID(sda.getProducer_ilar()));
+
+            department = sda.getProducer_dept();
+            name = sda.getProducer_inst();
+            town = sda.getProducer_city();
+            postcode = sda.getProducer_postcode();
+            country = sda.getProducer_country();
+            province = sda.getProducer_county();
+            address1 = sda.getProducer_addr_1();
+            address2 = sda.getProducer_addr_2();
+        }
         //new lm method
-        pd.setEmail(sda.getSubmitter_email());
-        pd.setFax(sda.getSubmitter_fax());
-        pd.setFirstname(sda.getSubmitter_firstname());
-        pd.setPhone(sda.getSubmitter_tel());
-        pd.setSurname(sda.getSubmitter_lastname());
-        pd.setTitle(sda.getSubmitter_title());
+        pd.setEmail(email);
+        pd.setFax(fax);
+        pd.setFirstname(firstname);
+        pd.setPhone(phone);
+        pd.setSurname(surname);
+        pd.setTitle(title);
         pd.setUsername("EMMA");
 
+        if (ilarID != 0) {
+            pd.setId_ilar("" + ilarID);
+        }
         //now a lab check
+
+        LabsDAO checkLab = new LabsDAO();
+        checkLab = lm.getLabCheck(postcode, "postcode");
+        if (checkLab != null) {
+            if (checkLab.getCountry().equals(country)) {
+                //pretty sure same laboratory but let's check some more
+                if (checkLab.getName().contains(name)) {
+                    //more sure same laboratory but let's check once more
+                    if (checkLab.getAddr_line_1().contains(address1)) {
+                        //deffo same so let us set the labID var to the dao lab id
+                        labID = Integer.parseInt(checkLab.getId_labo());
+                    }
+                }
+            }
+        }
+
+        if (labID != 0) {
+            pd.setLab_id_labo("" + labID);
+        } else {
+            //we have a new lab let's populate a labsDao object
+            LabsDAO ld = new LabsDAO();
+
+            ld.setAddr_line_1(address1);
+            ld.setAddr_line_2(address2);
+            ld.setCountry(country);
+            ld.setDept(department);
+            ld.setName(name);
+            ld.setPostcode(postcode);
+            ld.setProvince(province);
+            ld.setTown(town);
+            lm.save(ld);
+
+            pd.setLab_id_labo(ld.getId_labo());
+        }
+        //save person?
+        if (checkPerson.size() == 0) {
+            //no person exists with this er-mail so save now
+            pm.save(pd);
+            per_id_per = Integer.parseInt(pd.getId_per());
+        } else {
+            //iterate over list but only the first one to get 
+            peopleListLoop:
+            for (Iterator it = checkPerson.listIterator(); it.hasNext();) {
+                PeopleDAO personFound = (PeopleDAO) it.next();
+                per_id_per = Integer.parseInt(personFound.getId_per());
+                break peopleListLoop;
+            }
+        }
+
+        //return person id?
+
+
+        System.out.println("Type and returning " + type + " - " + per_id_per);
+        return per_id_per;
     }
 
     /**

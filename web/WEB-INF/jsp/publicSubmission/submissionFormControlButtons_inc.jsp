@@ -26,10 +26,10 @@ Control buttons, submit/cancel/previous for all active pages in the form submiss
                                    <c:otherwise></c:otherwise>
                                </c:choose>
                         &nbsp;&nbsp;
-                        <input type="submit" class="btn big" value="Next" 
+                        <input type="submit" class="btn big"
                                <c:choose>
-                                   <c:when test="${stepCurrent == stepTotal}">name="_finish"</c:when>
-                                   <c:otherwise>name="_target${stepCurrent+1}"</c:otherwise>
+                                   <c:when test="${stepCurrent == stepTotal}">value="Submit" name="_finish"</c:when>
+                                   <c:otherwise>value="Next" name="_target${stepCurrent+1}"</c:otherwise>
                                </c:choose> />
                     </p>
                 </div>
