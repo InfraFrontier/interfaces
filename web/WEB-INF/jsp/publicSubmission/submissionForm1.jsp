@@ -35,8 +35,11 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-        <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
-        <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>
+        <script>
+           // window.jQuery || document.write('<script src="../js/jquery-1.7.2.min.js"><\/script><script src="/js/vendor/jquery-ui-1.7.2.min.js"><\/script>');
+        </script>
+        <%--<script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
+        <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
 
@@ -49,11 +52,9 @@
                         <div class="form visible">
                             <div class="boxcontainer">
                                 <form:form method="POST" commandName="command">
-
-
                                     <div id="start" class="step">
                                         <h2> Start </h2>
-                                        <p> Please enter your email address for identification. For your convenience, if you have started or 
+                                        <p>Please enter your email address for identification. For your convenience, if you have started or 
                                             completed a mutant mouse strain submission previously in the last 12 months, you will be prompted to 
                                             either resume your incomplete submission from where you left off, or, if the submission was completed, 
                                             you will be asked whether you want to reuse your contact information. </p>
