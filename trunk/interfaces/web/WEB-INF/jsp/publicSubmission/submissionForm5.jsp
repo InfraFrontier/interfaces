@@ -547,12 +547,13 @@
                                     <div class="box half last">
                             </div><%--2015--%>
                                </div>
-                        </form:form>  
+                  <%--      </form:form>  --%>
                     
                 </div>
             </div>
         </div>
     </div>
 </div>
+                        </form:form>  
 </body>
 </html>
