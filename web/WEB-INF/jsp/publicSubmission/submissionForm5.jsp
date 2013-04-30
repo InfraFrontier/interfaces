@@ -441,7 +441,7 @@
                                                             <form:option value='${background[0]}'>${background[1]}</form:option>
                                                         </c:forEach>        
                                                     </form:select>
-                                                    </select>&nbsp;<%--<input type="text" name="mutation_original_backg_text_0" id="mutation_original_backg_text_0" />--%>
+                                                    &nbsp;<%--<input type="text" name="mutation_original_backg_text_0" id="mutation_original_backg_text_0" />--%>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
