@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
+    <session-factory>
 
-		<!-- FOR LIVE/TEST SERVER AT -->
-		<property name="connection.datasource">java:comp/env/jdbc/sourceEmma</property>
+        <!-- FOR LIVE/TEST SERVER AT -->
+        <property name="connection.datasource">java:comp/env/jdbc/sourceEmma</property>
 
-		<!-- Database connection settings -->
+        <!-- Database connection settings -->
 
-		<!-- SQL dialect -->
-		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
-		<!-- Enable Hibernate's automatic session context management -->
-		<property name="current_session_context_class">thread</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
 
-		<!-- Disable the second-level cache -->
-		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        <!-- Disable the second-level cache -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-		<!-- Echo all executed SQL to stdout and format it nicely -->
-		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
-		<property name="hibernate.connection.useUnicode">true</property>
-		<property name="hibernate.connection.charSet">utf8</property>
-		<property name="hibernate.connection.characterEncoding">utf8</property>
+        <!-- Echo all executed SQL to stdout and format it nicely -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.charSet">utf8</property>
+        <property name="hibernate.connection.characterEncoding">utf8</property>
 
-		<!-- MAPPINGS -->
-		<mapping resource="org/emmanet/model/WebRequestsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/StrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/AvailabilitiesStrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/AvailabilitiesStrainsDAO_1.hbm.xml" />
-		<mapping resource="org/emmanet/model/CVAvailabilitiesDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/LabsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/ArchiveDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/Syn_StrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/Sources_StrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/PeopleDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/RToolsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CVRtoolsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/MutationsStrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/MutationsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/AllelesDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/GenesDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/BibliosStrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/BibliosDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/ResiduesDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CVSourcesDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/BackgroundDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/ProjectsStrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CVProjectsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CVArchivingMethodDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/LaboratoriesStrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/Sources_RequestsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CategoriesStrainsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CategoriesDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/SubmissionsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/SubmissionBibliosDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/SubmissionMutationsDAO.hbm.xml" />
-		<mapping resource="org/emmanet/model/CVEmbryoStateDAO.hbm.xml" />
-                <mapping resource="org/emmanet/model/IlarDAO.hbm.xml" />
-	</session-factory>
+        <!-- MAPPINGS -->
+        <mapping resource="org/emmanet/model/WebRequestsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/StrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/AvailabilitiesStrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/AvailabilitiesStrainsDAO_1.hbm.xml" />
+        <mapping resource="org/emmanet/model/CVAvailabilitiesDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/LabsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/ArchiveDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/Syn_StrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/Sources_StrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/PeopleDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/RToolsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CVRtoolsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/MutationsStrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/MutationsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/AllelesDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/GenesDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/BibliosStrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/BibliosDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/ResiduesDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CVSourcesDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/BackgroundDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/ProjectsStrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CVProjectsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CVArchivingMethodDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/LaboratoriesStrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/Sources_RequestsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CategoriesStrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CategoriesDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/SubmissionsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/SubmissionBibliosDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/SubmissionMutationsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/CVEmbryoStateDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/IlarDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/MgiAlleleDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/MgiMarkerDAO.hbm.xml" />
+    </session-factory>
 </hibernate-configuration>
