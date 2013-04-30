@@ -12,12 +12,10 @@ Header for all pages in the form submission
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
-<style type="text/css">@import url(../css/default.css);</style>
+<!--<style type="text/css">@import url(../css/default.css);</style>-->
 
 <c:set var="percentageComplete" value="${(stepCurrent / stepTotal * 100)}"></c:set>
-        <script  type="text/javascript">
-            $( document ).tooltip();
-        </script>
+
 <script>
     $(function() {
         $( "#progressbar" ).progressbar({
@@ -67,5 +65,5 @@ else
 </div>
 <br/>
 <div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto; }"></div>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.4</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.5</div>
 <p>&nbsp;</p>

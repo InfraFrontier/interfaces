@@ -51,6 +51,7 @@
         <h2>Genotype (Step ${stepCurrent} of ${stepTotal})</h2>
 
         <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+         <form:form method="POST" commandName="command"> 
         <div id="wrapper">
             <div id="container">
                 <div class="region region-content">
@@ -64,7 +65,7 @@
                                     For the definitions of terms <a target="IMSR" href="http://www.informatics.jax.org/imsr/glossary.jsp">see the IMSR glossary</a>. For gene/allele symbols and identifiers please <a target='MGI' href='http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerQF'>search MGI</a>.
                                 </p>
                                 <p>&nbsp;</p>
-                                <form:form method="POST" commandName="command"> 
+                               <%--  <form:form method="POST" commandName="command"> --%>
                                     <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
                                     <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
                                     <div class="box half first">
@@ -126,7 +127,7 @@
                                             <div class="field">
                                                 <p><strong>Number of generations backcrossed</strong></p>
                                                 <div class="input">
-                                                    <input maxlength="2" type="text" id="${status.expression}" path="${status.expression}" title="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
+                                                     <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -147,7 +148,7 @@
                                         <spring:bind path="command.breeding_history">
                                             <p><strong>Breeding history</strong></p>
                                             <div class="input">
-                                                <textarea id="${status.expression}" path="${status.expression}" name="${status.expression}" cols="50" rows="5" title="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></textarea>
+                                                <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" title="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></form:textarea>
                                             </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                         </div>
