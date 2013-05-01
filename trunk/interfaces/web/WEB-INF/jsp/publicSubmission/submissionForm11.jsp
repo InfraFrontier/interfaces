@@ -230,7 +230,7 @@
                      <p>&nbsp;</p>
 <p><strong>How many mice of breeding age could you provide and when?</strong><br />
                         Mice of breeding age must be provided. Minimum of 5 females and 5 males for freezing as homozygotes. Minimum of 5 males for freezing as heterozygotes.<br />
-                        Provision of more mice than the specified minimum will considerably accelerate the freezing process</font></p>
+                        Provision of more mice than the specified minimum will considerably accelerate the freezing process</p>
                <p>&nbsp;</p>
                     <div class="box half first"><label>Month</label>
                         <spring:bind path="command.mice_avail_month">
