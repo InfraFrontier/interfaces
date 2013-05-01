@@ -27,8 +27,8 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-             <%-- <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
-        <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>---%>
+        <%-- <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
+   <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>---%>
         <script type="text/javascript" src="../js/submission.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <script type="text/javascript" src="../js/mutData.js?<%= new java.util.Date()%>"></script>
@@ -51,21 +51,21 @@
         <h2>Genotype (Step ${stepCurrent} of ${stepTotal})</h2>
 
         <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
-         <form:form method="POST" commandName="command"> 
-        <div id="wrapper">
-            <div id="container">
-                <div class="region region-content">
-                    <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
-                        <div class="form visible">
-                            <div class="boxcontainer">
-                                <p>
-                                    Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions.
-                                </p>
-                                <p>
-                                    For the definitions of terms <a target="IMSR" href="http://www.informatics.jax.org/imsr/glossary.jsp">see the IMSR glossary</a>. For gene/allele symbols and identifiers please <a target='MGI' href='http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerQF'>search MGI</a>.
-                                </p>
-                                <p>&nbsp;</p>
-                               <%--  <form:form method="POST" commandName="command"> --%>
+        <form:form method="POST" commandName="command"> 
+            <div id="wrapper">
+                <div id="container">
+                    <div class="region region-content">
+                        <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+                            <div class="form visible">
+                                <div class="boxcontainer">
+                                    <p>
+                                        Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions.
+                                    </p>
+                                    <p>
+                                        For the definitions of terms <a target="IMSR" href="http://www.informatics.jax.org/imsr/glossary.jsp">see the IMSR glossary</a>. For gene/allele symbols and identifiers please <a target='MGI' href='http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerQF'>search MGI</a>.
+                                    </p>
+                                    <p>&nbsp;</p>
+                                    <%--  <form:form method="POST" commandName="command"> --%>
                                     <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
                                     <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
                                     <div class="box half first">
@@ -127,7 +127,7 @@
                                             <div class="field">
                                                 <p><strong>Number of generations backcrossed</strong></p>
                                                 <div class="input">
-                                                     <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
+                                                    <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -481,7 +481,7 @@
                                             </div>
                                         </div>
                                         <div style="display: none" class="field mutation_mutagen conditional IN" id="field mutation_mutagen conditional IN">
-<label class="label" for="mutation_mutagen"><strong>Mutagen used</strong></label>
+                                            <label class="label" for="mutation_mutagen"><strong>Mutagen used</strong></label>
                                             <div class="input">
                                                 <input type="text" name="mutation_mutagen" value="" id="mutation_mutagen" />
                                             </div>
@@ -538,22 +538,22 @@
                                                 });
                                     </script>
                                 </div>
-              <div class="boxcontainer">
+                                <div class="boxcontainer">
 
-                            <p>
-                                <%@include file="submissionFormControlButtons_inc.jsp"%>
-                            </p>
-                               <div class="box half first">&nbsp;</div>
+                                    <p>
+                                        <%@include file="submissionFormControlButtons_inc.jsp"%>
+                                    </p>
+                                    <div class="box half first">&nbsp;</div>
                                     <div class="box half last">
-                            </div><%--2015--%>
-                               </div>
-                  <%--      </form:form>  --%>
-                    
+                                    </div><%--2015--%>
+                                </div>
+                                <%--      </form:form>  --%>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-                        </form:form>  
-</body>
+        </form:form>  
+    </body>
 </html>

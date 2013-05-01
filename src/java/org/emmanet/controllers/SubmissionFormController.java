@@ -826,7 +826,7 @@ SubmissionsManager sMan = new SubmissionsManager();
 
 //SET call method
 
-            /////////////// createMutationStrain(mud.getId(),nsd.getId_str());
+            createMutationStrain(mud.getId(),nsd.getId_str());
 
             //setMutationsStrainsDAO.add(msd);*/
 
