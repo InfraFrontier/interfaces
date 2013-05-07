@@ -399,3 +399,66 @@ input[type="password"].error,
 .form .boxcontainer	+ .boxcontainer	{ margin-top: 30px; border-top: #cacaca 1px solid; padding-top: 30px; }
 p + .form-item			{ margin-top: 1em; }
 p + .boxcontainer		{ margin-top: 20px; }
+
+/* css added by philw to design new progress bar */
+div.progressTracker {
+    text-align: center;
+}
+ol.progressTracker {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+ol.progressTracker li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3em;
+   
+}
+ol.progressTracker li.progressTracker-done {
+    color: black;
+    border-bottom: 4px solid yellowgreen;
+}
+ol.progressTracker li.progressTracker-todo {
+    color: silver; 
+    border-bottom: 4px solid silver;
+}
+ol.progressTracker li.progressTracker-active {
+    color: #ea5b0b; 
+    border-bottom: 4px solid #ea5b0b;
+}
+ol.progressTracker li:after {
+    content: "\00a0\00a0";
+}
+ol.progressTracker li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+ol.progressTracker li.progressTracker-done:before {
+    content: "\2713";
+    color: white;
+    background-color: yellowgreen;
+    height: 1.2em;
+    width: 1.2em;
+    line-height: 1.2em;
+    border: none;
+    border-radius: 1.2em;
+}
+ol.progressTracker li.progressTracker-todo:before {
+    content: "\03BF";
+    color: silver;
+    background-color: #f0f0f0;
+    font-size: 1.5em;
+    bottom: -1.6em;
+}
+ol.progressTracker li.progressTracker-active:before {
+    content: "\03BF";
+    color: #ea5b0b;
+    background-color: #f0f0f0;
+    font-size: 1.5em;
+    bottom: -1.6em;
+}
+/* delta symbol = \0394*/

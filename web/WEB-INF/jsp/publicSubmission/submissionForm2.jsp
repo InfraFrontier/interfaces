@@ -54,19 +54,21 @@
                         });
                     });
                 </script>
-                <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}">
+             <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}">
 
                     <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
                     <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
                     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?
                             <br/><br/>
-                        <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;<input type="submit" name="recall_window" value="Yes"></center>
+                        <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;<input type="button" name="recall_window" value="Yes" onclick="javascript:window.location.replace('submissionForm.emma?getprev=${submissionDAO.encryptedId_sub}&_target${submissionDAO.step}=Next&recall_window=Yes');"></center>
                         </p>
                     </form>
                     <script>
                         $( "#No" )
                         .click(function() {
-                            $( "#dialog-confirm" ).dialog( "close" );
+                            //redirect
+                             $( "#dialog-confirm" ).dialog( "close" );
+                             // //http://localhost:8084/apps/internal/publicSubmission/submissionForm.emma?getprev=hYbF4-FI9GR97SRLeYourw&_target11=Next&recall_window=Yes
                         });
                     </script>
                 </div>
