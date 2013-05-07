@@ -88,6 +88,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
+        setBindOnNewForm(true);
+        String idDecrypt = "";
         System.out.println("AT THE FORMBACKING OBJECT");
         StrainsDAO sd = new StrainsDAO();
         SubmissionsDAO sda = new SubmissionsDAO();
@@ -95,21 +97,20 @@ public class SubmissionFormController extends AbstractWizardFormController {
         SubmissionsManager sm = new SubmissionsManager();
 
         if (request.getParameter("getprev") != null) {
-            String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
+            idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
 
             if (request.getParameter("recall_window") != null) {
                 if (request.getParameter("recall_window").equals("Yes")) {
                     sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+                    System.out.println("NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                     System.out.println("g e t p r e v::" + idDecrypt);
                     System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
                     System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
                 }
             }
         }
-        //////////////////////////////////////////////
         BackgroundManager bm = new BackgroundManager();
         String getprev = "";
-        ////////////////////////////////////////////
 
         session = request.getSession(true);
 //total steps in wizard for use in view
@@ -120,48 +121,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         sd.setPeopleDAO(new PeopleDAO());
         sd.getPeopleDAO().setLabsDAO(new LabsDAO());
 
-        /*   if (request.getParameter("getprev") != null && !request.getParameter("getprev").isEmpty()) {
-         Encrypter encrypter = new Encrypter();
-         try {
-         // Encrypt
-         //String encrypted = encrypter.encrypt(request.getParameter("getprev"));
-         // System.out.println("ENCRYPTEDSTRING==" + encrypted);
-        
-         // Decrypt
-         String decrypted = encrypter.decrypt(request.getParameter("getprev"));
-        
-         //System.out.println("DECRYPTEDSTRING==" + decrypted);
-         } catch (Exception e) {
-         }*/
-
-        // encrypter = new Encrypter();
-        //#####sda = new SubmissionsDAO();
-
-
-
-        /*/decode
-         try {
-         getprev = java.net.URLDecoder.decode(request.getParameter("getprev"), "UTF-8");
-         } catch (UnsupportedEncodingException ex) {
-         Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         System.out.println("decoded==" + request.getParameter("getprev") + "--" + getprev);
-         getprev = encrypter.decrypt(request.getParameter("getprev"));
-         int idDecrypt = Integer.parseInt(getprev);
-         System.out.println("decrypted id_str==" + idDecrypt);
-        
-         sda = sm.getSubByID(idDecrypt);///decrypt here
-        
-       
-
-         if (request.getParameter("getprev") != null) {
-         String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
-         System.out.println("g e t p r e v::" + idDecrypt);
-         sda = sm.getSubByID(Integer.parseInt(idDecrypt));
-         System.out.println("SUBID::FBO2 = " + sda.getEncryptedId_sub());
-         }
-        
-         }*/
         sda.setCvDAO(wr.isoCountries());
 
 
@@ -179,8 +138,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Errors errors,
             int page)
             throws Exception {
-
-        SubmissionsDAO sda = new SubmissionsDAO();// = (SubmissionsDAO) command;
+        System.out.println("reference data method called");
+        SubmissionsDAO sda = new SubmissionsDAO();
+        sda = (SubmissionsDAO) command;//new SubmissionsDAO();// = 
+        System.out.println("SDA sent to command value of id_sub is::" + sda.getId_sub());
         SubmissionsManager sm = new SubmissionsManager();
         encrypter = new Encrypter();
 
@@ -189,14 +150,14 @@ public class SubmissionFormController extends AbstractWizardFormController {
             System.out.println("g e t p r e v::" + idDecrypt);
             sda = sm.getSubByID(Integer.parseInt(idDecrypt));
 
-            System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
+            System.out.println("SUBID::FBO refdata = " + sda.getEncryptedId_sub());
             System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
             if (request.getParameter("recall_window") != null) {
                 if (request.getParameter("recall_window").equals("Yes")) {
                     System.out.println("SETTING COMMAND TO SDA");
                     // command = new Object();
                     // command = sda;
-                    command = this.formBackingObject(request);
+                    command = sda;//this.formBackingObject(request);
                 }
             }
 
@@ -246,7 +207,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             if (encrypted.isEmpty() || encrypted != null) {
                                 session.setAttribute("getprev", encrypted);
                             } else {
-                                //TODO need to come up with something to use as a prefix for files etc if decryptions errors out, usually because of + chars in the encrypte string
+                                
                             }
 
 
@@ -286,17 +247,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             //RESTRICT PEOPLE LISTING ONLY TO AUTHORISED LIST
                             if (pd.getLabsDAO().getAuthority() != null) {
                                 peopleDAOs.add(pd);
-                            }else{
+                            } else {
                                 // peopleDAOs.add(pd);
                                 //person not authorised to pick addresses but we need to populate submitter per_id_per_sub with id
                                 sda.setPer_id_per_sub(Integer.parseInt(pd.getId_per()));
                                 break peopleListLoop;
                             }
-                            
+
                         }
                         /*session*/ request.setAttribute("userdaos", peopleDAOs);
 
-                        // refData.put("user", peopleDAOs);
                     }
                 }
 
@@ -322,12 +282,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
                         peopleListLoopProducer:
                         for (Iterator it = people.listIterator(); it.hasNext();) {
                             pd = (PeopleDAO) it.next();
-                             if (pd.getLabsDAO().getAuthority() != null) {
+                            if (pd.getLabsDAO().getAuthority() != null) {
                                 peopleDAOs.add(pd);
-                            }else{
+                            } else {
                                 // peopleDAOs.add(pd);
                                 //person not authorised to pick addresses but we need to populate producer per_id_per with id
-                                 //we'll take the first and discard the rest
+                                //we'll take the first and discard the rest
                                 sda.setPer_id_per(Integer.parseInt(pd.getId_per()));
                                 break peopleListLoopProducer;
                             }
@@ -340,7 +300,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 break;
 
             case 4:
- if (sda.getShipper_email()/*.getPeopleDAO().getEmail()*/ != null) {
+                if (sda.getShipper_email() != null) {
                     //LOOK TO PULL USER/LAB DATA TO POPULATE STRAINS
                     pd = new PeopleDAO();
                     pm = new PeopleManager();
@@ -357,10 +317,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             pd = (PeopleDAO) it.next();
                             if (pd.getLabsDAO().getAuthority() != null) {
                                 peopleDAOs.add(pd);
-                            }else{
+                            } else {
                                 // peopleDAOs.add(pd);
                                 //person not authorised to pick addresses but we need to populate shipper per_id_per with id
-                                 //we'll take the first and discard the rest
+                                //we'll take the first and discard the rest
                                 sda.setPer_id_per_contact(Integer.parseInt(pd.getId_per()));
                                 break peopleListLoopShipper;
                             }
@@ -372,8 +332,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 sda.setStep("4");
                 sm.save(sda);
                 break;
-
-
+                
             case 5:
 
                 encrypter = new Encrypter();
@@ -436,17 +395,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
 
                 session.setAttribute("CVRToolsDAO", CVRtoolsDAO);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy");
-
-                Date date = new Date();
-                session.setAttribute("startYear", dateFormat.format(date));
-
-
 
                 sda.setStep("10");
                 sm.save(sda);
                 break;
             case 11:
+                DateFormat dateFormat = new SimpleDateFormat("yyyy");
+
+                Date date = new Date();
+                session.setAttribute("startYear", dateFormat.format(date));
+                session.setAttribute("startYear", dateFormat.format(date));
                 //get possible multiple rtools values from previous step 10
                 if (request.getParameterValues("research_tools") != null) {
                     String[] rtoolsValues = request.getParameterValues("research_tools");
@@ -471,7 +429,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         }
 
-        //  }
+        refData.put("command", command);
         return refData;
     }
 
@@ -481,7 +439,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         SubmissionsDAO sd = (SubmissionsDAO) command;
         StrainsManager stm = new StrainsManager();
-
+        System.out.println("CHECKING RECALLED SUBMISSIONDAO :-");
+        System.out.println(sd.getId_sub());
+        System.out.println(sd.getShipper_country());
+        System.out.println(sd.getSubmitter_firstname());
+        System.out.println(sd.getBreeding_performance());
+        System.out.println("END CHECKING RECALLED SUBMISSIONDAO :-");
         if (this.isFinishRequest(request)) {
             //SAVE IT
             //DEAL WITH INTEGER FIELDS THAT MAY NOT HAVE BEEN SET HAVING '' VALUES
@@ -611,14 +574,14 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setName_status(null);
 
         //if per ids are 0 then need to create new people/laboratory refs
-SubmissionsManager sMan = new SubmissionsManager();
+        SubmissionsManager sMan = new SubmissionsManager();
         if (sd.getPer_id_per() == 0) {
             int idProd = addUser(sd, "producer");
             sd.setPer_id_per(idProd);
             //save submission
             sMan.save(sd);
             nsd.setPer_id_per("" + idProd);
-            
+
         } else {
             nsd.setPer_id_per("" + sd.getPer_id_per());
         }
@@ -626,7 +589,7 @@ SubmissionsManager sMan = new SubmissionsManager();
         if (sd.getPer_id_per_contact() == 0) {
             int idShip = addUser(sd, "shipper");
             sd.setPer_id_per_contact(idShip);
-                        //save submission
+            //save submission
             sMan.save(sd);
             nsd.setPer_id_per_contact("" + idShip);
         } else {
@@ -636,7 +599,7 @@ SubmissionsManager sMan = new SubmissionsManager();
         if (sd.getPer_id_per_sub() == 0) {
             int idSub = addUser(sd, "submitter");
             sd.setPer_id_per_sub(idSub);
-                        //save submission
+            //save submission
             sMan.save(sd);
             nsd.setPer_id_per_sub("" + idSub);
         } else {
@@ -826,7 +789,7 @@ SubmissionsManager sMan = new SubmissionsManager();
 
 //SET call method
 
-            createMutationStrain(mud.getId(),nsd.getId_str());
+            createMutationStrain(mud.getId(), nsd.getId_str());
 
             //setMutationsStrainsDAO.add(msd);*/
 
@@ -873,12 +836,7 @@ SubmissionsManager sMan = new SubmissionsManager();
             bsd.setBib_id_biblio(bud.getId_biblio());
             bsd.setStr_id_str(nsd.getId_str());
 
-//nsd.setBibliosstrainsDAO(bsd);
-
             BibliosStrains.add(bsd);
-
-
-
             bm.save(bsd);
             nsd.setSetBibliosStrainsDAO(BibliosStrains);
         }
@@ -1141,7 +1099,7 @@ SubmissionsManager sMan = new SubmissionsManager();
     }
 
     public int addUser(SubmissionsDAO sda, String type) {
-        
+
         PeopleDAO pd = new PeopleDAO();
         LaboratoriesManager lm = new LaboratoriesManager();
         PeopleManager pm = new PeopleManager();
