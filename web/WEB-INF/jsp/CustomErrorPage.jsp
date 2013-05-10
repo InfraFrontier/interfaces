@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isErrorPage="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+        String path = request.getContextPath();
+        String basePath = request.getScheme() + "://"
+                        + request.getServerName() + ":" + request.getServerPort()
+                        + path + "/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
 
 <!--
 Unless this text is here, if your page is less than 513 bytes, Internet Explorer will display it's "Friendly Error Page",
@@ -47,7 +59,7 @@ This is a useless buffer to fill the page to 512 bytes to avoid display of Frien
                 } else {
         
                     // HTTP Error (404 or similar)
-                    String message = errorCode + " - Page not found: "+url;
+                    String message = errorCode + " - The following page "+url+" could not be found.";
                     
                     // If referer available, report it
                     if(errorCode == 404) {
@@ -78,16 +90,84 @@ This is a useless buffer to fill the page to 512 bytes to avoid display of Frien
         // Show the error message, with some HTML around it
         // This is the area you can customise to add your company logo etc...
         %>
-        
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <html>
-        <body>
-        <h1>An error occurred!!!</h1>
-        <hr>
-        <b>Error: <%= errorMessage %></b>
-        </body>
-        </html>
-        
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>EMMA Error Page</title>
+        <style type="text/css">@import url(<%=path%>/css/default.css);</style>
+    </head>
+    <body>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="<%=path%>/images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p>&nbsp;</p>
+         <div id="wrapper">
+        <div id="container">
+        <div class="region region-content">
+         <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+        <div class="form visible">
+            <div class="boxcontainer">
+                  <h4>Oups - An error occured during your navigation</h4>        
+                <hr>
+        		<b>Error: <%= errorMessage %></b>
+            </div>
+        </div>
+		</div>
+		</div>
+		</div>
+		</div>
+		
+<footer id="footer">
+
+    <div class="innerfooter">        
+        <div id="toplink"><a href="#top">to top</a></div>        	
+
+        <div id="tn">
+            <div class="region region-usernavi">
+                <div id="block-menu-block-4" class="block block-menu-block">
+
+                    <div class="menu-block-wrapper menu-block-4 menu-name-user-menu parent-mlid-0 menu-level-1">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>   
+
+        <img  src="<%=path%>/images/infrafrontier/icon/emma-logo-soft.png">
+        <img align="right" src="<%=path%>/images/infrafrontier/icon/footerlogo.jpg">
+    </div>
+
+    <div id="footerline">        	
+        <div class="innerfooter">
+            <div class="splithalf">
+                <div class="half">
+                    © Infrafrontier 2013 - all rights reserved
+                </div>
+                <div class="half">
+                    <div id="bn">
+                        <div class="region region-usernavi">
+
+                            <div class="region region-usernavi">
+                                <div id="block-menu-block-4" class="block block-menu-block">
+
+                                    <div class="menu-block-wrapper menu-block-4 menu-name-user-menu parent-mlid-0 menu-level-1">
+                                        <ul class="menu"><li class="first leaf menu-mlid-433"><a href="/infrafrontier-research-infrastructure/public-relations/contacts" title="">Contact</a></li>
+                                        </ul></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>            
+    </div>
+
+</footer>
+    </body>
+</html>
+       
         <%
 
     } catch(Throwable e2) {
