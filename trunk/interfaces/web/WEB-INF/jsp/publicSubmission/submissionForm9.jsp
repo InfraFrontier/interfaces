@@ -26,10 +26,9 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
+                <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <div id="breeding" class="step">
-            <h2>
-                Breeding (Step ${stepCurrent} of ${stepTotal})
-            </h2>
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
              <div id="wrapper">
             <div id="container">
@@ -37,6 +36,9 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+             <h4>
+                Breeding (Step ${stepCurrent} of ${stepTotal})
+            </h4>
             <p>
                 Fertility and reproduction statistics, husbandry requirements and sanitary status of the mutant mouse strain you want to deposit in EMMA.
             </p>
@@ -342,6 +344,6 @@
         </div>
         </div>
     </div>
-
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>

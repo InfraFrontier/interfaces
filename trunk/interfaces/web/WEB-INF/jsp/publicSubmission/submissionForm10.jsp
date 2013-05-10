@@ -26,10 +26,10 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
+                <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <div id="research_value" class="step">
-            <h2>
-                Research value (Step ${stepCurrent} of ${stepTotal})
-            </h2>
+
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
        <div id="wrapper">
             <div id="container">
@@ -37,6 +37,9 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+                            <h4>
+                Research value (Step ${stepCurrent} of ${stepTotal})
+            </h4>
             <form:form method="POST" commandName="command">
 
                 <spring:bind path="command.human_condition">
@@ -142,6 +145,6 @@
         </div>
         </div>
         </div>
-
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>

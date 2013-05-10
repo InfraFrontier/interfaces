@@ -22,6 +22,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/emmastyle.css);</style>  
+        <style type="text/css">@import url(../css/default.css);</style> 
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -36,9 +37,8 @@
         <script type="text/javascript" src="../js/jquery.qtip-1.0.0-rc3.min.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-        <h2>
-            Submitter (Step ${stepCurrent} of ${stepTotal})
-        </h2>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
         <div id="dialog-confirm" title="Recall Previous Submission?">
             <c:if test="${not empty requestScope.previousSub}">
@@ -81,7 +81,9 @@
                 <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
                     <div class="form visible">
                         <div class="boxcontainer">
-
+        <h4>
+            Submitter (Step ${stepCurrent} of ${stepTotal})
+        </h4>
                             <p>
                                 Please enter your contact information.
                             </p>
@@ -331,6 +333,6 @@
             </div>
         </div>
 
-
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>
