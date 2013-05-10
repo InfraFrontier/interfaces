@@ -24,11 +24,20 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-        <%-- <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
-   <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>---%>
+
+        
+        
+      
+         
+          <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+           <style>
+  label {
+    display: inline-block;
+    width: 5em;
+  }
+  </style>
         <script type="text/javascript" src="../js/submission.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <script type="text/javascript" src="../js/mutData.js?<%= new java.util.Date()%>"></script>
@@ -43,7 +52,13 @@
                     }
                 });
             });
+
         </script>
+        <script>
+  $(function() {
+    $( document ).tooltip();
+  });
+  </script>
     </head>
 
     <body onKeyPress="return disableEnterKey(event)">
@@ -138,7 +153,7 @@
                                             <div class="field">
                                                 <p><strong>Number of generations sib-mated</strong></p>
                                                 <div class="input">
-                                                    <form:input  maxlength="2" id="${status.expression}" path="${status.expression}"  title="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)."/>
+                                                    <form:input maxlength="2" id="${status.expression}" path="${status.expression}"  title="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)."/>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -555,5 +570,7 @@
                 </div>
             </div>
         </form:form>  
+        
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>

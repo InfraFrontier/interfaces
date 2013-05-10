@@ -28,6 +28,7 @@ function populateUserDetails(userString){
     $('#'+q.fieldset+'_postcode').val(q.postcode);
     $('#'+q.fieldset+'_country').val(q.country);
     $('#'+q.fieldset+'_authority').val(q.auth);
+    $('#'+q.fieldset+'_ilar').val(q.ilar);
 }
 
 $('#peopleDAO\\.email').focusout(function() {
