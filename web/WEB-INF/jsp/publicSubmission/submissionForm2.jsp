@@ -21,7 +21,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>  
+         
         <style type="text/css">@import url(../css/default.css);</style> 
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -90,9 +90,9 @@
                             <c:if test="${not empty PeopleDAO}">
                                 <div id="loadUserDetails" name="loadUserDetails">
                                     <script type="text/javascript">show_modal('user_window');</script>
-                                    <a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a>&nbsp;<a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a>
+                                    <a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a><br/><a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a>
                                 </div>
-                                <script type="text/javascript">$("#loadUserDetails").makeFloat({x:5,y:"current",speed:"normal"});</script>  
+                                <script type="text/javascript">$("#loadUserDetails").makeFloat({x:2,y:"current",speed:"normal"});</script>  
                             </c:if>
                             <div id='mask' class='close_modal'></div>
                             <div id='user_window' class='modal_window'>

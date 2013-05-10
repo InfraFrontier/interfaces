@@ -54,11 +54,7 @@
             });
 
         </script>
-        <script>
-  $(function() {
-    $( document ).tooltip();
-  });
-  </script>
+
     </head>
 
     <body onKeyPress="return disableEnterKey(event)">
