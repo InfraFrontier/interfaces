@@ -74,7 +74,6 @@
                 </div>
 
         </c:if>
-    </div>
     <div id="wrapper">
 
         <div id="container">
@@ -119,7 +118,7 @@
 &fax=${user['fax']}&institute=${user.labsDAO['name']}&dept=${user.labsDAO['dept']}\
 &addr_line_1=${user.labsDAO['addr_line_1']}&addr_line_2=${user.labsDAO['addr_line_2']}\
 &town=${user.labsDAO['town']}&county=${user.labsDAO['province']}\
-&postcode=${user.labsDAO['postcode']}&country=${user.labsDAO['country']}&fieldset=submitter&auth=${user.labsDAO['authority']}')" 
+&postcode=${user.labsDAO['postcode']}&country=${user.labsDAO['country']}&ilar=${user.ilarDAO['labcode']}&fieldset=submitter&auth=${user.labsDAO['authority']}')" 
                                                    value="Yes"/><br/>
                                         </p>
                                     </c:forEach>

@@ -501,16 +501,16 @@
                         <list>
                 <!-- follow sequence -->
                 <value>Submitter (e-mail)</value><!--- step 1 -->
-                <value>Submitter</value><!--- step 1 -->
-                <value>Producer</value><!--- step 2 -->
-                <value>Shipper</value><!--- step 3 -->
-                <value>Genotype</value><!--- step 4 -->
-                <value>Phenotype</value><!--- step 5 -->
-                <value>References</value><!--- step 6 -->
-                <value>Characterisation</value><!--- step 7 -->
-                <value>Breeding</value><!--- step 8 -->
-                <value>Research value</value><!--- step 9 -->
-                <value>Additional information</value><!--- step 10 -->
+                <value>Submitter</value><!--- step 2 -->
+                <value>Producer</value><!--- step 3 -->
+                <value>Shipper</value><!--- step 4 -->
+                <value>Genotype</value><!--- step 5 -->
+                <value>Phenotype</value><!--- step 6 -->
+                <value>References</value><!--- step 7 -->
+                <value>Characterisation</value><!--- step 8 -->
+                <value>Breeding</value><!--- step 9 -->
+                <value>Research value</value><!--- step 10 -->
+                <value>Additional information</value><!--- step 11 -->
             </list>
         </property>
     </bean>

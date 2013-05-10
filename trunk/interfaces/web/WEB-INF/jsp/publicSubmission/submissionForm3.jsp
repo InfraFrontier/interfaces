@@ -65,7 +65,7 @@
 &fax=${command.submitter_fax}&institute=${command.submitter_inst}&dept=${command.submitter_dept}\
 &addr_line_1=${command.submitter_addr_1}&addr_line_2=${command.submitter_addr_2}\
 &town=${command.submitter_city}&county=${command.submitter_county}\
-&postcode=${command.submitter_postcode}&country=${command.submitter_country}&fieldset=producer')"/>
+&postcode=${command.submitter_postcode}&country=${command.submitter_country}&ilar=${command.producer_ilar}&fieldset=producer')"/>
                     </div>
                     <div class="validation_error_message">
                         &nbsp;

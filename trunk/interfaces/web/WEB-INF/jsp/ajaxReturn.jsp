@@ -133,7 +133,7 @@ JSON return for submission form people data fro PI and contact
 &fax=${user['fax']}&institute=${user.labsDAO['name']}&dept=${user.labsDAO['dept']}\
 &addr_line_1=${user.labsDAO['addr_line_1']}&addr_line_2=${user.labsDAO['addr_line_2']}\
 &town=${user.labsDAO['town']}&county=${user.labsDAO['province']}\
-&postcode=${user.labsDAO['postcode']}&country=${user.labsDAO['country']}&fieldset=${param.fieldset}')" 
+&postcode=${user.labsDAO['postcode']}&country=${user.labsDAO['country']}&ilar=${user.ilarDAO['labcode']}&fieldset=${param.fieldset}')" 
                        value="Yes"/><br/>
             </p>
         </c:forEach>
