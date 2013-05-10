@@ -40,12 +40,12 @@
                 Phenotype (Step ${stepCurrent} of ${stepTotal})
             </h4>
             <p>
-                Please enter the phenotype information of the mouse mutant strain you want to deposit in EMMA.
+                Please enter the phenotype information of the mouse mutant strain you want to deposit in EMMA.<br/><br/>
             </p>
             <form:form method="POST" commandName="command"> 
                 <spring:bind path="command.homozygous_phenotypic_descr">
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Phenotypic description of homozygous mice<sup><font color="red">*</font></sup></strong></label>
+                       <p><strong>Phenotypic description of homozygous mice<sup><font color="red">*</font></sup></strong></p>
                         <div class="input">
                             <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
                                            title="A short description of the mutant phenotype of homozygous mice (this will be used in the public web listing, see an example)."></form:textarea>
@@ -56,7 +56,7 @@
             </spring:bind>
             <spring:bind path="command.heterozygous_phenotypic_descr">
                 <div class="field">
-                    <label class="label" for="heterozygous_phenotypic_descr"><strong>Phenotypic description of heterozygous/hemizygous mice<sup><font color="red">*</font></sup></strong></label>
+                    <p><strong>Phenotypic description of heterozygous/hemizygous mice<sup><font color="red">*</font></sup></strong></p>
                     <div class="input">
                         <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
                                        title="A short description of the mutant phenotype of heterozygous/hemizygous mice (this will be used in the public web listing, see an example)."></form:textarea>      
@@ -75,6 +75,6 @@
         </div>
         </div>
     </div>
-                        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+<jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>

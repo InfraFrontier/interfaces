@@ -43,12 +43,12 @@
             </h4>
             <p>
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
-            </p>
+            <br/><br/></p>
             <form:form method="POST" commandName="command"> 
                 <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
             <spring:bind path="command.published">
                 <div class="field">
-                    <label class="label" for="published"><strong>Has this mouse mutant strain been published?<sup><font color="red">*</font></sup></strong></label>
+                    <p><strong>Has this mouse mutant strain been published?<sup><font color="red">*</font></sup></strong><br/><br/></p>
                     <div class="input">
                         <form:radiobutton path="${status.expression}" value="yes" id="published-yes" />Yes (please enter bibliographic information below)<br />
                         <form:radiobutton path="${status.expression}" value="no" id="published-no" />No<br />
