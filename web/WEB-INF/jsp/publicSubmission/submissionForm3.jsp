@@ -37,10 +37,10 @@
 
     </head>
     <body onKeyPress="return disableEnterKey(event)">
+                <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <div id="producer" class="step">
-            <h2>
-                Producer (Step ${stepCurrent} of ${stepTotal})
-            </h2>
+
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
 
             <div id='mask' class='close_modal'></div>
@@ -51,6 +51,9 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer"> 
+                            <h4>
+                Producer (Step ${stepCurrent} of ${stepTotal})
+            </h4>
                             <p>
                 Please enter the contact information of the principal investigator who generated the mouse mutant strain you want to deposit in EMMA.
             </p>
@@ -309,5 +312,6 @@
             </div>
         </div>
         </div>
+                        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>

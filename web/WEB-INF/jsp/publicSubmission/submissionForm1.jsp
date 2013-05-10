@@ -29,7 +29,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
-        <style type="text/css">@import url(../css/emmastyle.css);</style>
+        <style type="text/css">@import url(../css/default.css);</style>
         <script type="text/javascript" src="../js/submission.js"></script>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -42,8 +42,8 @@
         <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-
-        <h1>Submitter (Step ${stepCurrent} of ${stepTotal})</h1>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
         <div id="wrapper">
             <div id="container">
@@ -51,9 +51,11 @@
                     <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
                         <div class="form visible">
                             <div class="boxcontainer">
+                                
+        <h4>Submitter (Step ${stepCurrent} of ${stepTotal})</h4>
                                 <form:form method="POST" commandName="command">
                                     <div id="start" class="step">
-                                        <h2> Start </h2>
+                                        <h4> Start </h4>
                                         <p>Please enter your email address for identification. For your convenience, if you have started or 
                                             completed a mutant mouse strain submission previously in the last 12 months, you will be prompted to 
                                             either resume your incomplete submission from where you left off, or, if the submission was completed, 
@@ -85,40 +87,6 @@
                 </div>
             </div>
         </div>
-        <footer id="footer">
-            <div class="innerfooter">        
-                <div id="toplink"><a href="#top">to top</a></div>        	
-                <div id="fn">
-                </div>            
-                <div id="tn">   
-                </div>        
-            </div>
-            <div id="footerline">        	
-                <div class="innerfooter">
-                    <div class="splithalf">
-                        <div class="half">
-                            © Infrafrontier 2013 - all rights reserved
-                        </div>
-                        <div class="half">
-                            <div id="bn">
-                                <div class="region region-usernavi">
-                                    <div class="region region-usernavi">
-                                        <div id="block-menu-block-4" class="block block-menu-block">
-                                            <div class="menu-block-wrapper menu-block-4 menu-name-user-menu parent-mlid-0 menu-level-1">
-                                                <ul class="menu"><li class="first leaf menu-mlid-433"><a href="/infrafrontier-research-infrastructure/public-relations/contacts" title="">Contact</a></li>
-                                                    <li class="leaf menu-mlid-506"><a href="/imprint" title="">Imprint</a></li>
-                                                    <li class="leaf menu-mlid-2"><a href="/user">My account</a></li>
-                                                    <li class="last leaf menu-mlid-15"><a href="/user/logout">Log out</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>            
-            </div>
-        </footer>
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>

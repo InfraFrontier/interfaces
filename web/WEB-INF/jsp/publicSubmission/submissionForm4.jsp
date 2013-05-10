@@ -31,12 +31,13 @@
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <form:form method="POST" commandName="command">
             
             <form:errors path="*" cssClass="errorblock"/>
             <div id="shipper" class="step">
-                <h2> Shipper (Step ${stepCurrent} of ${stepTotal})</h2>
+              
                 <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
                  <div id="wrapper">
             <div id="container">
@@ -44,6 +45,7 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+                  <h4> Shipper (Step ${stepCurrent} of ${stepTotal})</h4>
                 <p> Please enter the contact information of the person in charge of shipping the mice to EMMA (e.g., animal facility manager or lab head). </p>
                 <div id='mask' class='close_modal'></div>
                 <div id='user_window' class='modal_window'>
@@ -280,5 +282,6 @@
             </div>
        </div>
         </div>
+                    <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>

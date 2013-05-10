@@ -30,16 +30,17 @@
        <style type="text/css">@import url(../css/default.css);</style>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-       
-            <h2>
-                References (Step ${stepCurrent} of ${stepTotal})
-            </h2>
-            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+            <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
                         <div id="container">
         <div class="region region-content">
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+                            <h4>
+                References (Step ${stepCurrent} of ${stepTotal})
+            </h4>
             <p>
                 If the mouse mutant strain you want to deposit in EMMA has been published, please enter the bibliographic information of one or more related publications. For the PubMed ID please <a target='PUBMED' href='http://www.pubmed.gov'>search PubMed</a>, a bibliographic database of biomedical articles.
             </p>
@@ -210,6 +211,6 @@
              </div>
             </div>
        
-       
+                <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>   
     </body>
 </html>

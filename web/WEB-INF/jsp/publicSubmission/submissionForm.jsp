@@ -21,8 +21,8 @@
         <style type="text/css">@import url(../css/default.css);</style>
     </head>
     <body>
-        <h2>EMMA Mutant Mouse Strain Submission Wizard</h2>
-        <p>&nbsp;</p>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <p>&nbsp;</p>
          <div id="wrapper">
             <div id="container">
@@ -30,7 +30,7 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
-                
+                  <h4>EMMA Mutant Mouse Strain Submission Wizard</h4>
         <form:form method="POST" >
 
             
@@ -81,5 +81,6 @@
         </div>
         </div>
              </div>
+        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>

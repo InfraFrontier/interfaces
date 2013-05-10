@@ -29,10 +29,9 @@
         <script type="text/javascript" src="../js/popWin.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
+                <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <div id="miscellanea" class="step">
-            <h2>
-                Additional information (Step ${stepCurrent} of ${stepTotal})
-            </h2>
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
  <div id="wrapper">
             <div id="container">
@@ -40,6 +39,9 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+                            <h4>
+                Additional information (Step ${stepCurrent} of ${stepTotal})
+            </h4>
             <form:form method="POST" commandName="command">
 
                 <spring:bind path="command.past_requests">
@@ -309,6 +311,6 @@
         </div>
         </div>
     </div>
-
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>

@@ -27,10 +27,8 @@
         <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-       <%-- <div id="phenotype" class="step">--%>
-            <h2>
-                Phenotype (Step ${stepCurrent} of ${stepTotal})
-            </h2>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
 <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
 
             <div id="container">
@@ -38,6 +36,9 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+                            <h4>
+                Phenotype (Step ${stepCurrent} of ${stepTotal})
+            </h4>
             <p>
                 Please enter the phenotype information of the mouse mutant strain you want to deposit in EMMA.
             </p>
@@ -74,5 +75,6 @@
         </div>
         </div>
     </div>
+                        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>

@@ -28,10 +28,8 @@
         <script type="text/javascript" src="../js/popWin.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
-        <div id="characterization" class="step">
-            <h2>
-                Characterization (Step ${stepCurrent} of ${stepTotal})
-            </h2>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
 <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
  <div id="wrapper">
             <div id="container">
@@ -39,6 +37,9 @@
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
+                            <h4>
+                Characterization (Step ${stepCurrent} of ${stepTotal})
+            </h4>
             <p>
                 Please enter information on how you characterize the mouse strain you want to deposit in EMMA.
             </p>
@@ -90,6 +91,7 @@
         </div>
         </form:form>
     </div> 
+             <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
 </body>
 </html>
        <%-- <label><a href="javascript:void(0);" onclick="openDialog();">Upload as attachment</a>    

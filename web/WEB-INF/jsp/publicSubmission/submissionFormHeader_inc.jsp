@@ -37,6 +37,7 @@ else
     return true;
 }
 </script>
+
 <br/>
 <%--<div id="breadcrumbs" name="breadcrumbs" class="breadcrumbs">--%>
 <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
@@ -81,6 +82,7 @@ ${htmlCommentClose}<li class="${liStyle}">${title}</li>${htmlCommentOpen}
   </ol>
        </div> 
 <br/>
-<%--<div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto; }"></div>--%>
+<%--<img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logo-infrafrontier.png" border="0"/><div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto; }"></div>--%>
 <div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.6</div>
+
 <p>&nbsp;</p>
