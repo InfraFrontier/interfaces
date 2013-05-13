@@ -72,7 +72,7 @@ public class LaboratoriesManager {
         LabsDAO ld = null;
         try {
             ld = (LabsDAO) session.createQuery(
-                    "FROM LabsDAO WHERE " + field + "=?").setParameter(0, queryParam).uniqueResult();
+                    "FROM LabsDAO WHERE " + field + "=?").setParameter(0, queryParam).setFetchSize(1);//poss to bring back more than 1 but we will only use the first
             session.getTransaction().commit();
             
         } catch (HibernateException e) {
@@ -86,8 +86,8 @@ public class LaboratoriesManager {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
-            System.out.println("AT UPDATE POINT THE VALUE OF lsDAO lab_id_labo IS... " + lsDAO.getLab_id_labo());
-            System.out.println("AT UPDATE POINT THE VALUE OF lsDAO STR_ID_STR IS... " + lsDAO.getStr_id_str());
+          //  System.out.println("AT UPDATE POINT THE VALUE OF lsDAO lab_id_labo IS... " + lsDAO.getLab_id_labo());
+          //  System.out.println("AT UPDATE POINT THE VALUE OF lsDAO STR_ID_STR IS... " + lsDAO.getStr_id_str());
             //session.saveOrUpdate(lsDAO);
             session.createSQLQuery("insert into laboratories_strains (lab_id_labo, str_id_str) values ( " + lsDAO.getLab_id_labo() + "," + lsDAO.getStr_id_str() + ")");
             session.getTransaction().commit();

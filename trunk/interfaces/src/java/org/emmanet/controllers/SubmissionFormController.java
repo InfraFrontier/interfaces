@@ -1167,8 +1167,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
             //need to take ilar code and get id
             //pm = new PeopleManager();
-            ilarID = Integer.parseInt(pm.ilarID(sda.getProducer_ilar()));
-
+            //make sure ilar isn't null which will cause a null pointer exception
+          
+            String ilarToCheck=sda.getProducer_ilar();
+              System.out.println("PRODUCER ILAR FOR NEW USER == " + ilarToCheck.length());
+            if (ilarToCheck.length() > 0){
+                  System.out.println("PRODUCER ILAR is > 0 == " + ilarToCheck.length());
+               String checkedIlarID=pm.ilarID(ilarToCheck);
+                
+            ilarID = Integer.parseInt(checkedIlarID);
+        }
             department = sda.getProducer_dept();
             name = sda.getProducer_inst();
             town = sda.getProducer_city();
