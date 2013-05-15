@@ -239,8 +239,8 @@
 
                                 <spring:bind path="command.submitter_addr_1"> 
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Address line 1/Street address
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Address line 1/Street address
+                                                <sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -289,8 +289,8 @@
 
                                 <spring:bind path="command.submitter_postcode"> 
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Postcode/Zipcode
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Postcode/Zipcode
+                                                <sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>

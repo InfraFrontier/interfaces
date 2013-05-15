@@ -10,6 +10,7 @@ package org.emmanet.model;
  * 
  * 
  */
+import java.util.Iterator;
 import java.util.List;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -70,14 +71,20 @@ public class LaboratoriesManager {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         LabsDAO ld = null;
+        List labs;
         try {
-            ld = (LabsDAO) session.createQuery(
-                    "FROM LabsDAO WHERE " + field + "=?").setParameter(0, queryParam).setFetchSize(1);//poss to bring back more than 1 but we will only use the first
+            labs = session.createQuery(
+                    "FROM LabsDAO WHERE " + field + "=?").setParameter(0, queryParam).list();//poss to bring back more than 1 but we will only use the first
             session.getTransaction().commit();
             
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
+        }
+        
+        for(Iterator it = labs.listIterator();it.hasNext();){
+            ld=(LabsDAO) it.next();
+            break;
         }
         return ld;
     }
