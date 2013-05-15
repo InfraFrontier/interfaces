@@ -19,26 +19,39 @@
     </head>
 
     <body>
-        <h2>Submission supporting file upload</h2>
-    <center>
-        
-        <c:if test="${not empty message}">
-            <font color="green"><c:out value="${message}" /></font>
-            <c:set var="message" value="" scope="session" />
-        </c:if>
-    </center>
-        <form:form method="POST" commandName="fileUploadForm" enctype="multipart/form-data">
-        <br/><br/>
-        <div id="errors" name="errors" align="center"><form:errors path="*" cssClass="errorblock" /></div>
         <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <br/>
-    <input type="hidden" value="${sessionScope.getprev}" name="submissionID" id="submissionID">
-    <input type="hidden" value="${param.submissionFileType}" name="submissionFileType" id="submissionFileType">
-    Please select a PDF file, with a maximum size, not exceeding 2MB to upload : <input type="file"  name="file" id="file"></input>
-    <input type="submit" id="upload" class="btn big" name="upload" value="upload" />
-    <span>
-        <form:errors path="file" cssClass="error" />
-    </span>
-</form:form>       
-</body>
+        <div id="wrapper">
+            <div id="container">
+                <div class="region region-content">
+                    <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+                        <div class="form visible">
+                            <div class="boxcontainer">
+                                <h4>Submission supporting file upload</h4>
+                                <c:if test="${not empty message}">
+                                    <font color="green"><c:out value="${message}" /></font>
+                                    <c:set var="message" value="" scope="session" />
+                                </c:if>
+
+                                <form:form method="POST" commandName="fileUploadForm" enctype="multipart/form-data">
+                                    <br/><br/>
+                                    <div id="errors" name="errors" align="center"><form:errors path="*" cssClass="errorblock" /></div>
+                                    <br/>
+                                    <input type="hidden" value="${sessionScope.getprev}" name="submissionID" id="submissionID">
+                                    <input type="hidden" value="${param.submissionFileType}" name="submissionFileType" id="submissionFileType">
+                                    Please select a PDF file, with a maximum size, not exceeding 2MB to upload : <input type="file"  name="file" id="file"></input>
+                                    <input type="submit" id="upload" class="btn big" name="upload" value="upload" />
+                                    <span>
+                                        <form:errors path="file" cssClass="error" />
+                                    </span>
+                                </form:form>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+    </body>
 </html>

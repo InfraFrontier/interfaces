@@ -1202,23 +1202,25 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         LabsDAO checkLab = new LabsDAO();
         checkLab = lm.getLabCheck(postcode, "postcode");
+        System.out.println("line 1 of checklab==" + checkLab.getAddr_line_1());
         if (checkLab != null) {
             if (checkLab.getCountry().equals(country)) {
-                //pretty sure same laboratory but let's check some more
+               System.out.println("pretty sure same laboratory but let's check some more");
                 if (checkLab.getName().contains(name)) {
-                    //more sure same laboratory but let's check once more
+                   System.out.println("more sure same laboratory but let's check once more");
                     if (checkLab.getAddr_line_1().contains(address1)) {
-                        //deffo same so let us set the labID var to the dao lab id
+                        System.out.println("deffo same so let us set the labID var to the dao lab id");
                         labID = Integer.parseInt(checkLab.getId_labo());
                     }
                 }
             }
         }
-
+System.out.println("labID value is::" + labID);
         if (labID != 0) {
             pd.setLab_id_labo("" + labID);
         } else {
             //we have a new lab let's populate a labsDao object
+            System.out.println("this is a new lab so we are creating it in the db");
             LabsDAO ld = new LabsDAO();
 
             ld.setAddr_line_1(address1);
