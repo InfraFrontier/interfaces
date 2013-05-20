@@ -20,7 +20,9 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
         <script type="text/javascript" src="../js/popWin.js"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+       
+                        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
@@ -97,7 +99,7 @@
                             <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                             <div id="homoReqText"  style="display: none">
                                 <spring:bind path="command.homozygous_matings_required_text">
-                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please explain why homozygous matings are required."></form:textarea>
+                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please explain why homozygous matings are required.</p>">? Help</span>
                                 </spring:bind>
                             </div>
                         </div>
