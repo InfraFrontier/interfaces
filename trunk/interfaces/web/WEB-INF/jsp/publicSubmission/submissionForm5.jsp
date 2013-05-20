@@ -33,7 +33,8 @@
         <script type="text/javascript" src="../js/mutData.js?<%= new java.util.Date()%>"></script>
         
         <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
-        
+                <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+           <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#mutation_es_cell_line").autocomplete("../ajaxReturn.emma?funct=esCellLineCall&query=es",{ mustMatch:1,max:100});
@@ -73,12 +74,11 @@
                                     <div class="box half first">
                                         <spring:bind path="command.strain_name">
                                             <div class="field">
-                                                <p><strong>Strain name<sup><font color="red">*</font></sup></strong></p>
+                                                <p><strong>Strain name<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="10" 
-                                                                   title="Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately."></form:textarea>
+                                                                   title=""></form:textarea>
                                                     </div>
-
                                                 </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
 
@@ -87,11 +87,11 @@
                                     <div class="box half last">
                                         <spring:bind path="command.genetic_descr">
                                             <div class="field">
-                                                <p><strong>Genetic description<sup><font color="red">*</font></sup></strong></p>
+                                                <p><strong>Genetic description<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter a short description of the mutant mouse strain genotype (this will be used in the public web listing).</p>">? Help</span></p>
 
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
-                                                                   title="Please enter a short description of the mutant mouse strain genotype (this will be used in the public web listing, see an example)."></form:textarea>
+                                                                   title=""></form:textarea>
                                                     </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -102,10 +102,10 @@
                                         <spring:bind path="command.current_backg">
                                             <div class="field">
 
-                                                <p><strong>Current genetic background<sup><font color="red">*</font></sup></strong></p>
+                                                <p><strong>Current genetic background<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please specify the current genetic background of the strain that is being submitted.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
-                                                    <form:select path="${status.expression}" id="${status.expression}"  title="Please specify the current genetic background of the strain that is being submitted.">
+                                                    <form:select path="${status.expression}" id="${status.expression}"  title="">
 
                                                         <form:option value='0'>Please select...</form:option>
                                                         <c:forEach var="background" items="${command.bgDAO}">
@@ -127,9 +127,9 @@
                                     <div class="box half last">
                                         <spring:bind path="command.backcrosses">         
                                             <div class="field">
-                                                <p><strong>Number of generations backcrossed</strong></p>
+                                                <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
-                                                    <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="Please enter the number of generations backcrossed to background strain (if applicable and known)." />
+                                                    <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -138,9 +138,9 @@
                                     <div class="box half first">
                                         <spring:bind path="command.sibmatings"><%-- TODO DISCOVER FIELD --%>
                                             <div class="field">
-                                                <p><strong>Number of generations sib-mated</strong></p>
+                                                <p><strong>Number of generations sib-mated</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
-                                                    <form:input maxlength="2" id="${status.expression}" path="${status.expression}"  title="Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known)."/>
+                                                    <form:input maxlength="2" id="${status.expression}" path="${status.expression}"  title=""/>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -148,9 +148,9 @@
                                     </div>
                                     <div class="box half last">
                                         <spring:bind path="command.breeding_history">
-                                            <p><strong>Breeding history</strong></p>
+                                            <p><strong>Breeding history</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background.</p>">? Help</span></p>
                                             <div class="input">
-                                                <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" title="Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background."></form:textarea>
+                                                <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" title=""></form:textarea>
                                             </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                         </div>
@@ -434,10 +434,10 @@
 
                                         <spring:bind path="command.mutation_original_backg">
                                             <div class="field mutation_original_backg">
-                                                <label class="label" for="mutation_original_backg"><strong>Original genetic background</strong></label>
+                                                <p><strong>Original genetic background</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please specify the genetic background of the founder strain (e.g., the genetic background of ES cells or oocytes used to generate a knockout or transgenic mouse respectively).</p>">? Help</span></p>
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
-                                                    <form:select path="${status.expression}" id="${status.expression}" title="Please specify the genetic background of the founder strain (e.g., the genetic background of ES cells or oocytes used to generate a knockout or transgenic mouse respectively).">
+                                                    <form:select path="${status.expression}" id="${status.expression}" title="">
 
                                                         <form:option value='0'>Please select...</form:option>
                                                         <c:forEach var="background" items="${command.bgDAO}">

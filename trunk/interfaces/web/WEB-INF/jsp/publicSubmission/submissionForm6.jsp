@@ -23,6 +23,8 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+           <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
              <%-- <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
         <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
     </head>
@@ -45,10 +47,10 @@
             <form:form method="POST" commandName="command"> 
                 <spring:bind path="command.homozygous_phenotypic_descr">
                     <div class="field">
-                       <p><strong>Phenotypic description of homozygous mice<sup><font color="red">*</font></sup></strong></p>
+                       <p><strong>Phenotypic description of homozygous mice<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>A short description of the mutant phenotype of homozygous mice (this will be used in the public web listing, see an example).</p>">? Help</span></p>
                         <div class="input">
                             <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
-                                           title="A short description of the mutant phenotype of homozygous mice (this will be used in the public web listing, see an example)."></form:textarea>
+                                           title=""></form:textarea>
                             </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
@@ -56,10 +58,10 @@
             </spring:bind>
             <spring:bind path="command.heterozygous_phenotypic_descr">
                 <div class="field">
-                    <p><strong>Phenotypic description of heterozygous/hemizygous mice<sup><font color="red">*</font></sup></strong></p>
+                    <p><strong>Phenotypic description of heterozygous/hemizygous mice<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>A short description of the mutant phenotype of heterozygous/hemizygous mice (this will be used in the public web listing, see an example).</p>">? Help</span></p>
                     <div class="input">
                         <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
-                                       title="A short description of the mutant phenotype of heterozygous/hemizygous mice (this will be used in the public web listing, see an example)."></form:textarea>      
+                                       title=""></form:textarea>      
                         </div>
                     <form:errors path="${status.expression}" cssClass="error" />
                 </div>

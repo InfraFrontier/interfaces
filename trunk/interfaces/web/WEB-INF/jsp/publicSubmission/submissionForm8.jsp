@@ -20,9 +20,13 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+                
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+        
+        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
           <%--     <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
         <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
         <script type="text/javascript" src="../js/popWin.js"></script>
@@ -59,9 +63,9 @@
                 <spring:bind path="command.phenotyping">
                     <div class="field">
 
-                        <label class="label" for="${status.expression}"><strong>By phenotyping</strong></label>
+                        <p><strong>By phenotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>e.g., coat colour, etc.</p>">? Help</span></p>
                         <div class="input">
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="e.g., coat colour, etc."></form:textarea>
+                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                             
                                     <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=PHENO',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>
                                 

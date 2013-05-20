@@ -51,16 +51,15 @@
                     <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
                         <div class="form visible">
                             <div class="boxcontainer">
-                                
-        <h4>Submitter (Step ${stepCurrent} of ${stepTotal})</h4>
+ <h4>Submitter (Step ${stepCurrent} of ${stepTotal})</h4>
                                 <form:form method="POST" commandName="command">
                                     <div id="start" class="step">
                                         <h4> Start </h4>
                                         <p>Please enter your email address for identification. For your convenience, if you have started or 
                                             completed a mutant mouse strain submission previously in the last 12 months, you will be prompted to 
                                             either resume your incomplete submission from where you left off, or, if the submission was completed, 
-                                            you will be asked whether you want to reuse your contact information. </p>
-                                            <%--  <spring:bind path="command.peopleDAO.email">--%>
+                                            you will be asked whether you want to reuse your contact information. 
+                                        </p>
                                             <spring:bind path="command.submitter_email">
                                             <div class="field">
                                                 <label class="label" for="${status.expression}">
