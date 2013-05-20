@@ -22,10 +22,11 @@
         <script type="text/javascript" src="../js/popWin.js"></script>
        
                         <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
-        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
+        
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
                 <br/>
@@ -281,10 +282,10 @@
 
                 <spring:bind path="command.husbandry_requirements">
                     <div class="field">
-                        <p><strong>Husbandry requirements</strong></p>
+                        <p><strong>Husbandry requirements</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please describe any special dietary, environmental, medical, housing, handling requirements.</p>">? Help</span></p>
                         <div class="input">
 
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please describe any special dietary, environmental, medical, housing, handling requirements."></form:textarea>
+                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                             </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
@@ -316,9 +317,9 @@
 
                 <spring:bind path="command.welfare">
                     <div class="field">
-                        <p><strong>Animal welfare</strong></p>
+                        <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the mouse welfare terms that apply to this mutant mouse strain (from <http://www.mousewelfareterms.org>).</p>">? Help</span></p>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" title="Please enter the mouse welfare terms that apply to this mutant mouse strain (from <http://www.mousewelfareterms.org>)."/>
+                            <form:input  id="${status.expression}" path="${status.expression}" title=""/>
                         </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>
@@ -326,9 +327,9 @@
 
                 <spring:bind path="command.remedial_actions">
                     <div class="field">
-                        <p><strong>Remedial actions</strong></p>
+                        <p><strong>Remedial actions</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the remedial actions necessary to ensure the welfare of this mutant mouse strain.</p>">? Help</span></p>
                         <div class="input">
-                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title="Please enter the remedial actions necessary to ensure the welfare of this mutant mouse strain."></form:textarea>
+                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                             </div>
                         <form:errors path="${status.expression}" cssClass="error" />
                     </div>

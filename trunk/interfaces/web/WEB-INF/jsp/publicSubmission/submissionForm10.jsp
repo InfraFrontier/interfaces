@@ -21,9 +21,12 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+                       <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+      
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
                 <br/>
@@ -44,9 +47,9 @@
 
                 <spring:bind path="command.human_condition">
                     <div class="field">
-                        <p><strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong></p>
+                        <p><strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
                         <div class="input">
-                            <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="For OMIM IDs please &lt;a href='http://www.ncbi.nlm.nih.gov/omim' target='_blank'&gt;search OMIM&lt;/a&gt;, a database of human genes and genetic disorders. Insert the numeric ID and divide by semicolon if more than one." />Yes (please explain below)<br/>
+                            <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="" />Yes (please explain below)<br/>
                             <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br/>
                             <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br/>
                         </div>
@@ -75,9 +78,9 @@
 <br />
                 <spring:bind path="command.research_areas">
                     <div class="field">
-                        <p><strong>Research areas</strong></p>
+                        <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please specify the area of research relating to the strain that is being submitted.</p>">? Help</span></p>
                         <div class="input">
-                            <form:select path="${status.expression}" id="${status.expression}"  title="Please specify the area of research relating to the strain that is being submitted.">
+                            <form:select path="${status.expression}" id="${status.expression}"  title="">
                                 <form:option value='0'>Please select...</form:option>
                                 <c:forEach var="researchArea" items="${command.catDAO}">
                                     <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
@@ -116,7 +119,7 @@
                 </div>
                 <br />
                     <spring:bind path="command.research_tools">
-                    <div class="field"><label class="label"><strong>Research tools</strong></label>
+                    <div class="field"><p><strong>Research tools</strong></p>
                     <div class="input">
                         <form:select path="${status.expression}" id="${status.expression}" multiple="true">
                             <form:option value="">Please select..</form:option>
