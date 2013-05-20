@@ -25,6 +25,7 @@
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
@@ -34,6 +35,7 @@
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>
 
     </head>
     <body onKeyPress="return disableEnterKey(event)">
@@ -143,13 +145,13 @@
 
                 <spring:bind path="command.producer_tel">   
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Phone Number
-                                <sup><font color="red">*</font></sup></strong></label>
+                        <p><strong>Phone Number
+                                <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The phone number must begin with + 
+                                                         followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
+                                                         An extension must begin with x followed by the extension number, 
+                                                         e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must
-                                         begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
-                                         parentheses. An extension must begin with x followed by the extension number, 
-                                         e.g., +1 (234) 567-8900 x123"></form:input>
+                            <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>
                             </div>
 
                         <form:errors path="${status.expression}" cssClass="error" />
@@ -159,13 +161,13 @@
 
                 <spring:bind path="command.producer_fax">   
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Fax Number
-                                <sup><font color="red">*</font></sup></strong></label>
+                        <p><strong>Fax Number
+                                <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The fax number must begin with + 
+                                                         followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
+                                                         An extension must begin with x followed by the extension number, 
+                                                         e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
                         <div class="input">
-                            <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must 
-                                         begin with + followed by the country code and contain only numbers, hyphens, spaces, or 
-                                         parentheses. An extension must begin with x followed by the extension number, 
-                                         e.g., +1 (234) 567-8900 x123"></form:input></div>
+                            <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input></div>
 
                         <form:errors path="${status.expression}" cssClass="error" />
 
@@ -174,8 +176,8 @@
 
                 <spring:bind path="command.producer_inst"> 
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Institution
-                                <sup><font color="red">*</font></sup></strong></label>
+                        <p><strong>Institution
+                                <sup><font color="red">*</font></sup></strong></p>
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
@@ -187,7 +189,7 @@
 
                 <spring:bind path="command.producer_dept"> 
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Department</strong></label>
+                        <p><strong>Department</strong></p>
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
@@ -212,7 +214,7 @@
 
                 <spring:bind path="command.producer_addr_2">
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Address line 2</strong></label>
+                        <p><strong>Address line 2</strong></p>
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
@@ -224,8 +226,8 @@
 
                 <spring:bind path="command.producer_city">     
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>City
-                                <sup><font color="red">*</font></sup></strong></label>
+                        <p><strong>City
+                                <sup><font color="red">*</font></sup></strong></p>
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
@@ -237,7 +239,7 @@
 
                  <spring:bind path="command.producer_county">  
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>County/Province/State</strong></label>
+                        <p><strong>County/Province/State</strong></p>
                         <div class="input">
                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                             </div>
@@ -262,8 +264,8 @@
 
                 <spring:bind path="command.producer_country"> 
                     <div class="field">
-                        <label class="label" for="${status.expression}"><strong>Country
-                                <sup><font color="red">*</font></sup></strong></label>
+                        <p><strong>Country
+                                <sup><font color="red">*</font></sup></strong></p>
                         <div class="input">
                             <%--name="submitter_country" id="submitter_country">--%>
                             <form:select path="${status.expression}" id="${status.expression}">
@@ -282,17 +284,14 @@
             <%-- TODO  --%>
             <spring:bind path="command.producer_ilar">
                 <div class="field">
-                    <label class="label" for="${status.expression}"><strong>ILAR Code</strong></label>
-
-                    <div class="input">
-                        <form:input  id="${status.expression}" path="${status.expression}" title="Please enter the producer's 
+                    <p><strong>ILAR Code</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the producer's 
                                ILAR-registered laboratory code to be used for developing the official strain designation consistent 
-                               with the rules and guidelines established by the 
-                               &lt;a href='http://www.informatics.jax.org/mgihome/nomen/inc.shtml' target='_blank'&gt;International 
-                               Committee on Standardized Genetic Nomenclature for Mice&lt;/a&gt;. If the producer does not have an 
-                               ILAR code, it can be registered on-line at 
-                               &lt;a href='http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php' target='_blank'&gt;http://dels-old.nas.edu/ilar_n/ilarhome/register_lc.php;/a&gt;. 
-                               The EMMA staff can assist with the registration procedure."></form:input>             
+                               with the rules and guidelines established by the International 
+                               Committee on Standardized Genetic Nomenclature for Mice. If the producer does not have an 
+                               ILAR code, it can be registered on-line at The National Academy of Sciences using the link supplied
+                               EMMA staff can assist with the registration procedure.</p>">? Help</span></p>
+                    <div class="input">
+                        <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>&nbsp;<a href="http://ilarlabcode.nas.edu/register_code_nodep.php" target="_blank">ILAR Registration Link</a>           
                     <form:errors path="${status.expression}" cssClass="error" />
                 </div>
             </spring:bind>

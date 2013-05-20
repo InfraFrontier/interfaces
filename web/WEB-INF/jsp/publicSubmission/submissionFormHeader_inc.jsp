@@ -83,6 +83,6 @@ ${htmlCommentClose}<li class="${liStyle}">${title}</li>${htmlCommentOpen}
        </div> 
 <br/>
 <%--<img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logo-infrafrontier.png" border="0"/><div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto; }"></div>--%>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.8</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.1.9</div>
 
 <p>&nbsp;</p>

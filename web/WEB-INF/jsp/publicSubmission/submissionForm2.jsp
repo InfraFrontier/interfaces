@@ -36,7 +36,7 @@
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
         <script type="text/javascript" src="../js/jquery.floatobject-1.0.js"></script>
-        <script type="text/javascript" src="../js/jquery.qtip-1.0.0-rc3.min.js"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
@@ -55,7 +55,7 @@
                             modal: true       
                         });
                     });
-                </script>
+           </script>
              <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}">
 
                     <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
@@ -133,7 +133,7 @@
                                 <%-- <spring:bind path="command.peopleDAO.email">--%>
                                 <spring:bind path="command.submitter_email">
                                     <div class="field">
-                                        <label class="label"><strong>Email<sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Email<sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <span name="${status.expression}" id="${status.expression}">${status.value}</span>
                                         </div>
@@ -143,7 +143,7 @@
                                 <%--<spring:bind path="command.peopleDAO.title">--%>
                                 <spring:bind path="command.submitter_title">
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Title</strong></label>
+                                        <p><strong>Title</strong></p>
                                         <div class="input">
                                             <form:select path="${status.expression}" id="${status.expression}">
                                                 <form:option value="">Please select : </form:option>
@@ -162,7 +162,7 @@
 
                                 <spring:bind path="command.submitter_firstname">
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>First name</strong></label>
+                                        <p><strong>First name</strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -172,8 +172,8 @@
 
                                 <spring:bind path="command.submitter_lastname">   
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Last Name
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Last Name
+                                                <sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -185,18 +185,15 @@
 
                                 <spring:bind path="command.submitter_tel">   
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Phone Number
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Phone Number
+                                                <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The phone number must begin with + 
+                                                         followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
+                                                         An extension must begin with x followed by the extension number, 
+                                                         e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
                                         <div class="input">
-                                            <form:input  id="${status.expression}" path="${status.expression}" title="The phone number must begin with + 
-                                                         followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
-                                                         An extension must begin with x followed by the extension number, 
-                                                         e.g., +1 (234) 567-8900 x123"></form:input>
+                                            <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>
                                             </div>
- <span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The phone number must begin with + 
-                                                         followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
-                                                         An extension must begin with x followed by the extension number, 
-                                                         e.g., +1 (234) 567-8900 x123</p>">?</span>
+
                                         <form:errors path="${status.expression}" cssClass="error" />
 
                                     </div>
@@ -204,13 +201,13 @@
 
                                 <spring:bind path="command.submitter_fax">   
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Fax Number
-                                                <sup><font color="red">*</font></sup></strong></label>
-                                        <div class="input">
-                                            <form:input  id="${status.expression}" path="${status.expression}" title="The fax number must begin with + 
+                                        <p><strong>Fax Number
+                                                <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The fax number must begin with + 
                                                          followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                          An extension must begin with x followed by the extension number, 
-                                                         e.g., +1 (234) 567-8900 x123"></form:input></div>
+                                                         e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
+                                        <div class="input">
+                                            <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input></div>
 
                                         <form:errors path="${status.expression}" cssClass="error" />
 
@@ -219,8 +216,8 @@
 
                                 <spring:bind path="command.submitter_inst"> 
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Institution
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Institution
+                                                <sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -232,7 +229,7 @@
 
                                 <spring:bind path="command.submitter_dept"> 
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Department</strong></label>
+                                        <p><strong>Department</strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -257,7 +254,7 @@
 
                                 <spring:bind path="command.submitter_addr_2">
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Address line 2</strong></label>
+                                        <p><strong>Address line 2</strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -269,8 +266,8 @@
 
                                 <spring:bind path="command.submitter_city">     
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>City
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>City
+                                                <sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -282,7 +279,7 @@
 
                                 <spring:bind path="command.submitter_county">  
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>County/Province/State</strong></label>
+                                        <p><strong>County/Province/State</strong></p
                                         <div class="input">
                                             <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                             </div>
@@ -307,8 +304,8 @@
 
                                 <spring:bind path="command.submitter_country"> 
                                     <div class="field">
-                                        <label class="label" for="${status.expression}"><strong>Country
-                                                <sup><font color="red">*</font></sup></strong></label>
+                                        <p><strong>Country
+                                                <sup><font color="red">*</font></sup></strong></p>
                                         <div class="input">
                                             <%--name="submitter_country" id="submitter_country">--%>
                                             <form:select path="${status.expression}" id="${status.expression}">
