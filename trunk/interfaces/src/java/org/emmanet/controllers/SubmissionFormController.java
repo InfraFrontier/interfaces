@@ -6,8 +6,6 @@ package org.emmanet.controllers;
  */
 import java.io.UnsupportedEncodingException;
 //import java.net.BindException;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -207,7 +205,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             if (encrypted.isEmpty() || encrypted != null) {
                                 session.setAttribute("getprev", encrypted);
                             } else {
-                                
                             }
 
 
@@ -332,7 +329,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 sda.setStep("4");
                 sm.save(sda);
                 break;
-                
+
             case 5:
 
                 encrypter = new Encrypter();
@@ -1168,15 +1165,15 @@ public class SubmissionFormController extends AbstractWizardFormController {
             //need to take ilar code and get id
             //pm = new PeopleManager();
             //make sure ilar isn't null which will cause a null pointer exception
-          
-            String ilarToCheck=sda.getProducer_ilar();
-              System.out.println("PRODUCER ILAR FOR NEW USER == " + ilarToCheck.length());
-            if (ilarToCheck.length() > 0){
-                  System.out.println("PRODUCER ILAR is > 0 == " + ilarToCheck.length());
-               String checkedIlarID=pm.ilarID(ilarToCheck);
-                
-            ilarID = Integer.parseInt(checkedIlarID);
-        }
+
+            String ilarToCheck = sda.getProducer_ilar();
+            System.out.println("PRODUCER ILAR FOR NEW USER == " + ilarToCheck.length());
+            if (ilarToCheck.length() > 0) {
+                System.out.println("PRODUCER ILAR is > 0 == " + ilarToCheck.length());
+                String checkedIlarID = pm.ilarID(ilarToCheck);
+
+                ilarID = Integer.parseInt(checkedIlarID);
+            }
             department = sda.getProducer_dept();
             name = sda.getProducer_inst();
             town = sda.getProducer_city();
@@ -1205,9 +1202,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         System.out.println("line 1 of checklab==" + checkLab.getAddr_line_1());
         if (checkLab != null) {
             if (checkLab.getCountry().equals(country)) {
-               System.out.println("pretty sure same laboratory but let's check some more");
+                System.out.println("pretty sure same laboratory but let's check some more");
                 if (checkLab.getName().contains(name)) {
-                   System.out.println("more sure same laboratory but let's check once more");
+                    System.out.println("more sure same laboratory but let's check once more");
                     if (checkLab.getAddr_line_1().contains(address1)) {
                         System.out.println("deffo same so let us set the labID var to the dao lab id");
                         labID = Integer.parseInt(checkLab.getId_labo());
@@ -1215,7 +1212,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 }
             }
         }
-System.out.println("labID value is::" + labID);
+        System.out.println("labID value is::" + labID);
         if (labID != 0) {
             pd.setLab_id_labo("" + labID);
         } else {
@@ -1251,7 +1248,6 @@ System.out.println("labID value is::" + labID);
         }
 
         //return person id?
-
 
         System.out.println("Type and returning " + type + " - " + per_id_per);
         return per_id_per;

@@ -62,19 +62,19 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>                    
-<br />
+                                        <br />
                                         <spring:bind path="command.deposited_elsewhere">
                                             <div class="field">
                                                 <p><strong>Is this strain being deposited with any other institution or company intending to make it available for distribution?<sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes (please explain below)<br />
-                                                    <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
-                                                    <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
-                                                </spring:bind>
+                                                        <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No</label><br />
+                                                        <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
+                                                    </spring:bind>
                                                 <div id="depositedElsewhereText" style="display: none">
                                                     <spring:bind path="command.deposited_elsewhere_text">
                                                         <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                        </div>
+                                                    </div>
                                                     <form:errors path="${status.expression}" cssClass="error" />
                                                 </div>
                                             </spring:bind>
@@ -98,8 +98,8 @@
                                                 <p><strong>Are other laboratories producing similar strains?<sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
-                                                    <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
-                                                    <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
+                                                        <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
+                                                        <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -110,15 +110,15 @@
                                                 <p><strong>Are there any intellectual property rights or patented technologies linked to this strain?<sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes (please explain below)<br />
-                                                   <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
-                                                    <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
-                                                    <form:errors path="${status.expression}" cssClass="error" />
-                                                </spring:bind>
+                                                        <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
+                                                        <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
+                                                        <form:errors path="${status.expression}" cssClass="error" />
+                                                    </spring:bind>
                                                 <div id="ipRightsText"  style="display: none">
                                                     <spring:bind path="command.ip_rights_text">
                                                         <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                        </div>
                                                     </div>
+                                                </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
@@ -140,15 +140,15 @@
                                                 <p><strong>Is the producer the exclusive owner of this strain<sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
-                                                   <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No (please list names of additional owners with affiliation and e-mail address below)<br />
-                                                   <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
-                                                    <form:errors path="${status.expression}" cssClass="error" />
-                                                </spring:bind>
+                                                        <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No (please list names of additional owners with affiliation and e-mail address below)<br />
+                                                        <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
+                                                        <form:errors path="${status.expression}" cssClass="error" />
+                                                    </spring:bind>
                                                 <div id="exclOwnerText"  style="display: none">
                                                     <spring:bind path="command.exclusive_owner_text">
                                                         <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                        </div>
                                                     </div>
+                                                </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
@@ -171,15 +171,15 @@
                                                 <p><strong>Do you have permission from all owners to deposit this strain in the EMMA repository?<sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
-                                                    <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No (please explain below)<br />
-                                                    <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
-                                                    <form:errors path="${status.expression}" cssClass="error" />
-                                                </spring:bind>
+                                                        <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No (please explain below)<br />
+                                                        <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
+                                                        <form:errors path="${status.expression}" cssClass="error" />
+                                                    </spring:bind>
                                                 <div id="ownerPermissionText"  style="display: none">
                                                     <spring:bind path="command.owner_permission_text">  
                                                         <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                        </div>
                                                     </div>
+                                                </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
@@ -201,14 +201,14 @@
                                                 <p><strong>Do you require <a target="PDF" href="/delayed_release.php">delayed release</a> for this strain?<sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes (please explain below)<br />
-                                                    <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
-                                                    <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
-                                                </spring:bind>
+                                                        <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
+                                                        <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
+                                                    </spring:bind>
                                                 <div id="delayedReleaseText"  style="display: none">
                                                     <spring:bind path="command.delayed_release_text">
                                                         <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                        </div>
                                                     </div>
+                                                </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
@@ -226,7 +226,7 @@
                                             });            
                                         </script>
                                         <div class="boxcontainer">
-                                           
+
                                             <p><strong>How many mice of breeding age could you provide and when?</strong><br />
                                                 Mice of breeding age must be provided. Minimum of 5 females and 5 males for freezing as homozygotes. Minimum of 5 males for freezing as heterozygotes.<br />
                                                 Provision of more mice than the specified minimum will considerably accelerate the freezing process</p>
