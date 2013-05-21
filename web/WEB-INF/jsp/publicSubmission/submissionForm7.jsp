@@ -23,7 +23,7 @@
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-<script type="text/javascript" src="../js/tooltip.js"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>
         <%--  <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
      <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
@@ -33,10 +33,10 @@
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <script type="text/javascript">
-        $(document).ready(function() {
-	initTooltips();	
-});
-</script>
+            $(document).ready(function() {
+                initTooltips();	
+            });
+        </script>
         <br/>
         <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
