@@ -680,7 +680,7 @@
             <td><spring:bind path="command.immunocompromised">
             <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
                 <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
-                <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
+                <input <c:if test="${status.value=='not known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not known" type="radio"> Not known
                 </spring:bind></td>
         </tr>
         <tr>

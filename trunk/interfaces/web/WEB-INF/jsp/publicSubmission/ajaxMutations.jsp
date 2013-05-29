@@ -26,7 +26,7 @@
         <input value="Add mutation" class="btn big" type="button" id="add_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
-    <p>&nbsp;</p>
+<p>&nbsp;</p>
 <h4>Mutations for Submission</h4>
 <script type="text/javascript" >  $("#addMut").show(); </script>
 <c:choose>
@@ -34,31 +34,30 @@
     <c:otherwise>
         <div class="boxcontainer">
             <div class="box full">
-        <table width="100%">
-            <thead>
-            <tr>
-                <th>Original Background</th>
-                <th>Mutation Type</th>
-                <th>Mutation Subtype</th>
-                <th>Dominance Pattern</th>
-                
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="mut" items="${subMutsDAO}">
-                <tr>
-                    <td>${mut.mutation_original_backg_text} (${mut.mutation_original_backg})</td>
-                    <td>${mut.mutation_type}</td>
-                    <td>${mut.mutation_subtype}</td>
-                    <td>${mut.mutation_dominance_pattern}</td>                
-
-                    <td><a href="javascript:void(0)" class="icon edit" title="${mut.id}" id="editmutation_${mut.id}">Edit</a>&nbsp;&nbsp;<a href="javascript:void(0)"  class="icon remove" id="deletemutation_${mut.id}" title="${mut.id}">Remove</a></td>
-                </tr>
-               
-            </c:forEach> 
-                </tbody>
-        </table>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <th>Original Background</th>
+                            <th>Mutation Type</th>
+                            <th>Mutation Subtype</th>
+                            <th>Dominance Pattern</th>
+                            <th>Affected Gene</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="mut" items="${subMutsDAO}">
+                            <tr>
+                                <td>${mut.mutation_original_backg_text}</td>
+                                <td>${mut.mutation_type}</td>
+                                <td>${mut.mutation_subtype}</td>
+                                <td>${mut.mutation_dominance_pattern}</td>
+                                <td>${mut.mutation_gene_mgi_symbol}</td> 
+                                <td><a href="javascript:void(0)" class="icon edit" title="${mut.id}" id="editmutation_${mut.id}">Edit</a>&nbsp;&nbsp;<a href="javascript:void(0)"  class="icon remove" id="deletemutation_${mut.id}" title="${mut.id}">Remove</a></td>
+                            </tr>
+                        </c:forEach> 
+                    </tbody>
+                </table>
             </div>
         </div>
     </c:otherwise>
@@ -88,27 +87,29 @@
             mutation_promoter:$('#mutation_promoter').val(),
             mutation_subtype:$('#mutation_subtype').val(),
             mutation_transgene_mgi_symbol:$('#mutation_transgene_mgi_symbol').val(),
-           mutation_type:$('#mutation_type').val()
+            mutation_type:$('#mutation_type').val()
         });
         //alert($(this).attr("title"));
     });
         
     $("a[id^='deletemutation']").click(function() {
-        alert("Your mutation will be deleted from your submission\n\n\ ");
-        $('#subMutations').load('ajaxMutations.emma',{
-            action: "delete",
-            Id_sub:"${sessencID}"/*$('#encID').val()*/,
-            Id_mut:$(this).attr("title")
-
-            //"a[id^='deletemutation']"
-        });
+        var r= confirm("Your mutation will be deleted from your submission\n\n\ ");
+        if (r==true)
+        {
+            $('#subMutations').load('ajaxMutations.emma',{
+                action: "delete",
+                Id_sub:"${sessencID}",
+                Id_mut:$(this).attr("title")
+            });
+        }
     });
     $("addMut").hide();
 
 </script>
+
 <script type="text/javascript" > 
     $('#add_mutation').click(function() {
-       // alert("ID Value is:: ${sessencID}")
+        // alert("ID Value is:: ${sessencID}")
         $('#subMutations').load('ajaxMutations.emma',{
             action: "add",
             Id_sub:$('#encID').val(),

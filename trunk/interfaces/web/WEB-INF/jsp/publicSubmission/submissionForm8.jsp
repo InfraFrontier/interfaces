@@ -50,7 +50,7 @@
                                 <form:form method="POST" commandName="command" >
                                     <spring:bind path="command.genotyping">
                                         <div class="field"
-                                             <p><strong>By genotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>e.g., sequence of PCR primers and PCR settings, Southern probes and hybridization protocol. <%--A good template for PCR genotyping is available &lt;a href='genotyping-template.doc' target='_blank'&gt;here&lt;/a&gt;.--%></p>">? Help</span></p>
+                                             <p><strong>By genotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p>e.g., sequence of PCR primers and PCR settings, Southern probes and hybridization protocol. <%--A good template for PCR genotyping is available &lt;a href='genotyping-template.doc' target='_blank'&gt;here&lt;/a&gt;.--%></p>">? Help</span></p>
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                 <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=GENO',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>
@@ -62,7 +62,7 @@
                                     <spring:bind path="command.phenotyping">
                                         <div class="field">
 
-                                            <p><strong>By phenotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>e.g., coat colour, etc.</p>">? Help</span></p>
+                                            <p><strong>By phenotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p>e.g., coat colour, etc.</p>">? Help</span></p>
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
 

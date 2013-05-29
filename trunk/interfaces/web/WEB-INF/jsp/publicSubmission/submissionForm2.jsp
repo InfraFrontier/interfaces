@@ -34,7 +34,7 @@
         <script type="text/javascript" src="../js/modalwindows.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
-        <script type="text/javascript" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
+        <script type="text/javascript" charset="UTF-8" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
         <script type="text/javascript" src="../js/jquery.floatobject-1.0.js"></script>
         <script type="text/javascript" src="../js/tooltip.js"></script>
     </head>
@@ -186,7 +186,7 @@
                                     <spring:bind path="command.submitter_tel">   
                                         <div class="field">
                                             <p><strong>Phone Number
-                                                    <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The phone number must begin with + 
+                                                    <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The phone number must begin with + 
                                                                                                           followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                                                                           An extension must begin with x followed by the extension number, 
                                                                                                           e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
@@ -202,7 +202,7 @@
                                     <spring:bind path="command.submitter_fax">   
                                         <div class="field">
                                             <p><strong>Fax Number
-                                                    <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The fax number must begin with + 
+                                                    <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The fax number must begin with + 
                                                                                                           followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                                                                           An extension must begin with x followed by the extension number, 
                                                                                                           e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>

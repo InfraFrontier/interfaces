@@ -421,6 +421,28 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     }
                     sda.setResearch_tools(RTools);
                 }
+
+
+                if (request.getParameterValues("research_areas") != null) {
+                    String[] categories = request.getParameterValues("research_areas");
+                    String cats = "";
+                    StringBuffer catsConcat = new StringBuffer("");
+                    System.out.println("CATS VALUES::");
+                    for (String s : categories) {
+
+                        System.out.println(s);
+                        catsConcat = new StringBuffer(catsConcat).append(s).append(":");
+
+                    }
+                    if (catsConcat.toString().endsWith(":")) {
+                        int i = catsConcat.lastIndexOf(":");
+                        cats = catsConcat.toString().substring(0, i);
+                        System.out.println(cats);
+                    }
+                    sda.setResearch_areas(cats);
+                }
+
+
                 sda.setStep("11");
                 break;
 
@@ -522,13 +544,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setBibliosstrainsDAO(new BibliosStrainsDAO());
         //nsd.setCategoriesStrainsDAO(new CategoriesStrainsDAO());
         nsd.setCharact_gen(sd.getGenetic_descr());//TODO NEED TO CHECK THESE AREE THE RIGHT FIELDS TO INSERT IN TO CHARACT_GEN USING OTHERTYPING/PHENO/GENO OR SUPPORTING FILE INFO
-
-        nsd.setCode_internal("CODE INTERNAL VALUE");//TODO NEED TO FIND OUT WHERE THIS COMES FROM
-
+        nsd.setCode_internal(sd.getStrain_name());
         // nsd.setDate_published(/*sd.getSubmissionBibliosDAO().getYear()*/"");
         nsd.setDate_published(null);//TODO GET VALUE
         //int i = Integer.parseInt(nsd.getId_str();
-
         nsd.setEx_owner_description(sd.getExclusive_owner_text());
         nsd.setExclusive_owner(sd.getExclusive_owner());
         nsd.setGeneration(sd.getBackcrosses());
@@ -681,9 +700,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 setRtools.add(rtd);
             }
         }
-        ///////////.........>>> nsd.setRtoolsDAO(setRtools);
 
-        //nsd.setSources_StrainsDAO(null);
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             nsd.setStr_access("C");
         } else {
@@ -721,20 +738,37 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //CATEGORIES STRAINS
         if (sd.getResearch_areas() != null || sd.getResearch_areas() != "0") {
 
+            Set setCategories = new LinkedHashSet();
+            String catsToParse = sd.getResearch_tools();
+            SubmissionsManager sbm = new SubmissionsManager();
+            if (catsToParse != null) {
+                String[] parsedCats = catsToParse.split(":");
+                for (String s : parsedCats) {
+                    CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
+                    System.out.println("parsed value==" + s);
+                    csd.setStr_id_str(nsd.getId_str());
+                    csd.setCat_id_cat(Integer.parseInt(s));
+                    sbm.save(csd);
+                    //set add dao here
+                    setCategories.add(csd);
+                }
+            }
+            /* Set setCategoriesStrains = new LinkedHashSet();
+             CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
+             csd.setStr_id_str(nsd.getId_str());
+             csd.setCat_id_cat(Integer.parseInt(sd.getResearch_areas()));
+             //save cat strains
+             System.out.println("categories strains cat id = " + csd.getCat_id_cat());
+             System.out.println("categories strains str_id = " + csd.getStr_id_str());
+             //  sm.save(csd);
+             setCategoriesStrains.add(csd);
 
-            Set setCategoriesStrains = new LinkedHashSet();
-            CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
-            csd.setStr_id_str(nsd.getId_str());
-            csd.setCat_id_cat(Integer.parseInt(sd.getResearch_areas()));
-            //save cat strains
-            System.out.println("categories strains cat id = " + csd.getCat_id_cat());
-            System.out.println("categories strains str_id = " + csd.getStr_id_str());
-            //  sm.save(csd);
-            setCategoriesStrains.add(csd);
-
-            nsd.setCategoriesStrainsDAO(setCategoriesStrains);
-
+             nsd.setCategoriesStrainsDAO(setCategoriesStrains);
+             */
         }
+
+
+
 
         //SUBMISSIONMUTATIONSDAO
 
@@ -988,7 +1022,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 //////////////// validator.validateSubmissionForm1(sd, errors,"shipper");
                 break;
             case 5:
-                //  validator.validateSubmissionForm4(sd, errors);
+                validator.validateSubmissionForm4(sd, errors);
                 break;
             case 6:
                 //  validator.validateSubmissionForm5(sd, errors);

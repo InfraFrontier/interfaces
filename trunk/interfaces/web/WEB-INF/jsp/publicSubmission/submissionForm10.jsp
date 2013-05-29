@@ -47,7 +47,7 @@
 
                                         <spring:bind path="command.human_condition">
                                             <div class="field">
-                                                <p><strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
+                                                <p><strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="" />Yes (please explain below)<br/>
                                                         <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br/>
@@ -78,34 +78,14 @@
                                         <br />
                                         <spring:bind path="command.research_areas">
                                             <div class="field">
-                                                <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please specify the area of research relating to the strain that is being submitted.</p>">? Help</span></p>
+                                                <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span></p>
                                                 <div class="input">
-                                                    <form:select path="${status.expression}" id="${status.expression}"  title="">
+                                                    <form:select path="${status.expression}" id="${status.expression}"  title="" multiple="true">
                                                         <form:option value='0'>Please select...</form:option>
                                                         <c:forEach var="researchArea" items="${command.catDAO}">
                                                             <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
                                                         </c:forEach>               
                                                     </form:select>
-                                                    <%--  <form:select path="${status.expression}" id="${status.expression}">
-                                                          <form:option value="">Please select..</form:option>
-                                                          <form:option value="apoptosis" >Apoptosis</form:option>
-                                                          <form:option value="cancer" >Cancer</form:option>
-                                                          <form:option value="cardiovascular" >Cardiovascular</form:option>
-                                                          <form:option value="cell_biology" >Cell biology</form:option>
-                                                          <form:option value="dermatology" >Dermatology</form:option>
-                                                          <form:option value="developmental_biology" >Developmental biology</form:option>
-                                                          <form:option value="diabetes_obesity" >Diabetes/Obesity</form:option>
-                                                          <form:option value="endocrinology" >Endocrinology</form:option>
-                                                          <form:option value="hematology" >Hematology</form:option>
-                                                          <form:option value="immunology_inflammation" >Immunology and Inflammation</form:option>
-                                                          <form:option value="internal_organ" >Internal/Organ</form:option>
-                                                          <form:option value="metabolism" >Metabolism</form:option>
-                                                          <form:option value="neurobiology" >Neurobiology</form:option>
-                                                          <form:option value="reproduction" >Reproduction</form:option>
-                                                          <form:option value="sensorineural" >Sensorineural</form:option>
-                                                          <form:option value="virology" >Virology</form:option>
-                                                          <form:option value="Other" >Other (please specify)</form:option>
-                                                      </form:select>--%>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
@@ -125,14 +105,13 @@
                                                         <form:option value="">Please select..</form:option>
                                                         <c:forEach var="obj" items="${CVRToolsDAO}">
                                                             <c:set var="rtool" value="${obj}"/>
-                                                            <form:option value="${rtool['id']}" >${rtool['description']} (${rtool['code']})</form:option>
+                                                            <c:choose><c:when test="${rtool['code'] == 'LEX' || rtool['code'] == 'DEL'  || rtool['code'] == 'EUC' }"></c:when><c:otherwise><form:option value="${rtool['id']}" >${rtool['description']} (${rtool['code']})</form:option></c:otherwise></c:choose>
                                                         </c:forEach>
                                                     </form:select>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
-
                                         <p>
                                             <%@include file="submissionFormControlButtons_inc.jsp"%>
                                         </p>

@@ -71,7 +71,7 @@
                                     <fieldset class="reference" style="display: none" id="reference" >
                                         <legend>Reference</legend>
                                         <div class="field reference_descr">
-                                            <p><strong>Short description<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please select or enter a short description for this reference.</p>">? Help</span></p>
+                                            <p><strong>Short description<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please select or enter a short description for this reference.</p>">? Help</span></p>
                                             <div class="input">
                                                 <form:select path="${status.expression}" id="${status.expression}" title="">
                                                     <form:option value="">Please select..</form:option>

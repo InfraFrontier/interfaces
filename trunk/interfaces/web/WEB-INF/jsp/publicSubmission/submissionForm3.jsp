@@ -146,7 +146,7 @@
                                         <spring:bind path="command.producer_tel">   
                                             <div class="field">
                                                 <p><strong>Phone Number
-                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The phone number must begin with + 
+                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The phone number must begin with + 
                                                                                                               followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                                                                               An extension must begin with x followed by the extension number, 
                                                                                                               e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
@@ -162,7 +162,7 @@
                                         <spring:bind path="command.producer_fax">   
                                             <div class="field">
                                                 <p><strong>Fax Number
-                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The fax number must begin with + 
+                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The fax number must begin with + 
                                                                                                               followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                                                                               An extension must begin with x followed by the extension number, 
                                                                                                               e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
@@ -284,7 +284,7 @@
                                     <%-- TODO  --%>
                                     <spring:bind path="command.producer_ilar">
                                         <div class="field">
-                                            <p><strong>ILAR Code</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the producer's 
+                                            <p><strong>ILAR Code</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the producer's 
                                                                                      ILAR-registered laboratory code to be used for developing the official strain designation consistent 
                                                                                      with the rules and guidelines established by the International 
                                                                                      Committee on Standardized Genetic Nomenclature for Mice. If the producer does not have an 

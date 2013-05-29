@@ -37,6 +37,7 @@ public class SubmissionFormValidator implements
             + "\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])*([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-"
             + "\\uFFEF])))\\.?$";
     private static final String FAXTEL_PATTERN = "^\\+\\d+[\\d\\-\\(\\)\\s]+(x\\d+)?$";
+    private static final String DIGITSONLY_PATTERN = "^(0|[1-9][0-9]*)$";
 
     public boolean supports(Class type) {
         return type.equals(SubmissionsDAO.class);
@@ -140,11 +141,28 @@ public class SubmissionFormValidator implements
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "genetic_descr", "required.genetic_descr",
                 "The genetic description is a required field");
-        if(sd.getCurrent_backg() == 0){
-        errors.rejectValue("current_backg", "current_backg",
+
+        if (sd.getCurrent_backg() == 0) {
+            errors.rejectValue("current_backg", "current_backg",
                     "A current genetic backround must be selected");
         }
-    }
+        
+        //can be empty but if not then must be numeric
+        if (!sd.getBackcrosses().isEmpty()) {
+            if (!patternMatch(DIGITSONLY_PATTERN, sd.getBackcrosses())) {
+                errors.rejectValue("backcrosses", "incorrect.backcrosses",
+                        "Please enter a valid number (no leading 0).");
+            }
+        }
+        
+         //can be empty but if not then must be numeric
+        if (!sd.getSibmatings().isEmpty()) {
+            if (!patternMatch(DIGITSONLY_PATTERN, sd.getSibmatings())) {
+                errors.rejectValue("sibmatings", "incorrect.sibmatings",
+                        "Please enter a valid number (no leading 0).");
+            }
+        }
+    } //end of step 4
 
     public void validateSubmissionForm5(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_phenotypic_descr",
@@ -154,10 +172,17 @@ public class SubmissionFormValidator implements
     }
 
     public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
+       
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.journal",
+                "required.year", "The journal is a required field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.year", "required.year",
+                "The year is a required field");
+        
+        
+        
+        
+      //      validation_options['rules']['reference_descr_' + index.toString()] = 'required';
+      //  validation_options['rules']['reference_pages_' + index.toString()] = 'required';
     }
 
     public void validateSubmissionForm7(SubmissionsDAO sd, Errors errors) {
