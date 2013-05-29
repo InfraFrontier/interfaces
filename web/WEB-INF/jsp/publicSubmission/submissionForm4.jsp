@@ -132,7 +132,7 @@
                                         <spring:bind path="command.shipper_tel">   
                                             <div class="field">
                                                 <p><strong>Phone Number
-                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The phone number must begin with + 
+                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The phone number must begin with + 
                                                                                                               followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                                                                               An extension must begin with x followed by the extension number, 
                                                                                                               e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>
@@ -148,7 +148,7 @@
                                         <spring:bind path="command.shipper_fax">   
                                             <div class="field">
                                                 <p><strong>Fax Number
-                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>The fax number must begin with + 
+                                                        <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The fax number must begin with + 
                                                                                                               followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
                                                                                                               An extension must begin with x followed by the extension number, 
                                                                                                               e.g., +1 (234) 567-8900 x123</p>">? Help</span></p>

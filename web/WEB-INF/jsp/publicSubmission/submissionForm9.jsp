@@ -100,7 +100,7 @@
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                     <div id="homoReqText"  style="display: none">
                                                         <spring:bind path="command.homozygous_matings_required_text">
-                                                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please explain why homozygous matings are required.</p>">? Help</span>
+                                                            <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>&nbsp;<span class="tooltip" data-tooltip="<p>Please explain why homozygous matings are required.</p>">? Help</span>
                                                         </spring:bind>
                                                     </div>
                                                 </div>
@@ -282,7 +282,7 @@
 
                                         <spring:bind path="command.husbandry_requirements">
                                             <div class="field">
-                                                <p><strong>Husbandry requirements</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please describe any special dietary, environmental, medical, housing, handling requirements.</p>">? Help</span></p>
+                                                <p><strong>Husbandry requirements</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please describe any special dietary, environmental, medical, housing, handling requirements.</p>">? Help</span></p>
                                                 <div class="input">
 
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
@@ -317,7 +317,7 @@
 
                                         <spring:bind path="command.welfare">
                                             <div class="field">
-                                                <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the mouse welfare terms that apply to this mutant mouse strain.</p>">? Help</span></p>
+                                                <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mouse welfare terms that apply to this mutant mouse strain.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title=""/>
                                                 </div>
@@ -327,7 +327,7 @@
 
                                         <spring:bind path="command.remedial_actions">
                                             <div class="field">
-                                                <p><strong>Remedial actions</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the remedial actions necessary to ensure the welfare of this mutant mouse strain.</p>">? Help</span></p>
+                                                <p><strong>Remedial actions</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the remedial actions necessary to ensure the welfare of this mutant mouse strain.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                     </div>

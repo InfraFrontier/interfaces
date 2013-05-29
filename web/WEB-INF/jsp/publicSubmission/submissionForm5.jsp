@@ -65,7 +65,7 @@
                             <div class="form visible">
                                 <div class="boxcontainer"><h4>Genotype (Step ${stepCurrent} of ${stepTotal})</h4>
                                     <p>
-                                        Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions.
+                                        Please enter the genotype information of the mouse mutant strain you want to deposit in EMMA. A mutant strain is defined by its specific mutation(s) AND genetic background. Therefore, <strong>strains with the same mutation(s) but different genetic backgrounds require distinct names and consequently separate submissions</strong>.
                                     </p>
                                     <p>
                                         For the definitions of terms <a target="IMSR" href="http://www.informatics.jax.org/imsr/glossary.jsp">see the IMSR glossary</a>. For gene/allele symbols and identifiers please <a target='MGI' href='http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerQF'>search MGI</a>.
@@ -77,7 +77,7 @@
                                     <div class="box half first">
                                         <spring:bind path="command.strain_name">
                                             <div class="field">
-                                                <p><strong>Strain name<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately.</p>">? Help</span></p>
+                                                <p><strong>Strain name<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="10" 
                                                                    title=""></form:textarea>
@@ -90,7 +90,7 @@
                                     <div class="box half last">
                                         <spring:bind path="command.genetic_descr">
                                             <div class="field">
-                                                <p><strong>Genetic description<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter a short description of the mutant mouse strain genotype (this will be used in the public web listing).</p>">? Help</span></p>
+                                                <p><strong>Genetic description<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter a short description of the mutant mouse strain genotype (this will be used in the public web listing).</p>">? Help</span></p>
 
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
@@ -105,7 +105,7 @@
                                         <spring:bind path="command.current_backg">
                                             <div class="field">
 
-                                                <p><strong>Current genetic background<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please specify the current genetic background of the strain that is being submitted.</p>">? Help</span></p>
+                                                <p><strong>Current genetic background<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the current genetic background of the strain that is being submitted.</p>">? Help</span></p>
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="">
@@ -120,17 +120,32 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>   
-
+                                        <div id="currentBGText"  style="display: none">
+                                            <p>
+                                         <spring:bind path="command.current_backg">
+                                            <input type="text" name="command.current_backg" id="current_backg_text" />
+                                                <form:errors path="${status.expression}" cssClass="error" />
+                                        </spring:bind>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <%--<input type="text" name="command.current_backg_text" id="current_backg_text" />
-                                </div>
-                              
-                            </div>--%>
+                                     <script>
+                                            $("#current_backg").click(function () {
+                                               // var optionValue = $("#list option[value='2']").text();
+                                               var optionValue = $("select#current_backg").val();
+                                                if(optionValue == '3284'){
+                                                    //ID for Other (please specify below)
+                                                    $("#currentBGText").show("slow");
+                                                } else {
+                                                    $("#currentBGText").hide("slow");
+                                                }
+                                            });        
+                                        </script>
 
                                     <div class="box half last">
                                         <spring:bind path="command.backcrosses">         
                                             <div class="field">
-                                                <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
+                                                <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
@@ -141,7 +156,7 @@
                                     <div class="box half first">
                                         <spring:bind path="command.sibmatings"><%-- TODO DISCOVER FIELD --%>
                                             <div class="field">
-                                                <p><strong>Number of generations sib-mated</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known).</p>">? Help</span></p>
+                                                <p><strong>Number of generations sib-mated</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:input maxlength="2" id="${status.expression}" path="${status.expression}"  title=""/>
                                                 </div>
@@ -151,7 +166,7 @@
                                     </div>
                                     <div class="box half last">
                                         <spring:bind path="command.breeding_history">
-                                            <p><strong>Breeding history</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background.</p>">? Help</span></p>
+                                            <p><strong>Breeding history</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background.</p>">? Help</span></p>
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" title=""></form:textarea>
                                                 </div>
@@ -164,7 +179,7 @@
                                 <div class="boxcontainer">
                                     <div class="clear"></div>
                                     <fieldset class="mutation" id="mutation">
-                                        <h4>Mutation</h4>
+                                        <h4>Mutation(s)</h4>
                                         <div class="field mutation_type">
                                             <label class="label" for="mutation_type"><strong>Type<sup><font color="red">*</font></sup></strong></label>
                                             <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
@@ -437,7 +452,7 @@
 
                                         <spring:bind path="command.mutation_original_backg">
                                             <div class="field mutation_original_backg">
-                                                <p><strong>Original genetic background</strong>&nbsp;<span class="tooltip" data-tooltip="<p><b>Tooltip</b><br/>Please specify the genetic background of the founder strain (e.g., the genetic background of ES cells or oocytes used to generate a knockout or transgenic mouse respectively).</p>">? Help</span></p>
+                                                <p><strong>Original genetic background</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the genetic background of the founder strain (e.g., the genetic background of ES cells or oocytes used to generate a knockout or transgenic mouse respectively).</p>">? Help</span></p>
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}" title="">
@@ -447,13 +462,32 @@
                                                             <form:option value='${background[0]}'>${background[1]}</form:option>
                                                         </c:forEach>        
                                                     </form:select>
-                                                    &nbsp;<%--<input type="text" name="mutation_original_backg_text_0" id="mutation_original_backg_text_0" />--%>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
 
 
                                         </spring:bind>
+                                        <div id="mutOriginalBGText"  style="display: none">
+                                            <p>
+                                                <spring:bind path="command.mutation_original_backg">
+                                                    <input type="text" name="command.mutation_original_backg" id="mutation_original_backg_text" />
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                </spring:bind>
+                                            </p>
+                                        </div>
+                                        <script>
+                                            $("#mutation_original_backg").click(function () {
+                                                // var optionValue = $("#list option[value='2']").text();
+                                                var optionValue = $("select#mutation_original_backg").val();
+                                                if(optionValue == '3284'){
+                                                    //ID for Other (please specify below)
+                                                    $("#mutOriginalBGText").show("slow");
+                                                } else {
+                                                    $("#mutOriginalBGText").hide("slow");
+                                                }
+                                            });        
+                                        </script>
 
                                         <div style="display: none" class="field mutation_chrom_anomaly_name conditional CH" id="field mutation_chrom_anomaly_name conditional CH">
                                             <label class="label" for="mutation_chrom_anomaly_name"><strong>Chromosomal anomaly name</strong></label>
