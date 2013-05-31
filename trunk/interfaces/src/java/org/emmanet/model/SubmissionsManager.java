@@ -128,6 +128,23 @@ public class SubmissionsManager {
             throw e;
         }
     }
+        
+                           public void saveSQL(int catID, int strainID) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            System.out.println("ABOUT TO SAVE CATEGORIES");
+            session.createSQLQuery("INSERT INTO categories_strains (str_id_str,rtls_id) VALUES (strainID,catID)");
+            System.out.println("SAVED CATEGORIES" + strainID);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
 
     public void save(SubmissionsDAO sDAO) {
         System.out.print("SUBMISSION DAO IS::" + sDAO.getId_sub());

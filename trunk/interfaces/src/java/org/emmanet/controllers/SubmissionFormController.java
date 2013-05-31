@@ -5,7 +5,6 @@ package org.emmanet.controllers;
  * @author phil
  */
 import java.io.UnsupportedEncodingException;
-//import java.net.BindException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,13 +57,13 @@ import org.emmanet.model.SubmissionsManager;
 import org.emmanet.model.Syn_StrainsDAO;
 import org.emmanet.model.Syn_StrainsManager;
 import org.emmanet.util.Encrypter;
-import org.springframework.validation.Errors;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.json.simple.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 
 public class SubmissionFormController extends AbstractWizardFormController {
 
@@ -576,15 +575,17 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setMgi_ref(null);//TODO GET VALUE
 
         String mutantFertile = "";
+         String hetHemiFertile = "";
         //TODO FAILS HERE WHEN RECALLING SUBMISSION AND SUBMITTING CHECK
-        if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
+      //  if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
             if (!sd.getHeterozygous_fertile().isEmpty()) {
-                mutantFertile = sd.getHeterozygous_fertile();
-            } else {
+                hetHemiFertile = sd.getHeterozygous_fertile();
+            } else if (!sd.getHomozygous_fertile().isEmpty()) {
                 mutantFertile = sd.getHomozygous_fertile();
             }
-        }
+       // }
         nsd.setMutant_fertile(mutantFertile);
+        nsd.setHethemi_fertile(hetHemiFertile);
         nsd.setMutant_viable(sd.getHomozygous_viable());
         nsd.setName(sd.getStrain_name());
         nsd.setName_status(null);
@@ -739,18 +740,21 @@ public class SubmissionFormController extends AbstractWizardFormController {
         if (sd.getResearch_areas() != null || sd.getResearch_areas() != "0") {
 
             Set setCategories = new LinkedHashSet();
-            String catsToParse = sd.getResearch_tools();
+            String catsToParse = sd.getResearch_areas();
             SubmissionsManager sbm = new SubmissionsManager();
             if (catsToParse != null) {
                 String[] parsedCats = catsToParse.split(":");
                 for (String s : parsedCats) {
                     CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
                     System.out.println("parsed value==" + s);
+                    System.out.println("Unparsed string is " + sd.getResearch_areas().toString());
                     csd.setStr_id_str(nsd.getId_str());
                     csd.setCat_id_cat(Integer.parseInt(s));
-                    sbm.save(csd);
+                    //sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
+                    sbm.saveSQL(csd.getStr_id_str(), csd.getStr_id_str());
                     //set add dao here
                     setCategories.add(csd);
+                    //nsd.setCategoriesStrainsDAO(setCategories);
                 }
             }
             /* Set setCategoriesStrains = new LinkedHashSet();

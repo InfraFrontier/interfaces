@@ -52,6 +52,7 @@ public class StrainsDAO implements Serializable {
     private String human_model_desc;
     private String mutant_viable;
     private String mutant_fertile;
+    private String hethemi_fertile;
     private String immunocompromised;
     private String exclusive_owner;
     private String additional_owner;
@@ -600,5 +601,19 @@ public class StrainsDAO implements Serializable {
      */
     public void setSibmatings(String sibmatings) {
         this.sibmatings = sibmatings;
+    }
+
+    /**
+     * @return the hethemi_fertile
+     */
+    public String getHethemi_fertile() {
+        return hethemi_fertile;
+    }
+
+    /**
+     * @param hethemi_fertile the hethemi_fertile to set
+     */
+    public void setHethemi_fertile(String hethemi_fertile) {
+        this.hethemi_fertile = hethemi_fertile;
     }
 }
