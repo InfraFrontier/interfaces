@@ -580,7 +580,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
       //  if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
             if (!sd.getHeterozygous_fertile().isEmpty()) {
                 hetHemiFertile = sd.getHeterozygous_fertile();
-            } else if (!sd.getHomozygous_fertile().isEmpty()) {
+            } 
+            if (!sd.getHomozygous_fertile().isEmpty()) {
                 mutantFertile = sd.getHomozygous_fertile();
             }
        // }
