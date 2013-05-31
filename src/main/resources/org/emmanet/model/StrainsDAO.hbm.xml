@@ -78,6 +78,7 @@
     <property column="res_id" name="res_id"/>
     <property column="mutant_viable" name="mutant_viable"/>
     <property column="mutant_fertile" name="mutant_fertile"/>
+    <property column="hethemi_fertile" name="hethemi_fertile"/>
     <property column="immunocompromised" name="immunocompromised"/>
     <property column="human_model" name="human_model"/>
     <property column="human_model_desc" name="human_model_desc"/>
