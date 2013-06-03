@@ -835,11 +835,15 @@ public class SubmissionFormController extends AbstractWizardFormController {
         BibliosManager bm = new BibliosManager();
         Set BibliosStrains = new LinkedHashSet();
         for (Iterator it = sbd.listIterator(); it.hasNext();) {
+            int pmid=0;
             sbdao = (SubmissionBibliosDAO) it.next();
             //need to check pubmedid not already in database
             System.out.println("TRIMMED PUBMED ID IS::- " + sbdao.getPubmed_id().trim());
-            String trimmedPubmedId = sbdao.getPubmed_id();
-            int pmid = Integer.parseInt(trimmedPubmedId);
+            String trimmedPubmedId = sbdao.getPubmed_id().trim();
+            if(!trimmedPubmedId.isEmpty()){
+            pmid = Integer.parseInt(trimmedPubmedId);
+            }
+            //int pmid = Integer.parseInt(trimmedPubmedId);
             BibliosDAO chkBibDAO = new BibliosDAO();
             chkBibDAO = (BibliosDAO) bm.getPubmedIDByID(pmid);
             BibliosDAO bud = new BibliosDAO();
