@@ -67,7 +67,9 @@
                                     <p>&nbsp;</p>
                                     <center>
                                         <p>
-                                            <form:checkbox onclick="" id="agree" value="" path=""/>&nbsp;I have read the information above and agree to the <a href="http://dev.infrafrontier.eu/procedures/legal-issues/emma-repository-conditions-and-mtas">EMMA Terms &amp; Conditions</a><form:errors path="" cssClass="error" />
+                                            <spring:bind path="command.termsAgreed">
+                                                <form:checkbox onclick="" id="${status.expression}" path="${status.expression}" value="true"/>&nbsp;I have read the information above and agree to the <a href="http://dev.infrafrontier.eu/procedures/legal-issues/emma-repository-conditions-and-mtas">EMMA Terms &amp; Conditions</a><form:errors path="${status.expression}" cssClass="error" />
+                                            </spring:bind>
                                         </p>
                                     </center>
                                     <p>
