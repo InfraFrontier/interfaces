@@ -16,6 +16,8 @@
 <%@page import="java.io.*"%>
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
+<c:set var="BGDAO" value="${command.bgDAO}"/>
+<c:if test="${empty BGDAO}"><c:set var="BGDAO" value="${(sessionScope.backgroundsDAO)}"/></c:if>
 
 <!DOCTYPE html>
 <html>
@@ -111,7 +113,7 @@
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="">
 
                                                         <form:option value='0'>Please select...</form:option>
-                                                        <c:forEach var="background" items="${command.bgDAO}">
+                                                        <c:forEach var="background" items="${BGDAO}">
 
                                                             <form:option value='${background[0]}'>${background[1]}</form:option>
                                                         </c:forEach>               
@@ -458,7 +460,7 @@
                                                     <form:select path="${status.expression}" id="${status.expression}" title="">
 
                                                         <form:option value='0'>Please select...</form:option>
-                                                        <c:forEach var="background" items="${command.bgDAO}">
+                                                        <c:forEach var="background" items="${BGDAO}">
                                                             <form:option value='${background[0]}'>${background[1]}</form:option>
                                                         </c:forEach>        
                                                     </form:select>
