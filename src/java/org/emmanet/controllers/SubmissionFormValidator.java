@@ -56,6 +56,13 @@ public class SubmissionFormValidator implements
         }
     }
 
+        public void validateSubmissionForm(SubmissionsDAO sd, Errors errors) {
+               if (!sd.isTermsAgreed()) {
+            errors.rejectValue("termsAgreed", "termsAgreed",
+                    "You must agree to the terms and conditions before proceeding");
+        }
+    }
+        
     public void validateSubmissionForm0(SubmissionsDAO sd, Errors errors) {
        System.out.println("STEP0 EMAIL IS " + sd.getSubmitter_email());
           if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {

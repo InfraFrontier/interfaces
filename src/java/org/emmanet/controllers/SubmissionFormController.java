@@ -1010,7 +1010,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //page is 0-indexed
         switch (page) {
             case 0: //if page 1 , go validate with validatePage1Form
-                //validator.validatePage1Form(command, errors);
+                validator.validateSubmissionForm(sd, errors);
 
                 break;
             case 1: //if page 2 , go validate with validatePage2Form

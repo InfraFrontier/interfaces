@@ -17,6 +17,7 @@ public class SubmissionsDAO implements Serializable {
     private List cvDAO;
     private List bgDAO;
     private List catDAO;
+    private boolean termsAgreed;
     private String id_sub;
     private String encryptedId_sub;
     private String timestamp;
@@ -2482,5 +2483,19 @@ public class SubmissionsDAO implements Serializable {
      */
     public void setCatDAO(List catDAO) {
         this.catDAO = catDAO;
+    }
+
+    /**
+     * @return the termsAgreed
+     */
+    public boolean isTermsAgreed() {
+        return termsAgreed;
+    }
+
+    /**
+     * @param termsAgreed the termsAgreed to set
+     */
+    public void setTermsAgreed(boolean termsAgreed) {
+        this.termsAgreed = termsAgreed;
     }
 }
