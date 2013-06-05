@@ -70,7 +70,7 @@ public class LaboratoriesManager {
         public LabsDAO getLabCheck(String queryParam, String field) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        LabsDAO ld = null;
+        LabsDAO ld = new LabsDAO();
         List labs;
         try {
             labs = session.createQuery(

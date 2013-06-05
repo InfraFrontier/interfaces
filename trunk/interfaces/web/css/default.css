@@ -492,3 +492,5 @@ ol.progressTracker li.progressTracker-active:before {
     background: #246493;  
     color:black;  
 }
+
+span.error 	{ box-shadow: 0px 0px 0px 3px #c78383; -moz-box-shadow: 0px 0px 0px 3px #c78383; -webkit-box-shadow: 0px 0px 0px 3px #c78383; color: #c78383; border-color: #c78383; background: white;}
