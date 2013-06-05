@@ -67,8 +67,10 @@ public class SubmissionFormValidator implements
        System.out.println("STEP0 EMAIL IS " + sd.getSubmitter_email());
           if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
             errors.rejectValue("submitter_email", "incorrect.email",
-                    "The submitted Email address field appears to be incorrect. A correct Email address is a required field.");
+                    "The submitted Email address field appears to be incorrect.");
         }
+           ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_email",
+                "required.email", " A correct Email address is a required field.");
     }
 
     public void validateSubmissionFormx(SubmissionsDAO sd, Errors errors) {
@@ -179,15 +181,18 @@ public class SubmissionFormValidator implements
     }
 
     public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
-       
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.journal",
+       ///BIBLIOS
+        //IF ANSWER TO QUESTION 'HAS THIS MUTANT STRAIN BEEN PUBLISHED IS YES THEN CHECK FOR SHORT DESCRIPTION, JOURNAL,YEAR,PAGES'
+        if (sd.getPublished().equals("yes")){
+            //OK Now check for required fields
+                    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.journal",
                 "required.year", "The journal is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.year", "required.year",
                 "The year is a required field");
-        
-        
-        
-        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.pages", "required.pages",
+                "The page reference is a required field");
+        }
+
       //      validation_options['rules']['reference_descr_' + index.toString()] = 'required';
       //  validation_options['rules']['reference_pages_' + index.toString()] = 'required';
     }

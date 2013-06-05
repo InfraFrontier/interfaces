@@ -974,6 +974,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         model.put("emailsubmitter", sd.getSubmitter_email());
         model.put("strainname", nsd.getName());
         model.put("strainid", nsd.getId_str());
+        model.put("encryptedstrainid", encrypter.encrypt("" + nsd.getId_str()));
 
         String velocTemplate = "org/emmanet/util/velocitytemplates/submissionFormReceipt-Template.vm";
 
@@ -1243,7 +1244,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         LabsDAO checkLab = new LabsDAO();
         checkLab = lm.getLabCheck(postcode, "postcode");
         System.out.println("line 1 of checklab==" + checkLab.getAddr_line_1());
-        if (checkLab != null) {
+        if (checkLab.getId_labo() != null) {
             if (checkLab.getCountry().equals(country)) {
                 System.out.println("pretty sure same laboratory but let's check some more");
                 if (checkLab.getName().contains(name)) {

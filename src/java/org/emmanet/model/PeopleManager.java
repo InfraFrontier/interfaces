@@ -8,6 +8,8 @@ package org.emmanet.model;
  *
  * @author phil
  */
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -69,17 +71,21 @@ public class PeopleManager {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
        String id="";
-        int iId=0;
+        List iId = new LinkedList();
+        
         try {
-             iId = (Integer)session.createSQLQuery(
-                    "SELECT id FROM ilar " +
-                    "WHERE labcode=? AND status='active'").setParameter(0, labcode).uniqueResult();
+             iId = session.createQuery(
+                    "FROM IlarDAO " +
+                    "WHERE labcode=? AND status='active'").setParameter(0, labcode).list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
         }
-        id="" + iId;
+        for(Iterator it = iId.listIterator(); it.hasNext();){
+            IlarDAO obj =  (IlarDAO)it.next();
+            id="" + obj.getId();
+        }
         System.out.println("PEOPLE MANAGER ILARID IS RETURNING==" + id);
         return id;
     }
