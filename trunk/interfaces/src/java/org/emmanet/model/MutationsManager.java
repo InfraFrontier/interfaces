@@ -185,16 +185,17 @@ System.out.println("at database update/insert for id " + smDAO.getId_sub());
         }
     }
         
-                public void saveSQL(int mutID, int strainID) {
+                public void saveSQL(int mutID, int strainID,MutationsStrainsDAO msd) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         try {
             //session.save(msDAO); 
-            session.createSQLQuery("INSERT INTO mutations_strains (str_id_str,mut_id) VALUES (strainID,mutID)");
+            session.createSQLQuery("INSERT INTO mutations_strains (str_id_str,mut_id) VALUES (?,?)").setParameter(0, strainID).setParameter(1, mutID);//strainID,mutID
+           // session.save(msd);
             session.getTransaction().commit();
-
+System.out.println("SAVED MUTATION STRAIN");
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;

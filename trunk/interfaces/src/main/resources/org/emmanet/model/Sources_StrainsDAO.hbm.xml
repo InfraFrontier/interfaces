@@ -5,9 +5,9 @@
     <id column="str_id_str" name="str_id_str">
       <generator class="assigned"/>
     </id>
-    <many-to-one cascade="all" class="org.emmanet.model.StrainsDAO" column="str_id_str" foreign-key="id_str" insert="false" lazy="false" name="strainsDAO" not-found="ignore" update="false"/>
+    <!--<many-to-one cascade="all" class="org.emmanet.model.StrainsDAO" column="str_id_str" foreign-key="id_str" insert="false" lazy="false" name="strainsDAO" not-found="ignore" update="false"/>-->
     <many-to-one cascade="all" class="org.emmanet.model.LabsDAO" column="lab_id_labo" foreign-key="id_labo" insert="false" lazy="false" name="labsDAO" not-found="ignore" update="false"/>
-    <!-- <many-to-one cascade="all" class="org.emmanet.model.CVSourcesDAO" column="sour_id" insert="false" lazy="false" name="cvsourcesDAO" not-found="ignore" update="false"/>-->
+    <many-to-one cascade="all" class="org.emmanet.model.CVSourcesDAO" column="sour_id" insert="false" lazy="false" name="cvsourcesDAO" not-found="ignore" update="false"/>
     <property column="sour_id" name="sour_id"/>
     <property column="lab_id_labo" name="lab_id_labo"/>
   </class>

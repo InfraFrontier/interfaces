@@ -5,9 +5,11 @@
     <!--<composite-id mapped="true">
       <key-many-to-one class="org.emmanet.model.LabsDAO" column="lab_id_labo" lazy="false" name="labsDAO"/>
       <key-many-to-one class="org.emmanet.model.StrainsDAO" column="str_id_str" lazy="false" name="strainsDAO"/>
-    </composite-id>-->
+    </composite-id>
+      native removed 12jun2013
+      -->
     <id column="str_id_str" name="str_id_str">
-      <generator class="native"/>
+      <generator class="assigned"/>
     </id>
     <!--<property column="str_id_str" name="str_id_str"/>-->
     <property column="lab_id_labo" name="lab_id_labo"/>

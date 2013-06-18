@@ -498,7 +498,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //and start to populate a new strains dao.
         //might need to break this out into its own method to be accesible by restful web service for future bulk uploads
         StrainsDAO nsd = new StrainsDAO();
-        //sm.save(nsd);
+        
+      //  stm.save(nsd);//need to save to get ID but this causes stalobject error when updating 
         Date dt = new Date();
         SimpleDateFormat sdf =
                 new SimpleDateFormat("yyyy-MM-dd");
@@ -575,16 +576,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setMgi_ref(null);//TODO GET VALUE
 
         String mutantFertile = "";
-         String hetHemiFertile = "";
+        String hetHemiFertile = "";
         //TODO FAILS HERE WHEN RECALLING SUBMISSION AND SUBMITTING CHECK
-      //  if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
-            if (!sd.getHeterozygous_fertile().isEmpty()) {
-                hetHemiFertile = sd.getHeterozygous_fertile();
-            } 
-            if (!sd.getHomozygous_fertile().isEmpty()) {
-                mutantFertile = sd.getHomozygous_fertile();
-            }
-       // }
+        //  if (sd.getHeterozygous_fertile() != null && !sd.getHeterozygous_fertile().isEmpty() || !sd.getHomozygous_fertile().isEmpty()) {
+        if (!sd.getHeterozygous_fertile().isEmpty()) {
+            hetHemiFertile = sd.getHeterozygous_fertile();
+        }
+        if (!sd.getHomozygous_fertile().isEmpty()) {
+            mutantFertile = sd.getHomozygous_fertile();
+        }
+        // }
         nsd.setMutant_fertile(mutantFertile);
         nsd.setHethemi_fertile(hetHemiFertile);
         nsd.setMutant_viable(sd.getHomozygous_viable());
@@ -716,14 +717,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setUsername("EMMA");
         //nsd.setWrDAO(null);
 
-
         stm.save(nsd);
 
         System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
         String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
         System.out.println("EMMA ID IS ::- EM:" + emmaID);
         nsd.setEmma_id("EM:" + emmaID);//tTODO NEED TO GET OBJECT ID BUT NEEDS TO BE SAVED FIRST
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADDITIONAL OBJECTS
 
@@ -757,26 +756,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     setCategories.add(csd);
                     //nsd.setCategoriesStrainsDAO(setCategories);
                 }
+                //~~~~~~~~~nsd.setCategoriesStrainsDAO(setCategories);
             }
-            /* Set setCategoriesStrains = new LinkedHashSet();
-             CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
-             csd.setStr_id_str(nsd.getId_str());
-             csd.setCat_id_cat(Integer.parseInt(sd.getResearch_areas()));
-             //save cat strains
-             System.out.println("categories strains cat id = " + csd.getCat_id_cat());
-             System.out.println("categories strains str_id = " + csd.getStr_id_str());
-             //  sm.save(csd);
-             setCategoriesStrains.add(csd);
-
-             nsd.setCategoriesStrainsDAO(setCategoriesStrains);
-             */
         }
 
-
-
-
         //SUBMISSIONMUTATIONSDAO
-
+        Set setMutationsStrainsDAO = new LinkedHashSet();
         for (Iterator it = smd.listIterator(); it.hasNext();) {
 
             smdao = (SubmissionMutationsDAO) it.next();
@@ -821,27 +806,29 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
             mm.save(mud);
 
-            //now update strains_mutations with new id
-
-//SET call method
-
-            createMutationStrain(mud.getId(), nsd.getId_str());
-
-            //setMutationsStrainsDAO.add(msd);*/
-
+            //SET call method
+            MutationsStrainsDAO msd = new MutationsStrainsDAO();
+            msd.setMut_id(mud.getId());
+            msd.setStr_id_str(nsd.getId_str());
+            //createMutationStrain(mud.getId(), nsd.getId_str());
+            //Set msdao = (Set) mm.getMutationIDsByStrain(nsd.getId_str());
+            mm.save(msd);
+            setMutationsStrainsDAO.add(msd);
         }
+        //~~~~~~~~~~~~nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
+        // stm.save(nsd);
 //nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
         //SET BIBLIOSDAO
         BibliosManager bm = new BibliosManager();
         Set BibliosStrains = new LinkedHashSet();
         for (Iterator it = sbd.listIterator(); it.hasNext();) {
-            int pmid=0;
+            int pmid = 0;
             sbdao = (SubmissionBibliosDAO) it.next();
             //need to check pubmedid not already in database
             System.out.println("TRIMMED PUBMED ID IS::- " + sbdao.getPubmed_id().trim());
             String trimmedPubmedId = sbdao.getPubmed_id().trim();
-            if(!trimmedPubmedId.isEmpty()){
-            pmid = Integer.parseInt(trimmedPubmedId);
+            if (!trimmedPubmedId.isEmpty()) {
+                pmid = Integer.parseInt(trimmedPubmedId);
             }
             //int pmid = Integer.parseInt(trimmedPubmedId);
             BibliosDAO chkBibDAO = new BibliosDAO();
@@ -875,27 +862,26 @@ public class SubmissionFormController extends AbstractWizardFormController {
             BibliosStrainsDAO bsd = new BibliosStrainsDAO();
             bsd.setBib_id_biblio(bud.getId_biblio());
             bsd.setStr_id_str(nsd.getId_str());
-
+System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
             BibliosStrains.add(bsd);
             bm.save(bsd);
-            nsd.setSetBibliosStrainsDAO(BibliosStrains);
+            //~~~~~~~~~nsd.setSetBibliosStrainsDAO(BibliosStrains);
         }
-
-
         //Syn_strains/////////////////////////////////////////////////////
         Set synStrains = new LinkedHashSet();
         Syn_StrainsDAO ssd = new Syn_StrainsDAO();
         ssd.setStr_id_str(nsd.getId_str());
+        System.out.println("STRING ID FROM STRAINS OBJECT==" + ssd.getStr_id_str());
         ssd.setName(nsd.getName());
         ssd.setUsername("EMMA");
         ssd.setLast_change(currentDate);
 
-        // stm.save(nsd);
+        //stm.save(nsd);
         //need a syn_strains manager to save new Syn_StrainsDAO
         Syn_StrainsManager ssm = new Syn_StrainsManager();
         ssm.save(ssd);
         synStrains.add(ssd);
-        ///>>> nsd.setSyn_strainsDAO(synStrains);
+       //~~~~~~~~~~~~~nsd.setSyn_strainsDAO(synStrains);
         /////////////////////////////////////////////////////////////////////////
         /////////stm.save(nsd);
         //projects - set all to unknown(id 1) or COMMU(id 2)
@@ -907,21 +893,18 @@ public class SubmissionFormController extends AbstractWizardFormController {
         ProjectsStrainsManager psm = new ProjectsStrainsManager();
         psm.save(psd);
         projectsStrains.add(psd);
-        ////>>>>  nsd.setProjectsDAO(projectsStrains);
-
+       //~~~~~~~~~~~~~~~~ nsd.setProjectsDAO(projectsStrains);
 
         //associate uploaded file prefix with new strain id by adding sub_id_sub
         nsd.setSub_id_sub(sd.getId_sub());
-
+        
+        //need to save and recall saved strains object as for some reason if I try to set the source strains here without doing this it throws an error.
         stm.save(nsd);
-        //sources strains set to 5 unknown
-//TODO SOURCES STRAINS NEEDS TO SAVE MANUALLY THEN DO FINAL SAVE ON LINE 803
+        nsd=stm.getStrainByID(nsd.getId_str());
+        
         Set sourcesStrains = new LinkedHashSet();
         Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
-
-
         Calendar rightNow = Calendar.getInstance();
-
         // note that months start from 0 and days from 1 so 6 is July etc
         Calendar cal1start = Calendar.getInstance();
         cal1start.set(Calendar.YEAR, 2013);
@@ -963,12 +946,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
         System.out.println("source is " + srcsd.getSour_id());
 
         srcsd.setStr_id_str(nsd.getId_str());
+       
         SourcesStrainsManager srcsm = new SourcesStrainsManager();
-        srcsm.save(srcsd);
-        sourcesStrains.add(srcsd);
-        nsd.setSources_StrainsDAO(sourcesStrains);
-        System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str());
-        // stm.save(nsd);
+      srcsm.save(srcsd);
+      sourcesStrains.add(srcsd);
+        //~~~~~~~~~~~nsd.setSources_StrainsDAO(sourcesStrains);
+        
+       System.out.println("" + srcsd.getStr_id_str());
+        
+        System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str() + " EMMA ID ++ " + nsd.getEmma_id());
+        stm.save(nsd);
         //MAIL OUT AND PDF ATTACHMENT + PDF LINK
         Map model = new HashMap();
         model.put("emailsubmitter", sd.getSubmitter_email());
@@ -1053,7 +1040,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 //validator.validateSubmissionForm11(sd, errors);
                 break;
         }
-
     }
 
     public List getCvDAO() {
@@ -1065,8 +1051,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
     }
 
     public SubmissionsDAO cleanInts(SubmissionsDAO sd) {
-
-
         return null;
     }
 
@@ -1119,7 +1103,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         Encrypter encrypter = new Encrypter();
 //encrypter.decrypt(ID);
 //System.out.println("to decode==" + encryptedID );
-
         String getprev = encrypter.decrypt(encryptedID);
         //System.out.println(getprev);
         int idDecrypt = Integer.parseInt(getprev);
@@ -1136,7 +1119,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         System.out.println("STRAIN ID IS::" + strainID);
         msd.setMut_id(mutID);
         msd.setStr_id_str(strainID);
-        mutMan.saveSQL(strainID, mutID);
+        mutMan.saveSQL(strainID, mutID, msd);
     }
 
     public int addUser(SubmissionsDAO sda, String type) {

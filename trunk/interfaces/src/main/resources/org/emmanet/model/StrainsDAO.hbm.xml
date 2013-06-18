@@ -3,7 +3,8 @@
 <hibernate-mapping>
   <class name="org.emmanet.model.StrainsDAO" table="strains">
     <id column="id_str" name="id_str">
-      <generator class="native"/>
+      <!--<generator class="native-->
+      <generator class="increment"/>
     </id>
     <timestamp column="last_change" generated="always" name="last_change" source="db"/>
     <many-to-one cascade="all" class="org.emmanet.model.PeopleDAO" column="per_id_per" foreign-key="id_per" insert="false" lazy="false" name="peopleDAO" not-found="ignore" update="false"/>
