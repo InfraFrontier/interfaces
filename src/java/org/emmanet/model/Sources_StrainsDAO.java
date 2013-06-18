@@ -17,8 +17,8 @@ private int lab_id_labo;
 
 //Relationship mapping
 private LabsDAO labsDAO;
-private StrainsDAO strainsDAO;
-//private CVSourcesDAO cvsourcesDAO;
+//private StrainsDAO strainsDAO;
+private CVSourcesDAO cvsourcesDAO;
 
 
     public int getStr_id_str() {
@@ -54,11 +54,12 @@ private StrainsDAO strainsDAO;
     }
 
     public StrainsDAO getStrainsDAO() {
-        return strainsDAO;
+      //  return strainsDAO;
+        return null;
     }
 
     public void setStrainsDAO(StrainsDAO strainsDAO) {
-        this.strainsDAO = strainsDAO;
+      //  this.strainsDAO = strainsDAO;
     }
 
    /* public CVSourcesDAO getCvsourcesDAO() {
@@ -69,4 +70,18 @@ private StrainsDAO strainsDAO;
         this.cvsourcesDAO = cvsourcesDAO;
     }
 */
+
+    /**
+     * @return the cvsourcesDAO
+     */
+    public CVSourcesDAO getCvsourcesDAO() {
+        return cvsourcesDAO;
+    }
+
+    /**
+     * @param cvsourcesDAO the cvsourcesDAO to set
+     */
+    public void setCvsourcesDAO(CVSourcesDAO cvsourcesDAO) {
+        this.cvsourcesDAO = cvsourcesDAO;
+    }
 }

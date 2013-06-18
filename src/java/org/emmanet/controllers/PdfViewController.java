@@ -13,6 +13,7 @@ import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
 import org.emmanet.model.WebRequestsDAO;
+import org.emmanet.util.Encrypter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -29,12 +30,16 @@ public class PdfViewController implements Controller {
     private StrainsManager sm = new StrainsManager();
     private String id = "";
     private Map map = new HashMap();
+    private Encrypter encrypter = new Encrypter();
 
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(true);
         if (request.getParameter("id") != null) {
             id = request.getParameter("id");
+        } else if (request.getParameter("encid") != null) {
+            //decrypt
+            id = encrypter.decrypt(request.getParameter("encid"));
         }
         if (request.getParameter("pdfView") != null) {
             if (request.getParameter("type").equals("req")) {
