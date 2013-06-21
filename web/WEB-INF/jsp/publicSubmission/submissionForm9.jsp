@@ -270,7 +270,7 @@
                                                 <p><strong>Breeding performance</strong></p>
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
-                                                        <form:option value="good">Please select..</form:option>
+                                                        <form:option value="">Please select..</form:option>
                                                         <form:option value="poor">Poor</form:option>
                                                         <form:option value="good">Good</form:option>
                                                         <form:option value="excellent">Excellent</form:option>
@@ -319,7 +319,7 @@
                                             <div class="field">
                                                 <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mouse welfare terms that apply to this mutant mouse strain.</p>">? Help</span></p>
                                                 <div class="input">
-                                                    <form:input  id="${status.expression}" path="${status.expression}" title=""/>
+                                                    <form:input  id="${status.expression}" path="${status.expression}" title="" maxlength="50"/>
                                                 </div>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>

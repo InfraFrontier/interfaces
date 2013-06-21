@@ -41,6 +41,18 @@ private String accepted_date;
 private String delayed_description;
 private String delayed_wanted;
 private String delayed_release;
+private String homozygous_matings_required_text;
+private String reproductive_maturity_age;
+private String reproductive_decline_age;
+private String gestation_length;
+private String pups_at_birth;
+private String pups_at_weaning;
+private String weaning_age;
+private String litters_in_lifetime;
+private String breeding_performance;
+private String welfare;
+private String remedial_actions;
+
 
     public int getId() {
         return id;
@@ -298,6 +310,160 @@ private String delayed_release;
      */
     public void setOwner_permission_text(String owner_permission_text) {
         this.owner_permission_text = owner_permission_text;
+    }
+
+    /**
+     * @return the homozygous_mating_required_text
+     */
+    public String getHomozygous_matings_required_text() {
+        return homozygous_matings_required_text;
+    }
+
+    /**
+     * @param homozygous_mating_required_text the homozygous_mating_required_text to set
+     */
+    public void setHomozygous_matings_required_text(String homozygous_matings_required_text) {
+        this.homozygous_matings_required_text = homozygous_matings_required_text;
+    }
+
+    /**
+     * @return the reproductive_maturity_age
+     */
+    public String getReproductive_maturity_age() {
+        return reproductive_maturity_age;
+    }
+
+    /**
+     * @param reproductive_maturity_age the reproductive_maturity_age to set
+     */
+    public void setReproductive_maturity_age(String reproductive_maturity_age) {
+        this.reproductive_maturity_age = reproductive_maturity_age;
+    }
+
+    /**
+     * @return the reproductive_decline_age
+     */
+    public String getReproductive_decline_age() {
+        return reproductive_decline_age;
+    }
+
+    /**
+     * @param reproductive_decline_age the reproductive_decline_age to set
+     */
+    public void setReproductive_decline_age(String reproductive_decline_age) {
+        this.reproductive_decline_age = reproductive_decline_age;
+    }
+
+    /**
+     * @return the gestation_length
+     */
+    public String getGestation_length() {
+        return gestation_length;
+    }
+
+    /**
+     * @param gestation_length the gestation_length to set
+     */
+    public void setGestation_length(String gestation_length) {
+        this.gestation_length = gestation_length;
+    }
+
+    /**
+     * @return the pups_at_birth
+     */
+    public String getPups_at_birth() {
+        return pups_at_birth;
+    }
+
+    /**
+     * @param pups_at_birth the pups_at_birth to set
+     */
+    public void setPups_at_birth(String pups_at_birth) {
+        this.pups_at_birth = pups_at_birth;
+    }
+
+    /**
+     * @return the pups_at_weaning
+     */
+    public String getPups_at_weaning() {
+        return pups_at_weaning;
+    }
+
+    /**
+     * @param pups_at_weaning the pups_at_weaning to set
+     */
+    public void setPups_at_weaning(String pups_at_weaning) {
+        this.pups_at_weaning = pups_at_weaning;
+    }
+
+    /**
+     * @return the weaning_age
+     */
+    public String getWeaning_age() {
+        return weaning_age;
+    }
+
+    /**
+     * @param weaning_age the weaning_age to set
+     */
+    public void setWeaning_age(String weaning_age) {
+        this.weaning_age = weaning_age;
+    }
+
+    /**
+     * @return the litters_in_lifetime
+     */
+    public String getLitters_in_lifetime() {
+        return litters_in_lifetime;
+    }
+
+    /**
+     * @param litters_in_lifetime the litters_in_lifetime to set
+     */
+    public void setLitters_in_lifetime(String litters_in_lifetime) {
+        this.litters_in_lifetime = litters_in_lifetime;
+    }
+
+    /**
+     * @return the breeding_performance
+     */
+    public String getBreeding_performance() {
+        return breeding_performance;
+    }
+
+    /**
+     * @param breeding_performance the breeding_performance to set
+     */
+    public void setBreeding_performance(String breeding_performance) {
+        this.breeding_performance = breeding_performance;
+    }
+
+    /**
+     * @return the welfare
+     */
+    public String getWelfare() {
+        return welfare;
+    }
+
+    /**
+     * @param welfare the welfare to set
+     */
+    public void setWelfare(String welfare) {
+        this.welfare = welfare;
+    }
+
+    /**
+     * @return the remedial_actions
+     */
+    public String getRemedial_actions() {
+        return remedial_actions;
+    }
+
+    /**
+     * @param remedial_actions the remedial_actions to set
+     */
+    public void setRemedial_actions(String remedial_actions) {
+        this.remedial_actions = remedial_actions;
     }
 
 }

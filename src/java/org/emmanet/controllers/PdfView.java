@@ -553,7 +553,7 @@ public class PdfView extends AbstractPdfView {
             table.setWidthPercentage(100);
 
             /* STRAIN GENETIC BACKGROUND */
-            cell = new PdfPCell(new Paragraph("Strain genetic descriptionn\n\n", font));
+            cell = new PdfPCell(new Paragraph("Strain genetic description\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
