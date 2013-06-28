@@ -5,6 +5,8 @@
 package org.emmanet.controllers;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.emmanet.model.StrainsDAO;
@@ -198,29 +200,92 @@ public class SubmissionFormValidator implements
     }
 
     public void validateSubmissionForm7(SubmissionsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
+       
     }
 
     public void validateSubmissionForm8(SubmissionsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
+        //BREEDING
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_viable",
+                "required.homozygous_viable", "Are homozygous mice viable is a required field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_fertile", "required.homozygous_fertile",
+                "Are homozygous mice fertile is a required field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heterozygous_fertile", "required.heterozygous_fertile",
+                "Are heterozygous mice fertile is a required field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required", "required.heterozygous_matings_required",
+                "Are homozygous matings required is a required field");
+        if (sd.getHomozygous_matings_required().equals("yes")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required_text", "required.heterozygous_matings_required_text",
+                    "An explanation is required for the homozygous matings required response.");
+        }
+        if (!sd.getWeaning_age().isEmpty()) {
+            if (!patternMatch(DIGITSONLY_PATTERN, sd.getWeaning_age())) {
+                errors.rejectValue("weaning_age", "incorrect.weaning_age",
+                        "Please enter a valid number for weaning age (no leading 0).");
+            }
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "immunocompromised", "required.immunocompromised",
+                "Are mice immunocompromised is a required field");
     }
 
     public void validateSubmissionForm9(SubmissionsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "breeding_performance",
-                "required.breeding_performance", "The breeding performance selection needs to be made");
-    }
+        //RESEARCH VALUE
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition",
+                "required.human_condition", "Does this strain model a human condition or disease is a required field");
 
+        if (sd.getHuman_condition().equals("yes")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_text", "required.human_condition_text",
+                    "An explanation is required for the homozygous matings required response.");
+        }
+   }
     public void validateSubmissionForm10(SubmissionsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
+
+        //ADDITIONAL INFORMATION SECTION
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "past_requests",
+                "required.past_requests", "Please select the number of requests you have received for this strain in the last 6 months.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deposited_elsewhere", "deposited_elsewhere",
+                "A response to this question is required");
+        if (sd.getDeposited_elsewhere().equals("yes")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deposited_elsewhere_text", "deposited_elsewhere_text",
+                    "An explanation for your response is required");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "similar_strains", "similar_strains",
+                "A response to this question is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip_rights", "ip_rights",
+                "A response to this question is required");
+        if (sd.getIp_rights().equals("yes")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip_rights_text", "ip_rights_text",
+                    "An explanation for your response is required");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exclusive_owner", "exclusive_owner",
+                "A response to this question is required");
+        if (sd.getExclusive_owner().equals("no")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exclusive_owner_text", "exclusive_owner_text",
+                    "Names of additional owners with affiliation and e-mail addresses are required.");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permission", "owner_permission",
+                "A response to this question is required");
+        if (sd.getOwner_permission().equals("no")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permissions_text", "owner_permission_text",
+                    "An explanation for your response is required.");
+        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release", "delayed_release",
+                "A response to this question is required");
+        if (sd.getDelayed_release().equals("yes")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release_text", "delayed_release_text",
+                    "An explanation for the delayed release is required.");
+        }
+        
+        //dates of mouse availability
+        Date today = new Date();
+        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM yyyy");
+        String date = DATE_FORMAT.format(today);
+        System.out.println(date);
+      
+        if(!sd.getMice_avail_year().isEmpty()) {
+            
+        }
+        
     }
 
     public void validateSubmissionForm11(SubmissionsDAO sd, Errors errors) {

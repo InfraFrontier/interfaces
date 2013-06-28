@@ -683,6 +683,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setPups_at_weaning(sd.getPups_at_weaning());
         rd.setWeaning_age(sd.getWeaning_age());
         rd.setLitters_in_lifetime(sd.getLitters_in_lifetime());
+        if(sd.getBreeding_performance().equals("")){
+            sd.setBreeding_performance(null);
+        }
         rd.setBreeding_performance(sd.getBreeding_performance());
         rd.setWelfare(sd.getWelfare());
         rd.setRemedial_actions(sd.getRemedial_actions());
@@ -708,8 +711,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 rtd.setStr_id_str(nsd.getId_str());
                 System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
 
-                rtm.saveSQL(rtd.getRtls_id(), rtd.getStr_id_str());
-
+         rtm.saveSQL(Integer.parseInt(s),nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
+//rtm.saveOnly(rtd);
                 //set add dao here
                 setRtools.add(rtd);
             }

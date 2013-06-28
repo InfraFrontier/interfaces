@@ -4,6 +4,7 @@
  */
 package org.emmanet.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.emmanet.model.RToolsDAO;
+import org.emmanet.model.RToolsManager;
 import org.emmanet.model.StrainsManager;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +28,7 @@ public class rtoolsUpdateInterfaceFormController extends SimpleFormController {
     private StrainsManager sm = new StrainsManager();
     public static final String MAP_KEY = "returnedOut";
     private Map returnedOut = new HashMap();
+    RToolsManager rm= new RToolsManager();
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -49,13 +52,16 @@ public class rtoolsUpdateInterfaceFormController extends SimpleFormController {
             if (request.getParameter("action").equals("edit")) {
 
                 List rtools = sm.getRTools();
-                rtDAO = (RToolsDAO) sm.getRtoolsByID(id);
-                returnedOut.put("RToolsDAO", rtDAO);
+                List rtoolsList = new ArrayList();
+                rtoolsList = rm.getRToolsList(id);
+                System.out.println(" RTOOLSLIST SIZE IS :: " + rtoolsList.size());
+               // rtDAO = (RToolsDAO) sm.getRtoolsByID(id);
+                returnedOut.put("RToolsDAO", rtoolsList/*rtDAO*/);
                 returnedOut.put("rtools", rtools);
                 //cvrtoolsDAO
 
-                return rtDAO;
-
+                //return rtDAO;
+                return returnedOut;
             }
         }
 
