@@ -13,8 +13,24 @@
         <style type="text/css">@import url(../css/default.css);</style>
     </head>
     <body>
-         <h1>EMMA Submission Form Cancelled</h1>
-         Your submission to EMMA has been cancelled. you can now:-<br/><br/>
-        <a href="submissionForm.emma">Create another submission</a> or return to <a href="http://www.emmanet.org/">emmanet.org</a>
+        <br/>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <br/>
+        <div id="wrapper">
+            <div id="container">
+                <div class="region region-content">
+                    <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
+                        <div class="form visible">
+                            <div class="boxcontainer">
+                                <h4>EMMA Submission Form Cancelled</h4>
+                                Your submission to EMMA has been cancelled. you can now:-<br/><br/>
+                                <a href="submissionForm.emma">Create another submission</a> or return to <a href="http://www.emmanet.org/">emmanet.org</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>

@@ -129,14 +129,14 @@ public class SubmissionsManager {
         }
     }
         
-                           public void saveSQL(int catID, int strainID) {
+    public void saveSQL(int catID, int strainID) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
 
         try {
             System.out.println("ABOUT TO SAVE CATEGORIES");
-            session.createSQLQuery("INSERT INTO categories_strains (str_id_str,rtls_id) VALUES (strainID,catID)");
+            session.createSQLQuery("INSERT INTO categories_strains (str_id_str,cat_id_cat) VALUES (?,?)").setParameter(1, strainID).setParameter(0, catID);//
             System.out.println("SAVED CATEGORIES" + strainID);
             session.getTransaction().commit();
 

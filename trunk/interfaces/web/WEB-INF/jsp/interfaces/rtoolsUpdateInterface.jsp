@@ -46,31 +46,21 @@
                 <tr>             
                     <td width="25%" align="undefined" valign="top">Research tools:</td>
                     <td width="25%" align="undefined" valign="top">
-                        <spring:bind path="command.rtls_id">
-                            <%--<select name="rTools"  id="rTools" class="ifSelect">
-                            <option selected value=''>Please select</option>
-                            <c:forEach var="rtools" items='${keyRef["rtools"]}'>
-                                <c:choose>
-                                    <c:when  test="${empty rtools[1]}" >  
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${rtools[0]}">${rtools[2]} (${rtools[1]})</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            </select>--%>
-                            <select name="<c:out value='${status.expression}'/>" id="<c:out value='${status.expression}'/>" class="ifSelect">
-                                <option <c:if test="${empty command.rtls_id}" >selected </c:if> value=''>Please select</option>
-                                <option <c:if test="${command.rtls_id   == 1}" >selected </c:if> value="1">Cre recombinase expressing strain (Cre)</option>
-                                <option <c:if test="${command.rtls_id   == 2}" >selected </c:if>value="2">Strain with loxP-flanked sequences (loxP)</option>
-                                <option <c:if test="${command.rtls_id   == 3}" >selected </c:if>value="3">FLP recombinase expressing strain (FLP)</option>
-                                <option <c:if test="${command.rtls_id   == 4}" >selected </c:if>value="4">Strain with FRT-flanked sequences (FRT)</option>
-                                <option <c:if test="${command.rtls_id   == 5}" >selected </c:if>value="5">Strain with Tet expression system (TET)</option>
-                                <option <c:if test="${command.rtls_id   == 6}" >selected </c:if>value="6">Lexicon strains from Wellcome Trust (LEX)</option>
-                                <option <c:if test="${command.rtls_id   == 7}" >selected </c:if>value="7">Deltagen strains from Wellcome Trust (DEL)</option>
-                                <option <c:if test="${command.rtls_id   == 9}" >selected </c:if>value="9">Strains generated from EUCOMM ES cell resource (EUC)</option>
+                        
+                        <c:forEach var="rtoolsDAO" items='${keyRef["RToolsDAO"]}'>
+                              <select name="<c:out value='${status.expression}'/>" id="<c:out value='${status.expression}'/>" class="ifSelect">
+                                <option <c:if test="${empty rtoolsDAO.rtls_id}" >selected </c:if> value=''>Please select</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 1}" >selected </c:if> value="1">Cre recombinase expressing strain (Cre)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 2}" >selected </c:if>value="2">Strain with loxP-flanked sequences (loxP)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 3}" >selected </c:if>value="3">FLP recombinase expressing strain (FLP)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 4}" >selected </c:if>value="4">Strain with FRT-flanked sequences (FRT)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 5}" >selected </c:if>value="5">Strain with Tet expression system (TET)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 6}" >selected </c:if>value="6">Lexicon strains from Wellcome Trust (LEX)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   ==7}" >selected </c:if>value="7">Deltagen strains from Wellcome Trust (DEL)</option>
+                                <option <c:if test="${rtoolsDAO.rtls_id   == 9}" >selected </c:if>value="9">Strains generated from EUCOMM ES cell resource (EUC)</option>
                             </select>
-                        </spring:bind>
+                            <br/>
+                        </c:forEach>
                         <br />
                     </td>
                 </tr>
