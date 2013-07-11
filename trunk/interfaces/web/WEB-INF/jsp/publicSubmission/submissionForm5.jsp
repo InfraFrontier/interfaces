@@ -78,6 +78,7 @@
                                     <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
                                     <div class="box half first">
                                         <spring:bind path="command.strain_name">
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Strain name<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mutant mouse strain name. If you are submitting lines on more than one background, please include the background in the strain name and submit each line separately.</p>">? Help</span></p>
                                                 <div class="input">
@@ -85,12 +86,13 @@
                                                                    title=""></form:textarea>
                                                     </div>
                                                 </div>
-                                            <form:errors path="${status.expression}" cssClass="error" />
+                                            
 
                                         </spring:bind>
                                     </div>
                                     <div class="box half last">
                                         <spring:bind path="command.genetic_descr">
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Genetic description<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter a short description of the mutant mouse strain genotype (this will be used in the public web listing).</p>">? Help</span></p>
 
@@ -98,7 +100,7 @@
                                                     <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
                                                                    title=""></form:textarea>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                     </div>
@@ -108,6 +110,7 @@
                                             <div class="field">
 
                                                 <p><strong>Current genetic background<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the current genetic background of the strain that is being submitted.</p>">? Help</span></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="">
@@ -119,14 +122,15 @@
                                                         </c:forEach>               
                                                     </form:select>&nbsp;
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>   
                                         <div id="currentBGText"  style="display: none">
                                             <p>
+                                                
                                          <spring:bind path="command.current_backg">
+                                             <form:errors path="${status.expression}" cssClass="error" />
                                             <input type="text" name="command.current_backg" id="current_backg_text" />
-                                                <form:errors path="${status.expression}" cssClass="error" />
                                         </spring:bind>
                                             </p>
                                         </div>
@@ -146,33 +150,36 @@
 
                                     <div class="box half last">
                                         <spring:bind path="command.backcrosses">         
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                     </div>
                                     <div class="box half first">
                                         <spring:bind path="command.sibmatings"><%-- TODO DISCOVER FIELD --%>
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Number of generations sib-mated</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
                                                     <form:input maxlength="2" id="${status.expression}" path="${status.expression}"  title=""/>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                     </div>
                                     <div class="box half last">
                                         <spring:bind path="command.breeding_history">
                                             <p><strong>Breeding history</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background.</p>">? Help</span></p>
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" title=""></form:textarea>
                                                 </div>
-                                            <form:errors path="${status.expression}" cssClass="error" />
+                                            
                                         </div>
                                     </spring:bind>
                                 </div>
@@ -455,6 +462,7 @@
                                         <spring:bind path="command.mutation_original_backg">
                                             <div class="field mutation_original_backg">
                                                 <p><strong>Original genetic background</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the genetic background of the founder strain (e.g., the genetic background of ES cells or oocytes used to generate a knockout or transgenic mouse respectively).</p>">? Help</span></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}" title="">
@@ -465,7 +473,7 @@
                                                         </c:forEach>        
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
 
 
@@ -473,8 +481,9 @@
                                         <div id="mutOriginalBGText"  style="display: none">
                                             <p>
                                                 <spring:bind path="command.mutation_original_backg">
-                                                    <input type="text" name="command.mutation_original_backg" id="mutation_original_backg_text" />
                                                     <form:errors path="${status.expression}" cssClass="error" />
+                                                    <input type="text" name="command.mutation_original_backg" id="mutation_original_backg_text" />
+                                                    
                                                 </spring:bind>
                                             </p>
                                         </div>

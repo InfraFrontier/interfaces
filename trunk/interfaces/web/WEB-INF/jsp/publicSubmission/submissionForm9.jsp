@@ -50,7 +50,7 @@
                                         <spring:bind path="command.homozygous_viable"> 
                                             <div class="field">
                                                 <p><strong>Are homozygous mice viable?<sup><font color="red">*</font></sup></strong></p>
-
+<form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -58,13 +58,14 @@
                                                     <form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>   
 
                                         <spring:bind path="command.homozygous_fertile">
                                             <div class="field">
                                                 <p><strong>Are homozygous mice fertile?<sup><font color="red">*</font></sup></strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -72,13 +73,14 @@
                                                     <form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.heterozygous_fertile">
                                             <div class="field">
-                                                <p><strong>Are heterozygous/hemizygous mice fertile?<sup><font color="red">*</font></sup></strong></p
+                                                <p><strong>Are heterozygous/hemizygous mice fertile?<sup><font color="red">*</font></sup></strong></p>
+                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -86,13 +88,14 @@
                                                     <form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                               
                                             </div>
                                         </spring:bind>  
 
                                         <spring:bind path="command.homozygous_matings_required">
                                             <div class="field">
                                                 <p><strong>Are homozygous matings required?<sup><font color="red">*</font></sup></strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes (please explain below)<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -100,15 +103,20 @@
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                     <div id="homoReqText"  style="display: none">
                                                         <spring:bind path="command.homozygous_matings_required_text">
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                             <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>&nbsp;<span class="tooltip" data-tooltip="<p>Please explain why homozygous matings are required.</p>">? Help</span>
                                                         </spring:bind>
                                                     </div>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
 
                                         </spring:bind>
                                         <script>
+                                             if ($('input[name=homozygous_matings_required]:checked').val() == "yes") {
+                                                $("#homoReqText").show("slow");
+                                            }
+                                            
                                             $("#homozygous_matings_required-yes").click(function () {
                                                 $("#homoReqText").show("slow");
                                             });
@@ -126,6 +134,7 @@
                                         <spring:bind path="command.reproductive_maturity_age">
                                             <div class="field">
                                                 <p><strong>Average age of reproductive maturity (weeks)</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
@@ -137,7 +146,7 @@
                                                         <form:option value="10">more than 9</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
 
                                             </div>
                                         </spring:bind>
@@ -145,6 +154,7 @@
                                         <spring:bind path="command.reproductive_decline_age">
                                             <div class="field">
                                                 <p><strong>Average age of reproductive decline (months)</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
@@ -161,13 +171,14 @@
                                                         <form:option  value="13">more than 12</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.gestation_length">
                                             <div class="field">
                                                 <p><strong>Average length of gestation (days)</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="0">Please select..</form:option>
@@ -179,13 +190,14 @@
                                                         <form:option value="23">23</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.pups_at_birth">
                                             <div class="field">
                                                 <p><strong>Average number of pups at birth</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="0">Please select..</form:option>
@@ -205,13 +217,14 @@
                                                         <form:option value="14">14</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.pups_at_weaning">
                                             <div class="field">
                                                 <p><strong>Average number of pups surviving to weaning</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="0">Please select..</form:option>
@@ -231,23 +244,25 @@
                                                         <form:option value="14">14</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.weaning_age">
                                             <div class="field">
                                                 <p><strong>Recommended weaning age (days)</strong></p>
+                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:input id="${status.expression}" path="${status.expression}" size="2" maxlength="2"/>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                               
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.litters_in_lifetime">
                                             <div class="field">
                                                 <p><strong>Average number of litters in lifetime</strong></p>
+                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
@@ -261,13 +276,14 @@
                                                         <form:option value="8">more than 7</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                               
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.breeding_performance">
                                             <div class="field">
                                                 <p><strong>Breeding performance</strong></p>
+                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
@@ -276,62 +292,65 @@
                                                         <form:option value="excellent">Excellent</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                               
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.husbandry_requirements">
                                             <div class="field">
                                                 <p><strong>Husbandry requirements</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please describe any special dietary, environmental, medical, housing, handling requirements.</p>">? Help</span></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
-
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.immunocompromised">
                                             <div class="field">
                                                 <p><strong>Are mice immunocompromised?<sup><font color="red">*</font></sup></strong></p>
-
+<form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not Known<br /><br />
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.sanitary_status">
                                             <div class="field">
                                                 <p><strong>Sanitary status</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                                     <spring:bind path="command.sanitary_status_file"><a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${param.getprev}&submissionFileType=SANITARYSTATUS',gmyWin);return false;" title="Opens a new window">Upload as attachment</a></spring:bind>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.welfare">
                                             <div class="field">
                                                 <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mouse welfare terms that apply to this mutant mouse strain.</p>">? Help</span></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title="" maxlength="50"/>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.remedial_actions">
                                             <div class="field">
                                                 <p><strong>Remedial actions</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the remedial actions necessary to ensure the welfare of this mutant mouse strain.</p>">? Help</span></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                         <p>

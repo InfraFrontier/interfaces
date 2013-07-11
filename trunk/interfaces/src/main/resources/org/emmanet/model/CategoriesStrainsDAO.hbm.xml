@@ -7,5 +7,6 @@
     </id>
     <property column="str_id_str" name="str_id_str"/>
     <many-to-one cascade="all" class="org.emmanet.model.CategoriesDAO" column="cat_id_cat" foreign-key="id_cat" insert="false" lazy="false" name="categoriesDAO" not-found="ignore" unique="false" update="false"/>
+     <many-to-one cascade="all" class="org.emmanet.model.StrainsDAO" column="str_id_str" foreign-key="id_str" insert="false" lazy="false" name="strainsDAO" not-found="ignore" update="false"/>
   </class>
 </hibernate-mapping>

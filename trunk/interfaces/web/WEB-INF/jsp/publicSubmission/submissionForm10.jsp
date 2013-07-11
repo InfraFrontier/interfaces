@@ -48,6 +48,7 @@
                                         <spring:bind path="command.human_condition">
                                             <div class="field">
                                                 <p><strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
+                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="" />Yes (please explain below)<br/>
                                                         <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br/>
@@ -61,8 +62,9 @@
                                         <spring:bind path="command.human_condition_more">        
                                             <div class="field" id="${status.expression}">
                                                 <p><strong>Please enter the <a href="http://omim.org/search?index=entry&sort=score+desc%2C+prefix_sort+desc&start=1&limit=10&search=" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
-                                                    <form:input  id="${status.expression}" path="${status.expression}" /><form:errors path="${status.expression}" cssClass="error" />
+                                                    <form:input  id="${status.expression}" path="${status.expression}" />
                                                     <br/>
                                                 </spring:bind>
                                                 <br />
@@ -70,15 +72,17 @@
                                                     <div>
                                                         <p><strong>If OMIM IDs are not available, please describe the human condition or disease below:</strong></p>
                                                     </div>
+                                                    <form:errors path="${status.expression}" cssClass="error" />
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                         <br />
                                         <spring:bind path="command.research_areas">
                                             <div class="field">
                                                 <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="" multiple="true">
                                                         <form:option value='0'>Please select...</form:option>
@@ -87,19 +91,22 @@
                                                         </c:forEach>               
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                         <br />
                                         <div class="field">
                                             <p><strong>Other research areas</strong></p>
+                                           
                                             <spring:bind path="command.research_areas_other_text">
-                                                <form:input  id="${status.expression}" path="${status.expression}" /><form:errors path="${status.expression}" cssClass="error" />
+                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                <form:input  id="${status.expression}" path="${status.expression}" />
                                             </spring:bind>
                                         </div>
                                         <br />
                                         <spring:bind path="command.research_tools">
                                             <div class="field"><p><strong>Research tools</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}" multiple="true">
                                                         <form:option value="">Please select..</form:option>
@@ -109,7 +116,7 @@
                                                         </c:forEach>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
                                         <p>

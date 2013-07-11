@@ -213,7 +213,7 @@ public class SubmissionFormValidator implements
                 "Are heterozygous mice fertile is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required", "required.heterozygous_matings_required",
                 "Are homozygous matings required is a required field");
-        if (sd.getHomozygous_matings_required().equals("yes")) {
+        if (sd.getHomozygous_matings_required() != null && sd.getHomozygous_matings_required().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required_text", "required.heterozygous_matings_required_text",
                     "An explanation is required for the homozygous matings required response.");
         }
@@ -229,10 +229,12 @@ public class SubmissionFormValidator implements
 
     public void validateSubmissionForm9(SubmissionsDAO sd, Errors errors) {
         //RESEARCH VALUE
+        String humanCondition="";
+        humanCondition=sd.getHuman_condition();
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition",
                 "required.human_condition", "Does this strain model a human condition or disease is a required field");
 
-        if (sd.getHuman_condition().equals("yes")) {
+        if (humanCondition != null && humanCondition.equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_text", "required.human_condition_text",
                     "An explanation is required for the homozygous matings required response.");
         }
@@ -240,12 +242,13 @@ public class SubmissionFormValidator implements
     public void validateSubmissionForm10(SubmissionsDAO sd, Errors errors) {
 
         //ADDITIONAL INFORMATION SECTION
-
+String deposElsewhere = "";
+deposElsewhere = sd.getDeposited_elsewhere();
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "past_requests",
                 "required.past_requests", "Please select the number of requests you have received for this strain in the last 6 months.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deposited_elsewhere", "deposited_elsewhere",
                 "A response to this question is required");
-        if (sd.getDeposited_elsewhere().equals("yes")) {
+        if (sd.getDeposited_elsewhere() != null && sd.getDeposited_elsewhere().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deposited_elsewhere_text", "deposited_elsewhere_text",
                     "An explanation for your response is required");
         }
@@ -253,25 +256,25 @@ public class SubmissionFormValidator implements
                 "A response to this question is required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip_rights", "ip_rights",
                 "A response to this question is required");
-        if (sd.getIp_rights().equals("yes")) {
+        if (sd.getIp_rights() != null && sd.getIp_rights().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip_rights_text", "ip_rights_text",
                     "An explanation for your response is required");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exclusive_owner", "exclusive_owner",
                 "A response to this question is required");
-        if (sd.getExclusive_owner().equals("no")) {
+        if (sd.getExclusive_owner() != null && sd.getExclusive_owner().equals("no")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exclusive_owner_text", "exclusive_owner_text",
                     "Names of additional owners with affiliation and e-mail addresses are required.");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permission", "owner_permission",
                 "A response to this question is required");
-        if (sd.getOwner_permission().equals("no")) {
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permissions_text", "owner_permission_text",
+        if (sd.getOwner_permission() != null && sd.getOwner_permission().equals("no")) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permission_text", "owner_permission_text",
                     "An explanation for your response is required.");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release", "delayed_release",
                 "A response to this question is required");
-        if (sd.getDelayed_release().equals("yes")) {
+        if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release_text", "delayed_release_text",
                     "An explanation for the delayed release is required.");
         }

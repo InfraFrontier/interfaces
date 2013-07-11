@@ -73,10 +73,11 @@
                                         <spring:bind path="command.shipper_email">
                                             <div class="field">
                                                 <label class="label"><strong>Email<sup><font color="red">*</font></sup></strong></label>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                         <div id="user_details_link" style="display: none"><p><a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a>&nbsp;&nbsp;<a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a></p></div></div>
-                                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                                
                                             </div>
                                             <ul id="ulUsers"></ul>
                                         </spring:bind>
@@ -92,6 +93,7 @@
                                         <spring:bind path="command.shipper_title">
                                             <div class="field">
                                                 <p><strong>Title</strong></p>
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select : </form:option>
@@ -102,34 +104,35 @@
                                                         <form:option value="Dr">Dr</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_firstname">
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>First name</strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
 
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_lastname">   
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Last Name
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_tel">   
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Phone Number
                                                         <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The phone number must begin with + 
@@ -140,12 +143,11 @@
                                                     <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>
                                                     </div>
 
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_fax">   
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Fax Number
                                                         <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The fax number must begin with + 
@@ -155,108 +157,91 @@
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input></div>
 
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_inst"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Institution
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_dept"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Department</strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.shipper_addr_1"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Address line 1/Street address
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
 
 
                                         <spring:bind path="command.shipper_addr_2">
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Address line 2</strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
 
                                         <spring:bind path="command.shipper_city">     
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>City
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>  
 
 
-
-
                                         <spring:bind path="command.shipper_county">  
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>County/Province/State</strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
 
-                                        <spring:bind path="command.shipper_postcode"> 
+                                        <spring:bind path="command.shipper_postcode">
+                                             <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
                                                 <p><strong>Postcode/Zipcode
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind> 
 
                                         <spring:bind path="command.shipper_country"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Country
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
@@ -266,9 +251,6 @@
                                                         <form:options  items="${command.cvDAO}"></form:options>
                                                     </form:select>
                                                 </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
                                     </div>

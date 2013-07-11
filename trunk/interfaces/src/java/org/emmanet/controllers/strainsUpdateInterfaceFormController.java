@@ -6,7 +6,9 @@ package org.emmanet.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.emmanet.model.ArchiveDAO;
 import org.emmanet.model.ArchiveManager;
 import org.emmanet.model.BibliosManager;
+import org.emmanet.model.CategoriesStrainsDAO;
 import org.emmanet.model.LabsDAO;
 import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
@@ -192,6 +195,14 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         session.setAttribute("bibCount", bm.BibliosStrainCount(strainID));
         //NOW SET NUMBER OF RTOOLS REFS
         session.setAttribute("rtCount", sm.getRToolsCount(strainID));
+        Set csd = sd.getCategoriesStrainsDAO();
+        List cats = new ArrayList();
+        
+       for (Iterator i=csd.iterator();i.hasNext();){
+           CategoriesStrainsDAO o = (CategoriesStrainsDAO) i.next();
+           cats.add(o.getCategoriesDAO().getDescription());
+       }
+       request.setAttribute("categories", cats);
 //RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
         request.setAttribute("associatedFiles", null);
         DirFileList files = new DirFileList();

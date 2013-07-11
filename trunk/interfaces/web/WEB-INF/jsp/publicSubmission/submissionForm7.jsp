@@ -185,6 +185,9 @@
                                     </p>
                                 --%>
                                 <script>
+                                     if ($('input[name=published]:checked').val() == "yes") {
+                                                $("#reference").show("slow");
+                                            }
                                     $("#published-yes").click(function () {
                                         $("#reference").show("slow");
                                     });

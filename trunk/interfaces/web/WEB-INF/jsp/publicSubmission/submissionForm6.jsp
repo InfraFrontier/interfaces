@@ -46,24 +46,26 @@
                             </p>
                             <form:form method="POST" commandName="command"> 
                                 <spring:bind path="command.homozygous_phenotypic_descr">
+                                    <form:errors path="${status.expression}" cssClass="error" />
                                     <div class="field">
                                         <p><strong>Phenotypic description of homozygous mice<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>A short description of the mutant phenotype of homozygous mice (this will be used in the public web listing, see an example).</p>">? Help</span></p>
                                         <div class="input">
                                             <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
                                                            title=""></form:textarea>
                                             </div>
-                                        <form:errors path="${status.expression}" cssClass="error" />
+                                        
                                     </div>
                                 </div>
                             </spring:bind>
                             <spring:bind path="command.heterozygous_phenotypic_descr">
+                                <form:errors path="${status.expression}" cssClass="error" />
                                 <div class="field">
                                     <p><strong>Phenotypic description of heterozygous/hemizygous mice<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>A short description of the mutant phenotype of heterozygous/hemizygous mice (this will be used in the public web listing, see an example).</p>">? Help</span></p>
                                     <div class="input">
                                         <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
                                                        title=""></form:textarea>      
                                         </div>
-                                    <form:errors path="${status.expression}" cssClass="error" />
+                                    
                                 </div>
                             </spring:bind>
                             <p>

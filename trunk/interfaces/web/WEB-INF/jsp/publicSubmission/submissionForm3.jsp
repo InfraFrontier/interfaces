@@ -77,7 +77,8 @@
                                             </div>
                                         </div>
                                         <spring:bind path="command.producer_email">
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <label class="label"><strong>Email<sup><font color="red">*</font></sup></strong></label>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
@@ -87,7 +88,7 @@
                                                         </div>
 
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                               
                                             </div>
                                             <ul id="ulUsers"></ul>
 
@@ -104,7 +105,8 @@
                                         </script>
 
                                         <spring:bind path="command.producer_title">
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <label class="label" for="${status.expression}"><strong>Title</strong></label>
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
@@ -116,35 +118,35 @@
                                                         <form:option value="Dr">Dr</form:option>
                                                     </form:select>
                                                 </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_firstname">
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <label class="label" for="${status.expression}"><strong>First name</strong></label>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
 
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_lastname">   
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <label class="label" for="${status.expression}"><strong>Last Name
                                                         <sup><font color="red">*</font></sup></strong></label>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_tel">   
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Phone Number
                                                         <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The phone number must begin with + 
                                                                                                               followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
@@ -153,14 +155,12 @@
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_fax">   
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Fax Number
                                                         <sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>The fax number must begin with + 
                                                                                                               followed by the country code and contain only numbers, hyphens, spaces, or parentheses. 
@@ -169,46 +169,38 @@
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input></div>
 
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_inst"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Institution
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_dept"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Department</strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.producer_addr_1"> 
-                                            <div class="field">
+                                             <form:errors path="${status.expression}" cssClass="error" />
+                                             <div class="field">
                                                 <p><strong>Address line 1/Street address
                                                         <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
-
                                             </div>
                                         </spring:bind>
 

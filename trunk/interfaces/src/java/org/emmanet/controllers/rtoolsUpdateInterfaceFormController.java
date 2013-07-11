@@ -6,6 +6,7 @@ package org.emmanet.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -55,6 +56,11 @@ public class rtoolsUpdateInterfaceFormController extends SimpleFormController {
                 List rtoolsList = new ArrayList();
                 rtoolsList = rm.getRToolsList(id);
                 System.out.println(" RTOOLSLIST SIZE IS :: " + rtoolsList.size());
+                            for(Iterator it=rtoolsList.listIterator();it.hasNext(); ){
+               Object o = it.next();
+           
+            System.out.println("RTOOL ID IS ::- " + o.toString());
+        }
                // rtDAO = (RToolsDAO) sm.getRtoolsByID(id);
                 returnedOut.put("RToolsDAO", rtoolsList/*rtDAO*/);
                 returnedOut.put("rtools", rtools);

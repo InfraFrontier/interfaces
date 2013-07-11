@@ -51,11 +51,12 @@
                                     <spring:bind path="command.genotyping">
                                         <div class="field"
                                              <p><strong>By genotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p>e.g., sequence of PCR primers and PCR settings, Southern probes and hybridization protocol. <%--A good template for PCR genotyping is available &lt;a href='genotyping-template.doc' target='_blank'&gt;here&lt;/a&gt;.--%></p>">? Help</span></p>
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                 <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=GENO',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>
                                             </div>
-                                            <form:errors path="${status.expression}" cssClass="error" />
+                                            
                                         </div>
                                     </spring:bind>
 
@@ -63,13 +64,12 @@
                                         <div class="field">
 
                                             <p><strong>By phenotyping</strong>&nbsp;<span class="tooltip" data-tooltip="<p>e.g., coat colour, etc.</p>">? Help</span></p>
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
 
                                                     <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=PHENO',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>
 
-
-                                                <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
                                     </div>
@@ -77,10 +77,11 @@
                                     <spring:bind path="command.othertyping">           
                                         <div class="field">
                                             <p><strong>By any other means that are not genotyping or phenotyping</strong></p>
+                                            <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" ></form:textarea><a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=OTHER',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>                            
                                                 </div>
-                                            <form:errors path="${status.expression}" cssClass="error" />
+                                            
                                         </div>
                                     </spring:bind>
                                     <p>
