@@ -92,6 +92,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         SubmissionsDAO sda = new SubmissionsDAO();
         wr = new WebRequests();
         SubmissionsManager sm = new SubmissionsManager();
+      
 
         if (request.getParameter("getprev") != null) {
             idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
@@ -454,7 +455,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     @Override
     protected ModelAndView processFinish(HttpServletRequest request, HttpServletResponse response,
             Object command, org.springframework.validation.BindException be) throws Exception {
-
+  RToolsManager rtm = new RToolsManager();
         SubmissionsDAO sd = (SubmissionsDAO) command;
         StrainsManager stm = new StrainsManager();
         System.out.println("CHECKING RECALLED SUBMISSIONDAO :-");
@@ -701,7 +702,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         Set setRtools = new LinkedHashSet();
         String rToolsToParse = sd.getResearch_tools();
-        RToolsManager rtm = new RToolsManager();
+        rtm = new RToolsManager();
         if (rToolsToParse != null) {
             String[] parsedRtools = rToolsToParse.split(":");
             for (String s : parsedRtools) {
@@ -711,7 +712,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 rtd.setStr_id_str(nsd.getId_str());
                 System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
 
-         rtm.saveSQL(Integer.parseInt(s),nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
+         rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s),nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
 //rtm.saveOnly(rtd);
                 //set add dao here
                 setRtools.add(rtd);
@@ -765,7 +766,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     csd.setStr_id_str(nsd.getId_str());
                     csd.setCat_id_cat(Integer.parseInt(s));
                     //sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
-                    sbm.saveSQL(csd.getStr_id_str(), csd.getStr_id_str());
+                    //OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
+                    rtm.saveCtegoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
+                   //sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
                     //set add dao here
                     setCategories.add(csd);
                     //nsd.setCategoriesStrainsDAO(setCategories);
@@ -1048,10 +1051,10 @@ System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
                 //   validator.validateSubmissionForm9(sd, errors);
                 break;
             case 10:
-                //validator.validateSubmissionForm10(sd, errors);
+                validator.validateSubmissionForm9(sd, errors);
                 break;
             case 11:
-                //validator.validateSubmissionForm11(sd, errors);
+                validator.validateSubmissionForm10(sd, errors);
                 break;
         }
     }

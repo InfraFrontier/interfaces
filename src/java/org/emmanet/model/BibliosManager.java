@@ -87,8 +87,8 @@ public class BibliosManager {
 System.out.println("bd :: " + bd.size());
         return bd;
     }
-
-    public List Biblios(int id) {
+ 
+   public List Biblios(int id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();

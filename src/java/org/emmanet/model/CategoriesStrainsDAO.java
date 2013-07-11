@@ -15,6 +15,7 @@ public class CategoriesStrainsDAO implements Serializable {
     private int cat_id_cat;
     private int str_id_str;
     private CategoriesDAO categoriesDAO;
+     private StrainsDAO strainsDAO;
 
     /**
      * @return the cat_id_cat
@@ -56,5 +57,19 @@ public class CategoriesStrainsDAO implements Serializable {
      */
     public void setCategoriesDAO(CategoriesDAO categoriesDAO) {
         this.categoriesDAO = categoriesDAO;
+    }
+
+    /**
+     * @return the strainsDAO
+     */
+    public StrainsDAO getStrainsDAO() {
+        return strainsDAO;
+    }
+
+    /**
+     * @param strainsDAO the strainsDAO to set
+     */
+    public void setStrainsDAO(StrainsDAO strainsDAO) {
+        this.strainsDAO = strainsDAO;
     }
 }

@@ -136,7 +136,7 @@ public class SubmissionsManager {
 
         try {
             System.out.println("ABOUT TO SAVE CATEGORIES");
-            session.createSQLQuery("INSERT INTO categories_strains (str_id_str,cat_id_cat) VALUES (?,?)").setParameter(1, strainID).setParameter(0, catID);//
+            session.createSQLQuery("INSERT INTO categories_strains (cat_id_cat,str_id_str) VALUES (?,?)").setParameter(1, strainID).setParameter(0, catID);//
             System.out.println("SAVED CATEGORIES" + strainID);
             session.getTransaction().commit();
 
