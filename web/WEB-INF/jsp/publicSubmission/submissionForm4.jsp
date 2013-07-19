@@ -48,7 +48,7 @@
                                 <div class="form visible">
                                     <div class="boxcontainer">
                                         <h4> Shipper (Step ${stepCurrent} of ${stepTotal})</h4>
-                                        <p> Please enter the contact information of the person in charge of shipping the mice to EMMA (e.g., animal facility manager or lab head). </p>
+                                        <p>Please enter the contact information of the person in charge of shipping the mice to EMMA (e.g., animal facility manager or lab head). </p>
                                         <div id='mask' class='close_modal'></div>
                                         <div id='user_window' class='modal_window'>
                                             <%-- DIV HOLDS USER DATA RETURNED FROM ajaxReturn.emma?funct=peopleCall&email=xxxxxxx@xxx.xxx --%>

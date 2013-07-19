@@ -42,8 +42,7 @@
                                     <h4>
                                         Breeding (Step ${stepCurrent} of ${stepTotal})
                                     </h4>
-                                    <p>
-                                        Fertility and reproduction statistics, husbandry requirements and sanitary status of the mutant mouse strain you want to deposit in EMMA.<br/><br/>
+                                    <p>Fertility and reproduction statistics, husbandry requirements and sanitary status of the mutant mouse strain you want to deposit in EMMA.<br/><br/>
                                     </p>
 
                                     <form:form method="POST" commandName="command">
@@ -286,7 +285,7 @@
                                                  <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
-                                                        <form:option value="">Please select..</form:option>
+                                                        <form:option value="good">Please select..</form:option>
                                                         <form:option value="poor">Poor</form:option>
                                                         <form:option value="good">Good</form:option>
                                                         <form:option value="excellent">Excellent</form:option>

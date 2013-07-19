@@ -12,6 +12,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <spring:bind path="command.*" />
 <c:set var="CVRToolsDAO" value='${sessionScope.CVRToolsDAO}'></c:set>
+<c:set var="catsDAO" value='${sessionScope.categoriesDAO}'></c:set>
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
 
                                         <spring:bind path="command.human_condition">
                                             <div class="field">
-                                                <p><strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
+                                                <strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
                                                  <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="" />Yes (please explain below)<br/>
@@ -83,10 +84,12 @@
                                             <div class="field">
                                                 <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span></p>
                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                <c:if test="${empty command.catDAO}"><c:set var="cats" value="${catsDAO}"></c:set></c:if>
+                                                <c:if test="${not empty command.catDAO}"><c:set var="cats" value="${command.catDAO}"></c:set></c:if>
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="" multiple="true">
                                                         <form:option value='0'>Please select...</form:option>
-                                                        <c:forEach var="researchArea" items="${command.catDAO}">
+                                                        <c:forEach var="researchArea" items="${cats}">
                                                             <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
                                                         </c:forEach>               
                                                     </form:select>

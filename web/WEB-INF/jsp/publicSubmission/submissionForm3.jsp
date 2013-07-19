@@ -56,8 +56,7 @@
                                     <h4>
                                         Producer (Step ${stepCurrent} of ${stepTotal})
                                     </h4>
-                                    <p>
-                                        Please enter the contact information of the principal investigator who generated the mouse mutant strain you want to deposit in EMMA.
+                                    <p>Please enter the contact information of the principal investigator who generated the mouse mutant strain you want to deposit in EMMA.
                                     </p>
                                     <form:form method="POST" commandName="command" id="submissionForm">
                                         <form:errors path="*" cssClass="errorblock"/>
