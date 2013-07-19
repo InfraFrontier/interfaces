@@ -657,27 +657,33 @@
             </tr>
             <tr>
                 <td>Homozygous mice viable: </td>
-                <td><spring:bind path="command.mutant_viable">
+                <td colspan="3"><spring:bind path="command.mutant_viable">
                         <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
                         <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
+                        <input <c:if test="${status.value=='males only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="males only" type="radio"> Only males
+                        <input <c:if test="${status.value=='females only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="females only" type="radio"> Only females
                         <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
                     </spring:bind></td>
+                </tr>
+                <tr>
                 <td  valign="top">Homozygous mice fertile:</td>
-                <td><spring:bind path="command.mutant_fertile">
+                <td colspan="3"><spring:bind path="command.mutant_fertile">
                         <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
                         <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
+                        <input <c:if test="${status.value=='males only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="males only" type="radio"> Only males
+                        <input <c:if test="${status.value=='females only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="females only" type="radio"> Only females
                         <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
                     </spring:bind></td>
             </tr>
             <tr>
                 <td>Het/Hemizygous mice fertile: </td>
-                <td><spring:bind path="command.hethemi_fertile">
+                <td colspan="3"><spring:bind path="command.hethemi_fertile">
                         <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
                         <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
+                        <input <c:if test="${status.value=='males only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="males only" type="radio"> Only males
+                        <input <c:if test="${status.value=='females only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="females only" type="radio"> Only females
                         <input <c:if test="${status.value=='not known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not known" type="radio"> Not known
                     </spring:bind></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
             </tr>
             <tr>
                 <td valign="top">Homozygous mating:</td>

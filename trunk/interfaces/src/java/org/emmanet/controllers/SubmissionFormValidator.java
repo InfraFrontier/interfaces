@@ -207,6 +207,8 @@ public class SubmissionFormValidator implements
         //BREEDING
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_viable",
                 "required.homozygous_viable", "Are homozygous mice viable is a required field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "breeding_performance",
+                "required.breeding_performance", "Breeding performance is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_fertile", "required.homozygous_fertile",
                 "Are homozygous mice fertile is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heterozygous_fertile", "required.heterozygous_fertile",

@@ -23,7 +23,7 @@
 
 <div name="addMut" id="addMut">
     <p>
-        <input value="Add mutation" class="btn big" type="button" id="add_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
+        <input value="Record this mutation" class="btn big" type="button" id="add_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
 <p>&nbsp;</p>

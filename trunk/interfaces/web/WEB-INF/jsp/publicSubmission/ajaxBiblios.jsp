@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <div name="addBib" id="addBib">
     <p>
-       <input value="Add Biblio" class="btn" type="button" id="add_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
+       <input value="Record this reference" class="btn" type="button" id="add_biblio" /> You can add ${10 - count} more reference<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
 <div name="editBib" id="editBib" style="display: none">

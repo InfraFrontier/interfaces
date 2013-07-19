@@ -76,7 +76,7 @@
                                     <%--  <form:form method="POST" commandName="command"> --%>
                                     <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
                                     <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
-                                    <div class="box half first">
+                                    <div >
                                         <spring:bind path="command.strain_name">
                                             <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
@@ -90,7 +90,10 @@
 
                                         </spring:bind>
                                     </div>
-                                    <div class="box half last">
+                                    </div>
+                                     <div class="boxcontainer">
+                                    <div class="clear"></div>
+                                    <div >
                                         <spring:bind path="command.genetic_descr">
                                             <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
@@ -105,7 +108,7 @@
                                         </spring:bind>
                                     </div>
                                     <div class="clear"></div>
-                                    <div class="box half first">
+                                    <div >
                                         <spring:bind path="command.current_backg">
                                             <div class="field">
 
@@ -148,19 +151,21 @@
                                             });        
                                         </script>
 
-                                    <div class="box half last">
+                                <div>
                                         <spring:bind path="command.backcrosses">         
-                                            <form:errors path="${status.expression}" cssClass="error" />
+                                           
                                             <div class="field">
                                                 <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
-                                                <div class="input">
+                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                 <div class="input">
                                                     <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
                                                 
                                             </div>
                                         </spring:bind>
-                                    </div>
-                                    <div class="box half first">
+                                    </div>    
+                                        
+                                    <div >
                                         <spring:bind path="command.sibmatings"><%-- TODO DISCOVER FIELD --%>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
@@ -172,7 +177,7 @@
                                             </div>
                                         </spring:bind>
                                     </div>
-                                    <div class="box half last">
+                                    <div >
                                         <spring:bind path="command.breeding_history">
                                             <p><strong>Breeding history</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please describe the breeding history (outcrosses, backcrosses, intercrosses, incrosses) from the original founder strain to the current genetic background.</p>">? Help</span></p>
                                             <form:errors path="${status.expression}" cssClass="error" />
@@ -182,9 +187,7 @@
                                             
                                         </div>
                                     </spring:bind>
-                                </div>
-
-
+                                     </div>
                                 <div class="boxcontainer">
                                     <div class="clear"></div>
                                     <fieldset class="mutation" id="mutation">
@@ -603,7 +606,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+          
         </form:form>  
 
         <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>

@@ -76,15 +76,18 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private List stepTitles;
     private JavaMailSender javaMailSender;
     private VelocityEngine velocityEngine;
+    private boolean action;
 
     public SubmissionFormController() {
         setCommandName("command");
         setAllowDirtyBack(true);
         // setAllowDirtyForward(true);
+        action = true;
     }
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
+        action = true;
         setBindOnNewForm(true);
         String idDecrypt = "";
         System.out.println("AT THE FORMBACKING OBJECT");
@@ -92,21 +95,20 @@ public class SubmissionFormController extends AbstractWizardFormController {
         SubmissionsDAO sda = new SubmissionsDAO();
         wr = new WebRequests();
         SubmissionsManager sm = new SubmissionsManager();
-      
 
+        System.out.println("FBO ACTION = " + action);
         if (request.getParameter("getprev") != null) {
             idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
-
-            if (request.getParameter("recall_window") != null) {
-                if (request.getParameter("recall_window").equals("Yes")) {
-                    sda = sm.getSubByID(Integer.parseInt(idDecrypt));
-                    System.out.println("NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
-                    System.out.println("g e t p r e v::" + idDecrypt);
-                    System.out.println("SUBID::FBO = " + sda.getEncryptedId_sub());
-                    System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
-                }
+            if (request.getParameter("recall_window").equals("Yes") && action) {
+                sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+                System.out.println("NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
+                System.out.println("g e t p r e v::" + idDecrypt);
+                System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
+                System.out.println("PREVIOUS STEP IS :: " + sda.getStep());
             }
         }
+
+
         BackgroundManager bm = new BackgroundManager();
         String getprev = "";
 
@@ -124,7 +126,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         session.setAttribute("backgroundsDAO", bm.getCuratedBackgrounds());
         sda.setBgDAO(bm.getCuratedBackgrounds());
-        //session.setAttribute("categoriesDAO", sm.getCategories() );
+        session.setAttribute("categoriesDAO", sm.getCategories());
         sda.setCatDAO(sm.getCategories());
 
         return sda;
@@ -136,31 +138,26 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Errors errors,
             int page)
             throws Exception {
-        System.out.println("reference data method called");
+
+        System.out.println("reference data method called - getprev is " + request.getParameter("getprev"));
+
         SubmissionsDAO sda = new SubmissionsDAO();
-        sda = (SubmissionsDAO) command;//new SubmissionsDAO();// = 
+        sda = (SubmissionsDAO) command;
         System.out.println("SDA sent to command value of id_sub is::" + sda.getId_sub());
         SubmissionsManager sm = new SubmissionsManager();
         encrypter = new Encrypter();
 
+        System.out.println("REF DATA ACTION = " + action);
         if (request.getParameter("getprev") != null) {
-            String idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
-            System.out.println("g e t p r e v::" + idDecrypt);
-            sda = sm.getSubByID(Integer.parseInt(idDecrypt));
 
-            System.out.println("SUBID::FBO refdata = " + sda.getEncryptedId_sub());
-            System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
-            if (request.getParameter("recall_window") != null) {
-                if (request.getParameter("recall_window").equals("Yes")) {
-                    System.out.println("SETTING COMMAND TO SDA");
-                    // command = new Object();
-                    // command = sda;
-                    command = sda;//this.formBackingObject(request);
-                }
+            if (request.getParameter("recall_window").equals("Yes") && action) {
+                System.out.println("REF DATA NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
+                System.out.println("REF DATA PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
+                System.out.println("REF DATAPREVIOUS STEP IS :: " + sda.getStep());
+                int stepRef=Integer.parseInt(sda.getStep());
+                page = stepRef-1;
+                action = false;
             }
-
-        } else {
-            sda = (SubmissionsDAO) command;
         }
 
         Map refData = new HashMap();
@@ -206,13 +203,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                                 session.setAttribute("getprev", encrypted);
                             } else {
                             }
-
-
-                            /*      try {
-                             encrypted = java.net.URLEncoder.encode(encrypted, "UTF-8");
-                             } catch (UnsupportedEncodingException ex) {
-                             Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
-                             }*/
 
                             prevSub.setEncryptedId_sub(encrypted);
                             prevSub.setCvDAO(wr.isoCountries());
@@ -393,6 +383,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
                 session.setAttribute("CVRToolsDAO", CVRtoolsDAO);
 
+
+
                 sda.setStep("10");
                 sm.save(sda);
                 break;
@@ -455,7 +447,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     @Override
     protected ModelAndView processFinish(HttpServletRequest request, HttpServletResponse response,
             Object command, org.springframework.validation.BindException be) throws Exception {
-  RToolsManager rtm = new RToolsManager();
+        RToolsManager rtm = new RToolsManager();
         SubmissionsDAO sd = (SubmissionsDAO) command;
         StrainsManager stm = new StrainsManager();
         System.out.println("CHECKING RECALLED SUBMISSIONDAO :-");
@@ -499,8 +491,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //and start to populate a new strains dao.
         //might need to break this out into its own method to be accesible by restful web service for future bulk uploads
         StrainsDAO nsd = new StrainsDAO();
-        
-      //  stm.save(nsd);//need to save to get ID but this causes stalobject error when updating 
+
+        //  stm.save(nsd);//need to save to get ID but this causes stalobject error when updating 
         Date dt = new Date();
         SimpleDateFormat sdf =
                 new SimpleDateFormat("yyyy-MM-dd");
@@ -639,7 +631,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         }
         nsd.setPheno_text(PhenoText.toString().trim());
         nsd.setRequire_homozygous(sd.getHomozygous_matings_required());
-        
+
         //RESIDUES OBJECT
 
         ResiduesDAO rd = new ResiduesDAO();
@@ -677,14 +669,14 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setWhen_mice_month(sd.getMice_avail_month());
         rd.setWhen_mice_year(sd.getMice_avail_year());
         rd.setHomozygous_matings_required_text(sd.getHomozygous_matings_required_text());
-        rd.setReproductive_maturity_age( sd.getReproductive_maturity_age());
+        rd.setReproductive_maturity_age(sd.getReproductive_maturity_age());
         rd.setReproductive_decline_age(sd.getReproductive_decline_age());
         rd.setGestation_length(sd.getGestation_length());
         rd.setPups_at_birth(sd.getPups_at_birth());
         rd.setPups_at_weaning(sd.getPups_at_weaning());
         rd.setWeaning_age(sd.getWeaning_age());
         rd.setLitters_in_lifetime(sd.getLitters_in_lifetime());
-        if(sd.getBreeding_performance().equals("")){
+        if (sd.getBreeding_performance().equals("")) {
             sd.setBreeding_performance(null);
         }
         rd.setBreeding_performance(sd.getBreeding_performance());
@@ -712,7 +704,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 rtd.setStr_id_str(nsd.getId_str());
                 System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
 
-         rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s),nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
+                rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s), nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
 //rtm.saveOnly(rtd);
                 //set add dao here
                 setRtools.add(rtd);
@@ -768,7 +760,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     //sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
                     //OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
                     rtm.saveCtegoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
-                   //sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
+                    //sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
                     //set add dao here
                     setCategories.add(csd);
                     //nsd.setCategoriesStrainsDAO(setCategories);
@@ -879,7 +871,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             BibliosStrainsDAO bsd = new BibliosStrainsDAO();
             bsd.setBib_id_biblio(bud.getId_biblio());
             bsd.setStr_id_str(nsd.getId_str());
-System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
+            System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
             BibliosStrains.add(bsd);
             bm.save(bsd);
             //~~~~~~~~~nsd.setSetBibliosStrainsDAO(BibliosStrains);
@@ -898,7 +890,7 @@ System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
         Syn_StrainsManager ssm = new Syn_StrainsManager();
         ssm.save(ssd);
         synStrains.add(ssd);
-       //~~~~~~~~~~~~~nsd.setSyn_strainsDAO(synStrains);
+        //~~~~~~~~~~~~~nsd.setSyn_strainsDAO(synStrains);
         /////////////////////////////////////////////////////////////////////////
         /////////stm.save(nsd);
         //projects - set all to unknown(id 1) or COMMU(id 2)
@@ -910,15 +902,15 @@ System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
         ProjectsStrainsManager psm = new ProjectsStrainsManager();
         psm.save(psd);
         projectsStrains.add(psd);
-       //~~~~~~~~~~~~~~~~ nsd.setProjectsDAO(projectsStrains);
+        //~~~~~~~~~~~~~~~~ nsd.setProjectsDAO(projectsStrains);
 
         //associate uploaded file prefix with new strain id by adding sub_id_sub
         nsd.setSub_id_sub(sd.getId_sub());
-        
+
         //need to save and recall saved strains object as for some reason if I try to set the source strains here without doing this it throws an error.
         stm.save(nsd);
-        nsd=stm.getStrainByID(nsd.getId_str());
-        
+        nsd = stm.getStrainByID(nsd.getId_str());
+
         Set sourcesStrains = new LinkedHashSet();
         Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
         Calendar rightNow = Calendar.getInstance();
@@ -963,14 +955,14 @@ System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
         System.out.println("source is " + srcsd.getSour_id());
 
         srcsd.setStr_id_str(nsd.getId_str());
-       
+
         SourcesStrainsManager srcsm = new SourcesStrainsManager();
-      srcsm.save(srcsd);
-      sourcesStrains.add(srcsd);
+        srcsm.save(srcsd);
+        sourcesStrains.add(srcsd);
         //~~~~~~~~~~~nsd.setSources_StrainsDAO(sourcesStrains);
-        
-       System.out.println("" + srcsd.getStr_id_str());
-        
+
+        System.out.println("" + srcsd.getStr_id_str());
+
         System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str() + " EMMA ID ++ " + nsd.getEmma_id());
         stm.save(nsd);
         //MAIL OUT AND PDF ATTACHMENT + PDF LINK

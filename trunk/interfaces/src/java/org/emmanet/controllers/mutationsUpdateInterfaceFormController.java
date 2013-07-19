@@ -85,7 +85,6 @@ public class mutationsUpdateInterfaceFormController extends SimpleFormController
 
             }
         }
-
         return null;
     }
     // SAVE
