@@ -730,6 +730,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
         System.out.println("EMMA ID IS ::- EM:" + emmaID);
         nsd.setEmma_id("EM:" + emmaID);//tTODO NEED TO GET OBJECT ID BUT NEEDS TO BE SAVED FIRST
+        stm.save(nsd);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //ADDITIONAL OBJECTS
 
@@ -759,7 +760,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     csd.setCat_id_cat(Integer.parseInt(s));
                     //sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
                     //OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
-                    rtm.saveCtegoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
+                    rtm.saveCategoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
                     //sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
                     //set add dao here
                     setCategories.add(csd);
@@ -821,7 +822,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
             msd.setStr_id_str(nsd.getId_str());
             //createMutationStrain(mud.getId(), nsd.getId_str());
             //Set msdao = (Set) mm.getMutationIDsByStrain(nsd.getId_str());
-            mm.save(msd);
+            //mm.save(msd);
+             rtm.saveMutsStrainsUsingJDBCSQL(mud.getId(), nsd.getId_str());
             setMutationsStrainsDAO.add(msd);
         }
         //~~~~~~~~~~~~nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
@@ -908,7 +910,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setSub_id_sub(sd.getId_sub());
 
         //need to save and recall saved strains object as for some reason if I try to set the source strains here without doing this it throws an error.
-        stm.save(nsd);
+       // stm.save(nsd);
         nsd = stm.getStrainByID(nsd.getId_str());
 
         Set sourcesStrains = new LinkedHashSet();
