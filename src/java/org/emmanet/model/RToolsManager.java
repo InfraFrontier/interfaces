@@ -140,7 +140,7 @@ public class RToolsManager {
         }
     }
 
-    public void saveCtegoriesUsingJDBCSQL(int catID, int strainID) throws SQLException, NamingException, Exception {
+    public void saveCategoriesUsingJDBCSQL(int catID, int strainID) throws SQLException, NamingException, Exception {
         Connection connect = null;
         PreparedStatement preparedStatement = null;
         DataSource ds = null;
@@ -150,6 +150,30 @@ public class RToolsManager {
             preparedStatement = connect.prepareStatement("INSERT INTO categories_strains (cat_id_cat,str_id_str) VALUES (?,?)");
             preparedStatement.setInt(2, strainID);
             preparedStatement.setInt(1, catID);
+            System.out.println(preparedStatement.toString());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RToolsManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connect != null) {
+                connect.close();
+            }
+        }
+    }
+    
+        public void saveMutsStrainsUsingJDBCSQL(int mutID, int strainID) throws SQLException, NamingException, Exception {
+        Connection connect = null;
+        PreparedStatement preparedStatement = null;
+        DataSource ds = null;
+        try {
+            Class.forName(DRIVER);
+            connect = DriverManager.getConnection(CONNECTIONSTRING);
+            preparedStatement = connect.prepareStatement("INSERT INTO mutations_strains (mut_id,str_id_str) VALUES (?,?)");
+            preparedStatement.setInt(2, strainID);
+            preparedStatement.setInt(1, mutID);
             System.out.println(preparedStatement.toString());
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException ex) {
