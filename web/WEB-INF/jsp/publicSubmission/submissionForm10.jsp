@@ -49,7 +49,7 @@
                                         <spring:bind path="command.human_condition">
                                             <div class="field">
                                                 <strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
-                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                        <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="" />Yes (please explain below)<br/>
                                                         <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br/>
@@ -58,81 +58,100 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
-
-
-                                        <spring:bind path="command.human_condition_more">        
-                                            <div class="field" id="${status.expression}">
-                                                <p><strong>Please enter the <a href="http://omim.org/search?index=entry&sort=score+desc%2C+prefix_sort+desc&start=1&limit=10&search=" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</strong></p>
-                                                <form:errors path="${status.expression}" cssClass="error" />
-                                                <div class="input">
-                                                    <form:input  id="${status.expression}" path="${status.expression}" />
-                                                    <br/>
-                                                </spring:bind>
-                                                <br />
-                                                <spring:bind path="command.human_condition_text">
-                                                    <div>
-                                                        <p><strong>If OMIM IDs are not available, please describe the human condition or disease below:</strong></p>
-                                                    </div>
-                                                    <form:errors path="${status.expression}" cssClass="error" />
-                                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                    </div>
-                                                
-                                            </div>
-                                        </spring:bind>
-                                        <br />
-                                        <spring:bind path="command.research_areas">
-                                            <div class="field">
-                                                <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span></p>
-                                                <form:errors path="${status.expression}" cssClass="error" />
-                                                <c:if test="${empty command.catDAO}"><c:set var="cats" value="${catsDAO}"></c:set></c:if>
-                                                <c:if test="${not empty command.catDAO}"><c:set var="cats" value="${command.catDAO}"></c:set></c:if>
-                                                <div class="input">
-                                                    <form:select path="${status.expression}" id="${status.expression}"  title="" multiple="true">
-                                                        <form:option value='0'>Please select...</form:option>
-                                                        <c:forEach var="researchArea" items="${cats}">
-                                                            <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
-                                                        </c:forEach>               
-                                                    </form:select>
+                                        <div id="humanConditionText" style="display: none">
+                                            <br />
+                                            <spring:bind path="command.human_condition_text">
+                                                <div>
+                                                    <p><strong>If OMIM IDs are not available, please describe the human condition or disease below:</strong></p>
                                                 </div>
-                                                
-                                            </div>
-                                        </spring:bind>
-                                        <br />
-                                        <div class="field">
-                                            <p><strong>Other research areas</strong></p>
-                                           
-                                            <spring:bind path="command.research_areas_other_text">
-                                                 <form:errors path="${status.expression}" cssClass="error" />
-                                                <form:input  id="${status.expression}" path="${status.expression}" />
-                                            </spring:bind>
+                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+
+                                            </div>  
+
+                                            <script>
+                                            
+                                                if ($('input[name=human_condition]:checked').val() == "yes") {
+                                                    $("#humanConditionText").show("slow");
+                                                }
+                                            
+                                                $("#human_condition-yes").click(function () {
+                                                    $("#humanConditionText").show("slow");
+                                                });
+                            
+                                                $("#human_condition-no").click(function () {
+                                                    $("#humanConditionText").hide("slow");
+                                                });
+                            
+                                                $("#human_condition-not_known").click(function () {
+                                                    $("#humanConditionText").hide("slow");
+                                                });            
+                                            </script>
                                         </div>
-                                        <br />
-                                        <spring:bind path="command.research_tools">
-                                            <div class="field"><p><strong>Research tools</strong></p>
-                                                <form:errors path="${status.expression}" cssClass="error" />
-                                                <div class="input">
-                                                    <form:select path="${status.expression}" id="${status.expression}" multiple="true">
-                                                        <form:option value="">Please select..</form:option>
-                                                        <c:forEach var="obj" items="${CVRToolsDAO}">
-                                                            <c:set var="rtool" value="${obj}"/>
-                                                            <c:choose><c:when test="${rtool['code'] == 'LEX' || rtool['code'] == 'DEL'  || rtool['code'] == 'EUC' }"></c:when><c:otherwise><form:option value="${rtool['id']}" >${rtool['description']} (${rtool['code']})</form:option></c:otherwise></c:choose>
-                                                        </c:forEach>
-                                                    </form:select>
+                                    </spring:bind>
+                                    <spring:bind path="command.human_condition_more">        
+                                        <div class="field" id="${status.expression}">
+                                            <p><strong>Please enter the <a href="http://omim.org/search?index=entry&sort=score+desc%2C+prefix_sort+desc&start=1&limit=10&search=" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</strong></p>
+                                            <form:errors path="${status.expression}" cssClass="error" />
+                                            <div class="input">
+                                                <form:input  id="${status.expression}" path="${status.expression}" />
+                                                <br/>
+                                            </spring:bind>
+
+                                            <br />
+                                            <spring:bind path="command.research_areas">
+                                                <div class="field">
+                                                    <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span></p>
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                    <c:if test="${empty command.catDAO}"><c:set var="cats" value="${catsDAO}"></c:set></c:if>
+                                                    <c:if test="${not empty command.catDAO}"><c:set var="cats" value="${command.catDAO}"></c:set></c:if>
+                                                            <div class="input">
+                                                        <form:select path="${status.expression}" id="${status.expression}"  title="" multiple="true">
+                                                            <form:option value='0'>Please select...</form:option>
+                                                            <c:forEach var="researchArea" items="${cats}">
+                                                                <form:option value='${researchArea[0]}'>${researchArea[1]}</form:option>
+                                                            </c:forEach>               
+                                                        </form:select>
+                                                    </div>
+
                                                 </div>
-                                                
+                                            </spring:bind>
+                                            <br />
+                                            <div class="field">
+                                                <p><strong>Other research areas</strong></p>
+
+                                                <spring:bind path="command.research_areas_other_text">
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                    <form:input  id="${status.expression}" path="${status.expression}" />
+                                                </spring:bind>
                                             </div>
-                                        </spring:bind>
-                                        <p>
-                                            <%@include file="submissionFormControlButtons_inc.jsp"%>
-                                        </p>
-                                    </form:form>
+                                            <br />
+                                            <spring:bind path="command.research_tools">
+                                                <div class="field"><p><strong>Research tools</strong></p>
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                    <div class="input">
+                                                        <form:select path="${status.expression}" id="${status.expression}" multiple="true">
+                                                            <form:option value="">Please select..</form:option>
+                                                            <c:forEach var="obj" items="${CVRToolsDAO}">
+                                                                <c:set var="rtool" value="${obj}"/>
+                                                                <c:choose><c:when test="${rtool['code'] == 'LEX' || rtool['code'] == 'DEL'  || rtool['code'] == 'EUC' }"></c:when><c:otherwise><form:option value="${rtool['id']}" >${rtool['description']} (${rtool['code']})</form:option></c:otherwise></c:choose>
+                                                            </c:forEach>
+                                                        </form:select>
+                                                    </div>
+
+                                                </div>
+                                            </spring:bind>
+                                            <p>
+                                                <%@include file="submissionFormControlButtons_inc.jsp"%>
+                                            </p>
+                                        </form:form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>

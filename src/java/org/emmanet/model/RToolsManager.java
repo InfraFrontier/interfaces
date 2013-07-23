@@ -24,8 +24,9 @@ import javax.sql.DataSource;
 public class RToolsManager {
 
     private static String DRIVER = "com.mysql.jdbc.Driver";
-    private static String CONNECTIONSTRING = "jdbc:mysql://localhost/emmastr?user=root&password=18061963";
-//jdbc:mysql://mysql-emmastr:4167/emmastr?user=admin&password=qGUZ1dx4
+
+private static String CONNECTIONSTRING = "jdbc:mysql://mysql-TEST-emmastr:4167/emmastr?user=admin&password=qGUZ1dx4";
+private static String CONNECTIONSTRINGLOCAL = "jdbc:mysql://localhost/emmastr?user=root&password=18061963";
 
     public RToolsDAO getRToolsByID(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -122,6 +123,9 @@ public class RToolsManager {
             connect = DriverManager.getConnection(CONNECTIONSTRING);
             /*  connect=DriverManager.getConnection("jdbc:mysql://mysql-emmastr:4167/emmastr?"
              + "user=admin&password=qGUZ1dx4");*/
+            if(!connect.isValid(1)){
+                connect = DriverManager.getConnection(CONNECTIONSTRINGLOCAL);
+            }
             preparedStatement = connect.prepareStatement("INSERT INTO rtools_strains (str_id_str,rtls_id) VALUES (?,?)");
 
             preparedStatement.setInt(1, strainID);
@@ -147,6 +151,9 @@ public class RToolsManager {
         try {
             Class.forName(DRIVER);
             connect = DriverManager.getConnection(CONNECTIONSTRING);
+             if(!connect.isValid(1)){
+                connect = DriverManager.getConnection(CONNECTIONSTRINGLOCAL);
+            }
             preparedStatement = connect.prepareStatement("INSERT INTO categories_strains (cat_id_cat,str_id_str) VALUES (?,?)");
             preparedStatement.setInt(2, strainID);
             preparedStatement.setInt(1, catID);
@@ -171,6 +178,9 @@ public class RToolsManager {
         try {
             Class.forName(DRIVER);
             connect = DriverManager.getConnection(CONNECTIONSTRING);
+             if(!connect.isValid(1)){
+                connect = DriverManager.getConnection(CONNECTIONSTRINGLOCAL);
+            }
             preparedStatement = connect.prepareStatement("INSERT INTO mutations_strains (mut_id,str_id_str) VALUES (?,?)");
             preparedStatement.setInt(2, strainID);
             preparedStatement.setInt(1, mutID);
