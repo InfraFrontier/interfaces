@@ -238,7 +238,7 @@ public class SubmissionFormValidator implements
 
         if (humanCondition != null && humanCondition.equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_text", "required.human_condition_text",
-                    "An explanation is required for the homozygous matings required response.");
+                    "An explanation is required for the human condition response.");
         }
    }
     public void validateSubmissionForm10(SubmissionsDAO sd, Errors errors) {
