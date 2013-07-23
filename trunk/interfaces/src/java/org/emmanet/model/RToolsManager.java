@@ -123,7 +123,7 @@ private static String CONNECTIONSTRINGLOCAL = "jdbc:mysql://localhost/emmastr?us
             connect = DriverManager.getConnection(CONNECTIONSTRING);
             /*  connect=DriverManager.getConnection("jdbc:mysql://mysql-emmastr:4167/emmastr?"
              + "user=admin&password=qGUZ1dx4");*/
-            if(!connect.isValid(1)){
+            if(!connect.isValid(2)){
                 connect = DriverManager.getConnection(CONNECTIONSTRINGLOCAL);
             }
             preparedStatement = connect.prepareStatement("INSERT INTO rtools_strains (str_id_str,rtls_id) VALUES (?,?)");
@@ -151,7 +151,7 @@ private static String CONNECTIONSTRINGLOCAL = "jdbc:mysql://localhost/emmastr?us
         try {
             Class.forName(DRIVER);
             connect = DriverManager.getConnection(CONNECTIONSTRING);
-             if(!connect.isValid(1)){
+             if(!connect.isValid(2)){
                 connect = DriverManager.getConnection(CONNECTIONSTRINGLOCAL);
             }
             preparedStatement = connect.prepareStatement("INSERT INTO categories_strains (cat_id_cat,str_id_str) VALUES (?,?)");
@@ -178,7 +178,7 @@ private static String CONNECTIONSTRINGLOCAL = "jdbc:mysql://localhost/emmastr?us
         try {
             Class.forName(DRIVER);
             connect = DriverManager.getConnection(CONNECTIONSTRING);
-             if(!connect.isValid(1)){
+             if(!connect.isValid(2)){
                 connect = DriverManager.getConnection(CONNECTIONSTRINGLOCAL);
             }
             preparedStatement = connect.prepareStatement("INSERT INTO mutations_strains (mut_id,str_id_str) VALUES (?,?)");
