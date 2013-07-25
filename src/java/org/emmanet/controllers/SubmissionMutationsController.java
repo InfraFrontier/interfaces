@@ -172,8 +172,10 @@ mutdaos = new ArrayList();
             //load record in fields
 
         } else if (request.getParameter("action").equals("get")) {
-            if (!request.getParameter("Id_sub").isEmpty()) {
+            if (request.getParameter("Id_sub").isEmpty()) {
                 ID = Integer.parseInt(enc.decrypt(request.getParameter("sessencID")));
+            }else{
+                ID = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
             }
 
             System.out.println("ID||| " + ID);
