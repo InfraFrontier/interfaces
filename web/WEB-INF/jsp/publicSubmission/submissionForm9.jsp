@@ -333,7 +333,7 @@
 
                                         <spring:bind path="command.welfare">
                                             <div class="field">
-                                                <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mouse welfare terms that apply to this mutant mouse strain.</p>">? Help</span></p>
+                                                <p><strong>Animal welfare</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the mouse welfare terms that apply to this mutant mouse strain.</p>">? Help</span> <a href="http://www.mousewelfareterms.org/" target="_BLANK">http://www.mousewelfareterms.org/</a></p>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title="" maxlength="50"/>

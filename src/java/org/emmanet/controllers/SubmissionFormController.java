@@ -1019,30 +1019,30 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 validator.validateSubmissionForm0(sd, errors);
                 break;
             case 2:
-                ////////// validator.validateSubmissionForm1(sd, errors,"submitter");
+               validator.validateSubmissionForm1(sd, errors,"submitter");
                 break;
             case 3:
                 //uses validator 2 to redice code duplication
-                //////////// validator.validateSubmissionForm1(sd, errors,"producer");
+                validator.validateSubmissionForm1(sd, errors,"producer");
                 break;
             case 4:
                 //uses validator 2 to redice code duplication 
-                //////////////// validator.validateSubmissionForm1(sd, errors,"shipper");
+               validator.validateSubmissionForm1(sd, errors,"shipper");
                 break;
             case 5:
                 validator.validateSubmissionForm4(sd, errors);
                 break;
             case 6:
-                //  validator.validateSubmissionForm5(sd, errors);
+                validator.validateSubmissionForm5(sd, errors);
                 break;
             case 7:
-                //validator.validateSubmissionForm7(sd, errors);
+                validator.validateSubmissionForm6(sd, errors);
                 break;
             case 8:
                 //validator.validateSubmissionForm8(sd, errors);
                 break;
             case 9:
-                //   validator.validateSubmissionForm9(sd, errors);
+                validator.validateSubmissionForm8(sd, errors);
                 break;
             case 10:
                 validator.validateSubmissionForm9(sd, errors);
