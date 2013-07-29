@@ -185,13 +185,13 @@ public class SubmissionFormValidator implements
     public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
        ///BIBLIOS
         //IF ANSWER TO QUESTION 'HAS THIS MUTANT STRAIN BEEN PUBLISHED IS YES THEN CHECK FOR SHORT DESCRIPTION, JOURNAL,YEAR,PAGES'
-        if (sd.getPublished().equals("yes")){
+        if (sd.getPublished() != null && sd.getPublished().equals("yes")){
             //OK Now check for required fields
-                    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.journal",
+                    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "journal",
                 "required.year", "The journal is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.year", "required.year",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "required.year",
                 "The year is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SubmissionBibliosDAO.pages", "required.pages",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pages", "required.pages",
                 "The page reference is a required field");
         }
 
