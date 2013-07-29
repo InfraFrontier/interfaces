@@ -173,7 +173,8 @@ mutdaos = new ArrayList();
 
         } else if (request.getParameter("action").equals("get")) {
             if (request.getParameter("Id_sub").isEmpty()) {
-                ID = Integer.parseInt(enc.decrypt(request.getParameter("sessencID")));
+                //ID = Integer.parseInt(enc.decrypt(request.getParameter("sessencID")));
+                ID = Integer.parseInt(enc.decrypt(request.getParameter("IDFromSession")));
             }else{
                 ID = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
             }
