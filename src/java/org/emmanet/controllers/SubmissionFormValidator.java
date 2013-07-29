@@ -129,8 +129,8 @@ public class SubmissionFormValidator implements
                  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_city", "required.city",
                 "The city is a required field");
                   
-                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_county", "required.county",
-                "The county/province/state field is required");
+               /*  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_county", "required.county",
+                "The county/province/state field is required");*/
                   
                  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_country", "required.country",
                 "Please select a Country from the list");
