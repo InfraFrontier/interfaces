@@ -296,7 +296,7 @@ deposElsewhere = sd.getDeposited_elsewhere();
             //possible fail on date but check month first
             if (availYear == year) {
                 //check month
-                if (sd.getMice_avail_year() != null && !sd.getMice_avail_year().isEmpty()) {
+                if (sd.getMice_avail_month() != null && !sd.getMice_avail_month().isEmpty()) {
                     int availMonth = Integer.parseInt(sd.getMice_avail_month());
                     //System.out.println("user supplied month " + availMonth);
                     if (availMonth <= month) {
