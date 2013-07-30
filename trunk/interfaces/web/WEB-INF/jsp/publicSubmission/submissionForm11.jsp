@@ -260,6 +260,7 @@
                                             <p>&nbsp;</p>
                                             <div class="box half first"><label>Month</label>
                                                 <spring:bind path="command.mice_avail_month">
+                                                     <form:errors path="${status.expression}" cssClass="error" />
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
                                                         <c:forEach var="it" begin="1" end="12" varStatus="status">
@@ -284,6 +285,7 @@
                                             </div>
                                             <div class="box half second"><label>Year</label>
                                                 <spring:bind path="command.mice_avail_year">
+                                                     <form:errors path="${status.expression}" cssClass="error" />
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
                                                         <c:forEach var="it" begin="0" end="5" varStatus="status">

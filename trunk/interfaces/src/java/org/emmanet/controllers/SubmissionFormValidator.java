@@ -281,23 +281,39 @@ deposElsewhere = sd.getDeposited_elsewhere();
                     "An explanation for the delayed release is required.");
         }
         
+        
         //dates of mouse availability
         Date today = new Date();
-        SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM yyyy");
-        String date = DATE_FORMAT.format(today);
-        System.out.println(date);
-      
-        if(!sd.getMice_avail_year().isEmpty()) {
-            
+        SimpleDateFormat DATE_FORMAT_YEAR = new SimpleDateFormat("yyyy");
+        SimpleDateFormat DATE_FORMAT_MONTH = new SimpleDateFormat("MM");
+        int year = Integer.parseInt(DATE_FORMAT_YEAR.format(today));
+        int month = Integer.parseInt(DATE_FORMAT_MONTH.format(today));
+        //System.out.println("combined system date " + month + " " + year);
+
+        if (sd.getMice_avail_year() != null) {
+            int availYear = Integer.parseInt(sd.getMice_avail_year());
+            //System.out.println("user supplied year " + availYear);
+            //possible fail on date but check month first
+            if (availYear == year) {
+                //check month
+                if (sd.getMice_avail_year() != null) {
+                    int availMonth = Integer.parseInt(sd.getMice_avail_month());
+                    //System.out.println("user supplied month " + availMonth);
+                    if (availMonth <= month) {
+                        //failed
+                        errors.rejectValue("mice_avail_month", "incorrect.mice_avail_month",
+                        "Please check the availability date.");
+                    }
+                }
+            } 
         }
-        
     }
 
     public void validateSubmissionForm11(SubmissionsDAO sd, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
+       /* ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
                 "required.userName", "The Scientists firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");
+                "The Scientists family name is a required field");*/
     }
 
     public boolean patternMatch(String patternValue, String input) {
