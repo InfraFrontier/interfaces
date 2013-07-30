@@ -290,13 +290,13 @@ deposElsewhere = sd.getDeposited_elsewhere();
         int month = Integer.parseInt(DATE_FORMAT_MONTH.format(today));
         //System.out.println("combined system date " + month + " " + year);
 
-        if (sd.getMice_avail_year() != null) {
+        if (sd.getMice_avail_year() != null && !sd.getMice_avail_year().isEmpty()) {
             int availYear = Integer.parseInt(sd.getMice_avail_year());
             //System.out.println("user supplied year " + availYear);
             //possible fail on date but check month first
             if (availYear == year) {
                 //check month
-                if (sd.getMice_avail_year() != null) {
+                if (sd.getMice_avail_year() != null && !sd.getMice_avail_year().isEmpty()) {
                     int availMonth = Integer.parseInt(sd.getMice_avail_month());
                     //System.out.println("user supplied month " + availMonth);
                     if (availMonth <= month) {
