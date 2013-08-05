@@ -47,7 +47,7 @@ This is a useless buffer to fill the page to 512 bytes to avoid display of Frien
                 String url = ed.getRequestURI();
                 int errorCode = ed.getStatusCode();
                 Throwable e = ed.getThrowable();
-                
+               
                 if(e != null) {
                 
                     // Handle JSP exceptions differently, show the lines in a <pre> tag
@@ -107,7 +107,7 @@ This is a useless buffer to fill the page to 512 bytes to avoid display of Frien
          <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
         <div class="form visible">
             <div class="boxcontainer">
-                  <h4>Oups - An error occured during your navigation</h4>        
+                  <h4>It seems as though an error has occured.</h4>        
                 <hr>
         		<b>Error: <%= errorMessage %></b>
             </div>

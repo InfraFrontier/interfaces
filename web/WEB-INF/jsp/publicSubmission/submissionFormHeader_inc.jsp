@@ -16,13 +16,13 @@ Header for all pages in the form submission
 
 <c:set var="percentageComplete" value="${(stepCurrent / stepTotal * 100)}"></c:set>
 
-<script>
+<%--<script>
     $(function() {
         $( "#progressbar" ).progressbar({
             value: "${percentageComplete}"
         });
     });
-</script>
+</script>--%>
 <script language="JavaScript">
 function disableEnterKey(e)
 {
@@ -83,6 +83,6 @@ ${htmlCommentClose}<li class="${liStyle}">${title}</li>${htmlCommentOpen}
        </div> 
 <br/>
 <%--<img src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/img/logo-infrafrontier.png" border="0"/><div id="progressbar" style="width:200px;height:10px;margin-left: auto;margin-right: auto; }"></div>--%>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.3.3</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.3.4</div>
 
 <p>&nbsp;</p>

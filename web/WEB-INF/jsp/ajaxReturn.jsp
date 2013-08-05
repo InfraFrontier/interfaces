@@ -151,9 +151,12 @@ JSON return for submission form people data fro PI and contact
 
              </script>
          </c:if>
-    
-           
-      
+             
+             <c:set var="files" value="${keyRef.fileListing}" />
 
-
-            
+             <c:if test="${not empty files}">
+                 <br/>
+                 <c:forEach var="file" items="${files}" varStatus="status">
+                     <c:if test="${status.count <= 5}"><img src="../images/pdf_icon.gif" width="28" height="29" border ="0" valign="middle"/>&nbsp;${file} uploaded<br/></c:if></c:forEach> 
+                 <br/>
+             </c:if>          

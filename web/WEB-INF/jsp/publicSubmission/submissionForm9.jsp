@@ -18,15 +18,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
-        <style type="text/css">@import url(../css/default.css);</style>
-        <script type="text/javascript" src="../js/popWin.js"></script>
+        <%--  <style type="text/css">@import url(../css/default.css);</style>
+          <script type="text/javascript" src="../js/popWin.js"></script>
 
         <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
 
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-        <script type="text/javascript" src="../js/tooltip.js"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>--%>
+        <style type="text/css">@import url(../css/default.css);</style>
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+        <script type="text/javascript" src="../js/popWin.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+
+        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
+
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
@@ -49,7 +59,7 @@
                                         <spring:bind path="command.homozygous_viable"> 
                                             <div class="field">
                                                 <p><strong>Are homozygous mice viable?<sup><font color="red">*</font></sup></strong></p>
-<form:errors path="${status.expression}" cssClass="error" />
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -57,14 +67,14 @@
                                                     <form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>   
 
                                         <spring:bind path="command.homozygous_fertile">
                                             <div class="field">
                                                 <p><strong>Are homozygous mice fertile?<sup><font color="red">*</font></sup></strong></p>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -72,14 +82,14 @@
                                                     <form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.heterozygous_fertile">
                                             <div class="field">
                                                 <p><strong>Are heterozygous/hemizygous mice fertile?<sup><font color="red">*</font></sup></strong></p>
-                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -87,14 +97,14 @@
                                                     <form:radiobutton id="${status.expression}-only_females" path="${status.expression}" value="females only" />Only females<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known<br />
                                                 </div>
-                                               
+
                                             </div>
                                         </spring:bind>  
 
                                         <spring:bind path="command.homozygous_matings_required">
                                             <div class="field">
                                                 <p><strong>Are homozygous matings required?<sup><font color="red">*</font></sup></strong></p>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes (please explain below)<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
@@ -107,12 +117,11 @@
                                                         </spring:bind>
                                                     </div>
                                                 </div>
-                                                
                                             </div>
 
                                         </spring:bind>
                                         <script>
-                                             if ($('input[name=homozygous_matings_required]:checked').val() == "yes") {
+                                            if ($('input[name=homozygous_matings_required]:checked').val() == "yes") {
                                                 $("#homoReqText").show("slow");
                                             }
                                             
@@ -145,7 +154,7 @@
                                                         <form:option value="10">more than 9</form:option>
                                                     </form:select>
                                                 </div>
-                                                
+
 
                                             </div>
                                         </spring:bind>
@@ -170,7 +179,7 @@
                                                         <form:option  value="13">more than 12</form:option>
                                                     </form:select>
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
@@ -189,7 +198,7 @@
                                                         <form:option value="23">23</form:option>
                                                     </form:select>
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
@@ -216,7 +225,7 @@
                                                         <form:option value="14">14</form:option>
                                                     </form:select>
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
@@ -243,25 +252,25 @@
                                                         <form:option value="14">14</form:option>
                                                     </form:select>
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.weaning_age">
                                             <div class="field">
                                                 <p><strong>Recommended weaning age (days)</strong></p>
-                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:input id="${status.expression}" path="${status.expression}" size="2" maxlength="2"/>
                                                 </div>
-                                               
+
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.litters_in_lifetime">
                                             <div class="field">
                                                 <p><strong>Average number of litters in lifetime</strong></p>
-                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
@@ -275,14 +284,14 @@
                                                         <form:option value="8">more than 7</form:option>
                                                     </form:select>
                                                 </div>
-                                               
+
                                             </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.breeding_performance">
                                             <div class="field">
                                                 <p><strong>Breeding performance</strong></p>
-                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="good">Please select..</form:option>
@@ -291,7 +300,7 @@
                                                         <form:option value="excellent">Excellent</form:option>
                                                     </form:select>
                                                 </div>
-                                               
+
                                             </div>
                                         </spring:bind>
 
@@ -302,20 +311,20 @@
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                     </div>
-                                                
-                                            </div>
+
+                                                </div>
                                         </spring:bind>
 
                                         <spring:bind path="command.immunocompromised">
                                             <div class="field">
                                                 <p><strong>Are mice immunocompromised?<sup><font color="red">*</font></sup></strong></p>
-<form:errors path="${status.expression}" cssClass="error" />
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not Known<br /><br />
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
@@ -325,10 +334,16 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                    <spring:bind path="command.sanitary_status_file"><a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${param.getprev}&submissionFileType=SANITARYSTATUS',gmyWin);return false;" title="Opens a new window">Upload as attachment</a></spring:bind>
-                                                    </div>
-                                                
+                                                    <spring:bind path="command.sanitary_status_file"><a href='javascript:void(0)' id="fileupload" onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${param.getprev}&submissionFileType=SANITARYSTATUS',gmyWin);return false;" title="Opens a new window">Upload as attachment</a></spring:bind>
+                                                        <div id="fileList" name="fileList"></div>      
+                                                        <script type="text/javascript" > 
+                                                        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
+                                                    </script>
+
+                                                </div>
+
                                             </div>
+
                                         </spring:bind>
 
                                         <spring:bind path="command.welfare">
@@ -338,7 +353,7 @@
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}" title="" maxlength="50"/>
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
 
@@ -349,8 +364,8 @@
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" title=""></form:textarea>
                                                     </div>
-                                                
-                                            </div>
+
+                                                </div>
                                         </spring:bind>
                                         <p>
                                             <%@include file="submissionFormControlButtons_inc.jsp"%>
@@ -363,6 +378,14 @@
                 </div>
             </div>
         </div>
+
         <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+<script language="Javascript" type="text/javascript"> 
+    function CallParent() 
+    { 
+        //alert(" This is parent window ");
+        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
+    } 
+</script>
     </body>
 </html>
