@@ -21,7 +21,7 @@
     <bean id="webRequests" class="org.emmanet.jobs.WebRequests" />
     <bean id="webRequest" class="org.emmanet.jobs.WebRequests" />
     
-    <!--Do not need a custom controller for success page see below -->
+    <!-- Do not need a custom controller for success page see below -->
     <bean id="urlFilenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -116,6 +116,8 @@
                 <prop key="/publicSubmission/ajaxBiblios.emma">submissioBibliosController<!--submissionMutationsController-->
                 </prop>
                 <prop key="/publicSubmission/fileUploadForm.emma">FileUploadController
+                </prop>
+                <prop key="/publicSubmission/ajaxFileListing.emma">ajaxReturnController
                 </prop>
             </props>
         </property>

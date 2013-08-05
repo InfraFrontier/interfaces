@@ -10,6 +10,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA File Upload - Success Page</title>
         <style type="text/css">@import url(../css/default.css);</style>
+                <script language="Javascript" type="text/javascript">
+window.opener.CallParent();
+</script>
     </head>
     <body>
         <br/>

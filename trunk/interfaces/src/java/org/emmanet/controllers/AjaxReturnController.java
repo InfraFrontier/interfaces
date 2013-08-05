@@ -4,6 +4,7 @@
  */
 package org.emmanet.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,6 +21,9 @@ import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
 import org.emmanet.model.SubmissionBibliosDAO;
 import org.emmanet.model.SubmissionsManager;
+import org.emmanet.util.Configuration;
+import org.emmanet.util.DirFileList;
+import org.emmanet.util.Encrypter;
 import org.json.simple.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -35,6 +39,7 @@ public class AjaxReturnController extends SimpleFormController {
     private WebRequests webRequest;
     private List returnedResults = null;
     private LinkedList JSONobjects;
+    final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
 
     @Override
     
@@ -177,6 +182,30 @@ returnedOut = new HashMap();
             returnedOut.put("paper", paper);
         }
          
+        if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
+            // $('#fileList').load('ajaxFileListing.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
+            returnedOut = new HashMap();
+System.out.println("F I L E  L I S T I N G  R E A C H E D ! !");
+            Encrypter enc = new Encrypter();
+            String subID = enc.decrypt(request.getParameter("encID"));
+            DirFileList files = new DirFileList();
+            String fileList[];
+            fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
+            System.out.println("number of files found = " + fileList.length);
+            List assocFiles = new ArrayList();
+            if (fileList != null) {
+                for (int i = 0; i < fileList.length; i++) {
+                    if (fileList[i].startsWith("" + subID + "_" + request.getParameter("submissionFileType"))) {
+                      // String file = fileList[i].replace( subID + "_" + request.getParameter('submissionFileType') + "_", ''"");
+                        String file = fileList[i].replaceAll(subID + "_" + request.getParameter("submissionFileType" ) + "_", "");
+                        assocFiles.add(file);
+                        System.out.println("FILE MATCH = " + fileList[i]);
+                    }
+                }
+            }
+            returnedOut.put("fileListing", assocFiles);
+        }
+
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
         //  return returnedResults;
 

@@ -27,6 +27,12 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/popWin.js"></script>
+        <script language="Javascript" type="text/javascript"> 
+    function CallParent() 
+    { 
+        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
+    } 
+</script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
@@ -312,11 +318,11 @@
                                             <p><strong>Additional materials of interest (you can upload up to five attachments)</strong></p>
                                             <div class="input">
                                                 <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL',gmyWin);return false;" title="Opens a new window">Upload attachment</a>
-                                                <%-- <spring:bind path="command.additional_materials_file_1"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-                         <spring:bind path="command.additional_materials_file_2"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-                         <spring:bind path="command.additional_materials_file_3"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-                         <spring:bind path="command.additional_materials_file_4"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>
-                         <spring:bind path="command.additional_materials_file_5"><input type="file" id="${status.expression}" path="${status.expression}" enctype="multipart/form-data"/><form:errors path="${status.expression}" cssClass="error" /></spring:bind><br/>--%>                    </div>
+<div id="fileList" name="fileList"></div>      
+                                                    <script type="text/javascript" > 
+                                                        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
+                                                    </script>
+                                            </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
