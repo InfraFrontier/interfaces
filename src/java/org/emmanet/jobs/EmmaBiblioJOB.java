@@ -70,15 +70,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         this.cc = cc;
     }
 
- /*    public static void main(String args[]) {
-     EmmaBiblioJOB ws = new EmmaBiblioJOB();
-     ws.fetchPaper(22986526);//  345672//19783817//22772436
-
-     }*/
     public class FetchBiblio {
-
-        //   @WebServiceRef(wsdlLocation=)
-        //     static WSCitationImplService service = new WSCitationImplService();
         public String title;
         public String author1;
         public String author2;
@@ -101,7 +93,6 @@ public class EmmaBiblioJOB extends QuartzJobBean {
     }
     
     public void check_for_updates() {
-        //   try {
         // select the pubmed ids of not updated biblios
         BibliosManager bm = new BibliosManager();
         BibliosDAO bdao = new BibliosDAO();
@@ -117,7 +108,6 @@ public class EmmaBiblioJOB extends QuartzJobBean {
             bdao = (BibliosDAO) it.next();
             counter++;
            // System.out.println("counter value==" + counter);
-            //pmid = Integer.parseInt(bdao.getPubmed_id());
             spmid = bdao.getPubmed_id();
            // System.out.println("pubmedid==" + spmid);
             // removeleading non-digits of a pmid
@@ -134,7 +124,6 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                     schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nCorrected ").append(spmid).append(" as ").append(goodPmid).append("\n").toString();
                    // System.out.println(schedulerMsg);
                     pmid = Integer.parseInt(goodPmid);
-                   // bdao.setId_biblio(pmid);  
                     bdao.setPubmed_id(""+ pmid);
                     bm.save(bdao);
                 }
@@ -181,15 +170,7 @@ public class EmmaBiblioJOB extends QuartzJobBean {
             Date date = new Date();
             //System.out.println(dateFormat.format(date));
             bdao.setLast_change(dateFormat.format(date));
-            
-          /*  System.out.println(bdao.getTitle());
-            System.out.println(bdao.getAuthor1());
-            System.out.println(bdao.getAuthor2());
-            System.out.println(bdao.getYear());
-            System.out.println(bdao.getJournal());
-            System.out.println(bdao.getUsername());
-            System.out.println(bdao.getUpdated());*/
-            
+
             BibliosManager bm = new BibliosManager();
             bm.save(bdao);
         
@@ -267,11 +248,6 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         System.out.println("checking updates");
         check_for_updates();
         System.out.println("returned from checking updates");
-        /* if (pmid != null) {
-         FetchBiblio paper = new FetchBiblio(pmid, conn);
-         } else {
-         FetchBiblio paper = new FetchBiblio(conn);
-         }*/
         System.out.println(schedulerMsg);
         webmasterJobMessage();
     }
