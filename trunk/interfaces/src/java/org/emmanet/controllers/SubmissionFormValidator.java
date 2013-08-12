@@ -102,8 +102,8 @@ public class SubmissionFormValidator implements
             tel = sd.getShipper_tel();
         }
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
-                "required.userName", "The " + fieldSet + " firstname is a required field");
+       // ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
+         //       "required.userName", "The " + fieldSet + " firstname is a required field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_lastname", "required.lastname",
                 "The " + fieldSet + " family name is a required field");
         if (!patternMatch(FAXTEL_PATTERN, tel)) {

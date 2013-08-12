@@ -4,7 +4,9 @@
     Author     : phil
 --%>
 
-
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -28,7 +30,7 @@
     </body>
 </html>
 --%>
-<c:set var="keyRef" value='${returnedOut}'></c:set>
+<c:set var="keyRef" value='${returnedOut}' scope="page"></c:set>
 <c:choose>
     <c:when test='${not empty keyRef["ajaxReturn"] && empty param.query}'>
         <c:forEach var="strain"  items='${keyRef["ajaxReturn"]}'>
@@ -152,7 +154,7 @@ JSON return for submission form people data fro PI and contact
              </script>
          </c:if>
              
-             <c:set var="files" value="${keyRef.fileListing}" />
+             <c:set var="files" value="${keyRef.fileListing}" scope="page"/>
 
              <c:if test="${not empty files}">
                  <br/>
