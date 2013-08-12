@@ -2,11 +2,12 @@
     Document   : ajaxReturn.jsp
     Created on : 09-Feb-2010, 15:23:11
     Author     : phil
---%>
-
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+--%>
+
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -20,16 +21,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
                     <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
-<%--<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-    </head>
-    <body>
 
-    </body>
-</html>
---%>
 <c:set var="keyRef" value='${returnedOut}' scope="page"></c:set>
 <c:choose>
     <c:when test='${not empty keyRef["ajaxReturn"] && empty param.query}'>

@@ -46,7 +46,7 @@
        
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/head.min.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/selectivizr-min.js"></script>
-        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
+        <script type="text/javascript" src="https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
         <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-1.8.1.min.js"></script>
 		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/jquery-ui-1.8.18.min.js"></script>
 		<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/emmaSearch/js/DataTables-1.9.4/media/js/jquery.dataTables.min.js?mlctcw"></script>
