@@ -13,37 +13,46 @@
 <spring:bind path="command.*" />
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
      
-        <style type="text/css">@import url(../css/default.css);</style>
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
-         
-        <script type="text/javascript" src="../js/popWin.js"></script>
-        
+                <style type="text/css">@import url(../css/default.css);</style>
+          <script type="text/javascript" src="../js/popWin.js"></script>
+
         <style type="text/css" media="all">@import url("https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
+        <script type="text/javascript" src="../js/tooltip.js"></script>
+        <script type="text/javascript">function CallParent(qs) {
+            //alert(qs);
+            var param = /[?&]submissionFileType=([^&]+)/i;
+            var match = param.exec(qs);
+            if (match != null) {
+                fileType = match[1];
+            } else {
+                fileType = "";
+            }
+           // alert(fileType);
+            var ref = "#" + fileType + "fileList";
+            $(ref).load('../ajaxReturn.emma',{
+                encID:"${param.getprev}", 
+                submissionFileType: fileType,
+                funct: "fileList"
+            });
+        } 
+        </script>
+     
        
-<script type="text/javascript">
-    function CallParent(qs) {
-        //alert(type)
-        var param = /[?&]submissionFileType=([^&]+)/i;
-        var match = param.exec(qs);
-        if (match != null) {
-            fileType = match[1];
-        } else {
-            fileType = "";
-        }
-        //alert(file_type);
-        $('#fileList' + fileType).load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: fileType,funct: "fileList"});
-    } 
-</script>
+
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
@@ -73,10 +82,10 @@
                                         
                                         </div>
                                     </spring:bind>
-                                    <div id="fileListGENO" name="fileListGENO"></div>
+                                    <div id="GENOfileList" name="GENOfileList"></div>
                                     
                                     <script type="text/javascript">
-                                        $("#fileListGENO").load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "GENO",funct: "fileList",time:"+11<%= new java.util.Date().getTime()%>"});
+                                        $('#GENOfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "GENO",funct: "fileList"});
                                     </script>
                                     <spring:bind path="command.phenotyping">
                                         <div class="field">
@@ -90,9 +99,11 @@
 
                                             </div>
                                         </spring:bind>
-                                        <div id="fileListPHENO" name="fileListPHENO"></div>
+                                        <div id="PHENOfileList" name="PHENOfileList"></div>
                                         <script type="text/javascript">
-                                            $("#fileListPHENO").load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "PHENO",funct: "fileList",time:"+12<%= new java.util.Date().getTime()%>"});
+                                            jQuery(document).ready(function() {
+$('#PHENOfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "PHENO",funct: "fileList"});
+});
                                         </script>
                                     </div>
 
@@ -103,9 +114,9 @@
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5" ></form:textarea><a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=OTHER',gmyWin);return false;" title="Opens a new window">Upload as attachment</a>                            
                                                 </div>
-                                                <div id="fileListOTHER" name="fileListOTHER"></div>
+                                                <div id="OTHERfileList" name="OTHERfileList"></div>
                                               <script type="text/javascript">
-                                            $("#fileListOTHER").load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "OTHER",funct: "fileList",time:"+13<%= new java.util.Date().getTime()%>"});
+                                            $('#OTHERfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "OTHER",funct: "fileList"});
                                         </script>
                                             </div>
                                     </spring:bind>
@@ -120,5 +131,6 @@
                 </div>
             </div>
         <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+
     </body>
 </html>
