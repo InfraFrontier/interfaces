@@ -185,24 +185,32 @@ returnedOut = new HashMap();
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
             // $('#fileList').load('ajaxFileListing.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
             returnedOut = new HashMap();
-System.out.println("F I L E  L I S T I N G  R E A C H E D ! !");
+            System.out.println("F I L E  L I S T I N G  R E A C H E D ! !");
             Encrypter enc = new Encrypter();
             String subID = enc.decrypt(request.getParameter("encID"));
-            DirFileList files = new DirFileList();
-            String fileList[];
-            fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
-            System.out.println("number of files found = " + fileList.length);
+            
+            String fileType = request.getParameter("submissionFileType");
+            String searchString = subID + "_" + fileType;
+            System.out.println("subID value is  _  " + subID);
             List assocFiles = new ArrayList();
-            if (fileList != null) {
+            if (!subID.isEmpty()) {
+                DirFileList files = new DirFileList();
+                String fileList[];
+                fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
+                System.out.println("number of files found = " + fileList.length);
+
+                //   if (fileList != null) {
                 for (int i = 0; i < fileList.length; i++) {
-                    if (fileList[i].startsWith("" + subID + "_" + request.getParameter("submissionFileType"))) {
-                      // String file = fileList[i].replace( subID + "_" + request.getParameter('submissionFileType') + "_", ''"");
-                        String file = fileList[i].replaceAll(subID + "_" + request.getParameter("submissionFileType" ) + "_", "");
+                    if (fileList[i].startsWith(searchString)) {
+                        // String file = fileList[i].replace( subID + "_" + request.getParameter('submissionFileType') + "_", ''"");
+                        String file = fileList[i].replaceAll(searchString, "");
+                        file = file.replace("_", "");
                         assocFiles.add(file);
                         System.out.println("FILE MATCH = " + fileList[i]);
                     }
                 }
             }
+            //    }
             returnedOut.put("fileListing", assocFiles);
         }
 

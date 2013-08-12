@@ -37,7 +37,7 @@
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
         <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
-        <div id="miscellanea" class="step">
+      
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
             <div id="wrapper">
                 <div id="container">

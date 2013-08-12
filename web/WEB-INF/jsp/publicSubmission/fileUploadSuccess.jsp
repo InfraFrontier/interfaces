@@ -9,9 +9,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA File Upload - Success Page</title>
+        
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
         <style type="text/css">@import url(../css/default.css);</style>
                 <script language="Javascript" type="text/javascript">
-window.opener.CallParent();
+window.opener.CallParent(window.location.search);
 </script>
     </head>
     <body>

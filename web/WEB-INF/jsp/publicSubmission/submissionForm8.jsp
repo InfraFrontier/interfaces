@@ -21,19 +21,27 @@
      
         <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
+         
         <script type="text/javascript" src="../js/popWin.js"></script>
+        
+        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-
-        <style type="text/css" media="all">@import url("http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
-        <script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
-        <script type="text/javascript">
-            function CallParent() 
-    { 
-        $('#fileListPHENO').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "PHENO",funct: "fileList"});
-        $('#fileListGENO').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "GENO",funct: "fileList"});
-        $('#fileListOTHER').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "OTHER",funct: "fileList"});
+<script type="text/javascript" src="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
+       
+<script type="text/javascript">
+    function CallParent(qs) {
+        //alert(type)
+        var param = /[?&]submissionFileType=([^&]+)/i;
+        var match = param.exec(qs);
+        if (match != null) {
+            fileType = match[1];
+        } else {
+            fileType = "";
+        }
+        //alert(file_type);
+        $('#fileList' + fileType).load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: fileType,funct: "fileList"});
     } 
 </script>
     </head>
@@ -65,10 +73,10 @@
                                         
                                         </div>
                                     </spring:bind>
-                                    <div id="fileListGENO" name="fileListGENO">container</div>
+                                    <div id="fileListGENO" name="fileListGENO"></div>
                                     
                                     <script type="text/javascript">
-                                        $('#fileListGENO').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "GENO",funct: "fileList"});
+                                        $("#fileListGENO").load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "GENO",funct: "fileList",time:"+11<%= new java.util.Date().getTime()%>"});
                                     </script>
                                     <spring:bind path="command.phenotyping">
                                         <div class="field">
@@ -84,7 +92,7 @@
                                         </spring:bind>
                                         <div id="fileListPHENO" name="fileListPHENO"></div>
                                         <script type="text/javascript">
-                                            $('#fileListPHENO').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "PHENO",funct: "fileList"});
+                                            $("#fileListPHENO").load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "PHENO",funct: "fileList",time:"+12<%= new java.util.Date().getTime()%>"});
                                         </script>
                                     </div>
 
@@ -97,7 +105,7 @@
                                                 </div>
                                                 <div id="fileListOTHER" name="fileListOTHER"></div>
                                               <script type="text/javascript">
-                                            $('#fileListOTHER').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "OTHER",funct: "fileList"});
+                                            $("#fileListOTHER").load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "OTHER",funct: "fileList",time:"+13<%= new java.util.Date().getTime()%>"});
                                         </script>
                                             </div>
                                     </spring:bind>
