@@ -34,7 +34,7 @@
         <!-- css -->
         <link href="http://dev.infrafrontier.eu/fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
-        <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
+        <link href="https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css" rel="stylesheet" type="text/css" />
         <link href="<%=path%>/css/default.css" rel="stylesheet" type="text/css" />
         <link href="<%=path%>/css/default_frontpage.css" rel="stylesheet" type="text/css" />
 
