@@ -30,7 +30,7 @@
         <script language="Javascript" type="text/javascript"> 
     function CallParent() 
     { 
-        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
+        $('#fileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
     } 
 </script>
     </head>
@@ -320,7 +320,7 @@
                                                 <a href='javascript:void(0)' onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL',gmyWin);return false;" title="Opens a new window">Upload attachment</a>
 <div id="fileList" name="fileList"></div>      
                                                     <script type="text/javascript" > 
-                                                        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
+                                                        $('#fileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
                                                     </script>
                                             </div>
                                             <div class="validation_error_message">

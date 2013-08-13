@@ -354,7 +354,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 break;
 
             case 8:
-
                 sda.setStep("8");
                 sm.save(sda);
                 break;
