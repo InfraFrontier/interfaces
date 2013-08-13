@@ -13,7 +13,6 @@
 <spring:bind path="command.*" />
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,24 +31,25 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/tooltip.js"></script>
-        <script type="text/javascript">function CallParent(qs) {
-            //alert(qs);
-            var param = /[?&]submissionFileType=([^&]+)/i;
-            var match = param.exec(qs);
-            if (match != null) {
-                fileType = match[1];
-            } else {
-                fileType = "";
-            }
-           // alert(fileType);
-            var ref = "#" + fileType + "fileList";
-            $(ref).load('../ajaxReturn.emma',{
-                encID:"${param.getprev}", 
-                submissionFileType: fileType,
-                funct: "fileList"
-            });
-        } 
-        </script>
+        <script type="text/javascript">
+            function CallParent(qs) {
+                //alert(qs);
+                var param = /[?&]submissionFileType=([^&]+)/i;
+                var match = param.exec(qs);
+                if (match != null) {
+                    fileType = match[1];
+                } else {
+                    fileType = "";
+                }
+                // alert(fileType);
+                var ref = "#" + fileType + "fileList";
+                $(ref).load('../ajaxReturn.emma',{
+                    encID:"${sessionScope.getprev}", 
+                    submissionFileType: fileType,
+                    funct: "fileList"
+                    
+                });
+            } </script>
      
        
 
@@ -85,7 +85,9 @@
                                     <div id="GENOfileList" name="GENOfileList"></div>
                                     
                                     <script type="text/javascript">
-                                        $('#GENOfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "GENO",funct: "fileList"});
+                                    jQuery(document).ready(function() {
+                                        $('#GENOfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "GENO",funct: "fileList"});
+                                        });
                                     </script>
                                     <spring:bind path="command.phenotyping">
                                         <div class="field">
@@ -102,7 +104,7 @@
                                         <div id="PHENOfileList" name="PHENOfileList"></div>
                                         <script type="text/javascript">
                                             jQuery(document).ready(function() {
-$('#PHENOfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "PHENO",funct: "fileList"});
+$('#PHENOfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "PHENO",funct: "fileList"});
 });
                                         </script>
                                     </div>
@@ -116,7 +118,10 @@ $('#PHENOfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submiss
                                                 </div>
                                                 <div id="OTHERfileList" name="OTHERfileList"></div>
                                               <script type="text/javascript">
-                                            $('#OTHERfileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "OTHER",funct: "fileList"});
+                                              jQuery(document).ready(function() {
+                                            $('#OTHERfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "OTHER",funct: "fileList"});
+                                            });
+                                            
                                         </script>
                                             </div>
                                     </spring:bind>

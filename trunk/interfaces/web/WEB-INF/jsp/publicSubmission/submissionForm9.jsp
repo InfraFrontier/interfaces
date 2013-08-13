@@ -325,10 +325,10 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                    <spring:bind path="command.sanitary_status_file"><a href='javascript:void(0)' id="fileupload" onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${param.getprev}&submissionFileType=SANITARYSTATUS',gmyWin);return false;" title="Opens a new window">Upload as attachment</a></spring:bind>
-                                                        <div id="fileList" name="fileList"></div>      
+                                                    <spring:bind path="command.sanitary_status_file"><a href='javascript:void(0)' id="fileupload" onClick="javascript:gmyWin=openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=SANITARYSTATUS',gmyWin);return false;" title="Opens a new window">Upload as attachment</a></spring:bind>
+                                                        <div id="SANITARYSTATUSfileList" name="SANITARYSTATUSfileList"></div>      
                                                         <script type="text/javascript" > 
-                                                        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
+                                                        $('#SANITARYSTATUSfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
                                                     </script>
 
                                                 </div>
@@ -375,7 +375,7 @@
     function CallParent() 
     { 
         //alert(" This is parent window ");
-        $('#fileList').load('../ajaxReturn.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
+        $('#SANITARYSTATUSfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
     } 
 </script>
     </body>
