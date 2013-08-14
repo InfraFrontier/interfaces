@@ -219,6 +219,7 @@ public class SubmissionFormValidator implements
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required_text", "required.heterozygous_matings_required_text",
                     "An explanation is required for the homozygous matings required response.");
         }
+        
         if (!sd.getWeaning_age().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getWeaning_age())) {
                 errors.rejectValue("weaning_age", "incorrect.weaning_age",
