@@ -673,7 +673,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setGestation_length(sd.getGestation_length());
         rd.setPups_at_birth(sd.getPups_at_birth());
         rd.setPups_at_weaning(sd.getPups_at_weaning());
+        if(sd.getWeaning_age().equals("")){
+            rd.setWeaning_age(null);
+        }else{
         rd.setWeaning_age(sd.getWeaning_age());
+        }
         rd.setLitters_in_lifetime(sd.getLitters_in_lifetime());
         if (sd.getBreeding_performance().equals("")) {
             sd.setBreeding_performance(null);
