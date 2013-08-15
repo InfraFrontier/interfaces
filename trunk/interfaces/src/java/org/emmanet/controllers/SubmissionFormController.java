@@ -674,7 +674,13 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setWhen_mice_month(sd.getMice_avail_month());
         rd.setWhen_mice_year(sd.getMice_avail_year());
         rd.setHomozygous_matings_required_text(sd.getHomozygous_matings_required_text());
+                if (sd.getReproductive_maturity_age().equals("")) {
+            sd.setReproductive_maturity_age(null);
+        } 
         rd.setReproductive_maturity_age(sd.getReproductive_maturity_age());
+                  if (sd.getReproductive_decline_age().equals("")) {
+            sd.setReproductive_decline_age(null);
+        } 
         rd.setReproductive_decline_age(sd.getReproductive_decline_age());
         rd.setGestation_length(sd.getGestation_length());
         rd.setPups_at_birth(sd.getPups_at_birth());
