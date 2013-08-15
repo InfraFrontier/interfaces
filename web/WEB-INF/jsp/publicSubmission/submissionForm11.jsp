@@ -17,22 +17,22 @@
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-        <script type="text/javascript" src="../js/popWin.js"></script>
-        <script language="Javascript" type="text/javascript"> 
+                <script language="Javascript" type="text/javascript"> 
     function CallParent() 
     { 
         $('#fileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "ADDITIONAL",funct: "fileList"});
     } 
-</script>
+        </script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+        <script type="text/javascript" src="../js/popWin.js"></script>
+
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
@@ -80,18 +80,19 @@
                                                     </spring:bind>
                                                 <div id="depositedElsewhereText" style="display: none">
                                                     <spring:bind path="command.deposited_elsewhere_text">
+                                                         <form:errors path="${status.expression}" cssClass="error" />
                                                         <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                                     </div>
                                                     
                                                 </div>
                                             </spring:bind>
                                         </div>
-                                        <script>
-                                            
-                                             if ($('input[name=deposited_elewhere]:checked').val() == "yes") {
-                                                $("#depositedElsewhereText").show("slow");
+                                        <script type="text/javascript" >
+                                            jQuery(document).ready(function() {
+                                                
+                                             if ($('input[name=deposited_elsewhere]:checked').val() == "yes") {
+                                                 $("#depositedElsewhereText").show("slow");
                                             }
-                                            
                                             $("#deposited_elsewhere-yes").click(function () {
                                                 $("#depositedElsewhereText").show("slow");
                                             });
@@ -102,7 +103,8 @@
                             
                                             $("#deposited_elsewhere-not_known").click(function () {
                                                 $("#depositedElsewhereText").hide("slow");
-                                            });            
+                                            });  
+                                            });
                                         </script>
 
                                         <spring:bind path="command.similar_strains">
@@ -137,7 +139,8 @@
                                                 
                                             </div>
                                         </spring:bind>
-                                        <script>
+                                        <script type="text/javascript" >
+                                            jQuery(document).ready(function() {
                                             if ($('input[name=ip_rights]:checked').val() == "yes") {
                                                 $("#ipRightsText").show("slow");
                                             }
@@ -152,7 +155,8 @@
                             
                                             $("#ip_rights-not_known").click(function () {
                                                 $("#ipRightsText").hide("slow");
-                                            });            
+                                            });
+                                              });
                                         </script>
                                         <spring:bind path="command.exclusive_owner">
                                             <div class="field">
@@ -172,8 +176,9 @@
                                                 </div>
                                             </div>
                                         </spring:bind>
-                                        <script>
-                                               if ($('input[name=exclusive_owner]:checked').val() == "yes") {
+                                        <script type="text/javascript" >
+                                             jQuery(document).ready(function() {  
+                                               if ($('input[name=exclusive_owner]:checked').val() == "no") {
                                                 $("#exclOwnerText").show("slow");
                                             }
                                             $("#exclusive_owner-yes").click(function () {
@@ -186,7 +191,8 @@
                             
                                             $("#exclusive_owner-not_known").click(function () {
                                                 $("#exclOwnerText").hide("slow");
-                                            });            
+                                            });
+                                              });
                                         </script>
 
                                         <spring:bind path="command.owner_permission">
@@ -208,8 +214,9 @@
                                                 
                                             </div>
                                         </spring:bind>
-                                        <script>
-                                             if ($('input[name=owner_permission]:checked').val() == "yes") {
+                                        <script type="text/javascript" >
+                                             jQuery(document).ready(function() {
+                                             if ($('input[name=owner_permission]:checked').val() == "no") {
                                                 $("#ownerPermissionText").show("slow");
                                             }
                                             $("#owner_permission-yes").click(function () {
@@ -222,7 +229,8 @@
                             
                                             $("#owner_permission-not_known").click(function () {
                                                 $("#ownerPermissionText").hide("slow");
-                                            });            
+                                            });
+                                            }); 
                                         </script>
                                         <spring:bind path="command.delayed_release">
                                             <div class="field">
@@ -242,7 +250,8 @@
                                                 
                                             </div>
                                         </spring:bind>
-                                        <script>
+                                        <script type="text/javascript" >
+                                            jQuery(document).ready(function() { 
                                             if ($('input[name=delayed_release]:checked').val() == "yes") {
                                                 $("#delayedReleaseText").show("slow");
                                             }
@@ -256,7 +265,8 @@
                             
                                             $("#delayed_release-not_known").click(function () {
                                                 $("#delayedReleaseText").hide("slow");
-                                            });            
+                                            });
+                                            }); 
                                         </script>
                                         <div class="boxcontainer">
 
@@ -330,11 +340,8 @@
                                         <p>
                                             <%@include file="submissionFormControlButtons_inc.jsp"%>
                                         </p>
-
                                         <br/><br/>
-
                                     </form:form>
-
                                 </div>
                             </div>
                         </div>

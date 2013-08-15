@@ -18,6 +18,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
+        <script language="Javascript" type="text/javascript"> 
+            function CallParent() 
+            { 
+                //alert(" This is parent window ");
+                $('#SANITARYSTATUSfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
+            } 
+        </script>
         <style type="text/css">@import url(../css/default.css);</style>
           <script type="text/javascript" src="../js/popWin.js"></script>
 
@@ -371,12 +378,6 @@
         </div>
 
         <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
-<script language="Javascript" type="text/javascript"> 
-    function CallParent() 
-    { 
-        //alert(" This is parent window ");
-        $('#SANITARYSTATUSfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
-    } 
-</script>
+
     </body>
 </html>

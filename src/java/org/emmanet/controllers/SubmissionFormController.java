@@ -542,7 +542,13 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //int i = Integer.parseInt(nsd.getId_str();
         nsd.setEx_owner_description(sd.getExclusive_owner_text());
         nsd.setExclusive_owner(sd.getExclusive_owner());
+         if(sd.getBackcrosses().equals("")){
+            sd.setBackcrosses(null);
+         }
         nsd.setGeneration(sd.getBackcrosses());
+         if(sd.getSibmatings().equals("")){
+            sd.setSibmatings(null);
+         }
         nsd.setSibmatings(sd.getSibmatings());
 
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
@@ -681,8 +687,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setLitters_in_lifetime(sd.getLitters_in_lifetime());
         if (sd.getBreeding_performance().equals("")) {
             sd.setBreeding_performance(null);
-        }
+        } 
         rd.setBreeding_performance(sd.getBreeding_performance());
+        
         rd.setWelfare(sd.getWelfare());
         rd.setRemedial_actions(sd.getRemedial_actions());
 

@@ -92,7 +92,7 @@
                                         <div class="field reference_pmid">
                                             <label class="label" for="${status.expression}"><strong>PubMed ID (if available)</strong></label>
                                             <div class="input">
-                                                <form:input  id="${status.expression}" path="${status.expression}"></form:input>&nbsp;(Fields auto populated from PubMed using PubMed ID. Leave PubMed ID field to initiate)
+                                                <form:input  id="${status.expression}" path="${status.expression}"></form:input>&nbsp;(Fields auto populated from PubMed using PubMed ID digits only. Leave PubMed ID field to initiate)
                                                 </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                         </div>
@@ -102,7 +102,6 @@
                                         $('#pubmed_id').focusout(function() {
                                             $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#pubmed_id').val(), funct: "pubMed",query: "biblios"});
                                         });
-                    
                                     </script>
                                     <spring:bind path="command.title">
                                         <div class="field reference_title">
