@@ -47,12 +47,9 @@
                     encID:"${sessionScope.getprev}", 
                     submissionFileType: fileType,
                     funct: "fileList"
-                    
                 });
-            } </script>
-     
-       
-
+            } 
+            </script>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
@@ -121,7 +118,6 @@ $('#PHENOfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", 
                                               jQuery(document).ready(function() {
                                             $('#OTHERfileList').load('../ajaxReturn.emma',{encID:"${sessionScope.getprev}", submissionFileType: "OTHER",funct: "fileList"});
                                             });
-                                            
                                         </script>
                                             </div>
                                     </spring:bind>

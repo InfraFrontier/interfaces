@@ -220,7 +220,7 @@ public class SubmissionFormValidator implements
                     "An explanation is required for the homozygous matings required response.");
         }
         
-        if (!sd.getWeaning_age().isEmpty()) {
+        if (sd.getWeaning_age() != null && !sd.getWeaning_age().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getWeaning_age())) {
                 errors.rejectValue("weaning_age", "incorrect.weaning_age",
                         "Please enter a valid number for weaning age (no leading 0).");
