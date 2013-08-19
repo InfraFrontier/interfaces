@@ -215,20 +215,21 @@ public class EmmaBiblioJOB extends QuartzJobBean {
                     }
                 }
                 paper.paperid = "" + pmid;
-                paper.title = citation.getTitle();
-                paper.year = citation.getJournalInfo().getYearOfPublication();
-                paper.journal = citation.getJournalInfo().getJournal().getTitle();//citation.getJournalIssn();
-                paper.volume = citation.getJournalInfo().getVolume();//citation.getJournalVolume();//.getJournalInfo().getVolume();
+                paper.title = (citation.getTitle() == null ? "" : citation.getTitle());
+                paper.year = citationGetYear(citation);
+                paper.journal = citationGetJournalTitle(citation);
+                paper.volume = citationGetVolume(citation);
                 paper.issue = citation.getJournalInfo().getIssue();
                 paper.pages = citation.getPageInfo();
                 paper.author2 = otherAuthors.toString();
                 //TESTING
-                System.out.println("Ciation get date of pub-- " + citation.getJournalInfo().getDateOfPublication());
-                System.out.println("Ciation get year of pub-- " + citation.getJournalInfo().getYearOfPublication().toString());
-                System.out.println("Ciation get volume of pub-- " + citation.getJournalInfo().getVolume());
-                System.out.println("Ciation get journal-- " + citation.getJournalInfo().getJournal().getTitle());
-                System.out.println("Ciation get issue-- " + citation.getJournalInfo().getIssue());
-                System.out.println("Ciation get author1-- " + paper.author1);
+                System.out.println("Citation get date of pub-- " + citationGetDateOfPublication(citation));
+                System.out.println("Citation get year of pub-- " + Integer.toString(paper.year));
+                System.out.println("Citation get volume of pub-- " + citationGetVolume(citation));
+                System.out.println("Citation get journal-- " + citationGetJournalTitle(citation));
+                System.out.println("Citation get issue-- " + citationGetIssue(citation));
+                System.out.println("Citation get author1-- " + paper.author1);
+                System.out.println("Citation get author2-- " + paper.author2);
                 
             }
         } catch (QueryException_Exception qex) {
@@ -240,9 +241,55 @@ public class EmmaBiblioJOB extends QuartzJobBean {
         }
         return paper;
     }
+    private String citationGetDateOfPublication(Result citation) {
+        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getDateOfPublication() != null))
+            return citation.getJournalInfo().getDateOfPublication();
+        else
+            return "";
+    }
+    private String citationGetJournalTitle(Result citation) {
+        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getJournal() != null) && (citation.getJournalInfo().getJournal().getTitle() != null))
+            return citation.getJournalInfo().getJournal().getTitle();
+        else
+            return "";
+    }
+    private Short citationGetYear(Result citation) {
+        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getYearOfPublication() != null))
+            return citation.getJournalInfo().getYearOfPublication();
+        else
+            return 0;
+    }
+    private String citationGetVolume(Result citation) {
+        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getVolume() != null))
+            return citation.getJournalInfo().getVolume();
+        else
+            return "";
+    }
+    private String citationGetIssue(Result citation) {
+        if ((citation != null) && (citation.getJournalInfo() != null) & (citation.getJournalInfo().getIssue() != null))
+            return citation.getJournalInfo().getIssue();
+        else
+            return "";
+    }
+    private String citationGetPages(Result citation) {
+        if ((citation != null) && (citation.getPageInfo() != null))
+            return citation.getPageInfo();
+        else
+            return "";
+    }
+    private String citationGetOtherAuthors(String otherAuthors) {
+        return (otherAuthors == null ? "" : otherAuthors);
+    }
     
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
+        executeInternalPrivate();
+    }
+    public static void main(char[] args) {
+        EmmaBiblioJOB emmaBiblioJob = new EmmaBiblioJOB();
+        emmaBiblioJob.executeInternalPrivate();
+    }
+    private void executeInternalPrivate() {
         schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("EmmaBiblioJOB Kicking Off").append("\n\n").toString();
         System.out.println("EmmaBiblioJOB Kicking Off");
         System.out.println("checking updates");
