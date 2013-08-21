@@ -269,10 +269,10 @@
 
                                             </div>
                                         </spring:bind>
-                                    </div>
+                                   
 
 
-                                    <%-- TODO  --%>
+                                  
                                     <spring:bind path="command.producer_ilar">
                                         <div class="field">
                                             <p><strong>ILAR Code</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the producer's 
@@ -281,12 +281,15 @@
                                                                                      Committee on Standardized Genetic Nomenclature for Mice. If the producer does not have an 
                                                                                      ILAR code, it can be registered on-line at The National Academy of Sciences using the link supplied
                                                                                      EMMA staff can assist with the registration procedure.</p>">? Help</span></p>
-                                            <div class="input">
+                                            
+                                                 <form:errors path="${status.expression}" cssClass="error" />
+                                                 <div class="input">
                                                 <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>&nbsp;<a href="http://ilarlabcode.nas.edu/register_code_nodep.php" target="_blank">ILAR Registration Link</a>           
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                               
                                             </div>
                                         </spring:bind>
                                     </div>
+                                         </div>
                                     <%-- Hidden input field for submitter id to populate per_id_per --%>
 
                                     <spring:bind path="command.per_id_per">

@@ -90,6 +90,7 @@ public class SubmissionFormValidator implements
     public void validateSubmissionForm1(SubmissionsDAO sd, Errors errors, String fieldSet) {
         String fax = "";
         String tel = "";
+        String ilar = "";
 
         if (fieldSet.equals("submitter")) {
             fax = sd.getSubmitter_fax();
@@ -97,21 +98,31 @@ public class SubmissionFormValidator implements
         } else if (fieldSet.equals("producer")) {
             fax = sd.getProducer_fax();
             tel = sd.getProducer_tel();
+            ilar = sd.getProducer_ilar();
         } else if (fieldSet.equals("shipper")) {
             fax = sd.getShipper_fax();
             tel = sd.getShipper_tel();
         }
-        
-       // ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
-         //       "required.userName", "The " + fieldSet + " firstname is a required field");
+  
+       ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
+               "required.userName", "The " + fieldSet + " firstname is a required field");
+       
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_lastname", "required.lastname",
                 "The " + fieldSet + " family name is a required field");
-        if (!patternMatch(FAXTEL_PATTERN, tel)) {
+               ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet +"_tel", "required.tel",
+                "The telephone number is a required field");
+  
+                   if (ilar.length() > 5) {
+                              System.out.println("this stage has been reached and the value is " + ilar + " - " + ilar.length());
+                             errors.rejectValue("producer_ilar", "incorrect.producer_ilar",
+                           "Your submitted ILAR code exceeds the number of characters permitted (greater than 5 characters).");
+
+                   }
+               
+               if (tel != null && !patternMatch(FAXTEL_PATTERN, tel)) {
           //  errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
            //         "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet +"_tel", "required.tel",
-                "The telephone number is a required field");
         
         if (!patternMatch(FAXTEL_PATTERN, fax)) {
           //  errors.rejectValue(fieldSet + "_fax", "incorrect.fax",
@@ -134,6 +145,8 @@ public class SubmissionFormValidator implements
                   
                  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_country", "required.country",
                 "Please select a Country from the list");
+                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_postcode", "required.postcode",
+                "Postal code/Zip code is a required field");
 
     }
 

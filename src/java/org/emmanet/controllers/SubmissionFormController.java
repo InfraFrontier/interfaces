@@ -690,6 +690,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         }else{
         rd.setWeaning_age(sd.getWeaning_age());
         }
+                if (sd.getLitters_in_lifetime().equals("")) {
+            sd.setLitters_in_lifetime(null);
+        } 
         rd.setLitters_in_lifetime(sd.getLitters_in_lifetime());
         if (sd.getBreeding_performance().equals("")) {
             sd.setBreeding_performance(null);
@@ -1225,8 +1228,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
             if (ilarToCheck.length() > 0) {
                 System.out.println("PRODUCER ILAR is > 0 == " + ilarToCheck.length());
                 String checkedIlarID = pm.ilarID(ilarToCheck);
-
-                ilarID = Integer.parseInt(checkedIlarID);
+                if (checkedIlarID != null && !checkedIlarID.isEmpty()) {
+                    ilarID = Integer.parseInt(checkedIlarID);
+                }
             }
             department = sda.getProducer_dept();
             name = sda.getProducer_inst();
