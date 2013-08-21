@@ -166,7 +166,7 @@
 
                                     <spring:bind path="command.submitter_firstname">
                                         <div class="field">
-                                            <p><strong>First name</strong></p>
+                                            <p><strong>First name <sup><font color="red">*</font></sup></strong></p>
                                             <div class="input">
                                                 <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                 </div>
