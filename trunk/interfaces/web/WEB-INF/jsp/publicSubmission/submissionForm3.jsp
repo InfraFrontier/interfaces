@@ -59,7 +59,7 @@
                                     <p>Please enter the contact information of the principal investigator who generated the mouse mutant strain you want to deposit in EMMA.
                                     </p>
                                     <form:form method="POST" commandName="command" id="submissionForm">
-                                        <form:errors path="*" cssClass="errorblock"/>
+                                        
                                         <div>
                                             <div>
                                                 <input class="btn
@@ -123,7 +123,7 @@
                                         <spring:bind path="command.producer_firstname">
                                              <form:errors path="${status.expression}" cssClass="error" />
                                              <div class="field">
-                                                <label class="label" for="${status.expression}"><strong>First name</strong></label>
+                                                <label class="label" for="${status.expression}"><strong>First name <sup><font color="red">*</font></sup></strong></label>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
@@ -269,10 +269,7 @@
 
                                             </div>
                                         </spring:bind>
-                                   
-
-
-                                  
+   
                                     <spring:bind path="command.producer_ilar">
                                         <div class="field">
                                             <p><strong>ILAR Code</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the producer's 
@@ -284,7 +281,7 @@
                                             
                                                  <form:errors path="${status.expression}" cssClass="error" />
                                                  <div class="input">
-                                                <form:input  id="${status.expression}" path="${status.expression}" title=""></form:input>&nbsp;<a href="http://ilarlabcode.nas.edu/register_code_nodep.php" target="_blank">ILAR Registration Link</a>           
+                                                     <form:input  id="${status.expression}" path="${status.expression}" maxlength="5"></form:input>&nbsp;<a href="http://ilarlabcode.nas.edu/register_code_nodep.php" target="_blank">ILAR Registration Link</a>           
                                                
                                             </div>
                                         </spring:bind>

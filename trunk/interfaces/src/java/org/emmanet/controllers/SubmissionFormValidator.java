@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
 import org.emmanet.model.SubmissionsDAO;
 import org.springframework.validation.Errors;
@@ -52,26 +51,26 @@ public class SubmissionFormValidator implements
             return;
         } else {
             validateSubmissionForm0(sd, errors);
-            validateSubmissionForm1(sd, errors,"");
+            validateSubmissionForm1(sd, errors, "");
             //validateSubmissionForm2(sd, errors,"");
 
         }
     }
 
-        public void validateSubmissionForm(SubmissionsDAO sd, Errors errors) {
-               if (!sd.isTermsAgreed()) {
+    public void validateSubmissionForm(SubmissionsDAO sd, Errors errors) {
+        if (!sd.isTermsAgreed()) {
             errors.rejectValue("termsAgreed", "termsAgreed",
                     "You must agree to the terms and conditions before proceeding");
         }
     }
-        
+
     public void validateSubmissionForm0(SubmissionsDAO sd, Errors errors) {
-       System.out.println("STEP0 EMAIL IS " + sd.getSubmitter_email());
-          if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
+        System.out.println("STEP0 EMAIL IS " + sd.getSubmitter_email());
+        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
             errors.rejectValue("submitter_email", "incorrect.email",
                     "The submitted Email address field appears to be incorrect.");
         }
-           ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_email",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_email",
                 "required.email", " A correct Email address is a required field.");
     }
 
@@ -99,57 +98,57 @@ public class SubmissionFormValidator implements
             fax = sd.getProducer_fax();
             tel = sd.getProducer_tel();
             ilar = sd.getProducer_ilar();
+            ilar=ilar.trim();
         } else if (fieldSet.equals("shipper")) {
             fax = sd.getShipper_fax();
             tel = sd.getShipper_tel();
         }
-  
-       ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
-               "required.userName", "The " + fieldSet + " firstname is a required field");
-       
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
+                "required.firstname", "The " + fieldSet + " firstname is a required field");
+
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_lastname", "required.lastname",
                 "The " + fieldSet + " family name is a required field");
-               ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet +"_tel", "required.tel",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_tel", "required.tel",
                 "The telephone number is a required field");
-  
-                   if (ilar.length() > 5) {
-                              System.out.println("this stage has been reached and the value is " + ilar + " - " + ilar.length());
-                             errors.rejectValue("producer_ilar", "incorrect.producer_ilar",
-                           "Your submitted ILAR code exceeds the number of characters permitted (greater than 5 characters).");
 
-                   }
-               
-               if (tel != null && !patternMatch(FAXTEL_PATTERN, tel)) {
-          //  errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
-           //         "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
+        if (ilar.length()>5) {
+          
+            //System.out.println("this stage has been reached and the value is " + ilar + " - " + ilar.length());
+            errors.rejectValue("producer_ilar", "incorrect.producer_ilar",
+                    "Your submitted ILAR code exceeds the number of characters permitted (greater than 5 characters).");
         }
-        
+
+        if (tel != null && !patternMatch(FAXTEL_PATTERN, tel)) {
+            //  errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
+            //         "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
+        }
+
         if (!patternMatch(FAXTEL_PATTERN, fax)) {
-          //  errors.rejectValue(fieldSet + "_fax", "incorrect.fax",
-                //    "Please enter a valid fax number (it must begin with <b>+</b> followed by the country code).");
+            //  errors.rejectValue(fieldSet + "_fax", "incorrect.fax",
+            //    "Please enter a valid fax number (it must begin with <b>+</b> followed by the country code).");
         }
-                ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_fax", "required.fax",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_fax", "required.fax",
                 "The fax number is a required field");
-               
-                ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_inst", "required.inst",
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_inst", "required.inst",
                 "The institution is a required field");
-                  
-                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_addr_1", "required.submitter_addr_1",
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_addr_1", "required.submitter_addr_1",
                 "The address line 1 field is required");
-                  
-                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_city", "required.city",
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_city", "required.city",
                 "The city is a required field");
-                  
-               /*  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_county", "required.county",
-                "The county/province/state field is required");*/
-                  
-                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_country", "required.country",
+
+        /*  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_county", "required.county",
+         "The county/province/state field is required");*/
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_country", "required.country",
                 "Please select a Country from the list");
-                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_postcode", "required.postcode",
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_postcode", "required.postcode",
                 "Postal code/Zip code is a required field");
 
     }
-
 
     public void validateSubmissionForm4(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "strain_name",
@@ -170,7 +169,7 @@ public class SubmissionFormValidator implements
             errors.rejectValue("current_backg", "current_backg",
                     "A current genetic backround must be selected");
         }
-        
+
         //can be empty but if not then must be numeric
         if (!sd.getBackcrosses().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getBackcrosses())) {
@@ -178,8 +177,8 @@ public class SubmissionFormValidator implements
                         "Please enter a valid number (no leading 0).");
             }
         }
-        
-         //can be empty but if not then must be numeric
+
+        //can be empty but if not then must be numeric
         if (!sd.getSibmatings().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getSibmatings())) {
                 errors.rejectValue("sibmatings", "incorrect.sibmatings",
@@ -196,24 +195,23 @@ public class SubmissionFormValidator implements
     }
 
     public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
-       ///BIBLIOS
+        ///BIBLIOS
         //IF ANSWER TO QUESTION 'HAS THIS MUTANT STRAIN BEEN PUBLISHED IS YES THEN CHECK FOR SHORT DESCRIPTION, JOURNAL,YEAR,PAGES'
-        if (sd.getPublished() != null && sd.getPublished().equals("yes")){
+        if (sd.getPublished() != null && sd.getPublished().equals("yes")) {
             //OK Now check for required fields
-                    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "journal",
-                "required.year", "The journal is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "required.year",
-                "The year is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pages", "required.pages",
-                "The page reference is a required field");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "journal",
+                    "required.year", "The journal is a required field");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "required.year",
+                    "The year is a required field");
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pages", "required.pages",
+                    "The page reference is a required field");
         }
 
-      //      validation_options['rules']['reference_descr_' + index.toString()] = 'required';
-      //  validation_options['rules']['reference_pages_' + index.toString()] = 'required';
+        //      validation_options['rules']['reference_descr_' + index.toString()] = 'required';
+        //  validation_options['rules']['reference_pages_' + index.toString()] = 'required';
     }
 
     public void validateSubmissionForm7(SubmissionsDAO sd, Errors errors) {
-       
     }
 
     public void validateSubmissionForm8(SubmissionsDAO sd, Errors errors) {
@@ -232,7 +230,7 @@ public class SubmissionFormValidator implements
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required_text", "required.heterozygous_matings_required_text",
                     "An explanation is required for the homozygous matings required response.");
         }
-        
+
         if (sd.getWeaning_age() != null && !sd.getWeaning_age().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getWeaning_age())) {
                 errors.rejectValue("weaning_age", "incorrect.weaning_age",
@@ -245,8 +243,8 @@ public class SubmissionFormValidator implements
 
     public void validateSubmissionForm9(SubmissionsDAO sd, Errors errors) {
         //RESEARCH VALUE
-        String humanCondition="";
-        humanCondition=sd.getHuman_condition();
+        String humanCondition = "";
+        humanCondition = sd.getHuman_condition();
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition",
                 "required.human_condition", "Does this strain model a human condition or disease is a required field");
 
@@ -254,12 +252,13 @@ public class SubmissionFormValidator implements
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_text", "required.human_condition_text",
                     "An explanation is required for the human condition response.");
         }
-   }
+    }
+
     public void validateSubmissionForm10(SubmissionsDAO sd, Errors errors) {
 
         //ADDITIONAL INFORMATION SECTION
-String deposElsewhere = "";
-deposElsewhere = sd.getDeposited_elsewhere();
+        String deposElsewhere = "";
+        deposElsewhere = sd.getDeposited_elsewhere();
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "past_requests",
                 "required.past_requests", "Please select the number of requests you have received for this strain in the last 6 months.");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deposited_elsewhere", "deposited_elsewhere",
@@ -294,8 +293,8 @@ deposElsewhere = sd.getDeposited_elsewhere();
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release_text", "delayed_release_text",
                     "An explanation for the delayed release is required.");
         }
-        
-        
+
+
         //dates of mouse availability
         Date today = new Date();
         SimpleDateFormat DATE_FORMAT_YEAR = new SimpleDateFormat("yyyy");
@@ -316,18 +315,18 @@ deposElsewhere = sd.getDeposited_elsewhere();
                     if (availMonth <= month) {
                         //failed
                         errors.rejectValue("mice_avail_month", "incorrect.mice_avail_month",
-                        "Please check the availability date.");
+                                "Please check the availability date.");
                     }
                 }
-            } 
+            }
         }
     }
 
     public void validateSubmissionForm11(SubmissionsDAO sd, Errors errors) {
-       /* ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
-                "required.userName", "The Scientists firstname is a required field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
-                "The Scientists family name is a required field");*/
+        /* ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.firstname",
+         "required.userName", "The Scientists firstname is a required field");
+         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "peopleDAO.surname", "required.familyname",
+         "The Scientists family name is a required field");*/
     }
 
     public boolean patternMatch(String patternValue, String input) {

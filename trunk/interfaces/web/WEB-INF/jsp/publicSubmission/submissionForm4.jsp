@@ -37,7 +37,6 @@
         <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
             <form:form method="POST" commandName="command">
 
-            <form:errors path="*" cssClass="errorblock"/>
             <div id="shipper" class="step">
 
                 <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
@@ -111,7 +110,7 @@
                                         <spring:bind path="command.shipper_firstname">
                                             <form:errors path="${status.expression}" cssClass="error" />
                                             <div class="field">
-                                                <p><strong>First name</strong></p>
+                                                <p><strong>First name <sup><font color="red">*</font></sup></strong></p>
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
                                                     </div>
