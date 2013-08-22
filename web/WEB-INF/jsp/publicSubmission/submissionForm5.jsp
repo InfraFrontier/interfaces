@@ -3,6 +3,12 @@
     Created on : 30-Jan-2012, 14:48:00
     Author     : phil
 --%>
+<%
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        response.setHeader("Cache-Control", "no-store");
+%>
 
 <%@page import="java.io.BufferedReader"%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -158,7 +164,7 @@
                                                 <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
                                                  <form:errors path="${status.expression}" cssClass="error" />
                                                  <div class="input">
-                                                    <form:input maxlength="2"  id="${status.expression}" path="${status.expression}" title="" />
+                                                    <form:input maxlength="3"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
                                                 
                                             </div>
@@ -171,7 +177,7 @@
                                             <div class="field">
                                                 <p><strong>Number of generations sib-mated</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations mated to a sibling (since inception or subsequent to any outcrosses or backcrosses and if applicable and known).</p>">? Help</span></p>
                                                 <div class="input">
-                                                    <form:input maxlength="2" id="${status.expression}" path="${status.expression}"  title=""/>
+                                                    <form:input maxlength="3" id="${status.expression}" path="${status.expression}"  title=""/>
                                                 </div>
                                                 
                                             </div>

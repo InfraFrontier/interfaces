@@ -3,6 +3,12 @@
     Created on : 30-Jan-2012, 14:50:45
     Author     : phil
 --%>
+<%
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        response.setHeader("Cache-Control", "no-store");
+%>
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -58,17 +64,26 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </div>
                                         </spring:bind>
+                                            
                                         <div id="humanConditionText" style="display: none">
-                                            <br />
-                                            <spring:bind path="command.human_condition_text">
-                                                <div>
-                                                    <p><strong>If OMIM IDs are not available, please describe the human condition or disease below:</strong></p>
-                                                </div>
+                                            
+                                            <spring:bind path="command.human_condition_more"> 
                                                 <form:errors path="${status.expression}" cssClass="error" />
-                                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-
-                                            </div>  
-
+                                                <div class="field" id="${status.expression}">
+                                                    <p><strong>Please enter the <a href="http://omim.org/search?index=entry&sort=score+desc%2C+prefix_sort+desc&start=1&limit=10&search=" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</strong></p>
+                                                        <form:input  id="${status.expression}" path="${status.expression}" />
+                                                        <br/>
+                                                        </div>
+                                                    </spring:bind>
+                                               <br />
+                                                <spring:bind path="command.human_condition_text">
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                        <p><strong>If OMIM IDs are not available, please describe the human condition or disease below:</strong></p>
+                                                        <div class="field" id="${status.expression}">
+                                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
+                                                        </spring:bind>   
+                                                </div>  
+                                            </div>
                                             <script>
                                             
                                                 if ($('input[name=human_condition]:checked').val() == "yes") {
@@ -87,17 +102,6 @@
                                                     $("#humanConditionText").hide("slow");
                                                 });            
                                             </script>
-                                        </div>
-                                    </spring:bind>
-                                    <spring:bind path="command.human_condition_more">        
-                                        <div class="field" id="${status.expression}">
-                                            <p><strong>Please enter the <a href="http://omim.org/search?index=entry&sort=score+desc%2C+prefix_sort+desc&start=1&limit=10&search=" target="_blank">Online Mendelian Inheritance in Man</a> identifiers that apply to the human condition or disease:</strong></p>
-                                            <form:errors path="${status.expression}" cssClass="error" />
-                                            <div class="input">
-                                                <form:input  id="${status.expression}" path="${status.expression}" />
-                                                <br/>
-                                            </spring:bind>
-
                                             <br />
                                             <spring:bind path="command.research_areas">
                                                 <div class="field">

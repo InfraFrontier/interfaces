@@ -392,7 +392,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
                 Date date = new Date();
                 session.setAttribute("startYear", dateFormat.format(date));
-                session.setAttribute("startYear", dateFormat.format(date));
                 //get possible multiple rtools values from previous step 10
                 if (request.getParameterValues("research_tools") != null) {
                     String[] rtoolsValues = request.getParameterValues("research_tools");

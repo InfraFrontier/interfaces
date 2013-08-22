@@ -24,7 +24,7 @@
                             <div class="boxcontainer">
                                 <h4>EMMA Submission Form Success Page</h4>
                                 Your submission to EMMA was successful. you can now:-<br/><br/>
-                                <a href="submissionForm.emma">Create another submission</a> or return to <a href="http://www.emmanet.org/">emmanet.org</a>
+                                <a href="submissionForm.emma">Create another submission</a> or return to the <a href="http://www.infrafrontier.eu/">Infrafrontier homepage</a>
                             </div>
                         </div>
                     </div>

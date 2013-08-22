@@ -242,15 +242,24 @@ public class SubmissionFormValidator implements
     }
 
     public void validateSubmissionForm9(SubmissionsDAO sd, Errors errors) {
-        //RESEARCH VALUE
+//        RESEARCH VALUE
         String humanCondition = "";
         humanCondition = sd.getHuman_condition();
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition",
                 "required.human_condition", "Does this strain model a human condition or disease is a required field");
 
         if (humanCondition != null && humanCondition.equals("yes")) {
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_text", "required.human_condition_text",
-                    "An explanation is required for the human condition response.");
+            System.out.println("human condition needs validation");
+            if (sd.getHuman_condition_more().isEmpty()) {
+                System.out.println("human condition more==" + sd.getHuman_condition_more());
+                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_text", "required.human_condition_text",
+                        "Either an entry in the OMIM identifiers field or description of the human disease or condition field is required.");
+            }
+            if (sd.getHuman_condition_text().isEmpty()) {
+                System.out.println("human condition text==" + sd.getHuman_condition_text());
+                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_more", "required.human_condition_more",
+                        "Either an entry in the description of the human disease or condition field or the OMIM identifiers field is required.");
+            }
         }
     }
 
