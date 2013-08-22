@@ -3,8 +3,12 @@
     Created on : 30-Jan-2012, 14:45:19
     Author     : phil
 --%>
-
-
+<%
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        response.setHeader("Cache-Control", "no-store");
+%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -94,9 +98,13 @@
                                     Please enter your contact information.
                                 </p>
                                 <c:if test="${not empty PeopleDAO}">
+                                    <c:forEach var="obj" items="${PeopleDAO}" end="1">
+                                        <c:set var="user" value="${obj}"/>
+                                        <c:set var="nameForPeopleImage" value="${user['firstname']}&nbsp${user['surname']}"/>
+                                    </c:forEach>
                                     <div id="loadUserDetails" name="loadUserDetails">
                                         <script type="text/javascript">show_modal('user_window');</script>
-                                        <a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a><br/><a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a>
+                                        <a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a><br/><a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these details<c:if test="${not empty nameForPeopleImage}"><br/>for ${nameForPeopleImage}</c:if></a>
                                     </div>
                                     <script type="text/javascript">$("#loadUserDetails").makeFloat({x:2,y:"current",speed:"normal"});</script>  
                                 </c:if>

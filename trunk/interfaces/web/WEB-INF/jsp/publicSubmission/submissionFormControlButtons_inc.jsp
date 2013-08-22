@@ -7,6 +7,13 @@
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 Control buttons, submit/cancel/previous for all active pages in the form submission
 --%>
+<%
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", -1);
+        response.setHeader("Cache-Control", "no-store");
+%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
