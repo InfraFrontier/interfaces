@@ -15,6 +15,14 @@
             <name>EMMA local repository</name>
             <url>file://${project.basedir}/emma-repo/</url>
         </repository>
+        
+        <!--    
+        <repository>
+          <id>emma-shared-repo</id>
+          <name>EMMA shared repository</name>
+          <url>file://${project.basedir}/emma-shared-repo/</url>
+        </repository>
+        -->
     </repositories>
 
     <properties>
@@ -389,6 +397,34 @@
 			<artifactId>portlet-api</artifactId>
 			<version>2.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>2.5.6.SEC01</version>
+            <scope>compile</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>2.5.6.SEC01</version>
+            <scope>compile</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>2.5.6.SEC01</version>
+            <scope>compile</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-support</artifactId>
+            <version>2.0.8</version>
+            <scope>runtime</scope>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
 	<build>
@@ -464,8 +500,16 @@
                     <tagBase>https://svn.ebi.ac.uk/emma/tags/interfaces</tagBase>
                 </configuration>
             </plugin>
- 
-         </plugins>
+		 <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-compiler-plugin</artifactId>
+		  <version>2.3.2</version>
+		  <configuration>
+		   <source>1.7</source>
+		   <target>1.7</target>
+		  </configuration>
+		 </plugin>
+		</plugins>
 
     </build>
 
