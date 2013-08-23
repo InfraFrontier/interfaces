@@ -147,7 +147,7 @@
                                             <label class="label" for="${status.expression}"><strong>Year<sup><font color="red">*</font></sup></strong></label>
                                             <div class="input">
 
-                                                <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                                                <form:input  id="${status.expression}" path="${status.expression}" maxlength="4"></form:input>
                                                 </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                         </div>

@@ -197,6 +197,7 @@ public class SubmissionFormValidator implements
     public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
         ///BIBLIOS
         //IF ANSWER TO QUESTION 'HAS THIS MUTANT STRAIN BEEN PUBLISHED IS YES THEN CHECK FOR SHORT DESCRIPTION, JOURNAL,YEAR,PAGES'
+        
         if (sd.getPublished() != null && sd.getPublished().equals("yes")) {
             //OK Now check for required fields
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "journal",
