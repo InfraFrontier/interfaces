@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.emmanet.model.BibliosManager;
 import org.emmanet.model.SubmissionBibliosDAO;
 import org.emmanet.util.Encrypter;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -58,9 +59,9 @@ sub_id_sub = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
         String mgi_original = request.getParameter("mgi_original");
 
         if (request.getParameter("action").equals("add")) {
-            
+
             sbd = new SubmissionBibliosDAO();
-            
+              
             sbd.setSub_id_sub(sub_id_sub);
             sbd.setTitle(title);
             sbd.setAuthor1(author1);

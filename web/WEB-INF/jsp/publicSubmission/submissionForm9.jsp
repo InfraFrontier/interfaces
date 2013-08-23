@@ -152,7 +152,7 @@
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
-                                                        <form:option value="5-">less than 6</form:option>
+                                                        <form:option value="5">less than 6</form:option>
                                                         <form:option value="6">6</form:option>
                                                         <form:option value="7">7</form:option>
                                                         <form:option value="8">8</form:option>
@@ -172,7 +172,7 @@
                                                 <div class="input">
                                                     <form:select path="${status.expression}" id="${status.expression}">
                                                         <form:option value="">Please select..</form:option>
-                                                        <form:option  value="4-">less than 4</form:option>
+                                                        <form:option  value="4">less than 4</form:option>
                                                         <form:option  value="4">4</form:option>
                                                         <form:option  value="5">5</form:option>
                                                         <form:option  value="6">6</form:option>

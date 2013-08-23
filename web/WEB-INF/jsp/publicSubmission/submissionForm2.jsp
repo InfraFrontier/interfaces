@@ -4,10 +4,10 @@
     Author     : phil
 --%>
 <%
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", -1);
-        response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", -1);
+    response.setHeader("Cache-Control", "no-store");
 %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -45,9 +45,12 @@
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
         <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+            ${requestScope.recall_window}
         <div id="dialog-confirm" title="Recall Previous Submission?">
             <c:if test="${not empty requestScope.previousSub}">
+                <c:if test="${requestScope.recall_window != 'Yes'}">
                 <c:set var="submissionDAO"  value="${requestScope.previousSub}"/>
                 <c:set var="step"  value="${submissionDAO.step}"/>
 
@@ -60,17 +63,17 @@
                         });
                     });
                 </script>
-               <%-- <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}"> --%>
-<form method="POST" id="loadprev" action="interstitialSubmit.emma">
+                <%-- <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}"> --%>
+                <form method="POST" id="loadprev" action="interstitialSubmit.emma">
                     <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
                     <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
-                    
+
                     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?
                             <br/><br/>
                         <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;
                             <input type="button" name="recall_window" value="Yes" onclick="javascript:window.location.assign('submissionForm.emma?getprev=${submissionDAO.encryptedId_sub}&recall_window=Yes');">
-                   <!-- <input type="button" name="recall_window" value="Yes" onclick="javascript:document.forms['loadprev'].submit();">-->
-                        </center>
+                        <!-- <input type="button" name="recall_window" value="Yes" onclick="javascript:document.forms['loadprev'].submit();">-->
+                    </center>
                     </p>
                 </form>
                 <script>
@@ -82,8 +85,9 @@
                     });
                 </script>
             </div>
+                </c:if>>
+</c:if>
 
-        </c:if>
         <div id="wrapper">
 
             <div id="container">
@@ -105,8 +109,8 @@
                                     <div id="loadUserDetails" name="loadUserDetails">
                                         <script type="text/javascript">show_modal('user_window');</script>
                                         <a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a><br/><a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these details<c:if test="${not empty nameForPeopleImage}"><br/>for ${nameForPeopleImage}</c:if></a>
-                                    </div>
-                                    <script type="text/javascript">$("#loadUserDetails").makeFloat({x:2,y:"current",speed:"normal"});</script>  
+                                        </div>
+                                        <script type="text/javascript">$("#loadUserDetails").makeFloat({x:2,y:"current",speed:"normal"});</script>  
                                 </c:if>
                                 <div id='mask' class='close_modal'></div>
                                 <div id='user_window' class='modal_window'>
