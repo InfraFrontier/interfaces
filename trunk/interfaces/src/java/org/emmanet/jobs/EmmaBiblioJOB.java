@@ -30,6 +30,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import org.emmanet.model.BibliosDAO;
+import org.emmanet.model.BibliosManagerIO;
 import org.emmanet.util.Constants;
 import org.emmanet.util.Utils;
 import org.springframework.mail.MailSender;
@@ -441,7 +442,7 @@ public class EmmaBiblioJOB {
      * Hibernate and the Spring Quartz scheduler. This class serves up the same
      * functionality (with the same name) but uses jdbc instead, with a main.
      */
-    protected class BibliosManager {
+    protected class BibliosManager implements BibliosManagerIO {
 
         /**
          * This method returns all of the rows from the <em>biblios</em> table whose
@@ -451,6 +452,7 @@ public class EmmaBiblioJOB {
          * <em>updated</em> field value is not 'Y' (including <code>null</code>) and
          * whose <em>pubmed_id</em> field is not empty or <code>null</code>
          */
+        @Override
         public List<BibliosDAO> getPubmedID() {
             ArrayList<BibliosDAO> results = new ArrayList<>();
             final String statement = 
@@ -508,6 +510,7 @@ public class EmmaBiblioJOB {
          * @param bibliosDAO The DAO containing the primary key and the values to
          *                   be updated
          */
+        @Override
         public void save(BibliosDAO bibliosDAO) {
             final String statement = 
                       "UPDATE biblios SET title = ?, author1 = ?, author2 = ?, year = ?, journal = ?, username = ?, "

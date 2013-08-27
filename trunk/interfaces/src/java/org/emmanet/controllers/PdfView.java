@@ -616,7 +616,7 @@ public class PdfView extends AbstractPdfView {
             table.setWidthPercentage(100);
 
             /* BIBLIOGRAPHY */
-            List bibliosStrains = bm.BibliosStrains(sd.getId_str());
+            List bibliosStrains = bm.bibliosStrains(sd.getId_str());
 
 
             cell = new PdfPCell(new Paragraph("Relevant bibliographic/database references\n\n", font));

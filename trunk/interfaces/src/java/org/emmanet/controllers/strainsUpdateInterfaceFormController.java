@@ -192,7 +192,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
          */
 
         //NOW SET NUMBER OF BIBLIOGRAPHIC REFS
-        session.setAttribute("bibCount", bm.BibliosStrainCount(strainID));
+        session.setAttribute("bibCount", bm.bibliosStrainCount(strainID));
         //NOW SET NUMBER OF RTOOLS REFS
         session.setAttribute("rtCount", sm.getRToolsCount(strainID));
         Set csd = sd.getCategoriesStrainsDAO();
