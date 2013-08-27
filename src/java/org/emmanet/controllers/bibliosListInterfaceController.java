@@ -37,14 +37,14 @@ public class bibliosListInterfaceController extends SimpleFormController {
         if (request.getParameter("action") != null) {
             int id = Integer.parseInt(request.getParameter("EditStrain"));
             String action = request.getParameter("action");
-            bibliosStrains = bm.BibliosStrains(id);
+            bibliosStrains = bm.bibliosStrains(id);
             if (action.equals("edit")) {
                 //More than one biblio ref so list for edit
                 session.setAttribute("view", "show");
                 for (int it = 0; it < bibliosStrains.size(); it++) {
                     bsDAO = (BibliosStrainsDAO) bibliosStrains.get(it);
                     int bibID = bsDAO.getBib_id_biblio();
-                    List bibsDAO = bm.Biblios(bibID);
+                    List bibsDAO = bm.biblios(bibID);
                     returnedOut.put("BibliosDAO" + it, bibsDAO);
                 }
             }

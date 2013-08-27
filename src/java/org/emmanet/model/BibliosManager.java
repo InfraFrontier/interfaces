@@ -14,7 +14,7 @@ import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-public class BibliosManager {
+public class BibliosManager implements BibliosManagerIO {
 
     public BibliosStrainsDAO getBibStrainsByID(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -70,7 +70,8 @@ public class BibliosManager {
         return bd;
     }
 
-    public List getPubmedID() {
+    @Override
+    public List<BibliosDAO> getPubmedID() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List bd = null;
@@ -88,7 +89,7 @@ System.out.println("bd :: " + bd.size());
         return bd;
     }
  
-   public List Biblios(int id) {
+   public List<BibliosDAO> biblios(int id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -104,7 +105,7 @@ System.out.println("bd :: " + bd.size());
         return bibIDs;
     }
 
-    public List submissionBiblios(int id) {
+    public List<BibliosDAO> submissionBiblios(int id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -120,7 +121,7 @@ System.out.println("bd :: " + bd.size());
         return biblios;
     }
     
-    public List BibliosStrains(int id) {
+    public List<BibliosDAO> bibliosStrains(int id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -136,7 +137,7 @@ System.out.println("bd :: " + bd.size());
         return bibIDs;
     }
 
-    public BigInteger BibliosStrainCount(Integer id) {
+    public BigInteger bibliosStrainCount(Integer id) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -170,6 +171,7 @@ System.out.println("bd :: " + bd.size());
         return sbd;
     }
 
+    @Override
     public void save(BibliosDAO bDAO) {
 System.out.println("S A V I N G ! !");
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

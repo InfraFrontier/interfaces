@@ -45,7 +45,7 @@ public class bibliosUpdateInterfaceFormController extends SimpleFormController {
             String action = request.getParameter("action");
             session.setAttribute("pubmedUrl", this.pubmedURL);
             session.setAttribute("pubmedUrlTail", this.pubmedURLTail);
-            bibliosStrains = bm.BibliosStrains(id);
+            bibliosStrains = bm.bibliosStrains(id);
 
             if (action.equals("edit")) {
 
@@ -102,7 +102,7 @@ public class bibliosUpdateInterfaceFormController extends SimpleFormController {
             //if (request.getParameter("Edit") != null) {
 
             int ID = Integer.parseInt(request.getParameter("EditStrain"));
-            bibliosStrains = bm.BibliosStrains(ID);
+            bibliosStrains = bm.bibliosStrains(ID);
             bsDAO = (BibliosStrainsDAO) bibliosStrains.get(0);
             int bibID = bsDAO.getBib_id_biblio();
 
