@@ -69,7 +69,6 @@
         <hibernate.annotations.version>3.5.6-Final</hibernate.annotations.version>
         <dom4j.version>1.6.1</dom4j.version>
         <antlr.version>2.7.6</antlr.version>
-        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
         
         <DATAFILES>/nfs/panda/emma</DATAFILES><!--${user.home} removed as deployment to production still references my home directory needs to be as below with this file path held locally-->
     </properties>
