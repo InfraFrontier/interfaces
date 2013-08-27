@@ -74,7 +74,7 @@ public class BibliosTest {
      public void testNonemptyConfigFileToNoProgrammatic() {
          EmmaBiblioJOB ebj = new EmmaBiblioJOB();
          String[] actualResult = ebj.getTo();
-         String[] expectedResult = new String[] {"mrelac@ebi.ac.uk"};
+         String[] expectedResult = new String[] {"mrelac@ebi.ac.uk", "philw@ebi.ac.uk"};
          assertArrayEquals(expectedResult, actualResult);
      }
 
@@ -121,7 +121,7 @@ public class BibliosTest {
          ebj.addTo(new String[] {"to1", "to2"});
          
          String[] actualResult = ebj.getTo();
-         String[] expectedResult = new String[] {"mrelac@ebi.ac.uk", "to1", "to2"};
+         String[] expectedResult = new String[] {"mrelac@ebi.ac.uk", "philw@ebi.ac.uk", "to1", "to2"};
          assertArrayEquals(expectedResult, actualResult);
      }
 }
