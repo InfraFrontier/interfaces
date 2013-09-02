@@ -7,8 +7,6 @@ package org.emmanet.util;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -22,30 +20,6 @@ import javax.mail.internet.InternetAddress;
  */
 public class Utils {
 
-    /**
-     * Given a property name <code>property</code>, this method searches the
-     * default properties file for the property name and, if found, returns the
-     * property value. If the property is <em>not</em> found, null is returned.
-     * @param property the name of the desired property
-     * @return the property value, if found; null otherwise
-     */
-    public static String getEmmaProperty(String property) {
-        return getProperty(Constants.DEFAULT_EMMA_PROPERTIES_FILE, property);
-    }
-    /**
-     * Given a property name <code>property</code>, this method searches the
-     * default properties file for the property name and, if found, returns the
-     * property values as an array of <code>String</code>. If the property is
-     * <em>not</em> found, null is returned. If the property contains a single
-     * value (i.e. the property value does not contain the delimiter), that value
-     * is returned in an <code>Array&lt;String&gt;</code> of exactly 1 element.
-     * @param property the name of the desired property
-     * @return the property value, if found; null otherwise
-     */
-    public static String[] getEmmaProperty(String property, String delimiter) {
-        return getProperty(Constants.DEFAULT_EMMA_PROPERTIES_FILE, property, delimiter);
-    }
-    
     /**
      * Given a property filename and a property name, this method returns the
      * desired property value from <code>filename</code> as a <code>String</code>.
@@ -196,104 +170,6 @@ public class Utils {
         }
 
         return retVal;
-    }
-
-    /**
-     * Given the emma properties file that contains the following properties:
-     * <ul><li><code>DBVENDOR</code></li>
-     * <li><code>DBHOST</code></li>
-     * <li><code>DBPORT</code></li>
-     * <li><code>DBNAME</code></li>
-     * <li><code>username</code></li>
-     * <li><code>password</code></li></ul>
-     * this method uses those properties to attempt to connect to the database.
-     * 
-     * @param dbPropertiesFilename the properties file containing the db connection
-     * properties
-     * @return a <code>Connection</code> object, if successful; null otherwise
-     */
-    public static Connection connectDB() {
-        return connectDB(Constants.DEFAULT_EMMA_PROPERTIES_FILE);
-    }
-    
-    /**
-     * Given a properties file that contains the following properties:
-     * <ul><li>DBDRIVER</li>
-     * <li><code>DBVENDOR</code></li>
-     * <li><code>DBHOST</code></li>
-     * <li><code>DBPORT</code></li>
-     * <li><code>DBNAME</code></li>
-     * <li><code>username</code></li>
-     * <li><code>password</code></li></ul>
-     * this method uses those properties to attempt to connect to the database.
-     * 
-     * @param dbPropertiesFilename the properties file containing the db connection
-     * properties
-     * @return a <code>Connection</code> object, if successful; null otherwise
-     */
-    public static Connection connectDB(String dbPropertiesFilename) {
-        Connection connection = null;
-        
-        try {
-            String url = buildEmmaUrl();
-            String dbdriver = getProperty(dbPropertiesFilename, Constants.DBDRIVER);
-            String dbusername = getProperty(dbPropertiesFilename, Constants.DBUSERNAME);
-            String dbpassword = getProperty(dbPropertiesFilename, Constants.DBPASSWORD);
-            
-            Class.forName(dbdriver);
-            connection = DriverManager.getConnection(url, dbusername, dbpassword);
-        }
-        catch (SQLException se) {
-            System.out.println("SQLException: " + se.getLocalizedMessage());
-            throw new RuntimeException("SQLException occurred. Reason: " + se.getLocalizedMessage());
-        }
-        catch (Exception e) {
-            String errMsg = "Exception of type " + e.getClass().getCanonicalName() + ": " + e.getLocalizedMessage();
-            System.out.println(errMsg);
-            throw new RuntimeException(errMsg);
-        }
-        
-        return connection;
-    }
-    
-    /**
-     * Given the emma properties file that contains the following properties:
-     * <ul><li><code>DBVENDOR</code></li>
-     * <li><code>DBHOST</code></li>
-     * <li><code>DBPORT</code></li>
-     * <li><code>DBNAME</code></li></ul>
-     * this method returns a db connection url string standardized for EBI (i.e.
-     * unicode, collation, character set specification).
-     * 
-     * @return a db connection url string standardized for EBI (i.e.
-     *         unicode, collation, character set specification)
-     */
-    public static String buildEmmaUrl() {
-        return buildEmmaUrl(Constants.DEFAULT_EMMA_PROPERTIES_FILE);
-    }
-    
-    /**
-     * Given a properties file that contains the following properties:
-     * <ul><li><code>DBVENDOR</code></li>
-     * <li><code>DBHOST</code></li>
-     * <li><code>DBPORT</code></li>
-     * <li><code>DBNAME</code></li></ul>
-     * this method returns a db connection url string standardized for EBI (i.e.
-     * unicode, collation, character set specification).
-     * 
-     * @param dbPropertiesFilename the properties file containing the db connection
-     * properties
-     * @return a db connection url string standardized for EBI (i.e.
-     *         unicode, collation, character set specification)
-     */
-    public static String buildEmmaUrl(String dbPropertiesFilename) {
-        String dbVendor = getProperty(dbPropertiesFilename, Constants.DBVENDOR);
-        String dbHost = getProperty(dbPropertiesFilename, Constants.DBHOST);
-        String dbPort = getProperty(dbPropertiesFilename, Constants.DBPORT);
-        String dbName = getProperty(dbPropertiesFilename, Constants.DBNAME);
-        
-        return "jdbc:" + dbVendor + "://" + dbHost + ":" + dbPort + "/" + dbName
-             + "?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterEncoding=utf8&amp;characterSetResults=utf8";
     }
 
     /**

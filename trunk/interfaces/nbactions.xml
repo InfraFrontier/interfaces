@@ -8,4 +8,13 @@
                 <goal>compiler:compile</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-test1</actionName>
+            <displayName>test1</displayName>
+            <goals>
+                <goal>run</goal>
+                <goal>-Dexec.mainClass=org.emmanet.jobs.EmmaBiblioJOB</goal>
+                <goal>-Dconfig.path=/Users/mrelac</goal>
+            </goals>
+        </action>
     </actions>
