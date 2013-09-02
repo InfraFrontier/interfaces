@@ -5,11 +5,20 @@
 
 package org.emmanet.model;
 
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.emmanet.util.Utils;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
 /**
  *
  * @author phil
+ * 02-Sept-2013 (mrelac) extended for JdbcTemplate use by adding RowMapper,
+ *   JdbcTemplate getter/setter, and Serializable attribute.
  */
-public class BibliosDAO {
+public class BibliosDAO implements RowMapper, Serializable {
     
 private int id_biblio;
 private String title;
@@ -26,6 +35,7 @@ private String pubmed_id;
 private String last_change;
 private String notes;
 private String updated;
+private JdbcTemplate jdbcTemplate;
 
     public int getId_biblio() {
         return id_biblio;
@@ -129,6 +139,49 @@ private String updated;
 
     public void setUpdated(String updated) {
         this.updated = updated;
+    }
+    
+    /**
+     * This getter/setter pair permits spring JdbcTemplate to be used in non-
+     * Hibernate situations where jdbc is the preferred pattern.
+     * @return the <code>JdbcTemplatee</code> object instantiated by spring (see
+     * jobApplicationContext.xml).
+     */
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    /**
+     * This method implements spring's JdbcTemplate RowMapper interface, allowing
+     * BibliosDAO to be used in the spring jdbc template pattern.
+     * @param rs the result set to be mapped
+     * @param rowNum required by the interface
+     * @return a list of <code>BibliosDAO</code> matching the result set
+     * @throws SQLException if an sql exception occurs
+     */
+    @Override
+    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            BibliosDAO bibliosDAO = new BibliosDAO();
+
+            bibliosDAO.setId_biblio(Integer.parseInt(Utils.getDbValue(rs, "id_biblio")));
+            bibliosDAO.setTitle(Utils.getDbValue(rs, "title"));
+            bibliosDAO.setAuthor1(Utils.getDbValue(rs, "author1"));
+            bibliosDAO.setAuthor2(Utils.getDbValue(rs, "author2"));
+            bibliosDAO.setYear(Utils.getDbValue(rs, "year"));
+            bibliosDAO.setJournal(Utils.getDbValue(rs, "journal"));
+            bibliosDAO.setUsername(Utils.getDbValue(rs, "username"));
+            bibliosDAO.setVolume(Utils.getDbValue(rs, "volume"));
+            bibliosDAO.setPages(Utils.getDbValue(rs, "pages"));
+            bibliosDAO.setPubmed_id(Utils.getDbValue(rs, "pubmed_id"));
+            bibliosDAO.setUpdated(Utils.getDbValue(rs, "updated"));
+            bibliosDAO.setLast_change(Utils.getDbValue(rs, "last_change"));
+            bibliosDAO.setNotes(Utils.getDbValue(rs, "notes"));
+
+            return bibliosDAO;
     }
 
 }

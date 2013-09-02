@@ -44,7 +44,7 @@ public class BibliosTest {
      public void testEmptyConfigFileCcNoProgrammatic() {
          EmmaBiblioJOB ebj = new EmmaBiblioJOB();
          String[] actualResult = ebj.getCc();
-         String[] expectedResult = null;
+         String[] expectedResult = new String[] {};
          assertArrayEquals(expectedResult, actualResult);
      }
     
@@ -54,7 +54,7 @@ public class BibliosTest {
      public void testEmptyConfigFileBccNoProgrammatic() {
          EmmaBiblioJOB ebj = new EmmaBiblioJOB();
          String[] actualResult = ebj.getBcc();
-         String[] expectedResult = null;
+         String[] expectedResult = new String[] {};
          assertArrayEquals(expectedResult, actualResult);
      }
 

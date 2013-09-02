@@ -10,16 +10,12 @@ import ebi.ws.client.ResponseWrapper;
 import ebi.ws.client.Result;
 import ebi.ws.client.WSCitationImpl;
 import ebi.ws.client.WSCitationImplService;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,11 +25,15 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
+import javax.sql.DataSource;
 import org.emmanet.model.BibliosDAO;
 import org.emmanet.model.BibliosManagerIO;
 import org.emmanet.util.Constants;
 import org.emmanet.util.Utils;
-import org.springframework.mail.MailSender;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.StringUtils;
 
 /**
  *
@@ -42,42 +42,48 @@ import org.springframework.mail.MailSender;
  * scheduling Modified by philw 19122012 to use new webservice.
  */
 public class EmmaBiblioJOB {
+    private ApplicationContext ac;
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
+    private Map<String, String> emmaProperties;
 
-    private String wsdlLocation;
+    private String[] from = new String[] {""};
+    private String[] to = new String[] {""};
+    private String[] cc = new String[] {""};
+    private String[] bcc = new String[] {""};
+
     private String schedulerMsg;
-    private MailSender mailSender;
-    private String[] from;
-    private String[] to;
-    private String[] cc;
-    private String[] bcc;
-
+    private String wsdlLocation;
+    
     public EmmaBiblioJOB() {
-        wsdlLocation = null;
-        schedulerMsg = "";
-        mailSender = null;
+        ac = new ClassPathXmlApplicationContext("/jobApplicationContext.xml");  // Get job application context.
+        dataSource = (DataSource)ac.getBean("dataSource");                      // Get DataSource.
+        jdbcTemplate = (JdbcTemplate)ac.getBean("jdbcTemplate");                // Get JdbcTemplate.
+        emmaProperties = (Map)ac.getBean("emmaJobProperties");                  // Get emma job properties.
         
         // The 'from', 'to', 'cc', and 'bcc' names can be set programatically
-        // as well as in the emma 'config.properties' file. Initialize them here.
-        from = Utils.join(from, Utils.getEmmaProperty(Constants.FROM, ","));
-        to = Utils.join(to, Utils.getEmmaProperty(Constants.TO, ","));
-        cc = Utils.join(cc, Utils.getEmmaProperty(Constants.CC, ","));
-        bcc = Utils.join(bcc, Utils.getEmmaProperty(Constants.BCC, ","));
+        // as well as in the emma 'jobConfig.properties' file. Additionally,
+        // each of the strings (for, to, cc, bcc) may be a comma-separated
+        // list of multiple senders/recipients. Initialize the from, to, cc, and
+        // bcc arrays with the values specified in jobConfig.properties (if any).
+        from = StringUtils.commaDelimitedListToStringArray((String)emmaProperties.get(Constants.FROM));
+        to = StringUtils.commaDelimitedListToStringArray((String)emmaProperties.get(Constants.TO));
+        cc = StringUtils.commaDelimitedListToStringArray((String)emmaProperties.get(Constants.CC));
+        bcc = StringUtils.commaDelimitedListToStringArray((String)emmaProperties.get(Constants.BCC));
+
+        for (int i = 0; i < from.length; i++) { from[i] = from[i].trim(); }     // Trim string.
+        for (int i = 0; i < to.length; i++) { to[i] = to[i].trim(); }           // Trim string.
+        for (int i = 0; i < cc.length; i++) { cc[i] = cc[i].trim(); }           // Trim string.
+        for (int i = 0; i < bcc.length; i++) { bcc[i] = bcc[i].trim(); }        // Trim string.
+        
+        schedulerMsg = "";
+        wsdlLocation = null;
     }
-        // THIS METHOD IS NOT CALLED ANYWHERE.
-//    public BibliosDAO check_pmid_exists(int pmid) {
-//        BibliosManager bm = new BibliosManager();
-//        BibliosDAO bdao = (BibliosDAO) bm.getPubmedIDByID(pmid);
-//        if (bdao == null) {
-//            System.out.println("PMID " + pmid + " does not exist in database ... exiting");
-//            schedulerMsg = (new StringBuilder()).append(schedulerMsg).append("\nPMID ").append(pmid).append(" does not exist in database ... exiting\n").toString();
-//        }
-//        return bdao;
-//    }
-    
+
     public void check_for_updates() {
         // select the pubmed ids of not updated biblios
         BibliosManager bm = new BibliosManager();
-        BibliosDAO bdao = new BibliosDAO();
+        BibliosDAO bdao;
         List rset;
         rset = bm.getPubmedID();
        // System.out.println("rset size :: " + rset.size());
@@ -309,7 +315,7 @@ public class EmmaBiblioJOB {
             throw new RuntimeException("Unable to send webmaster message because no recipients were specified. Message: " + schedulerMsg);
         
         try {
-            String mailserver = Utils.getEmmaProperty(Constants.MAILSERVER);    // Add mailserver to session.
+            String mailserver = emmaProperties.get(Constants.MAILSERVER);
             if (mailserver == null)
                 throw new RuntimeException("Unable to send webmaster message because no mailserver is defined.");
             Properties properties = new Properties();
@@ -340,20 +346,6 @@ public class EmmaBiblioJOB {
 
     // GETTERS AND SETTERS
     
-
-    /**
-     * @return the mailSender
-     */
-    public MailSender getMailSender() {
-        return mailSender;
-    }
-
-    /**
-     * @param mailSender the mailSender to set
-     */
-    public void setMailSender(MailSender mailSender) {
-        this.mailSender = mailSender;
-    }
 
     /**
      * Returns an array of <code>String</code> containing the e-mail <em>TO</em>
@@ -454,53 +446,12 @@ public class EmmaBiblioJOB {
          */
         @Override
         public List<BibliosDAO> getPubmedID() {
-            ArrayList<BibliosDAO> results = new ArrayList<>();
             final String statement = 
                       "SELECT * FROM biblios\n"
                     + "WHERE (updated IS NULL OR updated != 'Y')\n"
                     + "  AND (pubmed_id IS NOT NULL AND pubmed_id != '')\n";
-
-            try (
-                Connection connection = Utils.connectDB();
-                PreparedStatement preparedStatement = connection.prepareStatement(statement);
-                ResultSet rs = preparedStatement.executeQuery();
-            ) {
-                while (rs.next()) {
-                    BibliosDAO biblio = loadBibliosDao(rs);
-                    results.add(biblio);
-                }
-            }
-            catch (SQLException se) {
-                System.out.println(se.getLocalizedMessage());
-            }
-
-            return results;
-        }
-
-        /**
-         * This method returns a new <code>BibliosRawDAO</code> instance loaded with the
-         * values from the given <code>ResultSet</code> object.
-         * @param rs The <code>ResultSet</code> from which to load
-         * @return a new <code>BibliosRawDAO</code> instance populated with the results
-         */
-        private BibliosDAO loadBibliosDao(ResultSet rs) {
-            BibliosDAO bibliosDAO = new BibliosDAO();
-
-            bibliosDAO.setId_biblio(Integer.parseInt(Utils.getDbValue(rs, "id_biblio")));
-            bibliosDAO.setTitle(Utils.getDbValue(rs, "title"));
-            bibliosDAO.setAuthor1(Utils.getDbValue(rs, "author1"));
-            bibliosDAO.setAuthor2(Utils.getDbValue(rs, "author2"));
-            bibliosDAO.setYear(Utils.getDbValue(rs, "year"));
-            bibliosDAO.setJournal(Utils.getDbValue(rs, "journal"));
-            bibliosDAO.setUsername(Utils.getDbValue(rs, "username"));
-            bibliosDAO.setVolume(Utils.getDbValue(rs, "volume"));
-            bibliosDAO.setPages(Utils.getDbValue(rs, "pages"));
-            bibliosDAO.setPubmed_id(Utils.getDbValue(rs, "pubmed_id"));
-            bibliosDAO.setUpdated(Utils.getDbValue(rs, "updated"));
-            bibliosDAO.setLast_change(Utils.getDbValue(rs, "last_change"));
-            bibliosDAO.setNotes(Utils.getDbValue(rs, "notes"));
-
-            return bibliosDAO;
+            
+            return jdbcTemplate.query(statement, new BibliosDAO());
         }
 
         /**
@@ -517,34 +468,37 @@ public class EmmaBiblioJOB {
                     + "volume = ?, pages = ?, pubmed_id = ?, updated = ?, last_change = ?, notes = ?"
                     + "WHERE id_biblio = ?";
 
-            try (
-                Connection connection = Utils.connectDB();
-                PreparedStatement preparedStatement = connection.prepareStatement(statement);
-            ) {
-                preparedStatement.setString(1, bibliosDAO.getTitle());
-                preparedStatement.setString(2, bibliosDAO.getAuthor1());
-                preparedStatement.setString(3, bibliosDAO.getAuthor2());
-                preparedStatement.setString(4, bibliosDAO.getYear());
-                preparedStatement.setString(5, bibliosDAO.getJournal());
-                preparedStatement.setString(6, bibliosDAO.getUsername());
-                preparedStatement.setString(7, bibliosDAO.getVolume());
-                preparedStatement.setString(8, bibliosDAO.getPages());
-                preparedStatement.setInt(9, Utils.tryParseInt(bibliosDAO.getPubmed_id()));
-                preparedStatement.setString(10, bibliosDAO.getUpdated());
-                preparedStatement.setString(11, bibliosDAO.getLast_change());
-                preparedStatement.setString(12, bibliosDAO.getNotes());
-                preparedStatement.setInt(13, bibliosDAO.getId_biblio());
-
-                preparedStatement.executeUpdate();
-            }
-            catch (SQLException se) {
-                System.out.println(se.getLocalizedMessage());
-            }
+            jdbcTemplate.update(statement,new Object[] { 
+                bibliosDAO.getTitle()
+              , bibliosDAO.getAuthor1()
+              , bibliosDAO.getAuthor2()
+              , bibliosDAO.getYear()
+              , bibliosDAO.getJournal()
+              , bibliosDAO.getUsername()
+              , bibliosDAO.getVolume()
+              , bibliosDAO.getPages()
+              , bibliosDAO.getPubmed_id()
+              , bibliosDAO.getUpdated()
+              , bibliosDAO.getLast_change()
+              , bibliosDAO.getNotes()
+              , bibliosDAO.getId_biblio()
+            });
         }
     }    
     
 
     public class FetchBiblio {
+        public FetchBiblio() {
+            this.title = "";
+            this.author1 = "";
+            this.author2 = "";
+            this.journal = "";
+            this.volume = "";
+            this.issue = "";
+            this.pages = "";
+            this.paperid = "";
+            this.year = 0;
+        }
         public String title;
         public String author1;
         public String author2;
