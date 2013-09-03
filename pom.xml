@@ -20,7 +20,6 @@
     <properties>
         <maven.build.timestamp.format>yyMMdd_HHmm</maven.build.timestamp.format>
         <buildNumber>${maven.build.timestamp}</buildNumber>
-    
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j.version>1.5.10</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
@@ -411,11 +410,23 @@
         <sourceDirectory>${project.basedir}/src/java</sourceDirectory>
         <resources>
             <resource>
+                <!-- Filter all of the DATASOURCE variables but don't filter
+                     jobApplicationContext.xml, as the path is specified
+                     on the command line. -->
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/jobApplicationContext.xml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/jobApplicationContext.xml</include>
+                </includes>
             </resource>
         </resources>
-
         <plugins>
 
             <!-- Facilitates downloading source and javadoc in Eclipse -->
@@ -489,16 +500,7 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>    
-            <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>exec-maven-plugin</artifactId>
-              <version>1.2.1</version>
-              <configuration>
-                <arguments>
-                  <config.path>${config.path}</config.path>
-                </arguments>
-              </configuration>
-            </plugin>  
+ 
         </plugins>
 
     </build>
