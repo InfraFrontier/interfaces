@@ -9,12 +9,14 @@
             </goals>
         </action>
         <action>
-            <actionName>CUSTOM-test1</actionName>
-            <displayName>test1</displayName>
+            <actionName>CUSTOM-exec</actionName>
+            <displayName>exec</displayName>
             <goals>
-                <goal>run</goal>
+                <goal>-e</goal>
+                <goal>-X</goal>
                 <goal>-Dexec.mainClass=org.emmanet.jobs.EmmaBiblioJOB</goal>
                 <goal>-Dconfig.path=/Users/mrelac</goal>
+                <goal>exec:java</goal>
             </goals>
         </action>
     </actions>
