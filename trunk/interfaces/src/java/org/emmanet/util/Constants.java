@@ -8,7 +8,6 @@ package org.emmanet.util;
  * @author mrelac
  */
 public class Constants {
-//    public static final String DEFAULT_EMMA_PROPERTIES_FILE = "file:${config.path}/jobConfig.properties";
     public static final String MAILSERVER = "mail.server";
     public static final String FROM = "mail.from";
     public static final String TO = "mail.to";
