@@ -58,7 +58,6 @@
         <dom4j.version>1.6.1</dom4j.version>
         <antlr.version>2.7.6</antlr.version>
         <DATAFILES>/nfs/panda/emma</DATAFILES><!--${user.home} removed as deployment to production still references my home directory needs to be as below with this file path held locally-->
-        <config.path>/Users/mrelac</config.path>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
@@ -410,23 +409,11 @@
         <sourceDirectory>${project.basedir}/src/java</sourceDirectory>
         <resources>
             <resource>
-                <!-- Filter all of the DATASOURCE variables but don't filter
-                     jobApplicationContext.xml, as the path is specified
-                     on the command line. -->
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
-                <excludes>
-                    <exclude>**/jobApplicationContext.xml</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>**/jobApplicationContext.xml</include>
-                </includes>
             </resource>
         </resources>
+
         <plugins>
 
             <!-- Facilitates downloading source and javadoc in Eclipse -->
@@ -500,7 +487,28 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>    
- 
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>1.2.1</version>
+              <configuration>
+                <arguments>
+                  <CONFIG_PATH>${CONFIG_PATH}</CONFIG_PATH>
+                </arguments>
+              </configuration>
+            </plugin>
+            
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.16</version>
+              <configuration>
+                <systemProperties>
+                    <CONFIG_PATH>${CONFIG_PATH}</CONFIG_PATH>
+                </systemProperties>
+              </configuration>
+            </plugin>
+            
         </plugins>
 
     </build>
