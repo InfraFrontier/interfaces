@@ -33,6 +33,9 @@ import org.emmanet.util.Utils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.StringUtils;
 
 /**
@@ -45,6 +48,7 @@ public class EmmaBiblioJOB {
     private ApplicationContext ac;
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
+    private PlatformTransactionManager jdbcTran;
     private Map<String, String> emmaProperties;
 
     private String[] from = new String[] {""};
@@ -59,6 +63,7 @@ public class EmmaBiblioJOB {
         ac = new ClassPathXmlApplicationContext("/jobApplicationContext.xml");  // Get job application context.
         dataSource = (DataSource)ac.getBean("dataSource");                      // Get DataSource.
         jdbcTemplate = (JdbcTemplate)ac.getBean("jdbcTemplate");                // Get JdbcTemplate.
+        jdbcTran = (PlatformTransactionManager)ac.getBean("transactionManager");// Get JdbcTransactionManager.
         emmaProperties = (Map)ac.getBean("emmaJobProperties");                  // Get emma job properties.
         
         // The 'from', 'to', 'cc', and 'bcc' names can be set programatically
@@ -468,7 +473,9 @@ public class EmmaBiblioJOB {
                     + "volume = ?, pages = ?, pubmed_id = ?, updated = ?, last_change = ?, notes = ?"
                     + "WHERE id_biblio = ?";
 
-            jdbcTemplate.update(statement,new Object[] { 
+            DefaultTransactionDefinition paramTransactionDefinition = new DefaultTransactionDefinition();
+            TransactionStatus status=jdbcTran.getTransaction(paramTransactionDefinition);
+            jdbcTemplate.update(statement, new Object[] { 
                 bibliosDAO.getTitle()
               , bibliosDAO.getAuthor1()
               , bibliosDAO.getAuthor2()
@@ -483,22 +490,12 @@ public class EmmaBiblioJOB {
               , bibliosDAO.getNotes()
               , bibliosDAO.getId_biblio()
             });
+            
+            jdbcTran.commit(status);
         }
     }    
     
-
     public class FetchBiblio {
-        public FetchBiblio() {
-            this.title = "";
-            this.author1 = "";
-            this.author2 = "";
-            this.journal = "";
-            this.volume = "";
-            this.issue = "";
-            this.pages = "";
-            this.paperid = "";
-            this.year = 0;
-        }
         public String title;
         public String author1;
         public String author2;

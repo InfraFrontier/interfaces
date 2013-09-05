@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import org.emmanet.util.Utils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  *
@@ -36,6 +37,7 @@ private String last_change;
 private String notes;
 private String updated;
 private JdbcTemplate jdbcTemplate;
+private PlatformTransactionManager platformTransactionManager;
 
     public int getId_biblio() {
         return id_biblio;
@@ -142,9 +144,9 @@ private JdbcTemplate jdbcTemplate;
     }
     
     /**
-     * This getter/setter pair permits spring JdbcTemplate to be used in non-
-     * Hibernate situations where jdbc is the preferred pattern.
-     * @return the <code>JdbcTemplatee</code> object instantiated by spring (see
+     * This getter/setter pair permits spring <code>JdbcTemplate</code> to be
+     * used in non-Hibernate situations where jdbc is the preferred pattern.
+     * @return the <code>JdbcTemplate</code> object instantiated by spring (see
      * jobApplicationContext.xml).
      */
     public JdbcTemplate getJdbcTemplate() {
@@ -153,6 +155,21 @@ private JdbcTemplate jdbcTemplate;
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    /**
+     * This getter/setter pair permits spring <code>DataSourceTransactionManager</code>
+     * (an implementation of the <code>PlatformTransactionManager</code> interface)
+     * to be used in non-Hibernate situations where dataSourceTransactionManager
+     * is the preferred pattern.
+     * @return the <code>DataSourceTransactionManager</code> object instantiated by spring (see
+     * jobApplicationContext.xml).
+     */
+    public PlatformTransactionManager getPlatformTransactionManager() {
+        return platformTransactionManager;
+    }
+    public void setPlatformTransactionManager(PlatformTransactionManager platformTransactionManager) {
+        this.platformTransactionManager = platformTransactionManager;
     }
     
     /**
