@@ -105,7 +105,8 @@
                                             <br />
                                             <spring:bind path="command.research_areas">
                                                 <div class="field">
-                                                    <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span></p>
+                                                    <p><strong>Research areas</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the area(s) of research relating to the strain that is being submitted.</p>">? Help</span><br/>
+                                                    <font size="-1">To select multiple options:- For windows: Hold down the control (ctrl) button For Mac: Hold down the command button</font></p>
                                                     <form:errors path="${status.expression}" cssClass="error" />
                                                     <c:if test="${empty command.catDAO}"><c:set var="cats" value="${catsDAO}"></c:set></c:if>
                                                     <c:if test="${not empty command.catDAO}"><c:set var="cats" value="${command.catDAO}"></c:set></c:if>
@@ -131,7 +132,8 @@
                                             </div>
                                             <br />
                                             <spring:bind path="command.research_tools">
-                                                <div class="field"><p><strong>Research tools</strong></p>
+                                                <div class="field"><p><strong>Research tools</strong><br/>
+                                                    <font size="-1">To select multiple options:- For windows: Hold down the control (ctrl) button For Mac: Hold down the command button</font></p>
                                                     <form:errors path="${status.expression}" cssClass="error" />
                                                     <div class="input">
                                                         <form:select path="${status.expression}" id="${status.expression}" multiple="true">

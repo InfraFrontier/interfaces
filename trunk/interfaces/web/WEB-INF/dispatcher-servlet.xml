@@ -107,7 +107,8 @@
                 </prop>
                 <prop key="/publicSubmission/submissionForm.emma">submissionFormController
                 </prop>
-                <!-- <prop key="/publicSubmission/submissionForm1.emma">submissionFormController
+                <!--
+                 <prop key="/publicSubmission/submissionForm1.emma">submissionFormController
                 </prop>
                 <prop key="/publicSubmission/submissionForm2.emma">submissionFormController
                 </prop>-->
@@ -120,6 +121,8 @@
                 <prop key="/publicSubmission/ajaxFileListing.emma">ajaxReturnController
                 </prop>
             </props>
+
+            
         </property>
     </bean>
     <bean id="viewNameTranslator" class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator" />

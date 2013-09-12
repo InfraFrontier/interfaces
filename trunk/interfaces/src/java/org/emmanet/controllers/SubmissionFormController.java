@@ -992,7 +992,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         model.put("strainid", nsd.getId_str());
         model.put("encryptedstrainid", encrypter.encrypt("" + nsd.getId_str()));
 
-        String velocTemplate = "org/emmanet/util/velocitytemplates/submissionFormReceipt-Template.vm";
+        String velocTemplate = "org/emmanet/util/velocitytemplates/SubmissionFormReceipt-Template.vm";
 
         String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                 velocTemplate, model);
