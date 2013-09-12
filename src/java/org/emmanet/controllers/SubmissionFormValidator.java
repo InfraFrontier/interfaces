@@ -202,10 +202,13 @@ public class SubmissionFormValidator implements
             //OK Now check for required fields
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "journal",
                     "required.year", "The journal is a required field");
+            System.out.println("The value of pubmed id at validation is -- " + sd.getPubmed_id());
+            if(sd.getPubmed_id() != null || !sd.getPubmed_id().isEmpty()){
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "required.year",
                     "The year is a required field");
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pages", "required.pages",
                     "The page reference is a required field");
+            }
         }
 
         //      validation_options['rules']['reference_descr_' + index.toString()] = 'required';

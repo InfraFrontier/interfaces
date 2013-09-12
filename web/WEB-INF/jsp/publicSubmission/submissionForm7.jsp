@@ -61,9 +61,10 @@
                                 <input type="hidden" name="encID" id="encID" value="${param.getprev}"/>
                                 <spring:bind path="command.published">
                                     <div class="field">
-                                        <p><strong>Has this mouse mutant strain been published?<sup><font color="red">*</font></sup></strong><br/><br/></p>
+                                        <p><strong>Has this mouse mutant strain been published or accepted for publication?<sup><font color="red">*</font></sup></strong><br/><br/></p>
                                         <div class="input">
                                             <form:radiobutton path="${status.expression}" value="yes" id="published-yes" />Yes (please enter bibliographic information below)<br />
+                                            <form:radiobutton path="${status.expression}" value="yes" id="published-acc" />Accepted (please enter bibliographic information below)<br />
                                             <form:radiobutton path="${status.expression}" value="no" id="published-no" />No<br />
                                             <form:radiobutton path="${status.expression}" value="not known" id="published-not_known" />Not known<br />
                                         </div>
@@ -96,9 +97,9 @@
 
                                     <spring:bind path="command.pubmed_id">
                                         <div class="field reference_pmid">
-                                            <label class="label" for="${status.expression}"><strong>PubMed ID (if available)</strong></label>
+                                            <p><strong>PubMed ID (if available, if not just complete the fields below.)</strong></p>
                                             <div class="input">
-                                                <form:input  id="${status.expression}" path="${status.expression}"></form:input>&nbsp;(Fields auto populated from PubMed using PubMed ID digits only. Leave PubMed ID field to initiate)
+                                                <form:input  id="${status.expression}" path="${status.expression}"></form:input><br/>(Fields auto populated from PubMed using PubMed ID digits only. Leave PubMed ID field to initiate)
                                                 </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                         </div>
@@ -196,7 +197,9 @@
                                     $("#published-yes").click(function () {
                                         $("#reference").show("slow");
                                     });
-                            
+                                    $("#published-acc").click(function () {
+                                        $("#reference").show("slow");
+                                    });
                                     $("#published-no").click(function () {
                                         $("#reference").hide("slow");
                                     });
