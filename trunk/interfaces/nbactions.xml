@@ -1,26 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
         <action>
+            <actionName>build</actionName>
+            <goals>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
+            </properties>
+        </action>
+        <action>
+            <actionName>rebuild</actionName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
+            </properties>
+        </action>
+        <action>
+            <actionName>build-with-dependencies</actionName>
+            <reactor>also-make</reactor>
+            <goals>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
+            </properties>
+        </action>
+        <action>
+            <actionName>test</actionName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+            <properties>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
+            </properties>
+        </action>
+        <action>
+            <actionName>test.single</actionName>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
+            </properties>
+        </action>
+        <action>
             <actionName>run</actionName>
             <goals>
                 <goal>package</goal>
             </goals>
             <properties>
                 <netbeans.deploy>true</netbeans.deploy>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
         <action>
             <actionName>run.single.main</actionName>
             <goals>
                 <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
                 <exec.args>-classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>${classPathScope}</exec.classpathScope>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
         <action>
@@ -31,7 +80,7 @@
             <properties>
                 <netbeans.deploy>true</netbeans.deploy>
                 <netbeans.deploy.clientUrlPart>${webpagePath}</netbeans.deploy.clientUrlPart>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
         <action>
@@ -42,21 +91,21 @@
             <properties>
                 <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
                 <netbeans.deploy>true</netbeans.deploy>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
         <action>
             <actionName>debug.single.main</actionName>
             <goals>
                 <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+                <goal>org.codehaus.mojo:exec-maven-plugin:1.2:exec</goal>
             </goals>
             <properties>
                 <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.classpathScope>${classPathScope}</exec.classpathScope>
                 <jpda.listen>true</jpda.listen>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
         <action>
@@ -67,8 +116,8 @@
             <properties>
                 <netbeans.deploy.clientUrlPart>${webpagePath}</netbeans.deploy.clientUrlPart>
                 <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
-                
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <netbeans.deploy>true</netbeans.deploy>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
         <action>
@@ -82,59 +131,7 @@
                 <forkMode>once</forkMode>
                 <maven.surefire.debug>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</maven.surefire.debug>
                 <jpda.listen>true</jpda.listen>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
+                <CONFIG_PATH>/nfs/web-hx/mouseinformatics/emma</CONFIG_PATH>
             </properties>
         </action>
-        <action>
-            <actionName>test</actionName>
-            <goals>
-                <goal>test</goal>
-            </goals>
-            <properties>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
-            </properties>
-        </action>
-        <action>
-            <actionName>test.single</actionName>
-            <goals>
-                <goal>test-compile</goal>
-                <goal>surefire:test</goal>
-            </goals>
-            <properties>
-                <test>${packageClassName}</test>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
-            </properties>
-        </action>
-        <action>
-            <actionName>build-with-dependencies</actionName>
-            <reactor>also-make</reactor>
-            <goals>
-                <goal>install</goal>
-            </goals>
-            <properties>
-                <CONFIG_PATH>/Users/mrelac</CONFIG_PATH>
-            </properties>
-        </action>
-        <action>
-            <actionName>CUSTOM-Clean and compile</actionName>
-            <displayName>Clean and compile</displayName>
-            <goals>
-                <goal>clean:clean</goal>
-                <goal>compiler:compile</goal>
-            </goals>
-        </action>
-        <action>
-            <actionName>CUSTOM-Jenkins.Biblios</actionName>
-            <displayName>Jenkins.Biblios</displayName>
-            <goals>
-                <goal>-e</goal>
-                <goal>-X</goal>
-                <goal>-Dexec.mainClass=org.emmanet.jobs.EmmaBiblioJOB</goal>
-                <goal>-DCONFIG_PATH=/Users/mrelac</goal>
-                <goal>clean</goal>
-                <goal>compile</goal>
-                <goal>exec:java</goal>
-            </goals>
-        </action>
-        
     </actions>
