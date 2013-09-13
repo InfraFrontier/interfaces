@@ -28,6 +28,14 @@ public class Configuration {
 			e.printStackTrace();
 		}
 		resource = null;
+                
+                resource = new ClassPathResource("jobConfig.properties");
+                try {
+			properties = PropertiesLoaderUtils.loadProperties(resource);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		resource = null;
 	}
 
 	// Configuration is a static class, hence, should not be instanced

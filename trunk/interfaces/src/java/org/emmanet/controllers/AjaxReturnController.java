@@ -145,6 +145,9 @@ returnedOut = new HashMap();
             returnedOut = new HashMap();
             List paper = new LinkedList();
             EmmaBiblioJOB ej = new EmmaBiblioJOB();
+            //Use Mike's validator??
+            
+            //System.exit(172);
             int pmID = Integer.parseInt(request.getParameter("pubmedid"));
             FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
             paper.add(0, fb.title);
@@ -176,9 +179,9 @@ returnedOut = new HashMap();
             paper.add(6, null);
             paper.add(7, sbd.getPages());
             paper.add(8, sbd.getPubmed_id());
-            System.out.println("BIBLIOID==" + ID );
+           // System.out.println("BIBLIOID==" + ID );
             paper.add(9, ID);
-            System.out.println("P A P E R  SIZE=" + paper.size());
+            //System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }
          

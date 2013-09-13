@@ -14,7 +14,8 @@
     <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>file:${CONFIG_PATH}/jobConfig.properties</value>
+               <!-- <value>file:${CONFIG_PATH}/jobConfig.properties</value>-->
+               <value>classpath:jobConfig.properties</value>
             </list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true" />
