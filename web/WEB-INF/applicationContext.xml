@@ -22,6 +22,7 @@ xmlns:security="http://www.springframework.org/schema/security"
 		<property name="locations">
 			<list>
 				<value>classpath:config.properties</value>
+                                <value>classpath:jobConfig.properties</value>
 			</list>
 		</property>
 	</bean>
