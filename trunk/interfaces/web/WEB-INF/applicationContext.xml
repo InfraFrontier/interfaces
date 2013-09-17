@@ -173,18 +173,19 @@ xmlns:security="http://www.springframework.org/schema/security"
     
    <!--  TRIGGER -->
 
-    <bean id="updateBibliosTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  <!--  <bean id="updateBibliosTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="updateBibliosJob"/>
-        <property name="cronExpression" value="10 30 5 * * ?"/><!--0 30 5 * * ?-->
+        <property name="cronExpression" value="10 30 5 * * ?"/>0 30 5 * * ?
     </bean>
+    -->
     
     <!-- SCHEDULER -->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="bglistTrigger"/>
-                <ref bean="updateBibliosTrigger"/>
-           <!--      <ref bean="rssTrigger"/>
+              <!--     <ref bean="updateBibliosTrigger"/>
+              <ref bean="rssTrigger"/>
                 <ref bean="updateBibliosTrigger"/> <ref bean="smailerTrigger"/>-->
             </list>
         </property>
