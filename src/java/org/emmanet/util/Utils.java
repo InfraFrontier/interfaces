@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
@@ -201,6 +205,7 @@ public class Utils {
      * Given an <code>Object</code> that may be null or may be an Integer, this
      * method attempts to convert the value to an <code>Integer</code>. If successful,
      * the <code>Integer</code> value is returned; otherwise, <code>null</code> is returned.
+     * NOTE: the [non-null] object is first converted to a string and is trimmed of whitespace.
      * @param o the object to try to convert
      * @return the converted value, if <em>o</em> is an <code>Integer</code>; null otherwise
      */
@@ -210,15 +215,33 @@ public class Utils {
         
         Integer retVal = null;
         try {
-            retVal = Integer.parseInt(o.toString());
+            retVal = Integer.parseInt(o.toString().trim());
         }
-        catch (NumberFormatException nfe) {
-            System.out.println("nfe: " + nfe.getLocalizedMessage());
-        }
-        catch (Exception e) {
-            System.out.println("e: " + e.getLocalizedMessage());
-        }
+        catch (NumberFormatException nfe ) { }
+        catch (Exception e) { }
         
         return retVal;
     }
+    
+    /**
+     * Given a date string, this method attempts to convert the date to a <code>
+     * java.sql.Date</code> object and, if successful, returns the date. If
+     * not successful, returns null.
+     * 
+     * @param dateString The date string against which to attempt conversion
+     * @return the <code>java.sql.Date</code> date, if successful; null otherwise
+     */
+    public static java.sql.Date tryParseToDbDate(String dateString) {
+        java.sql.Date retVal = null;
+        
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = df.parse(dateString);
+            retVal = new java.sql.Date(date.getTime());
+        }
+        catch(ParseException e) { }
+        
+        return retVal;
+    }
+    
 }
