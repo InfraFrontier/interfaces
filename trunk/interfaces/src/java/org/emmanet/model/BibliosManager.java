@@ -71,7 +71,7 @@ public class BibliosManager implements BibliosManagerIO {
     }
 
     @Override
-    public List<BibliosDAO> getPubmedID() {
+    public List<BibliosDAO> getUpdateCandidateBiblios() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List bd = null;

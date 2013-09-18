@@ -14,16 +14,23 @@ import java.util.List;
  */
 public interface BibliosManagerIO {
     /**
-     * Return a <code>list&lt;BibliosDAO&gt;</code> of all pubmed_ids that need
-     * to be updated.
-     * @return a <code>list&lt;BibliosDAO&gt;</code> of all pubmed_ids that need
-     *         to be updated
+     * This method returns all of the rows from the <em>biblios</em> table whose
+     * <em>updated</em> field value is not 'Y' (including <code>null</code>) and
+     * whose <em>pubmed_id</em> field is not empty or <code>null</code>.
+     * @return all of the rows from the <em>biblios</em> table whose
+     * <em>updated</em> field value is not 'Y' (including <code>null</code>) and
+     * whose <em>pubmed_id</em> field is not empty or <code>null</code>
+     * 
+     * NOTE: There is a unique constraint on pubmed_id (see the index); thus
+     *       we must exclude all biblios with null/empty pubmed_id's.
      */
-    List<BibliosDAO> getPubmedID();
+    public List<BibliosDAO> getUpdateCandidateBiblios();
     
     /**
-     * Persists the [valid] <code>BibliosDAO</code> object to the database.
-     * @param bibliosDAO the [valid] object to be saved
+     * Save the given biblio record in the database. Transaction management is
+     * the caller's responsibility.
+     * 
+     * @param bibliosDAO the data to be saved
      */
-    void save(BibliosDAO bibliosDAO);
+    public void save(BibliosDAO bibliosDAO);
 }
