@@ -39,6 +39,7 @@ public class InterfacesFormController extends SimpleFormController {
 		String filename = Configuration.get("CILIST");
 		String output = new Scanner(new File(filename)).useDelimiter("\\Z")
 				.next();
+                System.out.println("filename from properties == " + filename);
 		return output;
 	}
 	

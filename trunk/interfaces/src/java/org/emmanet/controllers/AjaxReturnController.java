@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.emmanet.jobs.EmmaBiblioJOB;
@@ -142,13 +144,22 @@ returnedOut = new HashMap();
 
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("pubMed")) {
+            int pmID = 0;
+        String strID=request.getParameter("pubmedid");
             returnedOut = new HashMap();
             List paper = new LinkedList();
             EmmaBiblioJOB ej = new EmmaBiblioJOB();
             //Use Mike's validator??
+            Pattern replace = Pattern.compile("[^\\d+]");
+             try {
+                pmID = Integer.parseInt(strID);
+            } catch (NumberFormatException ex) {
+                Matcher matcher = replace.matcher(strID);
             
-            //System.exit(172);
-            int pmID = Integer.parseInt(request.getParameter("pubmedid"));
+                while (matcher.find()) {
+                    strID = matcher.replaceAll("");
+                    pmID = Integer.parseInt(strID);
+                    
             FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
             paper.add(0, fb.title);
             paper.add(1, fb.author1);
@@ -159,6 +170,10 @@ returnedOut = new HashMap();
             paper.add(6, fb.issue);
             paper.add(7, fb.pages);
             paper.add(8, fb.paperid);
+                }
+            }
+          //  int pmID = Integer.parseInt(request.getParameter("pubmedid"));
+
             returnedOut.put("paper", paper);
         }
          if (request.getParameter("funct") != null && request.getParameter("funct").equals("bibliosEdit")) {
@@ -216,10 +231,8 @@ returnedOut = new HashMap();
             //    }
             returnedOut.put("fileListing", assocFiles);
         }
-
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
         //  return returnedResults;
-
     }
     
 }

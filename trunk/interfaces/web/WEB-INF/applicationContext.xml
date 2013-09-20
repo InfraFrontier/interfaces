@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:security="http://www.springframework.org/schema/security"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
@@ -14,31 +14,31 @@ xmlns:security="http://www.springframework.org/schema/security"
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-2.5.xsd
        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
 
-	<context:component-scan base-package="org.emmanet">
-		<context:include-filter type="regex" expression=".*" />
-	</context:component-scan>
+    <context:component-scan base-package="org.emmanet">
+        <context:include-filter type="regex" expression=".*" />
+    </context:component-scan>
 
-	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:config.properties</value>
-                                <value>classpath:jobConfig.properties</value>
-			</list>
-		</property>
-	</bean>
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+                <value>classpath:jobConfig.properties</value>
+            </list>
+        </property>
+    </bean>
 
-	<!-- ************************** Initialization of log4j *************************** -->
-	<bean id="log4jInitialization"
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetClass"
-			value="org.springframework.util.Log4jConfigurer" />
-		<property name="targetMethod" value="initLogging" />
-		<property name="arguments">
-			<list>
-				<value>classpath:log4j.xml</value>
-			</list>
-		</property>
-	</bean>
+    <!-- ************************** Initialization of log4j *************************** -->
+    <bean id="log4jInitialization"
+              class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass"
+                          value="org.springframework.util.Log4jConfigurer" />
+        <property name="targetMethod" value="initLogging" />
+        <property name="arguments">
+            <list>
+                <value>classpath:log4j.xml</value>
+            </list>
+        </property>
+    </bean>
 
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
         <property name="velocityProperties">
@@ -82,7 +82,7 @@ xmlns:security="http://www.springframework.org/schema/security"
             <security:user name="curator" password="hartondo" authorities="ROLE_CURATION" />
         </security:user-service>
     </security:authentication-provider>
-  <!--  <bean id="mailerTarget" class="org.emmanet.util.Mailer">
+    <!--  <bean id="mailerTarget" class="org.emmanet.util.Mailer">
         <property name="velocityEngine">
             <ref bean="velocityEngine"/>
         </property>
@@ -184,9 +184,9 @@ xmlns:security="http://www.springframework.org/schema/security"
         <property name="cronExpression" value="0 0 21 * * ?"/>
     </bean>
     
-   <!--  TRIGGER -->
+    <!--  TRIGGER -->
 
-  <!--  <bean id="updateBibliosTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    <!--  <bean id="updateBibliosTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="updateBibliosJob"/>
         <property name="cronExpression" value="10 30 5 * * ?"/>0 30 5 * * ?
     </bean>
@@ -197,7 +197,7 @@ xmlns:security="http://www.springframework.org/schema/security"
         <property name="triggers">
             <list>
                 <ref bean="bglistTrigger"/>
-              <!--     <ref bean="updateBibliosTrigger"/>
+                <!--     <ref bean="updateBibliosTrigger"/>
               <ref bean="rssTrigger"/>
                 <ref bean="updateBibliosTrigger"/> <ref bean="smailerTrigger"/>-->
             </list>
