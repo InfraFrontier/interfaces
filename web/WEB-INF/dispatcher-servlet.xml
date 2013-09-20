@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
 
-	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:config.properties</value>
-                                <value>classpath:jobConfig.properties</value>
-			</list>
-		</property>
-	</bean>
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+                <value>classpath:jobConfig.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
     <bean id="webRequests" class="org.emmanet.jobs.WebRequests" />
@@ -40,7 +40,7 @@
                 </prop>
                 <prop key="/publicSubmission/cancel.emma">urlFilenameController
                 </prop>
-                 <prop key="/publicSubmission/fileUploadSuccess.emma">urlFilenameController
+                <prop key="/publicSubmission/fileUploadSuccess.emma">urlFilenameController
                 </prop>
                 <prop key="/dashboard.emma">DashboardController
                 </prop>
@@ -92,7 +92,7 @@
                 </prop>
                 <prop key="/interfaces/alleleUpdateInterface.emma">alleleUpdateInterfaceFormController
                 </prop>
-                  <prop key="/interfaces/geneUpdateInterface.emma">geneUpdateInterfaceFormController
+                <prop key="/interfaces/geneUpdateInterface.emma">geneUpdateInterfaceFormController
                 </prop>
                 <prop key="newsitems.emma">rssNewsController
                 </prop>
@@ -440,13 +440,13 @@
         </property>
     </bean>
     
-        <bean name="alleleUpdateInterfaceFormController" class="org.emmanet.controllers.AlleleUpdateInterfaceFormController">
+    <bean name="alleleUpdateInterfaceFormController" class="org.emmanet.controllers.AlleleUpdateInterfaceFormController">
         <property name="successView">
             <value>redirect:../interfaces/alleleUpdateInterface.emma</value>
         </property>
     </bean>
     
-        <bean name="geneUpdateInterfaceFormController" class="org.emmanet.controllers.GeneUpdateInterfaceFormController">
+    <bean name="geneUpdateInterfaceFormController" class="org.emmanet.controllers.GeneUpdateInterfaceFormController">
         <property name="successView">
             <value>redirect:../interfaces/geneUpdateInterface.emma</value>
         </property>
@@ -504,7 +504,7 @@
             <bean class="org.emmanet.controllers.SubmissionFormValidator" />
         </property>
         <property name="stepTitles">
-                        <list>
+            <list>
                 <!-- follow sequence -->
                 <value>Submitter (e-mail)</value><!--- step 1 -->
                 <value>Submitter</value><!--- step 2 -->
@@ -521,17 +521,17 @@
         </property>
     </bean>
     <bean name="submissionMutationsController" class="org.emmanet.controllers.SubmissionMutationsController"> </bean>
-<bean name="submissioBibliosController" class="org.emmanet.controllers.submissionBibliosController"> </bean>
+    <bean name="submissioBibliosController" class="org.emmanet.controllers.submissionBibliosController"> </bean>
     <!-- FILE UPLOAD CONFIG -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!--<property name="maxUploadSize" value="1000"/>-->
             
     </bean>
     <bean class="org.emmanet.controllers.FileUploadController" name="FileUploadController">
-             <property name="validator">
+        <property name="validator">
             <ref bean="fileUploadValidator" />
         </property>
-                 <property name="successView">
+        <property name="successView">
             <value>/publicSubmission/fileUploadSuccess</value>
         </property>
     </bean>
