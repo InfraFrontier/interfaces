@@ -618,13 +618,14 @@ public class EmmaBiblioJOB {
          * @return interesting database information
          */
         public String getDbInfo() {
-            String statement = "SELECT @@hostname, @@port, @@version\n";
+            String statement = "SELECT database() AS dbname, @@hostname, @@port, @@version\n";
             SqlRowSet rs = jdbcTemplate.queryForRowSet(statement);
             if (rs.next()) {
+                String dbname = (String)rs.getObject("dbname").toString();
                 String hostname = (String)rs.getObject("@@hostname");
                 String port = rs.getObject("@@port").toString();
                 String version = (String)rs.getObject("@@version");
-                return ("Database hostname: " + hostname + ". Database version: " + version + ". Database port: " + port + ".");
+                return ("Database " + dbname + ": hostname: " + hostname + ". Database version: " + version + ". Database port: " + port + ".");
             }
 
             return "";
