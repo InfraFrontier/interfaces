@@ -18,6 +18,9 @@ import java.util.Set;
 public class WebRequestsDAO {
 
     private String id_req;
+    
+    private String encryptedId_req;
+    
     private int str_id_str;
     private String lab_id_labo;
     private String timestamp;
@@ -70,7 +73,13 @@ public class WebRequestsDAO {
     private String ta_panel_decision_date;
     private String ta_panel_decision;
      /*  TA FIELDS   */
-    
+    /**
+     * Set a default value for these 2 following fields
+     * reproducing what are the default values in the schema.
+     */
+    private String europhenome = "no";
+    private String wtsi_mouse_portal = "no";
+    private String projectID;
     /*  NEW BILLING DETAILS IMPLEMENTED IN DATABASE  */
     
     private String bil_title;
@@ -90,16 +99,10 @@ public class WebRequestsDAO {
     private String bil_vat;
     
     private String PO_ref;
-    private String eucomm_funding;
-    private String projectID;
-    private String user;
+private String eucomm_funding;
+private String user;
 
-    /**
-     * Set a default value for these 2 following fields
-     * reproducing what are the default values in the schema.
-     */
-    private String europhenome = "no";
-    private String wtsi_mouse_portal = "no";
+
     
     private List cvDAO;
     
@@ -730,6 +733,20 @@ public class WebRequestsDAO {
 	public void setWtsi_mouse_portal(String wtsi_mouse_portal) {
 		this.wtsi_mouse_portal = wtsi_mouse_portal;
 	}
+
+    /**
+     * @return the encryptedId_req
+     */
+    public String getEncryptedId_req() {
+        return encryptedId_req;
+    }
+
+    /**
+     * @param encryptedId_req the encryptedId_req to set
+     */
+    public void setEncryptedId_req(String encryptedId_req) {
+        this.encryptedId_req = encryptedId_req;
+    }
     
     
 }

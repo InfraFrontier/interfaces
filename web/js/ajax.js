@@ -1,7 +1,7 @@
 var xmlHttp
 function ajax(script,div) {
     var url="";
-    alert(url+script+div);
+    //alert(url+script+div);
     url  +=  script;
     xmlHttp=GetXmlHttpObject()
     xmlHttp.onreadystatechange=stateChanged 

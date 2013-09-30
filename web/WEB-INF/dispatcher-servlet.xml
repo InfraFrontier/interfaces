@@ -134,8 +134,10 @@
 
     
     <!-- Validators -->
-    <bean id="RequestFormValidator"
-          class="org.emmanet.controllers.RequestFormValidator" />
+ <bean id="RequestFormValidator"
+          class="org.emmanet.controllers.RequestFormValidator">
+               <property name="table" value="web_requests" />
+          </bean>
     <bean id="RequestUpdateFormValidator"
           class="org.emmanet.controllers.RequestUpdateFormValidator" />
           
@@ -148,6 +150,38 @@
     </bean>
     <bean name="PdfView" class="org.emmanet.controllers.PdfView" ></bean>
     <bean name="PdfViewController" class="org.emmanet.controllers.PdfViewController" ></bean>
+   <!-- <bean name="RequestFormController" class="org.emmanet.controllers.RequestFormController">
+        <property name = "webRequest">
+            <ref bean="webRequest" />
+        </property>
+        <property name="commandClass">
+            <value>org.emmanet.model.WebRequestsDAO</value>
+        </property>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="javaMailSender" ref="javaMailSender"/>
+        <property name="pathToXml">
+            <value>/nfs/panda/emma/tmp/</value>
+        </property>
+        <property name="bcc">
+            <value>philw@ebi.ac.uk</value>
+        </property>
+        
+     
+        <property name="successView">
+            <value>redirect:success.emma</value>
+        </property>
+        <property name="validator">
+            <ref bean="RequestFormValidator" />
+        </property>
+    
+        <property name="formView">
+            <value>requestFormView</value>
+        </property>
+    </bean>
+    
+    -->
+    
     <bean name="RequestFormController" class="org.emmanet.controllers.RequestFormController">
         <property name = "webRequest">
             <ref bean="webRequest" />
@@ -159,15 +193,27 @@
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="javaMailSender" ref="javaMailSender"/>
         <property name="pathToXml">
-            <value>/home/phil/</value>
+            <value><value>${DATAFILES}/tmp/</value></value>
+        </property><!-- /nfs/panda/emmaREMOVED AS PERMISSIONS ERROR cron_pdfs## /data/web/submissions/ removed from server move path changed -->
+        
+        <property name="pathToMTA">
+            <!--<value>/nfs/panda/emma/mtas/</value> NOW A LINK SINCE DRUPAL SITE CREATED -->
+            <value>https://www.infrafrontier.eu/sites/infrafrontier.eu/files/upload/public/pdf/mtas/</value>
         </property>
+        
         <property name="bcc">
             <value>philw@ebi.ac.uk</value>
+        </property>
+        <property name="tetCc">
+            <value>freundlieb@tet-systems.com</value>
         </property>
         
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
             <value>redirect:success.emma</value>
+        </property>
+        <property name="internalSuccessView">
+            <value>redirect:http://www.emmanet.org/apps/internal/interfaces/requestsInterface.emma?listAll=y</value>
         </property>
         <property name="validator">
             <ref bean="RequestFormValidator" />
@@ -177,6 +223,10 @@
             <value>requestFormView</value>
         </property>
     </bean>
+    
+    
+    
+    
     <bean name="DashboardController" class="org.emmanet.controllers.DashboardController">
         <property name="successView">
             <value>dashboard</value>
@@ -297,7 +347,7 @@
             <value>/Requests/</value>
         </property>
         <property name="pathToMTA">
-            <value>${DATAFILES}/mtas/</value>
+            <value>/nfs/web-hx/mouseinformatics/infrafrontier/mtas/</value>
         </property>
         <property name="simpleMailMessage" ref="simpleMailMessage"/>
         <property name="mailSender" ref="mailSender"/>
@@ -333,7 +383,7 @@
             <value>/Submissions/</value>
         </property>
         <property name="mtaPath">
-            <value>http://www.emmanet.org/mtas/</value>
+            <value>/nfs/web-hx/mouseinformatics/infrafrontier/mtas</value>
         </property>
         <property name="simpleMailMessage" ref="simpleMailMessage"/>
         <property name="mailSender" ref="mailSender"/>

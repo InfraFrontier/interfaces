@@ -1,0 +1,28 @@
+## Include header template common to all messages 
+#parse( "org/emmanet/util/velocitytemplates/header.vm" )
+#set ($string= 'Request ID:[####]')
+IMPORTANT INFORMATION. PLEASE READ CAREFULLY
+
+Dear EMMA customer,
+
+We would like to confirm receipt of the Registration of Interest (RoI) for ${strainname} (${emmaid}). Your request ID is: $requestID
+
+The strain you are interested in has been produced by the Sanger Institute Mouse Genetics Project (Sanger MGP). The Sanger MGP provides an opportunity to obtain mice prior to archiving at a distribution centre. However, please note that at this time, we can NOT guarantee there will be mice available for shipment nor provide a shipping date. Should mice become available for shipment, we will notify you by email. At that time you will be required to complete an Order Form before shipment can proceed.
+
+Without exception, shipment will not proceed without a completed Material Transfer Agreement (MTA). In our experience, this can be a lengthy procedure, we therefore recommend starting this process immediately. 
+
+Please find attached the MTA template for your convenience. To expedite processing of the MTA, please follow these guidelines: 
+    Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
+    The MTA is non-negotiable.
+    For the section "Description of Materials", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
+            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. ${string}."
+
+Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <http://www.emmanet.org/strains.php>.
+
+The standard quantity supplied is 2 breeding pairs.
+To potentially accelerate availability please indicate if you would consider receiving 2 males only. Standard Service Fee applies (www.emmanet.org/strains.php).
+
+Should you have any general questions, please do not hesitate to contact the EMMA Project Coordination Office (info@emmanet.org). For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
+
+## Include footer template common to all Sanger messages
+#parse( "org/emmanet/util/velocitytemplates/SangerSpecificFooter.vm" )
