@@ -193,7 +193,7 @@
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="javaMailSender" ref="javaMailSender"/>
         <property name="pathToXml">
-            <value><value>${DATAFILES}/tmp/</value></value>
+            <value>${DATAFILES}/tmp/</value>
         </property><!-- /nfs/panda/emmaREMOVED AS PERMISSIONS ERROR cron_pdfs## /data/web/submissions/ removed from server move path changed -->
         
         <property name="pathToMTA">
