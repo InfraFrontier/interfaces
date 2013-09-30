@@ -31,7 +31,7 @@
                 <prop key="/index.emma">indexController
                 </prop>
                 <!--<prop key="/requestForm.emma">RequestsController</prop>-->
-                <prop key="/requestFormView.emma">RequestFormController
+                <prop key="/emma/RegisterInterest/RequestFormView.emma">RequestFormController
                 </prop>
                 <!--Do not need a custom controller for success page see above -->
                 <prop key="/success.emma">urlFilenameController
