@@ -31,7 +31,7 @@
                 <prop key="/index.emma">indexController
                 </prop>
                 <!--<prop key="/requestForm.emma">RequestsController</prop>-->
-                <prop key="/emma/RegisterInterest/RequestFormView.emma">RequestFormController
+                <prop key="/RegisterInterest/requestFormView.emma">RequestFormController
                 </prop>
                 <!--Do not need a custom controller for success page see above -->
                 <prop key="/success.emma">urlFilenameController
@@ -210,7 +210,7 @@
         
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
-            <value>redirect:success.emma</value>
+            <value>redirect:../success.emma</value>
         </property>
         <property name="internalSuccessView">
             <value>redirect:http://www.emmanet.org/apps/internal/interfaces/requestsInterface.emma?listAll=y</value>

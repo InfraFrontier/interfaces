@@ -30,20 +30,20 @@
         <meta content="Phil Wilkinson" name="author">
         <meta content="Submission form for registering an interest in strains that have recently arrived to the EMMA Centres and for requesting publicly available strains." name="description">
         <%--<link rel="stylesheet" type="text/css" href="css/emmastyle.css">--%>
-        <style type="text/css" media="all">@import url("css/default.css?mptxkh");</style>
-        <script src="js/ajax.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/synonymDiv.js"></script>
+        <style type="text/css" media="all">@import url("../css/default.css?mptxkh");</style>
+        <script src="../js/ajax.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../js/synonymDiv.js"></script>
 
-        <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/autocomplete/autocomplete.js"></script>
+        <script type="text/javascript" src="../js/jquery.js"></script>
+        <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <%-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>--%>
-        <link rel="stylesheet" type="text/css" href="css/autocomplete/autocomplete.css">
+        <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
         <%--<link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" />--%>
-        <style type="text/css">@import url(css/calendar-blue.css);</style>
-        <script type="text/javascript" src="js/calendar.js"></script>
-        <script type="text/javascript" src="js/calendar-en.js"></script>
-        <script type="text/javascript" src="js/calendar-setup.js"></script>
-        <script type="text/javascript" src="js/taDisplay.js"></script>
+        <style type="text/css">@import url(../css/calendar-blue.css);</style>
+        <script type="text/javascript" src="../js/calendar.js"></script>
+        <script type="text/javascript" src="../js/calendar-en.js"></script>
+        <script type="text/javascript" src="../js/calendar-setup.js"></script>
+        <script type="text/javascript" src="../js/taDisplay.js"></script>
 
         <script type="text/javascript">
             /*
@@ -132,7 +132,7 @@
     </head>
     <body>
         <br/>
-        <p><img src="" height="1" width="145"/><img src="images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
         <br/><br/>
 
         <div id="wrapper">
@@ -853,8 +853,8 @@
                                                         </div>
                                                     </div>   
 
-                                                    <img  src="images/infrafrontier/icon/emma-logo-soft.png">
-                                                    <img align="right" src="images/infrafrontier/icon/footerlogo.jpg">
+                                                    <img  src="../images/infrafrontier/icon/emma-logo-soft.png">
+                                                    <img align="right" src="../images/infrafrontier/icon/footerlogo.jpg">
                                                 </div>
 
                                                 <div id="footerline">        	
