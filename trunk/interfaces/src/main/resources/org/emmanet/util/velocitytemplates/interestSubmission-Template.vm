@@ -2,11 +2,54 @@
 #parse( "org/emmanet/util/velocitytemplates/header.vm" )
 Dear EMMA customer#*${name}*#,
 
-We would like to confirm receipt of the Registration of Interest Form that you sent to EMMA for ${strainname} (${emmaid}).
+We would like to confirm receipt of the Registration of Interest Form that you sent to EMMA for ${strainname} (${emmaid}). Your request ID is: $requestID
 
-We will notify you by email as soon as the strain becomes available. You will then be able to place your strain request in time. 
+We will notify you by email as soon as the strain becomes available. You will then be able to place your strain request in time. Registrations of interest will be handled with a first come, first served policy.
 
-Should you have any questions, please do not hesitate to contact Sabine Fessele at the EMMA Project Coordination Office (sabine.fessele@helmholtz-muenchen.de).
+PLEASE NOTE THAT EMMA CANNOT GUARANTEE THAT MICE WILL BE MADE AVAILABLE. THE POSSIBLE SHIPPING DATE CANNOT BE SCHEDULED WHILE THE STRAIN IS STILL UNDER DEVELOPMENT.
+
+Should you have any general questions, please do not hesitate to contact the EMMA Project Coordination Office (info@emmanet.org).
+
+For enquiries related to the progress of the resource development please contact the archive manager at ${ArchContactEmail}
+
+#if ($rtoolsID == 9)
+#* 
+   * THIS IS A SANGER EUCOMM STRAIN
+   * PRINT APPROPRIATE DISCLAIMER
+*#
+Disclaimer
+#end
+
+#if($rtoolsID == 9 && $labID == 1961)
+Please note that for the mice supplied to the scientific community by WTSI:
+
+- The structure of the targeted mutation in the ES cells obtained from EUCOMM to generate these mutant mice is not verified by the WTSI MGP. It is recommended therefore that the recipient confirms the mutation structure.
+- The genetic background for the mice supplied may be mixed. The use of a pure genetic background is in progress for future lines.
+
+The current level of quality control (QC) performed before the mice are released is to:
+
+- Confirm the individual mouse genotype by short-range PCR (SR-PCR) and/or quantitative PCR (qPCR) by counting the copy number variation of the neo marker.
+- Confirm location of the targeted mutation by either long-range PCR (LR-PCR) or by the detection of homozygous mice by gene specific SR-PCR.
+#end
+#if($rtoolsID == 9 && $labID != 1961)
+#* 
+   * THIS IS NOT A SANGER EUCOMM STRAIN
+   * PRINT APPROPRIATE DISCLAIMER
+*#
+Please note that for EUCOMM mice supplied to the scientific community by EMMA:
+
+1) We cannot guarantee a null mutation for Knock-out first alleles (tm1a alleles, see http://www.knockoutmouse.org/about/targeting-strategies) as the critical exon has not been deleted.	
+2) That the structure of the targeted mutation in the ES cells obtained from EUCOMM to generate EUCOMM mice is not verified by EMMA. It is recommended that the recipient confirms the mutation structure.	
+3) No check for determining the copy number of the targeting construct in ES cells obtained from EUCOMM is done by EMMA.	
+4) The level of quality control before mice are released is to confirm the individual mouse genotype by short range PCR.	
+#end
+
+#if ($mtaFile != "")
+Guidelines to process MTAs 
+- MTA documents must only be signed by authorized individuals
+- Do not send MTA documents when you submitted a Registration of Interest but only when an online order has been submitted to EMMA
+- Provide the request ID as a reference when sending signed MTAs
+#end
 
 ## Include footer template common to all messages
 #parse( "org/emmanet/util/velocitytemplates/footer.vm" )

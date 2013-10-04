@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +15,7 @@
     </head>
     <body>
         <br/>
-        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/>
         <div id="wrapper">
             <div id="container">

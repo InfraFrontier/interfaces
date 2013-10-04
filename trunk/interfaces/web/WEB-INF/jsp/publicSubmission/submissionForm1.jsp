@@ -49,7 +49,7 @@
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
-        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
         <div id="wrapper">
             <div id="container">

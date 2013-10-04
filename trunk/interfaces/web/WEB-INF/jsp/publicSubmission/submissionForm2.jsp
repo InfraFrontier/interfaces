@@ -20,6 +20,7 @@
 <c:set var="PeopleDAO" value='${requestScope.userdaos}'></c:set>
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
+<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,7 +45,7 @@
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
-        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"></a></p>
 
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
             ${requestScope.recall_window}

@@ -73,12 +73,8 @@ public class WebRequestsDAO {
     private String ta_panel_decision_date;
     private String ta_panel_decision;
      /*  TA FIELDS   */
-    /**
-     * Set a default value for these 2 following fields
-     * reproducing what are the default values in the schema.
-     */
-    private String europhenome = "no";
-    private String wtsi_mouse_portal = "no";
+    //private String europhenome;
+   // private String wtsi_mouse_portal;
     private String projectID;
     /*  NEW BILLING DETAILS IMPLEMENTED IN DATABASE  */
     
@@ -103,6 +99,12 @@ private String eucomm_funding;
 private String user;
 
 
+    /**
+     * Set a default value for these 2 following fields
+     * reproducing what are the default values in the schema.
+     */
+    private String europhenome = "no";
+    private String wtsi_mouse_portal = "no";
     
     private List cvDAO;
     

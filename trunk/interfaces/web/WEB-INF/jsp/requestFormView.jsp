@@ -11,6 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:if test="${requestScope.ERROR == 'TRUE'}"><c:redirect url="invalidurlerror.emma"/></c:if>
 <c:if test="${requestScope.UNENCRYPTEDID == 'TRUE'}"><c:redirect url="secure.emma"/></c:if>
+    <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
 <spring:bind path="command.*" />
 <%
 
@@ -132,7 +133,7 @@
     </head>
     <body>
         <br/>
-        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/><br/>
 
         <div id="wrapper">
