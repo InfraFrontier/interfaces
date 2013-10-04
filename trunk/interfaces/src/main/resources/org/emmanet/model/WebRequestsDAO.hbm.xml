@@ -47,8 +47,8 @@
         <!--<property name="date_processed" column="date_processed"/>-->
         <property name="register_interest" column="register_interest"/>
         
-        <property name="europhenome" column="europhenome"/>
-        <property name="wtsi_mouse_portal" column="wtsi_mouse_portal"/>
+       <!-- <property name="europhenome" column="europhenome"/>
+        <property name="wtsi_mouse_portal" column="wtsi_mouse_portal"/>-->
         
     <!-- TA FIELDS-->
         <property name="project_description" column="project_description"/>
