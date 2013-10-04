@@ -56,6 +56,7 @@ import org.emmanet.model.SubmissionsDAO;
 import org.emmanet.model.SubmissionsManager;
 import org.emmanet.model.Syn_StrainsDAO;
 import org.emmanet.model.Syn_StrainsManager;
+import org.emmanet.util.Configuration;
 import org.emmanet.util.Encrypter;
 import org.json.simple.*;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -77,6 +78,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private JavaMailSender javaMailSender;
     private VelocityEngine velocityEngine;
     private boolean action;
+    final static String BASEURL = Configuration.get("BASEURL");
 
     public SubmissionFormController() {
         setCommandName("command");
@@ -87,6 +89,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
+        
         action = true;
         setBindOnNewForm(true);
         String idDecrypt = "";
@@ -113,6 +116,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         String getprev = "";
 
         session = request.getSession(true);
+        session.setAttribute("BASEURL", BASEURL);
 //total steps in wizard for use in view
         int iPageCount = getPageCount() - 1;
         session.setAttribute("totalStepCount", "" + iPageCount);

@@ -86,13 +86,15 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.http.HttpSession;
+import org.emmanet.util.Configuration;
 
 /**
  *
  * @author Phil Wilkinson
  */
 public class RequestFormController extends SimpleFormController {
-    
+
     private JavaMailSender javaMailSender;
     private WebRequests webRequest;
     private StrainsDAO sd;
@@ -112,7 +114,7 @@ public class RequestFormController extends SimpleFormController {
     private String internalSuccessView;
     /* pdfTitle determined according to request being register
      * interest or new request 
-    */
+     */
     private String pdfTitle;
     private boolean pdfConditions;
     private String Bcc;
@@ -121,32 +123,35 @@ public class RequestFormController extends SimpleFormController {
     private Iterator it;
     private boolean mailSend;
     public static final String MAP_KEY = "returnedOut";
+    final static String BASEURL = Configuration.get("BASEURL");
     private Map returnedOut = new HashMap();
     private Encrypter encrypter = new Encrypter();
-    
-@Override
+    private HttpSession session;
+
+    @Override
     protected Object formBackingObject(HttpServletRequest request) {
         /*
          * ADDED TO SOLVE ISSUE WHERE MISSING PARAM CAUSES  formBackingObject() must not be null ERROR
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
+        session.setAttribute("baseurl", BASEURL);
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
             String ID = request.getParameter("ID");
-           /* try {
-                ID = java.net.URLDecoder.decode(ID, "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            /* try {
+             ID = java.net.URLDecoder.decode(ID, "UTF-8");
+             } catch (UnsupportedEncodingException ex) {
+             Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
+             }*/
             String decryptedID = encrypter.decrypt(ID);
 
 
             //System.out.println("REQFORMDECRYPTED==" + decryptedID);
             if (decryptedID == null) {
                 WebRequestsDAO wrd = new WebRequestsDAO();
-                String unencryptedID = request.getParameter("ID");    
+                String unencryptedID = request.getParameter("ID");
                 Pattern p = Pattern.compile("((-|\\+)?[0-9]+(\\.[0-9]+)?)+");
-                Matcher m = p.matcher(unencryptedID);           
+                Matcher m = p.matcher(unencryptedID);
                 System.out.println("unenc id == " + unencryptedID);
                 request.getSession().setAttribute(
                         "message", null);
@@ -158,26 +163,26 @@ public class RequestFormController extends SimpleFormController {
                     webmasterMsg.setFrom("emma@emmanet.org");
                     webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
                     webmasterMsg.setText("This error has occurred, check server");
-                   mailSender.send(webmasterMsg);
+                    mailSender.send(webmasterMsg);
                 } else if (unencryptedID != null) {
                     WebRequests wr = new WebRequests();
-                    if(m.matches()){
+                    if (m.matches()) {
                         System.out.println("MATCHES");
                         wrd = (WebRequestsDAO) wr.getReqByID(unencryptedID);
-                    }else{
+                    } else {
                         //not matching so unencrypted redirect to invalidurl page
                         wrd = new WebRequestsDAO();
                         request.setAttribute(
-                            "ERROR", "TRUE");
-                         System.out.println("NO MATCHES");
-                         SimpleMailMessage webmasterMsg = new SimpleMailMessage();
-                    webmasterMsg.setTo("webmaster@emmanet.org");
-                    webmasterMsg.setFrom("emma@emmanet.org");
-                    webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
-                    webmasterMsg.setText("This error has occurred, check server for unencryptedID:-" + unencryptedID);
-                   mailSender.send(webmasterMsg);
+                                "ERROR", "TRUE");
+                        System.out.println("NO MATCHES");
+                        SimpleMailMessage webmasterMsg = new SimpleMailMessage();
+                        webmasterMsg.setTo("webmaster@emmanet.org");
+                        webmasterMsg.setFrom("emma@emmanet.org");
+                        webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
+                        webmasterMsg.setText("This error has occurred, check server for unencryptedID:-" + unencryptedID);
+                        mailSender.send(webmasterMsg);
                     }
-                    
+
                 }
                 //REDIRECT TO NEW PAGE EXPLAINING SECURITY IMPROVEMENTS AND THAT A SECURE ENCRYPTED ID IN AN EMAIL HAS BEEN RESENT
                 String preEncodedEncryptedID = encrypter.encrypt(ID);
@@ -192,23 +197,23 @@ public class RequestFormController extends SimpleFormController {
                 model.put("strainname", wrd.getStrain_name());
                 model.put("emmaid", wrd.getStrain_id());
                 model.put("sci_e_mail", wrd.getSci_e_mail());
-                
-                 String rtoolsID = "";
-                 WebRequests wreq = new WebRequests();
-        List rtools = wreq.strainRToolID(wrd.getStr_id_str());
-        System.out.println("rtools size=" + rtools.size());
-        it = rtools.iterator();
 
-        while (it.hasNext()) {
-            //  II =  it.next().;
+                String rtoolsID = "";
+                WebRequests wreq = new WebRequests();
+                List rtools = wreq.strainRToolID(wrd.getStr_id_str());
+                System.out.println("rtools size=" + rtools.size());
+                it = rtools.iterator();
+
+                while (it.hasNext()) {
+                    //  II =  it.next().;
 // rtoolsID = o[0].toString();
-            Object oo = it.next();
-            rtoolsID = oo.toString();
-            System.out.println("rtoolsid=" + oo.toString() + "  -  labid=" + wrd.getLab_id_labo());
-        }
-     model.put("rtoolsID", rtoolsID);
-     model.put("labID ", wrd.getLab_id_labo());
-                
+                    Object oo = it.next();
+                    rtoolsID = oo.toString();
+                    System.out.println("rtoolsid=" + oo.toString() + "  -  labid=" + wrd.getLab_id_labo());
+                }
+                model.put("rtoolsID", rtoolsID);
+                model.put("labID ", wrd.getLab_id_labo());
+
                 returnedOut.put("model", model);
 
                 ///now mail
@@ -217,7 +222,9 @@ public class RequestFormController extends SimpleFormController {
                 msg.setFrom("emma@emmanet.org");
                 msg.setBcc("philw@ebi.ac.uk");
                 msg.setTo(wrd.getSci_e_mail());
-                if(wrd.getSci_e_mail() == null) msg.setTo("webmaster@emmanet.org");
+                if (wrd.getSci_e_mail() == null) {
+                    msg.setTo("webmaster@emmanet.org");
+                }
                 msg.setSubject("Your EMMA Strain Interest Registration Form - "
                         + "strain can now be ordered: " + model.get("emmaid") + " (" + model.get("strainname") + ")");
                 String content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
@@ -226,7 +233,7 @@ public class RequestFormController extends SimpleFormController {
                 msg.setText(content);
                 try {
                     System.out.println(msg);
-                   mailSender.send(msg);
+                    mailSender.send(msg);
 
                 } catch (MailException ex) {
                     System.err.println(ex.getMessage());
@@ -238,7 +245,7 @@ public class RequestFormController extends SimpleFormController {
                         "UNENCRYPTEDID", "TRUE");
                 return wrd;
 
-        } else {
+            } else {
                 return webRequest.getReqByID(decryptedID);
             }
         } else {
@@ -256,7 +263,7 @@ public class RequestFormController extends SimpleFormController {
             if (request.getParameter("id") != null) {
                 wr.setStrain_id(request.getParameter("id").toString());
             }
-            
+
             if (request.getParameter("new") != null) {
                 //this is a new request show blank form
                 wr.setRegister_interest("0");
@@ -305,28 +312,28 @@ public class RequestFormController extends SimpleFormController {
                 if (request.getParameter("status") != null) {
                     // this is an insert and therefore the id or str_id_str isnt yet known and will have to be pulled using ajax
                 } else if (!request.getParameter("id").isEmpty()) {
-                String toFormat = request.getParameter("id");
-                int start = 3;
-                int end = toFormat.length();
-                toFormat = toFormat.substring(start, end);
-                int i = Integer.parseInt(toFormat);
-                wr.setStr_id_str(i);
-            }
+                    String toFormat = request.getParameter("id");
+                    int start = 3;
+                    int end = toFormat.length();
+                    toFormat = toFormat.substring(start, end);
+                    int i = Integer.parseInt(toFormat);
+                    wr.setStr_id_str(i);
+                }
             }
             wr.setCvDAO(webRequest.isoCountries());
 //added to rectify incorrect strain names appearing in 
          /*   int sID;
-            System.out.println("STRAIN ID = " + wr.getStr_id_str() + " PARAM VAL=" + request.getParameter("str_id_str"));
-            if (   request.getParameter("str_id_str") != null || !request.getParameter("str_id_str").equals("0")) {
-            sID = Integer.parseInt(request.getParameter("str_id_str"));
+             System.out.println("STRAIN ID = " + wr.getStr_id_str() + " PARAM VAL=" + request.getParameter("str_id_str"));
+             if (   request.getParameter("str_id_str") != null || !request.getParameter("str_id_str").equals("0")) {
+             sID = Integer.parseInt(request.getParameter("str_id_str"));
             
-            } else {
-            sID = wr.getStr_id_str();
-            }
-            sd = (webRequest.getStrainByID( sID));
-            wr.setStrain_name(sd.getName());
-            /* New requirement to hide TA options from user requesting strains from SANG and FCG who don't have TA access units 
-            now need to grab site id using strain id
+             } else {
+             sID = wr.getStr_id_str();
+             }
+             sd = (webRequest.getStrainByID( sID));
+             wr.setStrain_name(sd.getName());
+             /* New requirement to hide TA options from user requesting strains from SANG and FCG who don't have TA access units 
+             now need to grab site id using strain id
              */
             WebRequests wReq = new WebRequests();
             List ccCentre = wReq.ccArchiveMailAddresses(wr.getStr_id_str());
@@ -344,7 +351,7 @@ public class RequestFormController extends SimpleFormController {
         }
     }
 
- @Override   
+    @Override
     protected ModelAndView onSubmit(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -352,10 +359,10 @@ public class RequestFormController extends SimpleFormController {
             BindException errors) {
         WebRequests wr = new WebRequests();
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
-        
-        if(!webRequest.getStrain_name().toLowerCase().contains("wtsi")){
+
+        if (!webRequest.getStrain_name().toLowerCase().contains("wtsi")) {
             //webRequest.setWtsi_mouse_portal("no");
-           // webRequest.setEurophenome("no");
+            // webRequest.setEurophenome("no");
         }
 
         String strainID = "" + webRequest.getStr_id_str() + "";
@@ -384,19 +391,19 @@ public class RequestFormController extends SimpleFormController {
 
         o = (Object[]) ccCentre.get(0);
         String ArchContactEmail = o[1].toString();
-   /*     if (webRequest.getApplication_type().equals("ta_or_request")
-                || webRequest.getApplication_type().equals("ta_only")) {
-            //if one of these values then has passed the country eligibility controlled by javascript in requestFormView.emma/jsp
-            webRequest.setEligible_country("yes");
-        }*/
+        /*     if (webRequest.getApplication_type().equals("ta_or_request")
+         || webRequest.getApplication_type().equals("ta_only")) {
+         //if one of these values then has passed the country eligibility controlled by javascript in requestFormView.emma/jsp
+         webRequest.setEligible_country("yes");
+         }*/
         System.out.println("wtsi mouse portal value is:: " + webRequest.getWtsi_mouse_portal());
         wr.saveRequest(webRequest);
 
         if (request.getParameter("status") != null) {
         } else {
-        request.getSession().setAttribute(
-                "message",
-                getMessageSourceAccessor().getMessage("Message",
+            request.getSession().setAttribute(
+                    "message",
+                    getMessageSourceAccessor().getMessage("Message",
                     webRequest.getSci_firstname() + " " + webRequest.getSci_surname() + ", Your request submitted successfully, you will receive "
                     + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail()));
         }
@@ -493,23 +500,23 @@ public class RequestFormController extends SimpleFormController {
 
         System.out.println("rtoolsid=" + model.get("rtoolsID") + "  -  labid=" + model.get("labID"));
         String velocTemplate = null;
-        
+
         if (webRequest.getRegister_interest().equals("0")) {
             /* Set values for template to be used, PDF Title & mail message subject text
              * for strain submission
              */
-            
+
             //uncomment here to release new mail templates for sanger awaiting go ahead from jo bottomley
-            
-           if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961") ) {
+
+            if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
                 /*##NEW TEMPLATE FOR SANGER */
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template.vm";
-            }else if (webRequest.getApplication_type().equals("ta_only")) {
+            } else if (webRequest.getApplication_type().equals("ta_only")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/taonlyRequest-Template.vm";
             } else if (webRequest.getApplication_type().equals("ta_or_request")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/taorRequest-Template.vm";
-            }else {
-            velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";
+            } else {
+                velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";
             }
             pdfTitle = "EMMA Mutant Request Form";
             //TODO SET MAIL SUBJECT LINE HERE
@@ -533,23 +540,23 @@ public class RequestFormController extends SimpleFormController {
              */
 
             // //uncomment here to release new mail templates for sanger awaiting go ahead from jo bottomley
-           if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961") ) {
-                  /*##NEW TEMPLATE FOR SANGER */
-               velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template.vm";
-            }else{
-            velocTemplate = "org/emmanet/util/velocitytemplates/interestSubmission-Template.vm";
-           }
-            
-            
-             pdfTitle = "EMMA Strain Interest Registration Form";
+            if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
+                /*##NEW TEMPLATE FOR SANGER */
+                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template.vm";
+            } else {
+                velocTemplate = "org/emmanet/util/velocitytemplates/interestSubmission-Template.vm";
+            }
+
+
+            pdfTitle = "EMMA Strain Interest Registration Form";
             xmlFileprefix = "roi_";
-             mailSubjectText = "Your EMMA Strain Interest Registration Form - confirmation of receipt: "; 
+            mailSubjectText = "Your EMMA Strain Interest Registration Form - confirmation of receipt: ";
             pdfConditions = false;
         }
 
         System.out.println("Templ8 to be used is : " + velocTemplate);//"org/emmanet/util/velocitytemplates/interestSubmission-Template.vm"
         String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
-               velocTemplate, model);
+                velocTemplate, model);
         // XML file content Template created by Velocity
         String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                 "org/emmanet/util/velocitytemplates/requestXml-Template.vm", model);
@@ -559,30 +566,30 @@ public class RequestFormController extends SimpleFormController {
         String formattedID = formatter.format(webRequest.getStr_id_str());
         // try { REMOVED AS XML NO LONGER REQUIRED
             /* Create request XML file from velocity template
-             * named to format req_TIMESTAMP_FIRSTNAME_SURNAME_STRAINID.xml
-             */
+         * named to format req_TIMESTAMP_FIRSTNAME_SURNAME_STRAINID.xml
+         */
         // NB USED AS PDF FILENAME AS WELL
         xmlFileName = xmlFileprefix + webRequest.getTimestamp() + "_" + webRequest.getSci_firstname() + "_" + webRequest.getSci_surname() + "_" + formattedID;
         // file = new File(pathToXml + xmlFileName + xmlExt); REMOVED AS XML NO LONGER REQUIRED
-            // Create pdf from model
-            pdfFile =
+        // Create pdf from model
+        pdfFile =
                 createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
         // REMOVED AS XML NO LONGER REQUIRED
             /*boolean success = file.createNewFile(); REMOVED AS XML NO LONGER REQUIRED
-        if (success) { REMOVED AS XML NO LONGER REQUIRED
-        // File did not exist and was created REMOVED AS XML NO LONGER REQUIRED
-        Writer out = new BufferedWriter(new OutputStreamWriter( REMOVED AS XML NO LONGER REQUIRED
-        new FileOutputStream(file), "UTF8")); REMOVED AS XML NO LONGER REQUIRED
-        out.write(xmlFileContent); REMOVED AS XML NO LONGER REQUIRED
-        out.close(); REMOVED AS XML NO LONGER REQUIRED
+         if (success) { REMOVED AS XML NO LONGER REQUIRED
+         // File did not exist and was created REMOVED AS XML NO LONGER REQUIRED
+         Writer out = new BufferedWriter(new OutputStreamWriter( REMOVED AS XML NO LONGER REQUIRED
+         new FileOutputStream(file), "UTF8")); REMOVED AS XML NO LONGER REQUIRED
+         out.write(xmlFileContent); REMOVED AS XML NO LONGER REQUIRED
+         out.close(); REMOVED AS XML NO LONGER REQUIRED
             
-        } else {REMOVED AS XML NO LONGER REQUIRED
-        // File already exists REMOVED AS XML NO LONGER REQUIRED
-        // Do nothing REMOVED AS XML NO LONGER REQUIRED
-        } REMOVED AS XML NO LONGER REQUIRED
-        } catch (IOException e) { REMOVED AS XML NO LONGER REQUIRED
-        //TODO HANDLE REMOVED AS XML NO LONGER REQUIRED
-        }  REMOVED AS XML NO LONGER REQUIRED */
+         } else {REMOVED AS XML NO LONGER REQUIRED
+         // File already exists REMOVED AS XML NO LONGER REQUIRED
+         // Do nothing REMOVED AS XML NO LONGER REQUIRED
+         } REMOVED AS XML NO LONGER REQUIRED
+         } catch (IOException e) { REMOVED AS XML NO LONGER REQUIRED
+         //TODO HANDLE REMOVED AS XML NO LONGER REQUIRED
+         }  REMOVED AS XML NO LONGER REQUIRED */
         MimeMessage message = getJavaMailSender().createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -598,13 +605,13 @@ public class RequestFormController extends SimpleFormController {
                 ccAddress = ccAddress.trim();
                 ccAddresses[iK] = ccAddress;
                 iK++;
-                        System.out.println("ccADDRESS===== " + ccAddress);
+                System.out.println("ccADDRESS===== " + ccAddress);
                 //helper.addCc(ccAddress);
-                    }
+            }
             helper.setCc(ccAddresses);//.addCc(ccAddresses);
-            
+
             helper.setTo(webRequest.getSci_e_mail().trim());
-            
+
             helper.setSubject(mailSubjectText + webRequest.getStrain_id() + " (" + sd.getName() /*webRequest.getStrain_name()*/ + ") Your request ID: " + webRequest.getId_req());
             helper.setText(content);
             /* xml files no longer need to be sent with e-mail message
@@ -613,13 +620,13 @@ public class RequestFormController extends SimpleFormController {
              */
             //helper.addAttachment(xmlFileName + xmlExt,file);
             FileSystemResource file = new FileSystemResource(new File(pdfFile));
-            
+
             helper.addAttachment(xmlFileName + pdfExt, file);
             /*
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-            
+
             System.out.println("app type is " + model.get("application_type"));
             System.out.println("model mta is " + model.get("mtaFile"));
             if (!model.get("application_type").equals("ta_only")) {
@@ -661,15 +668,15 @@ public class RequestFormController extends SimpleFormController {
             if (mailSend) {
                 System.out.println(content);
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
-            getJavaMailSender().send(message);
+                getJavaMailSender().send(message);
                 System.out.println("Mail sent ");
             }
             Cc = null;
-            
+
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
-        
+
 
         if (request.getParameter(
                 "status") != null) {
@@ -679,17 +686,17 @@ public class RequestFormController extends SimpleFormController {
         }
         return new ModelAndView(getSuccessView());
     }
-    
+
     public String createPDF(
             Map model, String filePath) {
-                /* I really don't like this iText library.
-                 * Takes so much effort to figure it all out
-                 * to get an acceptable pdf rendition. */
-        
+        /* I really don't like this iText library.
+         * Takes so much effort to figure it all out
+         * to get an acceptable pdf rendition. */
+
         Document doc = new Document();
         try {
             System.out.println(model.get("timestamp"));
-            
+
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(
                     filePath));
             doc.open();
@@ -704,7 +711,7 @@ public class RequestFormController extends SimpleFormController {
                     "Following data have been submitted to EMMA on " + model.get("ftimestamp"), FontFactory.getFont(
                     FontFactory.HELVETICA, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
-            
+
             doc.add(pSubHead);
             doc.add(Chunk.NEWLINE);
             // Space padding underline
@@ -717,13 +724,13 @@ public class RequestFormController extends SimpleFormController {
             // Set table cell widths equiv. to 25% and 75%
             float[] widths = {0.25f, 0.75f};
             PdfPTable table = new PdfPTable(widths);
-            
+
             table.setWidthPercentage(100);
-            
+
             PdfPCell cell = new PdfPCell(new Paragraph("Scientist\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
-            
+
             table.addCell(cell);
             table.addCell("Title");
             table.addCell("" + model.get("sci_title"));
@@ -742,7 +749,7 @@ public class RequestFormController extends SimpleFormController {
             cellShip.setColspan(2);
             cellShip.setBorder(0);
             table.addCell(cellShip);
-            
+
             table.addCell("Title");
             table.addCell("" + model.get("con_title"));
             table.addCell("Firstname");
@@ -771,7 +778,7 @@ public class RequestFormController extends SimpleFormController {
             table.addCell("" + model.get("con_postcode"));
             table.addCell("Country");
             table.addCell("" + model.get("con_country"));
-            
+
             if (!model.get("ROI").equals("1")) {
                 //webrequest is not a roi so these were set above so send them to pdf
                 PdfPCell cellBill = new PdfPCell(new Paragraph(
@@ -818,7 +825,7 @@ public class RequestFormController extends SimpleFormController {
                     "\nStrain Details\n\n", font));
             cellStrain.setColspan(2);
             cellStrain.setBorder(0);
-            
+
             table.addCell(cellStrain);
             table.addCell("Strain ID");
             table.addCell("" + model.get("strain_id"));
@@ -826,18 +833,18 @@ public class RequestFormController extends SimpleFormController {
             table.addCell("" + model.get("strain_name"));
             table.addCell("Common Name(s)");
             table.addCell("" + model.get("common_name_s"));
-            
+
             if (model.get("req_material") != null) {
                 PdfPCell cellMaterial = new PdfPCell(new Paragraph(
                         "\nRequested Material\n\n", font));
                 cellMaterial.setColspan(2);
                 cellMaterial.setBorder(0);
-                
+
                 table.addCell(cellMaterial);
                 table.addCell("Material");
                 table.addCell("" + model.get("req_material"));
             }
-            
+
             if (model.get("live_animals") != null) {
                 table.addCell("Live Animals");
                 table.addCell("Selected");
@@ -852,7 +859,7 @@ public class RequestFormController extends SimpleFormController {
                 table.addCell("Frozen Sperm");
                 table.addCell("Selected");
             }
-            
+
             if (pdfConditions) {
                 String text = "";
                 String text1 = "";
@@ -864,7 +871,7 @@ public class RequestFormController extends SimpleFormController {
                     text =
                             new StringBuilder().append(text).append(
                             "\nYou have indicated that you have read the conditions and agree to pay the transmittal fee " + "plus shipping costs.").toString();
-            
+
                     header =
                             new StringBuilder().append(header).append("\nStandard request\n").toString();
 
@@ -926,19 +933,19 @@ public class RequestFormController extends SimpleFormController {
                 } else {
 
                     PdfPCell cellConditions = new PdfPCell(new Paragraph(header, font));
-            cellConditions.setColspan(2);
-            cellConditions.setBorder(0);
-            table.addCell(cellConditions);
+                    cellConditions.setColspan(2);
+                    cellConditions.setBorder(0);
+                    table.addCell(cellConditions);
 
                     PdfPCell cellConditionsTxt = new PdfPCell(new Paragraph(text));
                     cellConditionsTxt.setColspan(2);
                     cellConditionsTxt.setBorder(0);
                     table.addCell(cellConditionsTxt);
-            }
+                }
 
             }
             doc.add(table);
-            
+
         } catch (DocumentException de) {
             System.err.println(de.getMessage());
         } catch (IOException e) {
@@ -948,43 +955,43 @@ public class RequestFormController extends SimpleFormController {
         doc.close();
         return filePath;
     }
-    
+
     public WebRequests getWebRequest() {
         return webRequest;
     }
-    
+
     public void setWebRequest(WebRequests webRequest) {
         this.webRequest = webRequest;
     }
-    
+
     public MailSender getMailSender() {
         return mailSender;
     }
-    
+
     public void setMailSender(MailSender mailSender) {
         this.mailSender = mailSender;
     }
-    
+
     public VelocityEngine getVelocityEngine() {
         return velocityEngine;
     }
-    
+
     public void setVelocityEngine(VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
     }
-    
+
     public String getPathToXml() {
         return pathToXml;
     }
-    
+
     public void setPathToXml(String pathToXml) {
         this.pathToXml = pathToXml;
     }
-    
+
     public JavaMailSender getJavaMailSender() {
         return javaMailSender;
     }
-    
+
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
@@ -1007,7 +1014,7 @@ public class RequestFormController extends SimpleFormController {
 
     public String getInternalSuccessView() {
         return internalSuccessView;
-}
+    }
 
     public void setInternalSuccessView(String internalSuccessView) {
         this.internalSuccessView = internalSuccessView;

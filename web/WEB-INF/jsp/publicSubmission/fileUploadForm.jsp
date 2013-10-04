@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
 
 <html>
     <head>
@@ -20,7 +21,7 @@
 
     <body>
         <br/>
-        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/>
         <div id="wrapper">
             <div id="container">

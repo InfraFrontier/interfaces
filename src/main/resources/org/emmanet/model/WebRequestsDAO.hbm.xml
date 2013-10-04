@@ -1,77 +1,80 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="org.emmanet.model.WebRequestsDAO" table="web_requests">
-    <id column="id_req" name="id_req">
+        <id name="id_req" column="id_req">
       <generator class="native"/>
     </id>
-    <property column="str_id_str" name="str_id_str"/>
-    <property column="lab_id_labo" name="lab_id_labo"/>
-    <property column="timestamp" name="timestamp"/>
-    <property column="roi_date" name="roi_date"/>
-    <property column="mta_arrived_date" name="mta_arrived_date"/>
-    <property column="all_paperwork_date" name="all_paperwork_date"/>
-    <property column="userstamp" name="userstamp"/>
-    <property column="strain_id" name="strain_id"/>
-    <property column="strain_name" name="strain_name"/>
-    <property column="common_name_s" name="common_name_s"/>
-    <property column="live_animals" name="live_animals"/>
-    <property column="frozen_emb" name="frozen_emb"/>
-    <property column="frozen_spe" name="frozen_spe"/>
-    <property column="sci_title" name="sci_title"/>
-    <property column="sci_firstname" name="sci_firstname"/>
-    <property column="sci_surname" name="sci_surname"/>
-    <property column="sci_e_mail" name="sci_e_mail"/>
-    <property column="sci_phone" name="sci_phone"/>
-    <property column="sci_fax" name="sci_fax"/>
-    <property column="con_title" name="con_title"/>
-    <property column="con_firstname" name="con_firstname"/>
-    <property column="con_surname" name="con_surname"/>
-    <property column="con_e_mail" name="con_e_mail"/>
-    <property column="con_phone" name="con_phone"/>
-    <property column="con_fax" name="con_fax"/>
-    <property column="con_institution" name="con_institution"/>
-    <property column="con_dept" name="con_dept"/>
-    <property column="con_addr_1" name="con_addr_1"/>
-    <property column="con_addr_2" name="con_addr_2"/>
-    <property column="con_province" name="con_province"/>
-    <property column="con_town" name="con_town"/>
-    <property column="con_postcode" name="con_postcode"/>
-    <property column="con_country" name="con_country"/>
-    <property column="con_ccode" name="con_ccode"/>
-    <property column="req_material" name="req_material"/>
-    <property column="req_material_state" name="req_material_state"/>
-    <property column="shipped" name="shipped"/>
-    <property column="notes" name="notes"/>
-    <property column="req_status" name="req_status"/>
-    <property column="cancelation_reason" name="cancelation_reason"/>
-    <property column="date_processed" name="date_processed"/>
-    <property column="register_interest" name="register_interest"/>
+        <property name="str_id_str" column="str_id_str"/>
+        <property name="lab_id_labo" column="lab_id_labo"/>
+        <property name="timestamp" column="timestamp"/>
+        <property name="userstamp" column="userstamp"/>
+        <property name="roi_date" column="roi_date"/>
+        <property name="strain_id" column="strain_id"/>
+        <property name="strain_name" column="strain_name"/>
+        <property name="common_name_s" column="common_name_s"/>
+        <property name="live_animals" column="live_animals"/>
+        <property name="frozen_emb" column="frozen_emb"/>
+        <property name="frozen_spe" column="frozen_spe"/>
+        <property name="sci_title" column="sci_title"/>
+        <property name="sci_firstname" column="sci_firstname"/>
+        <property name="sci_surname" column="sci_surname"/>
+        <property name="sci_e_mail" column="sci_e_mail"/>
+        <property name="sci_phone" column="sci_phone"/>
+        <property name="sci_fax" column="sci_fax"/>
+        <property name="con_title" column="con_title"/>
+        <property name="con_firstname" column="con_firstname"/>
+        <property name="con_surname" column="con_surname"/>
+        <property name="con_e_mail" column="con_e_mail"/>
+        <property name="con_phone" column="con_phone"/>
+        <property name="con_fax" column="con_fax"/>
+        <property name="con_institution" column="con_institution"/>
+        <property name="con_dept" column="con_dept"/>
+        <property name="con_addr_1" column="con_addr_1"/>
+        <property name="con_addr_2" column="con_addr_2"/>
+        <property name="con_province" column="con_province"/>
+        <property name="con_town" column="con_town"/>
+        <property name="con_postcode" column="con_postcode"/>
+        <property name="con_country" column="con_country"/>
+        <property name="con_ccode" column="con_ccode"/>
+        <property name="req_material" column="req_material"/>
+        <property name="req_material_state" column="req_material_state"/>
+        <property name="shipped" column="shipped"/>
+        <property name="notes" column="notes"/>
+        <property name="req_status" column="req_status"/>
+        <!--<property name="date_processed" column="date_processed"/>-->
+        <property name="register_interest" column="register_interest"/>
+        
+        <property name="europhenome" column="europhenome"/>
+        <property name="wtsi_mouse_portal" column="wtsi_mouse_portal"/>
+        
     <!-- TA FIELDS-->
-    <property column="project_description" name="project_description"/>
-    <property column="application_type" name="application_type"/>
-    <property column="eligible_country" name="eligible_country"/>
-    <property column="ta_panel_sub_date" name="ta_panel_sub_date"/>
-    <property column="ta_panel_decision_date" name="ta_panel_decision_date"/>
-    <property column="ta_panel_decision" name="ta_panel_decision"/>
+        <property name="project_description" column="project_description"/>
+        <property name="application_type" column="application_type"/>
+        <property name="eligible_country" column="eligible_country"/>
+        <property name="ta_panel_sub_date" column="ta_panel_sub_date"/>
+        <property name="ta_panel_decision_date" column="ta_panel_decision_date"/>
+        <property name="ta_panel_decision" column="ta_panel_decision"/>
     <!-- TA FIELDS-->
     <!--- BILLING FIELDS -->
-    <property column="bil_title" name="bil_title"/>
-    <property column="bil_firstname" name="bil_firstname"/>
-    <property column="bil_surname" name="bil_surname"/>
-    <property column="bil_e_mail" name="bil_e_mail"/>
-    <property column="bil_phone" name="bil_phone"/>
-    <property column="bil_fax" name="bil_fax"/>
-    <property column="bil_institution" name="bil_institution"/>
-    <property column="bil_dept" name="bil_dept"/>
-    <property column="bil_addr_1" name="bil_addr_1"/>
-    <property column="bil_addr_2" name="bil_addr_2"/>
-    <property column="bil_province" name="bil_province"/>
-    <property column="bil_town" name="bil_town"/>
-    <property column="bil_postcode" name="bil_postcode"/>
-    <property column="bil_country" name="bil_country"/>
-    <property column="PO_ref" name="PO_ref"/>
-    <property column="bil_vat" name="bil_vat"/>
+        <property name="bil_title" column="bil_title"/>
+        <property name="bil_firstname" column="bil_firstname"/>
+        <property name="bil_surname" column="bil_surname"/>
+        <property name="bil_e_mail" column="bil_e_mail"/>
+        <property name="bil_phone" column="bil_phone"/>
+        <property name="bil_fax" column="bil_fax"/>
+        <property name="bil_institution" column="bil_institution"/>
+        <property name="bil_dept" column="bil_dept"/>
+        <property name="bil_addr_1" column="bil_addr_1"/>
+        <property name="bil_addr_2" column="bil_addr_2"/>
+        <property name="bil_province" column="bil_province"/>
+        <property name="bil_town" column="bil_town"/>
+        <property name="bil_postcode" column="bil_postcode"/>
+        <property name="bil_country" column="bil_country"/>
+        <property name="PO_ref" column="PO_ref"/>
+        <property name="bil_vat" column="bil_vat"/>
     
     <!-- EUCOMM -->
     <property column="eucomm_funding" name="eucomm_funding"/>
@@ -86,15 +89,6 @@
             </many-to-one>
             insert="false"
              update="false"
-     
-        <set lazy="false" name="projectsstrainsDAO" table="projects_strains">
-            <key  property-ref="str_id_str"/>
-            <one-to-many class="org.emmanet.model.ProjectsStrainsDAO" not-found="ignore" />
-        </set>-->
-    <set lazy="false" name="sourcesrequestsDAO" table="sources_requests">
-      <key column="req_id_req"/>
-      <one-to-many class="org.emmanet.model.Sources_RequestsDAO" not-found="ignore"/>
-    </set>
-    <!--   <many-to-one cascade="all" class="org.emmanet.model.Sources_RequestsDAO" column="id_req"  property-ref="req_id_req" insert="false" lazy="false" name="sourcesrequestsDAO" not-found="ignore" update="false"/>-->
+        -->
   </class>
 </hibernate-mapping>

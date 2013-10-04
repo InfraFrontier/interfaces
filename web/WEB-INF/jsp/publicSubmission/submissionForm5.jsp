@@ -24,6 +24,7 @@
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <c:set var="BGDAO" value="${command.bgDAO}"/>
 <c:if test="${empty BGDAO}"><c:set var="BGDAO" value="${(sessionScope.backgroundsDAO)}"/></c:if>
+<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
 
 <!DOCTYPE html>
 <html>
@@ -63,7 +64,7 @@
 
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
-        <p><img src="" height="1" width="145"/><img src="../images/infrafrontier/logo-infrafrontier.png"/></p>
+        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
             <form:form method="POST" commandName="command"> 
             <div id="wrapper">
