@@ -171,9 +171,25 @@
             </map>
         </property>
     </bean>
+    
+    <bean name="mailJob"
+          class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="org.emmanet.jobs.RegInterestJOB"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="velocityEngine">
+                    <ref bean="velocityEngine"/>
+                </entry> 
+                <entry key="mailSender">
+                    <ref bean="mailSender"/>
+                </entry>
+            </map>
+        </property>
+    </bean> 
+    
     <bean id="smailerTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="smailerJob"/>
-        <property name="cronExpression" value="0 0 0 * * ?"/><!--5 59 23 31 1 ? 2013//   5 0 0 23 2 ? 2012   // 5 0 0 18 9 ? 2009    0 0 0 * * ?   5 0 0 9 12 ? 2009  5 0 0 7 1 ? 2010-->
+        <property name="cronExpression" value="0 * * * * ?"/><!--5 59 23 31 1 ? 2013//   5 0 0 23 2 ? 2012   // 5 0 0 18 9 ? 2009    0 0 0 * * ?   5 0 0 9 12 ? 2009  5 0 0 7 1 ? 2010-->
     </bean>
     <bean id="bglistTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="bgListJob"/>
@@ -182,6 +198,10 @@
     <bean id="rssTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="rssFeedJob"/>
         <property name="cronExpression" value="0 0 21 * * ?"/>
+    </bean>
+        <bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="mailJob"/>
+        <property name="cronExpression" value="0 0/10 * * * ?"/><!---    0 57 23 * * ?   -->
     </bean>
     
     <!--  TRIGGER -->
@@ -199,7 +219,9 @@
                 <ref bean="bglistTrigger"/>
                 <!--     <ref bean="updateBibliosTrigger"/>
               <ref bean="rssTrigger"/>
-                <ref bean="updateBibliosTrigger"/> <ref bean="smailerTrigger"/>-->
+                <ref bean="updateBibliosTrigger"/>
+                <ref bean="smailerTrigger"/> -->
+                 <ref bean="mailTrigger"/>
             </list>
         </property>
     </bean>
