@@ -134,6 +134,7 @@ public class RequestFormController extends SimpleFormController {
          * ADDED TO SOLVE ISSUE WHERE MISSING PARAM CAUSES  formBackingObject() must not be null ERROR
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
+        System.out.println("baseurl is ::- " + BASEURL);
         session.setAttribute("baseurl", BASEURL);
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
