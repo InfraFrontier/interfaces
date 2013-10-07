@@ -304,7 +304,7 @@
             <value>/interfaces/strainsInterface</value>
         </property>
         <property name="pathToMTA">
-            <value>http://www.emmanet.org/mtas/</value>
+            <value>https://www.infrafrontier.eu/sites/infrafrontier.eu/files/upload/public/pdf/mtas/</value>
         </property>
     </bean>
     <bean name="requestInterfaceFormController" class="org.emmanet.controllers.requestInterfaceFormController">
@@ -406,7 +406,7 @@
             <value>redirect:../interfaces/strainsUpdateInterface.emma</value><!-- /interfaces/strainsUpdateInterface -->
         </property>
         <property name="mtaPath">
-            <value>http://www.emmanet.org/mtas/</value>
+            <value>https://www.infrafrontier.eu/sites/infrafrontier.eu/files/upload/public/pdf/mtas/</value>
         </property>
         <property name="baseURL">
             <value>http://www.emmanet.org/private/Archive/</value>
