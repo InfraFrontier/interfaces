@@ -124,6 +124,7 @@ public class RequestFormController extends SimpleFormController {
     private boolean mailSend;
     public static final String MAP_KEY = "returnedOut";
     final static String BASEURL = Configuration.get("BASEURL");
+    final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
     private Map returnedOut = new HashMap();
     private Encrypter encrypter = new Encrypter();
     private HttpSession session;
@@ -136,7 +137,8 @@ public class RequestFormController extends SimpleFormController {
          */
         session = request.getSession(true);
         System.out.println("baseurl is ::- " + BASEURL);
-        session.setAttribute("baseurl", BASEURL);
+        session.setAttribute("BASEURL", BASEURL);
+        session.setAttribute("GOOGLEANAL", GOOGLEANAL);
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
             String ID = request.getParameter("ID");

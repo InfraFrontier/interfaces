@@ -79,6 +79,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private VelocityEngine velocityEngine;
     private boolean action;
     final static String BASEURL = Configuration.get("BASEURL");
+    final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
 
     public SubmissionFormController() {
         setCommandName("command");
@@ -117,6 +118,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         session = request.getSession(true);
         session.setAttribute("BASEURL", BASEURL);
+        session.setAttribute("GOOGLEANAL", GOOGLEANAL);
 //total steps in wizard for use in view
         int iPageCount = getPageCount() - 1;
         session.setAttribute("totalStepCount", "" + iPageCount);

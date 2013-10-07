@@ -98,6 +98,10 @@
                 </prop>
                 <prop key="/ajaxReturn.emma">ajaxReturnController
                 </prop>
+                                                <prop key="/RegisterInterest/secure.emma">urlFilenameController
+                </prop>
+                                <prop key="/RegisterInterest/invalidurlerror.emma">urlFilenameController
+                </prop>
                 <prop key="/wp4Spreadsheet.emma">intwp4SpreadsheetController
                 </prop>
                 <!--<prop key="/submissionForm.emma">submissionFormController
