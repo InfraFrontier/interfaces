@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
+<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="session" />
 <!DOCTYPE html>
 <html>
     <head>

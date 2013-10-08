@@ -19,6 +19,7 @@
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
+<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="session" />
 <spring:bind path="command.*" />
 <!DOCTYPE html>
 <html>
