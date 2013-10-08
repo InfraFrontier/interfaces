@@ -201,7 +201,7 @@
     </bean>
         <bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="mailJob"/>
-        <property name="cronExpression" value="0 0/10 * * * ?"/><!---    0 57 23 * * ?   -->
+        <property name="cronExpression" value="0 57 23 * * ?"/><!---    0 57 23 * * ?   -->
     </bean>
     
     <!--  TRIGGER -->
