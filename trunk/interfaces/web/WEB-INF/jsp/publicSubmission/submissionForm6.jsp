@@ -32,8 +32,21 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <style type="text/css" media="all">@import url("https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
         <script type="text/javascript" src="https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/js/default.js"></script>
-        <%-- <script type="text/javascript" src="../js/jquery-ui-1.8.5.custom.min"></script>
-   <script type="text/javascript" src="../js/jquery-1.6.1.min"></script>--%>
+                <SCRIPT>
+            (function(i,s,o,g,r,a,m){
+                i['GoogleAnalyticsObject']=r;
+                i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)
+                },i[r].l=1*new Date();
+                a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];
+                a.async=1;
+                a.src=g;
+                m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', '${GOOGLEANAL}', 'infrafrontier.eu');
+            ga('send', 'pageview');
+        </SCRIPT>
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
