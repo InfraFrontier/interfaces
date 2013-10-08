@@ -25,6 +25,7 @@
 <c:set var="BGDAO" value="${command.bgDAO}"/>
 <c:if test="${empty BGDAO}"><c:set var="BGDAO" value="${(sessionScope.backgroundsDAO)}"/></c:if>
 <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
+<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="session" />
 
 <!DOCTYPE html>
 <html>
