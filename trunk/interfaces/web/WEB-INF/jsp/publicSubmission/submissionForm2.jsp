@@ -20,8 +20,8 @@
 <c:set var="PeopleDAO" value='${requestScope.userdaos}'></c:set>
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
-<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="page" />
-<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="page" />
+<c:set var="baseurl" value="${param.BASEURL}" scope="page" />
+<c:set var="GOOGLEANAL" value="${param.GOOGLEANAL}" scope="page" />
 <!DOCTYPE html>
 <html>
     <head>

@@ -24,8 +24,8 @@
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
 <c:set var="BGDAO" value="${command.bgDAO}"/>
 <c:if test="${empty BGDAO}"><c:set var="BGDAO" value="${(sessionScope.backgroundsDAO)}"/></c:if>
-<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="page" />
-<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="page" />
+<c:set var="baseurl" value="${param.BASEURL}" scope="page" />
+<c:set var="GOOGLEANAL" value="${param.GOOGLEANAL}" scope="page" />
 
 <!DOCTYPE html>
 <html>
