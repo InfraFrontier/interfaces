@@ -5,8 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
-<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="session" />
+<c:set var="baseurl" value="${sessionScope.BASEURL}" scope="page" />
+<c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="page" />
 <!DOCTYPE html>
 <html>
     <head>
