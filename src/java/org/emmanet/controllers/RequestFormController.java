@@ -136,9 +136,11 @@ public class RequestFormController extends SimpleFormController {
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
         session = request.getSession(true);
-        System.out.println("baseurl is ::- " + BASEURL);
+        System.out.println("baseurl/googleanal is ::- " + BASEURL + " / " + GOOGLEANAL);
         session.setAttribute("BASEURL", BASEURL);
+         request.setAttribute("BASEURL", BASEURL);
         session.setAttribute("GOOGLEANAL", GOOGLEANAL);
+        request.setAttribute("GOOGLEANAL", GOOGLEANAL);
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
             String ID = request.getParameter("ID");

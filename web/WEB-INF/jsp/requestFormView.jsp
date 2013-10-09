@@ -11,8 +11,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:if test="${requestScope.ERROR == 'TRUE'}"><c:redirect url="invalidurlerror.emma"/></c:if>
 <c:if test="${requestScope.UNENCRYPTEDID == 'TRUE'}"><c:redirect url="secure.emma"/></c:if>
-    <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="page" />
-    <c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="page" />
+    <c:set var="baseurl" value="${param.BASEURL}" scope="page" />
+    <c:set var="GOOGLEANAL" value="${param.GOOGLEANAL}" scope="page" />
 <spring:bind path="command.*" />
 <%
 
@@ -157,11 +157,6 @@
                     <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
                         <div class="form visible">
                             <div class="boxcontainer">
-                                <%--DEBUG START USERS IGNORE<br>
-                                    DEBUG:: <b>${command.register_interest}</b> REGISTER INTEREST FLAG<br>
-                                    DEBUG:: <b>${command.req_status}</b> REQUEST STATUS FLAG<br>
-                                    DEBUG:: <b>${command.id_req}</b> REQUEST ID<br>
-                                    DEBUG END --%>
                                 <c:choose> <c:when test="${command.register_interest == '1' && command.id_req == null}" > 
                                         <h4>EMMA Strain Interest Registration Form</h4> 
                                     </c:when>

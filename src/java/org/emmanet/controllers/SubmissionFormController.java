@@ -118,7 +118,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         session = request.getSession(true);
         session.setAttribute("BASEURL", BASEURL);
+        request.setAttribute("BASEURL", BASEURL);
         session.setAttribute("GOOGLEANAL", GOOGLEANAL);
+        request.setAttribute("GOOGLEANAL", GOOGLEANAL);
 //total steps in wizard for use in view
         int iPageCount = getPageCount() - 1;
         session.setAttribute("totalStepCount", "" + iPageCount);
