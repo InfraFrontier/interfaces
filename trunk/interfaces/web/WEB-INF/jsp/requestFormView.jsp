@@ -11,8 +11,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:if test="${requestScope.ERROR == 'TRUE'}"><c:redirect url="invalidurlerror.emma"/></c:if>
 <c:if test="${requestScope.UNENCRYPTEDID == 'TRUE'}"><c:redirect url="secure.emma"/></c:if>
-    <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="session" />
-    <c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="session" />
+    <c:set var="baseurl" value="${sessionScope.BASEURL}" scope="page" />
+    <c:set var="GOOGLEANAL" value="${sessionScope.GOOGLEANAL}" scope="page" />
 <spring:bind path="command.*" />
 <%
 
