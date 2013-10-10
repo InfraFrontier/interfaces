@@ -123,8 +123,10 @@ public class RequestFormController extends SimpleFormController {
     private Iterator it;
     private boolean mailSend;
     public static final String MAP_KEY = "returnedOut";
-    final static String BASEURL = Configuration.get("BASEURL");
-    final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
+   // final static String BASEURL = Configuration.get("BASEURL");
+  //  final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
+    private String BASEURL;
+    private String GOOGLEANAL;
     private Map returnedOut = new HashMap();
     private Encrypter encrypter = new Encrypter();
     private HttpSession session;
@@ -136,11 +138,12 @@ public class RequestFormController extends SimpleFormController {
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
         session = request.getSession(true);
-        System.out.println("baseurl/googleanal is ::- " + BASEURL + " / " + GOOGLEANAL);
-        session.setAttribute("BASEURL", BASEURL);
-         request.setAttribute("BASEURL", BASEURL);
-        session.setAttribute("GOOGLEANAL", GOOGLEANAL);
-        request.setAttribute("GOOGLEANAL", GOOGLEANAL);
+        System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
+        session.setAttribute("BASEURL", getBASEURL());
+         request.setAttribute("BASEURL", getBASEURL());
+        session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
+        request.setAttribute("GOOGLEANAL", getGOOGLEANAL());
+        
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
             String ID = request.getParameter("ID");
@@ -1040,5 +1043,33 @@ public class RequestFormController extends SimpleFormController {
 
     public void setPathToMTA(String pathToMTA) {
         this.pathToMTA = pathToMTA;
+    }
+
+    /**
+     * @return the BASEURL
+     */
+    public String getBASEURL() {
+        return BASEURL;
+    }
+
+    /**
+     * @param BASEURL the BASEURL to set
+     */
+    public void setBASEURL(String BASEURL) {
+        this.BASEURL = BASEURL;
+    }
+
+    /**
+     * @return the GOOGLEANAL
+     */
+    public String getGOOGLEANAL() {
+        return GOOGLEANAL;
+    }
+
+    /**
+     * @param GOOGLEANAL the GOOGLEANAL to set
+     */
+    public void setGOOGLEANAL(String GOOGLEANAL) {
+        this.GOOGLEANAL = GOOGLEANAL;
     }
 }
