@@ -50,6 +50,7 @@
             ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
+             <jsp:include flush="true" page="googleAnalytics_inc.jsp"/>
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <%-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>--%>
