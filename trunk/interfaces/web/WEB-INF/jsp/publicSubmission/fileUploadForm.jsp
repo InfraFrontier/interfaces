@@ -21,7 +21,7 @@
 
     <body>
         <br/>
-        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
+        <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/>
         <div id="wrapper">
             <div id="container">

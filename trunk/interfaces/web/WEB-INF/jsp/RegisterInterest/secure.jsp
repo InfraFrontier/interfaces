@@ -13,7 +13,7 @@
     </head>
     <body>
                 <p>&nbsp;</p>
-        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
+        <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <p>&nbsp;</p>
         <div id="wrapper">
             <div id="container">
@@ -34,7 +34,7 @@
                                             Please check your inbox and use the new link to access your secure interest registration.<br/><br/>
                                             Kind regards,<br/>
                                             EMMA - European Mouse Mutant Archive<br/>
-                                            <a href='${baseurl}'>${baseurl}</a><br/>
+                                            <a href='${BASEURL}'>${BASEURL}</a><br/>
                                             <br />
                                             <br />
 

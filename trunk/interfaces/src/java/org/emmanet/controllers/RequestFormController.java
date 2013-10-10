@@ -125,8 +125,8 @@ public class RequestFormController extends SimpleFormController {
     public static final String MAP_KEY = "returnedOut";
    // final static String BASEURL = Configuration.get("BASEURL");
   //  final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
-    private String BASEURL;
-    private String GOOGLEANAL;
+    private static String BASEURL;
+    private static String GOOGLEANAL;
     private Map returnedOut = new HashMap();
     private Encrypter encrypter = new Encrypter();
     private HttpSession session;
@@ -138,11 +138,11 @@ public class RequestFormController extends SimpleFormController {
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
         session = request.getSession(true);
-        System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
+        //System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
         session.setAttribute("BASEURL", getBASEURL());
-         request.setAttribute("BASEURL", getBASEURL());
+        
         session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
-        request.setAttribute("GOOGLEANAL", getGOOGLEANAL());
+       
         
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));

@@ -13,7 +13,7 @@
     </head>
     <body>
         <p>&nbsp;</p>
-        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
+        <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <p>&nbsp;</p>
         <div id="wrapper">
             <div id="container">
@@ -35,7 +35,7 @@
                                     &#119;&#101;&#98;&#109;&#97;&#115;&#116;&#101;&#114;&#64;&#101;&#109;&#109;&#97;&#110;&#101;&#116;&#46;&#111;&#114;&#103;</a> so that we can assist you in accessing your registration of interest.<br/><br/>
                                 Kind regards,<br/>
                                 EMMA - European Mouse Mutant Archive<br/>
-                                <a href='${baseurl}'>${baseurl}</a>
+                                <a href='${BASEURL}'>${BASEURL}</a>
                                 <br />
                                 <br />
                             </div>
