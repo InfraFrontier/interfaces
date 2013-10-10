@@ -68,6 +68,8 @@ import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 
 public class SubmissionFormController extends AbstractWizardFormController {
 
+
+
     private List cvDAO;
     private HttpSession session;
     private JSONObject obj;
@@ -78,8 +80,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private JavaMailSender javaMailSender;
     private VelocityEngine velocityEngine;
     private boolean action;
-    final static String BASEURL = Configuration.get("BASEURL");
-    final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
+    private static String BASEURL;// = Configuration.get("BASEURL");
+    private static String GOOGLEANAL;// = Configuration.get("GOOGLEANAL");
 
     public SubmissionFormController() {
         setCommandName("command");
@@ -117,10 +119,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         String getprev = "";
 
         session = request.getSession(true);
-        session.setAttribute("BASEURL", BASEURL);
-        request.setAttribute("BASEURL", BASEURL);
-        session.setAttribute("GOOGLEANAL", GOOGLEANAL);
-        request.setAttribute("GOOGLEANAL", GOOGLEANAL);
+            session.setAttribute("BASEURL", getBASEURL());
+        
+        session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
 //total steps in wizard for use in view
         int iPageCount = getPageCount() - 1;
         session.setAttribute("totalStepCount", "" + iPageCount);
@@ -1358,5 +1359,33 @@ public class SubmissionFormController extends AbstractWizardFormController {
      */
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
+    }
+    
+        /**
+     * @return the BASEURL
+     */
+    public String getBASEURL() {
+        return BASEURL;
+    }
+
+    /**
+     * @param aBASEURL the BASEURL to set
+     */
+    public void setBASEURL(String aBASEURL) {
+        BASEURL = aBASEURL;
+    }
+
+    /**
+     * @return the GOOGLEANAL
+     */
+    public String getGOOGLEANAL() {
+        return GOOGLEANAL;
+    }
+
+    /**
+     * @param GOOGLEANAL the GOOGLEANAL to set
+     */
+    public void setGOOGLEANAL(String aGOOGLEANAL) {
+        GOOGLEANAL = aGOOGLEANAL;
     }
 }

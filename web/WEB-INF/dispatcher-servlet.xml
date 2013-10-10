@@ -542,6 +542,12 @@
     <bean name="submissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
         <property name="javaMailSender" ref="javaMailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="GOOGLEANAL" >
+             <value>${GOOGLEANAL}</value>
+         </property>
+                  <property name="BASEURL" >
+             <value>${BASEURL}</value>
+         </property>
         <property name="pages">
             <list>
                 <!-- follow sequence -->

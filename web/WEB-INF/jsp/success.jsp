@@ -1,8 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="baseurl" value="${param.BASEURL}" scope="page" />
-<c:set var="GOOGLEANAL" value="${param.GOOGLEANAL}" scope="page" />
+
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -29,7 +29,7 @@
     </head>
     <body>
                 <p>&nbsp;</p>
-        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
+        <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <p>&nbsp;</p>
         <div id="wrapper">
             <div id="container">
@@ -47,7 +47,7 @@
                                     <br />
                                     <br />
 
-                                    Return to the EMMA Strain List <a href="${baseurl}search">here</a>.
+                                    Return to the EMMA Strain List <a href="${BASEURL}search">here</a>.
                                 </p>
                             </div>
                         </div>

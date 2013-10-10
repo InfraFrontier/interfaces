@@ -21,8 +21,8 @@
 <spring:bind path="command.*" />
 <c:set var="stepCurrent" value="${(sessionScope.pageCount)}" scope="page" />
 <c:set var="stepTotal" value="${(sessionScope.totalStepCount)}" scope="page" />
-<c:set var="baseurl" value="${param.BASEURL}" scope="page" />
-<c:set var="GOOGLEANAL" value="${param.GOOGLEANAL}" scope="page" />
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,7 +58,7 @@
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
-        <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
+        <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
       
             <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
             <div id="wrapper">
