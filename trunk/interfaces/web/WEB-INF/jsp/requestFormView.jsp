@@ -47,7 +47,7 @@
                 a.src=g;
                 m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', '${GOOGLEANAL}', 'infrafrontier.eu');
+            ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
         <script type="text/javascript" src="../js/jquery.js"></script>
@@ -147,6 +147,7 @@
 
     </head>
     <body>
+        
         <br/>
         <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/><br/>
