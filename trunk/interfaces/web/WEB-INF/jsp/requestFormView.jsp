@@ -50,7 +50,6 @@
             ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
-             <jsp:include flush="true" page="googleAnalytics_inc.jsp"/>
         <script type="text/javascript" src="../js/jquery.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <%-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>--%>
@@ -148,7 +147,7 @@
 
     </head>
     <body>
-        
+       google =  ${GOOGLEANAL}
         <br/>
         <p><img src="" height="1" width="145"/><a href="${baseurl}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/><br/>

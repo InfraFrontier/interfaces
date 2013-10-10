@@ -196,6 +196,12 @@
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="javaMailSender" ref="javaMailSender"/>
+         <property name="GOOGLEANAL" >
+             <value>${GOOGLEANAL}</value>
+         </property>
+                  <property name="BASEURL" >
+             <value>${BASEURL}</value>
+         </property>
         <property name="pathToXml">
             <value>${DATAFILES}/tmp/</value>
         </property><!-- /nfs/panda/emmaREMOVED AS PERMISSIONS ERROR cron_pdfs## /data/web/submissions/ removed from server move path changed -->
