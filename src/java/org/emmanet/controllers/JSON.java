@@ -133,6 +133,10 @@ public class JSON extends SimpleFormController {
                 if (paramName.endsWith(".eumodic")) {
                     projectinClause = (new StringBuilder()).append(projectinClause).append("4").toString();
                 }
+                
+                                if (paramName.endsWith(".ls")) {
+                    projectinClause = (new StringBuilder()).append(projectinClause).append("7").toString();
+                }
                 projectinClause = (new StringBuilder()).append(projectinClause).append(",").toString();
             }
 
@@ -172,7 +176,18 @@ public class JSON extends SimpleFormController {
             }
             if (paramName.startsWith("funding")) {
                 //  fundingInClause = "(";
-                if (paramName.endsWith(".s1wp4")) {
+                if (paramName.endsWith(".I3-p1")) {
+                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("45").toString();
+                }
+                if (paramName.endsWith(".I3-p2")) {
+                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("46").toString();
+                }
+                if (paramName.endsWith(".I3-p3")) {
+                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("47").toString();
+                }
+                
+                /*
+                                if (paramName.endsWith(".s1wp4")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("16").toString();
                 }
                 if (paramName.endsWith(".s2wp4")) {
@@ -180,7 +195,8 @@ public class JSON extends SimpleFormController {
                 }
                 if (paramName.endsWith(".s3wp4")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("18").toString();
-                }
+                }*/
+                
                 fundingInClause = (new StringBuilder()).append(fundingInClause).append(",").toString();
             }
 

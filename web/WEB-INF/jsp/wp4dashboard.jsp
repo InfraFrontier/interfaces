@@ -62,14 +62,15 @@
                 if(document.getElementById('project.disregard').checked) {
                     document.getElementById('project.community').checked = false;
                     document.getElementById('project.mgp').checked = false;
+                    document.getElementById('project.ls').checked = false;
                     document.getElementById('eucommtd').checked = false;
                     // document.getElementById('project.disregard').checked=false;
                     document.getElementById('project.disregard').checked=true;
                 }
                 if(document.getElementById('funding.disregard').checked) {
-                    document.getElementById('funding.s1wp4').checked = false;
-                    document.getElementById('funding.s2wp4').checked = false;
-                    document.getElementById('funding.s3wp4').checked = false;
+                    document.getElementById('funding.I3-p1').checked = false;
+                    document.getElementById('funding.I3-p2').checked = false;
+                    document.getElementById('funding.I3-p3').checked = false;
                     //document.getElementById('funding.disregard').checked = false;
                     
                     document.getElementById('funding.disregard').checked=true;
@@ -108,7 +109,7 @@
                 <tr>
                     <td><input type="checkbox" id="project.community"  onclick="deselectSpecific('project.disregard')" name="project.community" value="on" checked>&nbsp:: Community</td>
                     <td><input type="checkbox" id="rtools.cre"  name="rtools.cre" value="on">&nbsp:: CRE</td>
-                    <td><input type="checkbox" id="funding.s1wp4"  onclick="deselectSpecific('funding.disregard')" name="funding.s1wp4" value="on" checked>&nbsp:: s1WP4 (1st period)</td>
+                    <td><input type="checkbox" id="funding.I3-p1"  onclick="deselectSpecific('funding.disregard')" name="funding.I3-p1" value="on" checked>&nbsp:: I3-p1 (1st period)</td>
                     <td><input type="checkbox" id="stock.embryos"  onclick="deselectSpecific('stock.disregard')"  name="stock.embryos" value="on">&nbsp:: Embryos</td>
                     <td><input type="checkbox" id="mutation.chranomoly"  name="mutation.chranomoly" value="on">&nbsp:: Chr. Anomoly</td>
                     <td><input type="radio" id="multimutation.1"  name="multimutation" value="1" checked>&nbsp:: Count all strains once</td>
@@ -117,7 +118,7 @@
                 <tr>
                     <td><input type="checkbox" id="project.mgp"  onclick="deselectSpecific(project.deselect)" name="project.mgp" value="on" checked >&nbsp:: MGP</td>
                     <td><input type="checkbox" id="rtools.loxp"  name="rtools.loxp" value="on">&nbsp:: loxP</td>
-                    <td><input type="checkbox" id="funding.s2wp4"  onclick="deselectSpecific('funding.disregard')" name="funding.s2wp4" value="on" checked>&nbsp:: s2WP4 (2nd period)</td>
+                    <td><input type="checkbox" id="funding.I3-p2"  onclick="deselectSpecific('funding.disregard')" name="funding.I3-p2" value="on" checked>&nbsp:: I3-p2 (2nd period)</td>
                     <td><input type="checkbox" id="stock.sperm"  onclick="deselectSpecific('stock.disregard')" name="stock.sperm" value="on">&nbsp:: Sperm</td>
                     <td><input type="checkbox" id="mutation.gene-trap"  name="mutation.gene-trap" value="on">&nbsp:: Gene-Trap</td>
                     <td><input type="radio" id="multimutation.2"  name="multimutation" value="2" >&nbsp:: Count as indicated in reporting count</td>
@@ -129,14 +130,14 @@
                     // alert('For a more comprehensice search for EUCOMM project strains \nuse the filter for Research Tools selecting the EUC value');
                 });</script>
                 <td><input type="checkbox" id="rtools.flp"  name="rtools.flp" value="on">&nbsp:: FLP</td>
-                <td><input type="checkbox" id="funding.s3wp4"  onclick="deselectSpecific('funding.disregard')" name="funding.s3wp4" value="on" checked>&nbsp:: s3WP4 (3rd period)</td>
+                <td><input type="checkbox" id="funding.I3-p3"  onclick="deselectSpecific('funding.disregard')" name="funding.I3-p3" value="on" checked>&nbsp:: I3-p3 (3rd period)</td>
                 <td><input type="checkbox" id="stock.disregard"  name="stock.disregard" value="on" checked onClick="deselect()">&nbsp:: Disregard</td>
                 <td><input type="checkbox" id="mutation.induced"  name="mutation.induced" value="on">&nbsp:: Induced</td>
                 <td>&nbsp;</td>
                 <td><input type="checkbox" id="strainaccess.notfordist"  name="strainaccess.notfordist" value="on" checked>&nbsp:: Not for distribution (N)</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" id="project.disregard"  name="project.disregard" value="on" onClick="deselect()">&nbsp:: Disregard</td>
+                    <td><input type="checkbox" id="project.ls"   onclick="deselectSpecific(project.deselect)" name="project.ls" value="on" checked>&nbsp:: LS</td>
                     <td><input type="checkbox" id="rtools.frt"  name="rtools.frt" value="on">&nbsp:: FRT</td>
                     <td><input type="checkbox" id="funding.disregard"  name="funding.disregard" value="on" onClick="deselect()">&nbsp:: Disregard</td>
                     <td>&nbsp;</td>
@@ -145,7 +146,7 @@
                     <td><input type="checkbox" id="strainaccess.retracted"  name="strainaccess.retracted" value="on">&nbsp:: Retracted (R)</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
+                    <td><input type="checkbox" id="project.disregard"  name="project.disregard" value="on" onClick="deselect()">&nbsp:: Disregard</td>
                     <td><input type="checkbox" id="rtools.tet"  name="rtools.tet" value="on">&nbsp:: TET</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>

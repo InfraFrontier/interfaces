@@ -117,6 +117,9 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 if (paramName.endsWith(".mgp")) {
                     projectinClause = (new StringBuilder()).append(projectinClause).append("5").toString();
                 }
+                                if (paramName.endsWith(".ls")) {
+                    projectinClause = (new StringBuilder()).append(projectinClause).append("7").toString();
+                }
                 if (paramName.endsWith(".eucomm")) {
                     //set cvrtools euc to 9 instead as projects won't give accurate results for eucomm strains.
                     projectinClause = (new StringBuilder()).append(projectinClause).append("3").toString();
@@ -170,6 +173,16 @@ public class interstitialWp4SpreadsheetController implements Controller {
             }
             if (paramName.startsWith("funding")) {
                 //  fundingInClause = "(";
+                           if (paramName.endsWith(".I3-p1")) {
+                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("45").toString();
+                }
+                if (paramName.endsWith(".I3-p2")) {
+                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("46").toString();
+                }
+                if (paramName.endsWith(".I3-p3")) {
+                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("47").toString();
+                }
+       /*
                 if (paramName.endsWith(".s1wp4")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("16").toString();
                 }
@@ -178,7 +191,7 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 }
                 if (paramName.endsWith(".s3wp4")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("18").toString();
-                }
+                }*/
                 fundingInClause = (new StringBuilder()).append(fundingInClause).append(",").toString();
             }
 
