@@ -17,10 +17,10 @@ Please find attached the MTA template for your convenience. To expedite processi
     For the section "Description of Materials", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
             "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. ${string}."
 
-Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <http://www.emmanet.org/strains.php>.
+Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <$BASEURLsearch>.
 
 The standard quantity supplied is 2 breeding pairs.
-To potentially accelerate availability please indicate if you would consider receiving 2 males only. Standard Service Fee applies (www.emmanet.org/strains.php).
+To potentially accelerate availability please indicate if you would consider receiving 2 males only. Standard Service Fee applies ($BASEURLresources-and-services/access-emma-mouse-resources/strain-ordering).
 
 Should you have any general questions, please do not hesitate to contact the EMMA Project Coordination Office (info@emmanet.org). For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
 
