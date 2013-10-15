@@ -146,32 +146,7 @@
             </map>
         </property>
     </bean>
-    
-    
-    <bean name="rssFeedJob"
-          class="org.springframework.scheduling.quartz.JobDetailBean">
-        <property name="jobClass" value="org.emmanet.jobs.rssJOB"/>
-        <property name="jobDataAsMap">
-            <map>
-                <entry key="velocityEngine">
-                    <ref bean="velocityEngine"/>
-                </entry>
-                <entry key="searchURL">
-                    <value>http://www.emmanet.org/mutant_types.php?</value>
-                </entry>
-                <entry key="rssLogo">
-                    <value>http://www.emmanet.org/images/emma_logo2.gif?rss</value>
-                </entry>
-                <entry key="fileLocation">
-                    <value>${DATAFILES}/tmp/</value>
-                </entry>
-                <entry key="filename">
-                    <value>emmafeed.xml</value>
-                </entry>
-            </map>
-        </property>
-    </bean>
-    
+
     <bean name="mailJob"
           class="org.springframework.scheduling.quartz.JobDetailBean">
         <property name="jobClass" value="org.emmanet.jobs.RegInterestJOB"/>
@@ -195,10 +170,6 @@
         <property name="jobDetail" ref="bgListJob"/>
         <property name="cronExpression" value="0 30 5 * * ?"/><!--- 0 30 5 * * ? -->
     </bean>
-    <bean id="rssTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="rssFeedJob"/>
-        <property name="cronExpression" value="0 0 21 * * ?"/>
-    </bean>
         <bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="mailJob"/>
         <property name="cronExpression" value="0 57 23 * * ?"/><!---    0 57 23 * * ?   -->
@@ -217,8 +188,7 @@
         <property name="triggers">
             <list>
                 <ref bean="bglistTrigger"/>
-                <!--     <ref bean="updateBibliosTrigger"/>
-              <ref bean="rssTrigger"/>
+                <!--     <ref bean="updateBibliosTrigger"/
                 <ref bean="updateBibliosTrigger"/>
                 <ref bean="smailerTrigger"/> -->
                  <ref bean="mailTrigger"/>

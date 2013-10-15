@@ -44,8 +44,8 @@ public class JSON extends SimpleFormController {
     private String dateDiffGlt = "";
     private boolean eucState = false;
     private boolean reportPeriod = false;
-    private String manualCalcFields1="";
-    private String manualCalcFields2="";
+    private String manualCalcFields1 = "";
+    private String manualCalcFields2 = "";
     private String fileLocation;
 
     @Override
@@ -133,8 +133,8 @@ public class JSON extends SimpleFormController {
                 if (paramName.endsWith(".eumodic")) {
                     projectinClause = (new StringBuilder()).append(projectinClause).append("4").toString();
                 }
-                
-                                if (paramName.endsWith(".ls")) {
+
+                if (paramName.endsWith(".ls")) {
                     projectinClause = (new StringBuilder()).append(projectinClause).append("7").toString();
                 }
                 projectinClause = (new StringBuilder()).append(projectinClause).append(",").toString();
@@ -165,7 +165,7 @@ public class JSON extends SimpleFormController {
                 }
                 if (paramName.endsWith(".euc")) {
                     /*QUERY NEEDS WORK TO REMOVE ISSUES WHEN SEARCHING BOTH PROJECTS AND RTOOLS
-                    SEARCH CURRENTLY LOOKS FOR PROJECTS (VALUES 5,6,7,8) AND WHERE RTOOLS IN 9*/
+                     SEARCH CURRENTLY LOOKS FOR PROJECTS (VALUES 5,6,7,8) AND WHERE RTOOLS IN 9*/
                     // if (!rtoolsinClause.contains("9")) {
                     rtoolsinClause = (new StringBuilder()).append(rtoolsinClause).append("9").toString();
                     eucState = true;
@@ -185,18 +185,18 @@ public class JSON extends SimpleFormController {
                 if (paramName.endsWith(".I3-p3")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("47").toString();
                 }
-                
+
                 /*
-                                if (paramName.endsWith(".s1wp4")) {
-                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("16").toString();
-                }
-                if (paramName.endsWith(".s2wp4")) {
-                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("17").toString();
-                }
-                if (paramName.endsWith(".s3wp4")) {
-                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("18").toString();
-                }*/
-                
+                 if (paramName.endsWith(".s1wp4")) {
+                 fundingInClause = (new StringBuilder()).append(fundingInClause).append("16").toString();
+                 }
+                 if (paramName.endsWith(".s2wp4")) {
+                 fundingInClause = (new StringBuilder()).append(fundingInClause).append("17").toString();
+                 }
+                 if (paramName.endsWith(".s3wp4")) {
+                 fundingInClause = (new StringBuilder()).append(fundingInClause).append("18").toString();
+                 }*/
+
                 fundingInClause = (new StringBuilder()).append(fundingInClause).append(",").toString();
             }
 
@@ -351,8 +351,8 @@ public class JSON extends SimpleFormController {
                                 + "MIN(CASE WHEN DATEDIFF(sub.glt,sub.evaluated ) < 0 THEN NULL ELSE DATEDIFF(sub." + received + ",sub.evaluated) END) AS MINGLT ").toString();
 
                         subSelectFields = "a." + received + ",a.evaluated,a.glt";
-                        manualCalcFields1="glt,evaluated";
-manualCalcFields2="received,evaluated";
+                        manualCalcFields1 = "glt,evaluated";
+                        manualCalcFields2 = "received,evaluated";
 
                         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -388,8 +388,8 @@ manualCalcFields2="received,evaluated";
                                 + "MIN(CASE WHEN DATEDIFF(sub.freezing_started , sub.glt ) < 0 THEN NULL ELSE DATEDIFF(sub.freezing_started , " + received + ") END) AS MINGLT ").toString();
 
                         subSelectFields = "a.glt,a.freezing_started ,a." + received;
-                        manualCalcFields1="freezing_started , glt";
-manualCalcFields2="freezing_started , received";
+                        manualCalcFields1 = "freezing_started , glt";
+                        manualCalcFields2 = "freezing_started , received";
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////              
 
 
@@ -530,7 +530,7 @@ manualCalcFields2="freezing_started , received";
                     + subSelect).toString();
 
             System.out.println("FINAL SUBSELECT IS::" + selectFromSub);
-            
+
             list = sm.getStrainsBySQL(selectFromSub);
 
         }
@@ -643,11 +643,11 @@ manualCalcFields2="freezing_started , received";
                     //System.out.println("MEDIAN VALUE IS::-" + obj.get("MEDIAN"));
                     i++;
                     JSONobjects.add(obj);
-                     if (eucState && reportPeriod) {
-                         JSONobjects.clear();
-                         JSONobjects.add(this.manualMetrics(joinClause, fromClause, whereClause, manualCalcFields1, manualCalcFields2));
-                     }
-                    
+                    if (eucState && reportPeriod) {
+                        JSONobjects.clear();
+                        JSONobjects.add(this.manualMetrics(joinClause, fromClause, whereClause, manualCalcFields1, manualCalcFields2));
+                    }
+
                 }
                 out.close();
             } catch (IOException e) {
@@ -719,15 +719,15 @@ manualCalcFields2="freezing_started , received";
                 obj4.put("MEDIAN", medianValue);
 
             }
-            
-                                 if (eucState && reportPeriod) {
-                         //DO NOTHING TOTALS ALREADY PART OF JSONOBJECTS
-                     }else {
-                                     JSONobjects.add(obj4);
-                                     
-                                 }
-            
-            
+
+            if (eucState && reportPeriod) {
+                //DO NOTHING TOTALS ALREADY PART OF JSONOBJECTS
+            } else {
+                JSONobjects.add(obj4);
+
+            }
+
+
             returnedOut.put("JSON", JSONobjects);
 
 
@@ -1049,7 +1049,7 @@ manualCalcFields2="freezing_started , received";
 
         return obj;
     }
-    
+
     public List manualMetrics(String joinClause, String fromClause, String whereClause, String fieldsGLT, String fieldsARR) {
         String selectStatementLab = "SELECT DISTINCT l.code ";
         String selectStatement = "SELECT DISTINCT s.id_str,DATEDIFF(" + fieldsGLT + "),DATEDIFF(" + fieldsARR + ")";
@@ -1062,14 +1062,14 @@ manualCalcFields2="freezing_started , received";
         BigDecimal totSUM = new BigDecimal("0.0");
 
         List returnObjects = new LinkedList();
-        
+
         //for totals
-        BigDecimal totActualCount=new BigDecimal("0.0");
-        BigDecimal totCount=new BigDecimal("0.0");
+        BigDecimal totActualCount = new BigDecimal("0.0");
+        BigDecimal totCount = new BigDecimal("0.0");
         BigDecimal AVG = new BigDecimal("0.0");
-        
-        double MAX=0;
-        double MIN =0;
+
+        double MAX = 0;
+        double MIN = 0;
 
         List labCode = sm.getStrainsBySQL(selectStatementLab + fromClause + joinClause + whereClause + " ORDER BY l.code");
         for (Iterator it = labCode.listIterator(); it.hasNext();) {
@@ -1108,39 +1108,39 @@ manualCalcFields2="freezing_started , received";
             BigDecimal divisor = new BigDecimal(Integer.valueOf(dateDiffFinalValues.size()));
             System.out.println("LOG:: DIVISOR=" + sum + "\\" + divisor);
             BigDecimal div = new BigDecimal(String.valueOf(divisor));
-            totActualCount=totActualCount.add(divisor);
-            BigDecimal addToTotal=new BigDecimal(Integer.valueOf(dateDiffData.size()));
-            totCount=totCount.add(addToTotal);
+            totActualCount = totActualCount.add(divisor);
+            BigDecimal addToTotal = new BigDecimal(Integer.valueOf(dateDiffData.size()));
+            totCount = totCount.add(addToTotal);
             //    BigDecimal AVG = sum.divide(new BigDecimal(String.valueOf(divisor),9, BigDecimal.ROUND_HALF_UP));
-            if (dateDiffFinalValues.size() != 0){
-            AVG = sum.divide(divisor, 0, RoundingMode.HALF_UP);
-            MAX = dateDiffFinalValues.get(dateDiffFinalValues.size() - 1);
-            MIN = dateDiffFinalValues.get(0);
+            if (dateDiffFinalValues.size() != 0) {
+                AVG = sum.divide(divisor, 0, RoundingMode.HALF_UP);
+                MAX = dateDiffFinalValues.get(dateDiffFinalValues.size() - 1);
+                MIN = dateDiffFinalValues.get(0);
             } else {
-             AVG = new BigDecimal("0.0");
-            MAX = 0;
-            MIN = 0;
+                AVG = new BigDecimal("0.0");
+                MAX = 0;
+                MIN = 0;
             }
-JSONObject objMan = new JSONObject();
+            JSONObject objMan = new JSONObject();
             objMan.put("code", oLab);
             objMan.put("COUNT", dateDiffData.size());
             objMan.put("SUM", sum);
             objMan.put("AVG", AVG);
             objMan.put("MAX", MAX);
             objMan.put("MIN", MIN);
-            objMan.put("ACTUALCOUNT",divisor);
-            objMan.put("MEDIAN",medianValue);
+            objMan.put("ACTUALCOUNT", divisor);
+            objMan.put("MEDIAN", medianValue);
             //FOR TOTALS
-        totMAXValues.add(MAX/*dateDiffFinalValues.get(dateDiffFinalValues.size() - 1)*/);
-        totMINValues.add(MIN/*dateDiffFinalValues.get(0)*/);
-            
+            totMAXValues.add(MAX/*dateDiffFinalValues.get(dateDiffFinalValues.size() - 1)*/);
+            totMINValues.add(MIN/*dateDiffFinalValues.get(0)*/);
+
             returnObjects.add(objMan);
         }//end of lab code iteration
 //TOTALS NOW
         Collections.sort(totMAXValues);
         Collections.sort(totMINValues);
         Collections.sort(totDateDiffValues);
-        
+
         JSONObject objTot = new JSONObject();
         objTot.put("code", "~~ TOTAL ~~");
         objTot.put("ACTUALCOUNT", totActualCount);
