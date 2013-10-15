@@ -1000,6 +1000,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         model.put("strainname", nsd.getName());
         model.put("strainid", nsd.getId_str());
         model.put("encryptedstrainid", encrypter.encrypt("" + nsd.getId_str()));
+        model.put("BASEURL",BASEURL);
 
         String velocTemplate = "org/emmanet/util/velocitytemplates/SubmissionFormReceipt-Template.vm";
 
@@ -1012,7 +1013,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             helper.setFrom("emma@emmanet.org");
             helper.setBcc("webmaster@ebi.ac.uk");
             helper.setTo(model.get("emailsubmitter").toString().trim());
-            helper.setSubject("TEST - Your submission to EMMA of strain " + model.get("strainname").toString());//todo remove test prefix
+            helper.setSubject("Your submission to EMMA of strain " + model.get("strainname").toString());//todo remove test prefix
             helper.setText(content);
             getJavaMailSender().send(message);
         } catch (MessagingException ex) {

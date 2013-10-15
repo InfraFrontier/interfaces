@@ -495,6 +495,7 @@ public class RequestFormController extends SimpleFormController {
         model.put("requestID", webRequest.getId_req());
         model.put("labID", webRequest.getLab_id_labo());
         model.put("rtoolsID", rtoolsID);
+        model.put("BASEURL", BASEURL);
         if (!webRequest.getLab_id_labo().equals("4")) {
             /*
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.

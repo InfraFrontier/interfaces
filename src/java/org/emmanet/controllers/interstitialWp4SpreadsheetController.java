@@ -62,13 +62,13 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 + " LEFT JOIN cv_sources cvs ON cvs.id=ss.sour_id";
         String groupClause = "";
         String whereClause = "";
-        String  subQuerySQL="";
+        String subQuerySQL = "";
 
         fromClause = (new StringBuilder()).append(fromClause).append(" FROM strains s").toString();
         // joinClause = "";
         whereClause = " WHERE s.str_status NOT IN ('EVAL','RJCTD','TNA') ";
-            //  + "AND a.evaluated IS NOT NULL "
-               // + "AND a.submitted IS NOT NULL ";
+        //  + "AND a.evaluated IS NOT NULL "
+        // + "AND a.submitted IS NOT NULL ";
         String strain_accessInClause = "(";
         String projectinClause = "(";
         String rtoolsinClause = "(";
@@ -117,7 +117,7 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 if (paramName.endsWith(".mgp")) {
                     projectinClause = (new StringBuilder()).append(projectinClause).append("5").toString();
                 }
-                                if (paramName.endsWith(".ls")) {
+                if (paramName.endsWith(".ls")) {
                     projectinClause = (new StringBuilder()).append(projectinClause).append("7").toString();
                 }
                 if (paramName.endsWith(".eucomm")) {
@@ -160,7 +160,7 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 }
                 if (paramName.endsWith(".euc")) {
                     /*QUERY NEEDS WORK TO REMOVE ISSUES WHEN SEARCHING BOTH PROJECTS AND RTOOLS
-                    SEARCH CURRENTLY LOOKS FOR PROJECTS (VALUES 5,6,7,8) AND WHERE RTOOLS IN 9*/
+                     SEARCH CURRENTLY LOOKS FOR PROJECTS (VALUES 5,6,7,8) AND WHERE RTOOLS IN 9*/
                     // if (!rtoolsinClause.contains("9")) {
                     rtoolsinClause = (new StringBuilder()).append(rtoolsinClause).append("9").toString();
                     // received = "glt";
@@ -173,7 +173,7 @@ public class interstitialWp4SpreadsheetController implements Controller {
             }
             if (paramName.startsWith("funding")) {
                 //  fundingInClause = "(";
-                           if (paramName.endsWith(".I3-p1")) {
+                if (paramName.endsWith(".I3-p1")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("45").toString();
                 }
                 if (paramName.endsWith(".I3-p2")) {
@@ -182,16 +182,16 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 if (paramName.endsWith(".I3-p3")) {
                     fundingInClause = (new StringBuilder()).append(fundingInClause).append("47").toString();
                 }
-       /*
-                if (paramName.endsWith(".s1wp4")) {
-                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("16").toString();
-                }
-                if (paramName.endsWith(".s2wp4")) {
-                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("17").toString();
-                }
-                if (paramName.endsWith(".s3wp4")) {
-                    fundingInClause = (new StringBuilder()).append(fundingInClause).append("18").toString();
-                }*/
+                /*
+                 if (paramName.endsWith(".s1wp4")) {
+                 fundingInClause = (new StringBuilder()).append(fundingInClause).append("16").toString();
+                 }
+                 if (paramName.endsWith(".s2wp4")) {
+                 fundingInClause = (new StringBuilder()).append(fundingInClause).append("17").toString();
+                 }
+                 if (paramName.endsWith(".s3wp4")) {
+                 fundingInClause = (new StringBuilder()).append(fundingInClause).append("18").toString();
+                 }*/
                 fundingInClause = (new StringBuilder()).append(fundingInClause).append(",").toString();
             }
 
@@ -258,23 +258,23 @@ public class interstitialWp4SpreadsheetController implements Controller {
         if (request.getParameter("stock.sperm") != null && request.getParameter("stock.embryos") != null) {
             if (request.getParameter("stock.sperm").equals("on") && request.getParameter("stock.embryos").equals("on")) {
                 //need to modify stockinClause to include an 'AND' statement and appropriate brackets
-                    modStockInClause = stockInClause.substring(0, 4);
-                    modStockInClause = (new StringBuilder()).append(modStockInClause).append(")").toString();
-                    modStockInClauseEnd = stockInClause.substring(5, 9);
-                    modStockInClauseEnd = (new StringBuilder()).append("(").append(modStockInClauseEnd).toString();
-                    //###############################################################
-                     subQuerySQL=" s.id_str= ANY "
-                            + "(SELECT DISTINCT str_id_str FROM availabilities_strains,cv_availabilities "
-                            + "WHERE avail_id=id AND code IN ('E') AND in_stock=1 "
-                            + "AND str_id_str IN "
-                            + "("
-                            + "SELECT DISTINCT str_id_str "
-                            + "FROM availabilities_strains,cv_availabilities "
-                            + "WHERE avail_id=id AND code IN ('S') AND in_stock=1"
-                            + ") "
-                            //+ "ORDER BY `availabilities_strains`.`str_id_str` ASC"
-                            + ")";
-                    //###############################################################
+                modStockInClause = stockInClause.substring(0, 4);
+                modStockInClause = (new StringBuilder()).append(modStockInClause).append(")").toString();
+                modStockInClauseEnd = stockInClause.substring(5, 9);
+                modStockInClauseEnd = (new StringBuilder()).append("(").append(modStockInClauseEnd).toString();
+                //###############################################################
+                subQuerySQL = " s.id_str= ANY "
+                        + "(SELECT DISTINCT str_id_str FROM availabilities_strains,cv_availabilities "
+                        + "WHERE avail_id=id AND code IN ('E') AND in_stock=1 "
+                        + "AND str_id_str IN "
+                        + "("
+                        + "SELECT DISTINCT str_id_str "
+                        + "FROM availabilities_strains,cv_availabilities "
+                        + "WHERE avail_id=id AND code IN ('S') AND in_stock=1"
+                        + ") "
+                        //+ "ORDER BY `availabilities_strains`.`str_id_str` ASC"
+                        + ")";
+                //###############################################################
             }
         }
         mutInClause = cleanClause(mutInClause);
@@ -386,16 +386,16 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 System.out.println("Object " + ii + "::- " + obj[ii]);
             }
             if (request.getParameter("report").equals("f")) {
-                 if(obj[12] != null){
-                     pid = Integer.parseInt(obj[12/*2*//*2*//*1*/].toString());
-                 }else{
-                    pid=0;
+                if (obj[12] != null) {
+                    pid = Integer.parseInt(obj[12/*2*//*2*//*1*/].toString());
+                } else {
+                    pid = 0;
                 }
-                
-                if(obj[13] != null){
+
+                if (obj[13] != null) {
                     sid = Integer.parseInt(obj[13/*3*//*3*//*2*/].toString());
-                }else{
-                    sid=0;
+                } else {
+                    sid = 0;
                 }
                 //retrieve mutations from separate query then concatenate
                 //current query not retrieving all mutations for a strain with multiple ones.
@@ -445,16 +445,16 @@ public class interstitialWp4SpreadsheetController implements Controller {
             cvp = sm.getProjectsByPID(pid);
             svp = sm.getSourcesBySID(sid);
             if (request.getParameter("report").equals("f")) {
-                
-                if(sid != 0){
-                obj[13/*3*/] = svp.getCode();//.getDescription();
-                }else{
-                    obj[13]= "";
+
+                if (sid != 0) {
+                    obj[13/*3*/] = svp.getCode();//.getDescription();
+                } else {
+                    obj[13] = "";
                 }
-                                if(pid != 0){
-               obj[12/*2*/] = cvp.getCode();//.getDescription();
-                }else{
-                    obj[12]= "";
+                if (pid != 0) {
+                    obj[12/*2*/] = cvp.getCode();//.getDescription();
+                } else {
+                    obj[12] = "";
                 }
             } else if (request.getParameter("report").equals("r")) {
                 obj[10] = cvp.getCode();//.getDescription();
@@ -493,9 +493,9 @@ public class interstitialWp4SpreadsheetController implements Controller {
                 if (request.getParameter("report").equals("f")) {
                     //System.out.println("FULL REPORT");
                     //System.out.println("OBJECT 21 IS:-  " + obj[21] + " AND OBJECT 28 IS:- " + obj[28]);
-                    if (/*obj[21] == null &&*/ obj[28] != null ) {
+                    if (/*obj[21] == null &&*/obj[28] != null) {
                         //obj[20] =  obj[20] + "==" + obj[28];
-                       // if(!obj[28].toString().startsWith("-")) 
+                        // if(!obj[28].toString().startsWith("-")) 
                         obj[21] = obj[28];
                     }
                     if (/*obj[22] == null && */obj[29] != null) {
@@ -557,7 +557,7 @@ public class interstitialWp4SpreadsheetController implements Controller {
             clause = clause.replace(",,)", ",)");
         }
         if (clause.endsWith(",)")) {
-           // System.out.println("we should be here");
+            // System.out.println("we should be here");
             clause = clause.replace(",)", ")");
         }
         if (clause.endsWith("(") || clause.endsWith("()")) {
