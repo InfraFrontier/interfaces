@@ -999,7 +999,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         model.put("emailsubmitter", sd.getSubmitter_email());
         model.put("strainname", nsd.getName());
         model.put("strainid", nsd.getId_str());
-        model.put("encryptedstrainid", encrypter.encrypt("" + nsd.getId_str()));
+        model.put("encid", encrypter.encrypt("" + nsd.getId_str()));//encryptedstrainid
         model.put("BASEURL",BASEURL);
 
         String velocTemplate = "org/emmanet/util/velocitytemplates/SubmissionFormReceipt-Template.vm";

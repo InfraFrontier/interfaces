@@ -8,7 +8,7 @@ The submission form will be forwarded to the evaluation committee and you will b
 
 Should you have any questions, please do not hesitate to contact the Project Coordination Office (info@emmanet.org).
 
-You can review your submission here ${BASEURL}emma/pdfView.emma?id=${strainid}&pdfView=y&type=sub
+You can review your submission here < ${BASEURL}emma/pdfView.emma?encid=${encid}&pdfView=y&type=sub > or copy and paste the link between the <> characters into the address bar of your browser.
 
 ## Include footer template common to all messages
 #parse( "org/emmanet/util/velocitytemplates/footer.vm" )
