@@ -878,7 +878,7 @@
                                                     <div class="innerfooter">
                                                         <div class="splithalf">
                                                             <div class="half">
-                                                                © Infrafrontier 2013 - all rights reserved
+                                                                © INFRAFRONTIER 2013 - all rights reserved
                                                             </div>
                                                             <div class="half">
                                                                 <div id="bn">
