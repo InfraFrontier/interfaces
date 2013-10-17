@@ -11,7 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:if test="${requestScope.ERROR == 'TRUE'}"><c:redirect url="invalidurlerror.emma"/></c:if>
 <c:if test="${requestScope.UNENCRYPTEDID == 'TRUE'}"><c:redirect url="secure.emma"/></c:if>
-    
+
 <spring:bind path="command.*" />
 <%
     String newReq = request.getParameter("new");
@@ -48,7 +48,8 @@
             ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
-        <script type="text/javascript" src="../js/jquery.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+        </script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <%-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>--%>
         <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
@@ -57,8 +58,7 @@
         <script type="text/javascript" src="../js/calendar.js"></script>
         <script type="text/javascript" src="../js/calendar-en.js"></script>
         <script type="text/javascript" src="../js/calendar-setup.js"></script>
-        <script type="text/javascript" src="../js/taDisplay.js"></script>
-
+         <script type="text/javascript" src="../js/popWin.js"></script>
         <script type="text/javascript">
             /*
              * Fill the contact persons details with the scientists when chosen 'as above'.
@@ -89,7 +89,7 @@
                 }
     
                 function show(layer) {
-                    // alert(layer);
+                    alert(layer);
                     var myLayer=document.getElementById(layer).style.display;
                     document.getElementById(layer).style.display="";
                          
@@ -140,9 +140,10 @@
                         document.forms[0].str_id_str.value = id; 
                     }
                 });
+     
             });
         </script>
-
+ 
     </head>
     <body>
         <br/>
@@ -244,21 +245,21 @@
                                             <tr><td class="boxoutB" align="right"><b>Select strain id</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="insertID" id="insertID" value="" size="10"  /></td></tr>
 
                                             <tr><td class="boxoutB" align="right"><b>Request date</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="reqDate" id="reqDate" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>" size="10"  />            
-                                                    <img src="images/cal.gif"  id="reqdate" border="0">
-                                                    <script type="text/javascript">
-                                                        Calendar.setup(
-                                                        {
-                                                            inputField  : "reqDate",
-                                                            ifFormat    : "%Y-%m-%d %H:%M:%S",
-                                                            button      : "reqdate",   
-                                                            onUpdate : calHiddenFields
-                                                        }
-                                                    );
-                                                        document.forms[0].elements['insertID'].focus();
+                                                        <img src="images/cal.gif"  id="reqdate" border="0">
+                                                        <script type="text/javascript">
+                                                            Calendar.setup(
+                                                            {
+                                                                inputField  : "reqDate",
+                                                                ifFormat    : "%Y-%m-%d %H:%M:%S",
+                                                                button      : "reqdate",   
+                                                                onUpdate : calHiddenFields
+                                                            }
+                                                        );
+                                                            document.forms[0].elements['insertID'].focus();
 
-                                                    </script></td></tr>
-                                            <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
-                                        </table>                          
+                                                        </script></td></tr>
+                                                <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
+                                            </table>                          
                                     </c:if>  
 
                                 </div>          
@@ -340,7 +341,7 @@
                                                 </div>
 
                                                 <div class="boxcontainer">
-                                                   <br/> <h5>Shipping contact (animal facility manager etc.)</h5>
+                                                    <br/> <h5>Shipping contact (animal facility manager etc.)</h5>
                                                     <p><strong>Shipping Contact's Title</strong></p>
                                                     <spring:bind path="command.sci_title">
                                                         <select name="con_title" >
@@ -472,7 +473,7 @@
                                                     <div class="boxcontainer">
                                                         <%--<c:if test="${command.register_interest == '1' && command.id_req == null}" > --%>
                                                         <%--<table width="100% ">--%>
-                                                       <br/> <h5>Billing address.Please provide a billing address<%-- and/or a purchase order number--%>.</h5>
+                                                        <br/> <h5>Billing address.Please provide a billing address<%-- and/or a purchase order number--%>.</h5>
                                                         <%-- </table>   --%>               
                                                         <div  id="vat" style="display: none;">
                                                             <p><strong>VAT Reference <font color="red">*</font></strong></p>
@@ -620,10 +621,10 @@
 
 
 
-                                                        <div class="boxcontainer">
-                                                            <h5>Requested strain:</h5>
-                                                            <br />
-                                                                <p><strong>EMMA ID</strong></p><spring:bind path="command.strain_id">
+                                                <div class="boxcontainer">
+                                                    <h5>Requested strain:</h5>
+                                                    <br />
+                                                    <p><strong>EMMA ID</strong></p><spring:bind path="command.strain_id">
                                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
                                                     </spring:bind>
                                                     <p><strong>Strain name</strong></p><spring:bind path="command.strain_name">
@@ -768,7 +769,7 @@
                                                      </c:if>--%>
 
                                                     <p align="left">
-                                                        <span align ="left" id="conditions"></span>
+                                                    &nbsp;
                                                     </p> 
                                                     <p  style="text-align: center;" align="center">
                                                         <c:if test="${empty param.status}">
@@ -777,15 +778,16 @@
                                                                     <spring:bind path="command.application_type">
                                                                         <input type="hidden" name="<c:out value="${status.expression}"/>" value=""/>
                                                                     </spring:bind>
-                                                                    Please read and be aware of the <a href="#" onclick="javascript:ajax('conditions.html#top','conditions');return false;" title="EMMA Conditions">conditions</a> and associated shipping costs. These will have to be agreed to, when you finally place an order for the mice.
+                                                                    Please read and be aware of the <a href="javascript:void(0)" onClick="javascript:openWindow('../conditions.html');" id="conditionsShow"  title="EMMA Conditions">conditions</a> and associated shipping costs. These will have to be agreed to, when you finally place an order for the mice.
 
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <spring:bind path="command.terms_read">
-                                                                        <input type="checkbox" onChange="javascript:ajax('js/printclear.js','conditions');return false;" name="<c:out value="${status.expression}"/>" value="on"<c:if test="${command.terms_read  != null}" >checked</c:if>/>
+                                                                        <input type="checkbox" onChange="javascript:ajax('js/printclear.js','../conditions');return false;" name="<c:out value="${status.expression}"/>" value="on"<c:if test="${command.terms_read  != null}" >checked</c:if>/>
                                                                     </spring:bind>
-                                                                    Please check this box to confirm you have read <a href="#" onclick="javascript:ajax('../RegisterInterest/conditions.html','conditions');return false;" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="https://dev.infrafrontier.eu/resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
+                                                                    Please check this box to confirm you have read <a href="javascript:void(0)" onClick="javascript:openWindow('../conditions.html');" id="conditionsShow" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="https://dev.infrafrontier.eu/resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
                                                                     <%-- to resolve issue with null application type for normal requests 07012013--%>
+
                                                                     <spring:bind path="command.application_type">
                                                                         <input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="request_only" />
                                                                     </spring:bind>
@@ -799,50 +801,48 @@
                                                                 <input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="request_only" />
                                                             </spring:bind>
                                                         </c:if>
-                                                    </p> 
-
-
-                                                    <p style="text-align: center;" class="left">(Click on the "<b>Send</b>"
-                                                        button <b>once</b> to submit the form to EMMA.)</p>
-                                                    <p style="text-align: center;" class="left">
-                                                        <input name="Send" value="Send" class="btn big" type="submit">
-                                                        <input name="Clear all fields" value="Clear all fields" class="btn big" type="reset">
                                                     </p>
-                                                    <spring:bind path="command.req_status">
-                                                        <input type="hidden" name="<c:out value="${status.expression}"/>" value="TO_PR" />
-                                                    </spring:bind>
-                                                    <c:if test="${command.register_interest  != null}" > 
-                                                        <c:choose>
-                                                            <c:when test="${command.id_req  != null}" >
-                                                                <spring:bind path="command.register_interest">
-                                                                    <input type="hidden" name="<c:out value="${status.expression}"/>" value="0" />
-                                                                </spring:bind>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <spring:bind path="command.register_interest">
-                                                                    <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" />
-                                                                </spring:bind>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </c:if>
-                                                    <spring:bind path="command.timestamp">
-                                                        <input type="hidden" name="<c:out value="${status.expression}"/>" value="<dt:format pattern="yyyyMMddHHmmss"><dt:currentTime/></dt:format>"/>
-                                                    </spring:bind>
-                                                    <spring:bind path="command.ftimestamp">
-                                                        <input type="hidden" name="<c:out value="${status.expression}"/>" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>"/>
-                                                    </spring:bind>
-                                                    <spring:bind path="command.str_id_str">
-                                                        <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" />
-                                                    </spring:bind>
-                                                    <c:if test="${not empty command.lab_id_labo}">
-                                                        <spring:bind path="command.lab_id_labo"><input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
+                                                    <p style="text-align: center;" class="left">(Click on the "<b>Send</b>"
+                                                            button <b>once</b> to submit the form to EMMA.)</p>
+                                                        <p style="text-align: center;" class="left">
+                                                            <input name="Send" value="Send" class="btn big" type="submit">
+                                                            <input name="Clear all fields" value="Clear all fields" class="btn big" type="reset">
+                                                        </p>
+                                                        <spring:bind path="command.req_status">
+                                                            <input type="hidden" name="<c:out value="${status.expression}"/>" value="TO_PR" />
                                                         </spring:bind>
-                                                    </c:if>
+                                                        <c:if test="${command.register_interest  != null}" > 
+                                                            <c:choose>
+                                                                <c:when test="${command.id_req  != null}" >
+                                                                    <spring:bind path="command.register_interest">
+                                                                        <input type="hidden" name="<c:out value="${status.expression}"/>" value="0" />
+                                                                    </spring:bind>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <spring:bind path="command.register_interest">
+                                                                        <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" />
+                                                                    </spring:bind>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:if>
+                                                        <spring:bind path="command.timestamp">
+                                                            <input type="hidden" name="<c:out value="${status.expression}"/>" value="<dt:format pattern="yyyyMMddHHmmss"><dt:currentTime/></dt:format>"/>
+                                                        </spring:bind>
+                                                        <spring:bind path="command.ftimestamp">
+                                                            <input type="hidden" name="<c:out value="${status.expression}"/>" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>"/>
+                                                        </spring:bind>
+                                                        <spring:bind path="command.str_id_str">
+                                                            <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" />
+                                                        </spring:bind>
+                                                        <c:if test="${not empty command.lab_id_labo}">
+                                                            <spring:bind path="command.lab_id_labo"><input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
+                                                            </spring:bind>
+                                                        </c:if>
 
-                                                </form:form>
-                                                <%-- </form>--%>
-                                                <c:choose><c:when test="${command.register_interest == '1' and command.id_req == null}" ><br/>
-                                                        ${command.id_req}</br></c:when><c:otherwise><script type="text/javascript">chkCountry("${command.con_country}");</script></c:otherwise></c:choose>
+                                                    </form:form>
+                                                    <%-- </form>--%>
+                                                    <c:choose><c:when test="${command.register_interest == '1' and command.id_req == null}" ><br/>
+                                                            ${command.id_req}</br></c:when><c:otherwise><script type="text/javascript">chkCountry("${command.con_country}");</script></c:otherwise></c:choose>
                                             </div></div></div></div></div></div>
 
                                             <footer id="footer">
@@ -893,5 +893,6 @@
                                                 </div>
 
                                             </footer>
+
                                             </body>
                                             </html>
