@@ -181,7 +181,7 @@ public class PdfView extends AbstractPdfView {
                 table.addCell("" + wrd.getBil_postcode());
                 table.addCell("Country");
                 table.addCell("" + wrd.getBil_country());
-                
+
                 // TODO add europhenome and wtsi_mouse_portal info
             }
 
@@ -313,11 +313,13 @@ public class PdfView extends AbstractPdfView {
             StrainsDAO sd = new StrainsDAO();
             StrainsManager sm = new StrainsManager();
             PeopleDAO pd = new PeopleDAO();
+            PeopleDAO subPDAO = new PeopleDAO();
             PeopleManager pm = new PeopleManager();
             BibliosManager bm = new BibliosManager();
 
             sd = (StrainsDAO) map.get("StrainsDAO");
             pd = pm.getPerson(sd.getPer_id_per_contact());//For shipping details
+            subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             pdfTitle = "EMMA Mutant Submission Form";
 
             Paragraph pHead = new Paragraph(
@@ -421,6 +423,39 @@ public class PdfView extends AbstractPdfView {
             table.addCell("" + pd.getLabsDAO().getCountry());
 
 
+            cell = new PdfPCell(new Paragraph("\nSubmitter contact\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+
+            table.addCell(cell);
+            table.addCell("Title");
+            table.addCell("" + subPDAO.getTitle());
+            table.addCell("Firstname");
+            table.addCell("" + subPDAO.getFirstname());
+            table.addCell("Surname");
+            table.addCell("" + subPDAO.getSurname());
+            table.addCell("E-mail");
+            table.addCell("" + subPDAO.getEmail());
+            table.addCell("Phone");
+            table.addCell("" + subPDAO.getPhone());
+            table.addCell("Fax");
+            table.addCell("" + subPDAO.getFax());
+            table.addCell("Institution");
+            table.addCell("" + subPDAO.getLabsDAO().getName());
+            table.addCell("Department");
+            table.addCell("" + subPDAO.getLabsDAO().getDept());
+            table.addCell("Address Line 1");
+            table.addCell("" + subPDAO.getLabsDAO().getAddr_line_1());
+            table.addCell("Address Line 2");
+            table.addCell("" + subPDAO.getLabsDAO().getAddr_line_2());
+            table.addCell("County/province");
+            table.addCell("" + subPDAO.getLabsDAO().getProvince());
+            table.addCell("Town");
+            table.addCell("" + subPDAO.getLabsDAO().getTown());
+            table.addCell("Postcode");
+            table.addCell("" + subPDAO.getLabsDAO().getPostcode());
+            table.addCell("Country");
+            table.addCell("" + subPDAO.getLabsDAO().getCountry());
 
             doc.add(table);
             doc.add(Chunk.NEWLINE);
@@ -432,10 +467,10 @@ public class PdfView extends AbstractPdfView {
 
             /*
             
-            Mutation information section
+             Mutation information section
             
              */
-            
+
             /*strain name and description*/
             Set sSynonym = sd.getSyn_strainsDAO();
             String strainName = "";
@@ -468,13 +503,13 @@ public class PdfView extends AbstractPdfView {
             table.addCell(cell);
 
             /* cell = new PdfPCell(new Paragraph("" + sd.getCharact_gen() + sd.getMaintenance() + sd.getPheno_text()));
-            cell.setColspan(2);
-            table.addCell(cell);*/
+             cell.setColspan(2);
+             table.addCell(cell);*/
             /*END of strain name and description*/
 
             /* MUTATIONS */
             String origBgName = "";
-            origBgName=sd.getBackgroundDAO().getName();
+            origBgName = sd.getBackgroundDAO().getName();
             Set sMutations = sd.getMutationsStrainsDAO();
 
             StringBuffer sDom = new StringBuffer();
@@ -484,59 +519,59 @@ public class PdfView extends AbstractPdfView {
                     sDom = new StringBuffer(sDom).append(mutDAO.getMutationsDAO().getDominance().toString());
                 }
 
-                cell = new PdfPCell(new Paragraph("Main type: " + cleanNULLS(mutDAO.getMutationsDAO().getMain_type(),false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Main type: " + cleanNULLS(mutDAO.getMutationsDAO().getMain_type(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Sub type: " + cleanNULLS(mutDAO.getMutationsDAO().getSub_type(),false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Sub type: " + cleanNULLS(mutDAO.getMutationsDAO().getSub_type(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Affected gene: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getGenesDAO().getName(),false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Affected gene: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getGenesDAO().getName(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("MGI of affected gene: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getGenesDAO().getMgi_ref(),false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("MGI of affected gene: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getGenesDAO().getMgi_ref(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Affected allele: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getName(),false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Affected allele: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getName(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("MGI of affected allele: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getMgi_ref(), false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("MGI of affected allele: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getMgi_ref(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Affected chromosome: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getGenesDAO().getChromosome(), false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
-                cell.setColspan(2);
-                cell.setBorder(0);
-                table.addCell(cell);
-                
-                cell = new PdfPCell(new Paragraph("Dominance pattern: " + cleanNULLS(mutDAO.getMutationsDAO().getDominance(), false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Affected chromosome: " + cleanNULLS(mutDAO.getMutationsDAO().getAllelesDAO().getGenesDAO().getChromosome(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-               // origBgName = mutDAO.getMutationsDAO().getBackgroundDAO().getName();
-                
+                cell = new PdfPCell(new Paragraph("Dominance pattern: " + cleanNULLS(mutDAO.getMutationsDAO().getDominance(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell.setColspan(2);
+                cell.setBorder(0);
+                table.addCell(cell);
+
+                // origBgName = mutDAO.getMutationsDAO().getBackgroundDAO().getName();
+
                 if (mutDAO.getMutationsDAO().getBackgroundDAO() != null) {
                     cell = new PdfPCell(new Paragraph("Original background: " + cleanNULLS(mutDAO.getMutationsDAO().getBackgroundDAO().getName(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 } else {
                     cell = new PdfPCell(new Paragraph("\n"));
                 }
-                
+
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("ES cell line: " + cleanNULLS(mutDAO.getMutationsDAO().getTm_esline(),false) + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("ES cell line: " + cleanNULLS(mutDAO.getMutationsDAO().getTm_esline(), false) + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -562,12 +597,22 @@ public class PdfView extends AbstractPdfView {
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
-            
+
             cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getCharact_gen(), true)));
             cell.setColspan(2);
             table.addCell(cell);
 
             cell = new PdfPCell(new Paragraph("\n\nOn what genetic background is this strain currently maintained? " + cleanNULLS(origBgName, false)/*cleanNULLS(sd.getBackgroundDAO().getName()) */, FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\n\nNumber of generations backcrossed? " + cleanNULLS(sd.getGeneration(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\n\nNumber of generations sib-mated? " + cleanNULLS(sd.getSibmatings(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
@@ -627,37 +672,37 @@ public class PdfView extends AbstractPdfView {
             for (Iterator it = bibliosStrains.iterator(); it.hasNext();) {
                 BibliosStrainsDAO bsdao = (BibliosStrainsDAO) it.next();
 
-                cell = new PdfPCell(new Paragraph("PubMed ID: " + bsdao.getBibliosDAO().getPubmed_id() , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("PubMed ID: " + bsdao.getBibliosDAO().getPubmed_id(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Title: " + bsdao.getBibliosDAO().getTitle() , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Title: " + bsdao.getBibliosDAO().getTitle(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Author: " + bsdao.getBibliosDAO().getAuthor1() , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Author: " + bsdao.getBibliosDAO().getAuthor1(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Other author(s): " + bsdao.getBibliosDAO().getAuthor2() , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Other author(s): " + bsdao.getBibliosDAO().getAuthor2(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Journal: " + bsdao.getBibliosDAO().getJournal() , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Journal: " + bsdao.getBibliosDAO().getJournal(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Year: " + cleanNULLS(bsdao.getBibliosDAO().getYear(), false) , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Year: " + cleanNULLS(bsdao.getBibliosDAO().getYear(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Volume: " + bsdao.getBibliosDAO().getVolume() , FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Volume: " + bsdao.getBibliosDAO().getVolume(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -706,11 +751,60 @@ public class PdfView extends AbstractPdfView {
             cell.setBorder(0);
             table.addCell(cell);
 
+            cell = new PdfPCell(new Paragraph("Are heterozygous/hemizygous mice fertile? " + cleanNULLS(sd.getHethemi_fertile(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
             cell = new PdfPCell(new Paragraph("Does the strain necessarily require homozygous matings? " + cleanNULLS(sd.getRequire_homozygous(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
+            //new
+
+            cell = new PdfPCell(new Paragraph("Average age of reproductive maturity (weeks)? " + cleanNULLS(sd.getResiduesDAO().getReproductive_maturity_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average age of reproductive decline (months)? " + cleanNULLS(sd.getResiduesDAO().getReproductive_decline_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average length of gestation (days)? " + cleanNULLS(sd.getResiduesDAO().getGestation_length(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average number of pups at birth? " + cleanNULLS(sd.getResiduesDAO().getPups_at_birth(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average number of pups surviving to weaning? " + cleanNULLS(sd.getResiduesDAO().getPups_at_weaning(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Recommended weaning age (days)? " + cleanNULLS(sd.getResiduesDAO().getWeaning_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average number of litters in lifetime? " + cleanNULLS(sd.getResiduesDAO().getLitters_in_lifetime(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Breeding performance? " + cleanNULLS(sd.getResiduesDAO().getBreeding_performance(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+
+            //end new
             cell = new PdfPCell(new Paragraph("Is the strain immunocompromised? " + cleanNULLS(sd.getImmunocompromised(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
@@ -739,6 +833,24 @@ public class PdfView extends AbstractPdfView {
             } else {
                 cell = new PdfPCell(new Paragraph("\n"));
             }
+            cell.setColspan(2);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nAnaimal welfare\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getWelfare(), true)));
+            cell.setColspan(2);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nRemedial actions\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getRemedial_actions(), true)));
             cell.setColspan(2);
             table.addCell(cell);
 
@@ -1048,7 +1160,7 @@ public class PdfView extends AbstractPdfView {
         String cleaned = "";
         if (toClean == null || toClean.isEmpty() && cell) {
             cleaned = "\n";
-        } else if (toClean == null || toClean.isEmpty()  && !cell) {
+        } else if (toClean == null || toClean.isEmpty() && !cell) {
             cleaned = "";
         } else {
             cleaned = toClean;
