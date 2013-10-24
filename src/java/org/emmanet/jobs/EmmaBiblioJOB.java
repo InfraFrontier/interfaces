@@ -170,7 +170,7 @@ public class EmmaBiblioJOB {
 
                 for (Authors author : citation.getAuthorList().getAuthor()) {
                     counter++;
-                    if (!author.getFullName().isEmpty()) {
+                    if ((author.getFullName() != null) && ( ! author.getFullName().isEmpty())) {
                         String fullname = author.getFullName();
 
                         if (counter == 0) {
