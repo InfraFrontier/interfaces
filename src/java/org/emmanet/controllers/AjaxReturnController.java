@@ -161,6 +161,7 @@ returnedOut = new HashMap();
                     pmID = Integer.parseInt(strID);
                     
             FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
+         //   System.out.println("BIBLIO REFERENCE/PAPER RETURNED IS::- " + fb.paperid);
             paper.add(0, fb.title);
             paper.add(1, fb.author1);
             paper.add(2, fb.author2);
