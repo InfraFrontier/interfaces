@@ -5,7 +5,6 @@
 package org.emmanet.jobs;
 
 import ebi.ws.client.Authors;
-import ebi.ws.client.QueryException_Exception;
 import ebi.ws.client.ResponseWrapper;
 import ebi.ws.client.Result;
 import ebi.ws.client.WSCitationImpl;
@@ -27,7 +26,7 @@ import org.emmanet.model.BibliosManagerIO;
 import org.emmanet.util.Utils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -47,7 +46,7 @@ public class EmmaBiblioJOB {
     protected Logger logger = Logger.getLogger(EmmaBiblioJOB.class);
     private EmmaBiblioValidator validator;
     private BibliosManager bibliosManager;
-    private ResourceBundleMessageSource messages;
+    private ReloadableResourceBundleMessageSource messages;
     
     private final Object[] BEGIN = new Object[] { "BEGIN" };
     private final Object[] END = new Object[] { "END" };
@@ -72,7 +71,7 @@ public class EmmaBiblioJOB {
     
     public EmmaBiblioJOB() {
         ac = new ClassPathXmlApplicationContext("/jobApplicationContext.xml");  // Get job application context.
-        messages = (ResourceBundleMessageSource)ac.getBean("messageSource");    // Get message resource file.
+        messages = (ReloadableResourceBundleMessageSource)ac.getBean("messageSource");    // Get message resource file.
         jdbcTemplate = (JdbcTemplate)ac.getBean("jdbcTemplate");                // Get JdbcTemplate.
         jdbcTran = (PlatformTransactionManager)ac.getBean("transactionManager");// Get JdbcTransactionManager.
         bibliosManager = new BibliosManager();
@@ -101,47 +100,79 @@ public class EmmaBiblioJOB {
         
         if ( ! ((options.has("a")) || (options.has("v")) || (options.has("u"))))
             usage();
-        
+
         System.exit(retVal);
     }
 
     /**
-     * Given a valid pubmed_id, this method returns the bibliographic information
-     * from the definitive web service in the form of a <code>FetchBiblio</code>
-     * record. If the given pubmed_id does not match a valid paper, an empty,
-     * initialized <code>FetchBiblio</code> is returned (as was the behavior
-     * before EmmaBiblioJOB was refactored).
+     * Given a pubmed_id which may or may not be valid, this method uses the
+     * pubmed id web service to try to look up the supplied value.
+     * 
      * @param pubmed_id the pubmed_id
-     * @return the bibliographic information
-     * from the definitive web service in the form of a <code>FetchBiblio</code>
-     * record. If the given pubmed_id does not match a valid paper, an empty,
-     * initialized <code>FetchBiblio</code> is returned
+     * 
+     * @return
+     * <ul>
+     *   <li>If the pubmed_id is found:
+     *     <ul>
+     *       <li>the matching bibliographic information is returned</li>
+     *       <li><code>FetchBiblio.status</code> is set to <code>OK</code></li>
+     *       <li><code>FetchBiblio.errorMessage</code> is set to an empty string</li>
+     *     </ul>
+     *   </li>
+     *   <li>If the pubmed_id is <i>not</i> found:
+     *     <ul>
+     *       <li>no bibliographic information is returned</li>
+     *       <li><code>FetchBiblio.status</code> is set to <code>NOT_FOUND</code></li>
+     *       <li><code>FetchBiblio.errorMessage</code> is set to an empty string</li>
+     *     </ul>
+     *   </li>
+     *   <li>If the pubmed_id web service throws an exception:
+     *     <ul>
+     *       <li>no bibliographic information is returned</li>
+     *       <li><code>FetchBiblio.status</code> is set to <code>FAIL</code></li>
+     *       <li><code>FetchBiblio.errorMessage</code> is set to the exception's localized message.</li>
+     *     </ul>
+     *   </li>
+     * </ul>
      */
     public FetchBiblio fetchPaper(int pubmed_id) {
         FetchBiblio paper = new FetchBiblio();
         WSCitationImplService service = new WSCitationImplService();
         
+        WSCitationImpl port = service.getWSCitationImplPort();
+        String queryString = "EXT_ID:" + pubmed_id;
+        String dataSet = "metadata";
+        String resultType = "core";
+        int offset = 0;
+        boolean synonym = false;
+        String email = "";
+
+        logger.debug("Querying pubmed web service for pubmed_id " + pubmed_id + ": port.searchPublications(" + queryString + ", " + dataSet + ", " + resultType + ", " + offset + ", " + synonym + ", \"" + email + "\")");
+        ResponseWrapper resultsBean;
         try {
-            WSCitationImpl port = service.getWSCitationImplPort();
-            ResponseWrapper resultsBean = port.searchPublications("EXT_ID:" + pubmed_id, "metadata", "core", 0, false, "");
-            List<Result> resultBeanCollection = resultsBean.getResultList().getResult().subList(0, 1);//philw: added a restriction here as we are not interested in citations
-            /*
-             * Moved size of results here and used resultBeanCollection.size() rather than resultListBean.getHitCount() which always returned 0 for some reason (lines 171/2)
-             * Suggest that this was a result of porting the old code over to this new codeoh right
-             * 
-             * PJW 11SEP2012
-             */
+            resultsBean = port.searchPublications(queryString, dataSet, resultType, offset, synonym, email); 
+        }
+        catch (Exception e) {
+            logger.error("Query to pubmed web service failed: " + e.getLocalizedMessage());
+            paper.status = FAIL;
+            paper.errorMessage = e.getLocalizedMessage();
+            return paper;
+        }
+        
+        List<Result> resultBeanCollection = null;
+        if ((resultsBean != null) && (resultsBean.getResultList() != null) && (resultsBean.getResultList().getResult() != null) && ( ! resultsBean.getResultList().getResult().isEmpty())) {
+            resultBeanCollection = resultsBean.getResultList().getResult().subList(0, 1);
             for (Result citation : resultBeanCollection) {
                 int size = citation.getAuthorList().getAuthor().size();
                 int counter = -1;
                 StringBuilder otherAuthors = new StringBuilder();
                 //authors could be zero
-                
+
                 for (Authors author : citation.getAuthorList().getAuthor()) {
                     counter++;
                     if (!author.getFullName().isEmpty()) {
                         String fullname = author.getFullName();
-                        
+
                         if (counter == 0) {
                             paper.author1 = fullname;
                         } else if (counter + 1 < size) {
@@ -159,10 +190,15 @@ public class EmmaBiblioJOB {
                 paper.issue = citationGetIssue(citation);
                 paper.pages = citationGetPages(citation);
                 paper.author2 = otherAuthors.toString();
+                paper.status = OK;
+                paper.errorMessage = "";
             }
-        } catch (QueryException_Exception qex) {
-            logger.error("Caught QueryException_Exception: " + qex.getFaultInfo().getMessage());
+        } else {            
+            logger.info("No pubmed_id found for value " + pubmed_id + ".");
+            paper.status = NOT_FOUND;
+            paper.errorMessage = "";
         }
+
         return paper;
     }
     
@@ -174,7 +210,7 @@ public class EmmaBiblioJOB {
      * Updates the database with the given biblios. Since each biblio is not
      * related to its sibling, we commit after each update.
      * 
-     * @param biblio The biblios to be udpated
+     * @param biblioList The biblios to be udpated
      * @return the number of biblio records updated
      */
     public int save(final List<BibliosDAO> biblioList) {
@@ -685,6 +721,10 @@ public class EmmaBiblioJOB {
         }
     }
      
+    public static final int OK = 0;
+    public static final int NOT_FOUND = -1;
+    public static final int FAIL = -2;
+
     /**
      * This class is a DTO used to transfer data between the biblio web service
      * and its clients.
@@ -699,6 +739,8 @@ public class EmmaBiblioJOB {
         public String pages;
         public String paperid;
         public int year;
+        public int status = NOT_FOUND;
+        public String errorMessage = "";
     }
 
     

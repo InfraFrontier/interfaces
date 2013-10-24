@@ -16,7 +16,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
@@ -32,7 +32,7 @@ public class EmmaBiblioValidator implements Validator {
     private String[] allowedFields;
     private boolean hasErrors;
     private Field[] fields;
-    private ResourceBundleMessageSource messages;
+    private ReloadableResourceBundleMessageSource messages;
     
     protected Logger logger = Logger.getLogger(EmmaBiblioValidator.class);
     
@@ -40,7 +40,7 @@ public class EmmaBiblioValidator implements Validator {
         setAllowedFields();                                                     // Uses reflection, so can be slow. Call only once.
         hasErrors = false;
         ac = new ClassPathXmlApplicationContext("/jobApplicationContext.xml");  // Get job application context.
-        messages = (ResourceBundleMessageSource)ac.getBean("messageSource");    // Get message resource file.
+        messages = (ReloadableResourceBundleMessageSource)ac.getBean("messageSource");    // Get message resource file.
     }
     
     public boolean hasErrors() {
