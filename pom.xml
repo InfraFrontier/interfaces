@@ -63,6 +63,7 @@
 
     <dependencies>
       <!-- velocity dependancy -->
+      <!-- see web.xml for listener -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
@@ -74,6 +75,19 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>${quartz.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>se.jiderhamn</groupId>
+            <artifactId>classloader-leak-prevention</artifactId>
+            <version>1.7.0</version>
+            <exclusions>
+                <!-- Exclude el-api as it's provided by tomcat -->
+                <exclusion>
+                    <groupId>javax.el</groupId>
+                    <artifactId>el-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 		<!-- EBI webservice internal dependency -->
