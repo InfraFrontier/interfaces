@@ -7,6 +7,7 @@ package org.emmanet.controllers;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -1186,7 +1187,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
         String address1 = "";
         String address2 = "";
 
-        List checkPerson = pm.getPeopleByEMail(sda.getSubmitter_email());
+        //List checkPerson = pm.getPeopleByEMail(sda.getSubmitter_email());
+        //Removed after discussion with PO (Sabine) as we may aswell add all users to database rather than re-use old
+        //when user accounts are implemented we then have nice new people data
+        
+        List checkPerson = new ArrayList();;//now always going to be empty so line 1309 always adds to database
 
         if (type.equals("submitter")) {
             email = sda.getSubmitter_email();
@@ -1274,7 +1279,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     System.out.println("more sure same laboratory but let's check once more");
                     if (checkLab.getAddr_line_1().contains(address1)) {
                         System.out.println("deffo same so let us set the labID var to the dao lab id");
-                        labID = Integer.parseInt(checkLab.getId_labo());
+                         //Removed after discussion with PO (Sabine) as we may aswell add all laboratories to database rather than re-use old
+        //when user accounts are implemented we then have nice new laboratory data
+                        //labID = Integer.parseInt(checkLab.getId_labo());
                     }
                 }
             }
@@ -1300,7 +1307,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             pd.setLab_id_labo(ld.getId_labo());
         }
         //save person?
-        if (checkPerson.size() == 0) {
+        if (checkPerson.isEmpty()) {
             //no person exists with this er-mail so save now
             pm.save(pd);
             per_id_per = Integer.parseInt(pd.getId_per());
