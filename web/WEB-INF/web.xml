@@ -17,9 +17,15 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
     -->
-    <listener>
+    
+        <!-- Try to prevent memory leaks -->
+        <listener>
+            <listener-class>se.jiderhamn.classloader.leak.prevention.ClassLoaderLeakPreventor</listener-class>
+        </listener>
+        <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
