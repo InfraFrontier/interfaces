@@ -319,7 +319,8 @@ public class PdfView extends AbstractPdfView {
 
             sd = (StrainsDAO) map.get("StrainsDAO");
             pd = pm.getPerson(sd.getPer_id_per_contact());//For shipping details
-            if(sd.getPer_id_per_sub() != null || !sd.getPer_id_per_sub().isEmpty()){
+            
+            if(sd.getPer_id_per_sub() != null){
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
             
