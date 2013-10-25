@@ -319,7 +319,10 @@ public class PdfView extends AbstractPdfView {
 
             sd = (StrainsDAO) map.get("StrainsDAO");
             pd = pm.getPerson(sd.getPer_id_per_contact());//For shipping details
-            subPDAO = pm.getPerson(sd.getPer_id_per_sub());
+            if(sd.getPer_id_per_sub() != null || !sd.getPer_id_per_sub().isEmpty()){
+                subPDAO = pm.getPerson(sd.getPer_id_per_sub());
+            }
+            
             pdfTitle = "EMMA Mutant Submission Form";
 
             Paragraph pHead = new Paragraph(
@@ -426,6 +429,8 @@ public class PdfView extends AbstractPdfView {
             cell = new PdfPCell(new Paragraph("\nSubmitter contact\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
+if (subPDAO != null) {
+    
 
             table.addCell(cell);
             table.addCell("Title");
@@ -464,7 +469,7 @@ public class PdfView extends AbstractPdfView {
             table = new PdfPTable(widths);
 
             table.setWidthPercentage(100);
-
+}
             /*
             
              Mutation information section
