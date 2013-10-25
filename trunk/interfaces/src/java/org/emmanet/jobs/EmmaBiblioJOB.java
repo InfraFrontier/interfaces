@@ -147,7 +147,7 @@ public class EmmaBiblioJOB {
         boolean synonym = false;
         String email = "";
 
-        logger.debug("Querying pubmed web service for pubmed_id " + pubmed_id + ": port.searchPublications(" + queryString + ", " + dataSet + ", " + resultType + ", " + offset + ", " + synonym + ", \"" + email + "\")");
+        logger.debug("Querying pubmed web service for pubmed_id " + pubmed_id + ": port.searchPublications(\"" + queryString + "\", \"" + dataSet + "\", \"" + resultType + "\", " + offset + ", " + synonym + ", \"" + email + "\")");
         ResponseWrapper resultsBean;
         try {
             resultsBean = port.searchPublications(queryString, dataSet, resultType, offset, synonym, email); 
