@@ -431,7 +431,7 @@ public class PdfView extends AbstractPdfView {
             cell.setColspan(2);
             cell.setBorder(0);
 if (subPDAO != null) {
-    
+    System.out.println("subPDAO is null");
 
             table.addCell(cell);
             table.addCell("Title");
@@ -446,6 +446,7 @@ if (subPDAO != null) {
             table.addCell("" + subPDAO.getPhone());
             table.addCell("Fax");
             table.addCell("" + subPDAO.getFax());
+            if(subPDAO.getLabsDAO() != null){
             table.addCell("Institution");
             table.addCell("" + subPDAO.getLabsDAO().getName());
             table.addCell("Department");
@@ -463,6 +464,7 @@ if (subPDAO != null) {
             table.addCell("Country");
             table.addCell("" + subPDAO.getLabsDAO().getCountry());
 
+            }
             doc.add(table);
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
