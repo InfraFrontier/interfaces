@@ -430,7 +430,7 @@ public class PdfView extends AbstractPdfView {
             cell = new PdfPCell(new Paragraph("\nSubmitter contact\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
-if (subPDAO.getSurname().isEmpty()) {
+  if(!sd.getPer_id_per_sub().isEmpty()){
     System.out.println("subPDAO is null");
 
             table.addCell(cell);
