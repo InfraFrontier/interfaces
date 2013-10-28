@@ -69,8 +69,6 @@ import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 
 public class SubmissionFormController extends AbstractWizardFormController {
 
-
-
     private List cvDAO;
     private HttpSession session;
     private JSONObject obj;
@@ -93,7 +91,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
-        
+
         action = true;
         setBindOnNewForm(true);
         String idDecrypt = "";
@@ -120,8 +118,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         String getprev = "";
 
         session = request.getSession(true);
-            session.setAttribute("BASEURL", getBASEURL());
-        
+        session.setAttribute("BASEURL", getBASEURL());
+
         session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
 //total steps in wizard for use in view
         int iPageCount = getPageCount() - 1;
@@ -164,8 +162,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 System.out.println("REF DATA NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                 System.out.println("REF DATA PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
                 System.out.println("REF DATAPREVIOUS STEP IS :: " + sda.getStep());
-                int stepRef=Integer.parseInt(sda.getStep());
-                page = stepRef-1;
+                int stepRef = Integer.parseInt(sda.getStep());
+                page = stepRef - 1;
                 action = false;
             }
         }
@@ -551,13 +549,13 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //int i = Integer.parseInt(nsd.getId_str();
         nsd.setEx_owner_description(sd.getExclusive_owner_text());
         nsd.setExclusive_owner(sd.getExclusive_owner());
-         if(sd.getBackcrosses().equals("")){
+        if (sd.getBackcrosses().equals("")) {
             sd.setBackcrosses(null);
-         }
+        }
         nsd.setGeneration(sd.getBackcrosses());
-         if(sd.getSibmatings().equals("")){
+        if (sd.getSibmatings().equals("")) {
             sd.setSibmatings(null);
-         }
+        }
         nsd.setSibmatings(sd.getSibmatings());
 
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
@@ -683,31 +681,31 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setWhen_mice_month(sd.getMice_avail_month());
         rd.setWhen_mice_year(sd.getMice_avail_year());
         rd.setHomozygous_matings_required_text(sd.getHomozygous_matings_required_text());
-                if (sd.getReproductive_maturity_age().equals("")) {
+        if (sd.getReproductive_maturity_age().equals("")) {
             sd.setReproductive_maturity_age(null);
-        } 
+        }
         rd.setReproductive_maturity_age(sd.getReproductive_maturity_age());
-                  if (sd.getReproductive_decline_age().equals("")) {
+        if (sd.getReproductive_decline_age().equals("")) {
             sd.setReproductive_decline_age(null);
-        } 
+        }
         rd.setReproductive_decline_age(sd.getReproductive_decline_age());
         rd.setGestation_length(sd.getGestation_length());
         rd.setPups_at_birth(sd.getPups_at_birth());
         rd.setPups_at_weaning(sd.getPups_at_weaning());
-        if(sd.getWeaning_age().equals("")){
+        if (sd.getWeaning_age().equals("")) {
             rd.setWeaning_age(null);
-        }else{
-        rd.setWeaning_age(sd.getWeaning_age());
+        } else {
+            rd.setWeaning_age(sd.getWeaning_age());
         }
-                if (sd.getLitters_in_lifetime().equals("")) {
+        if (sd.getLitters_in_lifetime().equals("")) {
             sd.setLitters_in_lifetime(null);
-        } 
+        }
         rd.setLitters_in_lifetime(sd.getLitters_in_lifetime());
         if (sd.getBreeding_performance().equals("")) {
             sd.setBreeding_performance(null);
-        } 
+        }
         rd.setBreeding_performance(sd.getBreeding_performance());
-        
+
         rd.setWelfare(sd.getWelfare());
         rd.setRemedial_actions(sd.getRemedial_actions());
 
@@ -851,7 +849,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             //createMutationStrain(mud.getId(), nsd.getId_str());
             //Set msdao = (Set) mm.getMutationIDsByStrain(nsd.getId_str());
             //mm.save(msd);
-             rtm.saveMutsStrainsUsingJDBCSQL(mud.getId(), nsd.getId_str());
+            rtm.saveMutsStrainsUsingJDBCSQL(mud.getId(), nsd.getId_str());
             setMutationsStrainsDAO.add(msd);
         }
         //~~~~~~~~~~~~nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
@@ -938,7 +936,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setSub_id_sub(sd.getId_sub());
 
         //need to save and recall saved strains object as for some reason if I try to set the source strains here without doing this it throws an error.
-       // stm.save(nsd);
+        // stm.save(nsd);
         nsd = stm.getStrainByID(nsd.getId_str());
 
         Set sourcesStrains = new LinkedHashSet();
@@ -1001,7 +999,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         model.put("strainname", nsd.getName());
         model.put("strainid", nsd.getId_str());
         model.put("encid", encrypter.encrypt("" + nsd.getId_str()));//encryptedstrainid
-        model.put("BASEURL",BASEURL);
+        model.put("BASEURL", BASEURL);
 
         String velocTemplate = "org/emmanet/util/velocitytemplates/SubmissionFormReceipt-Template.vm";
 
@@ -1048,15 +1046,15 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 validator.validateSubmissionForm0(sd, errors);
                 break;
             case 2:
-               validator.validateSubmissionForm1(sd, errors,"submitter");
+                validator.validateSubmissionForm1(sd, errors, "submitter");
                 break;
             case 3:
                 //uses validator 2 to redice code duplication
-                validator.validateSubmissionForm1(sd, errors,"producer");
+                validator.validateSubmissionForm1(sd, errors, "producer");
                 break;
             case 4:
                 //uses validator 2 to redice code duplication 
-               validator.validateSubmissionForm1(sd, errors,"shipper");
+                validator.validateSubmissionForm1(sd, errors, "shipper");
                 break;
             case 5:
                 validator.validateSubmissionForm4(sd, errors);
@@ -1190,7 +1188,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //List checkPerson = pm.getPeopleByEMail(sda.getSubmitter_email());
         //Removed after discussion with PO (Sabine) as we may aswell add all users to database rather than re-use old
         //when user accounts are implemented we then have nice new people data
-        
+
         List checkPerson = new ArrayList();;//now always going to be empty so line 1309 always adds to database
 
         if (type.equals("submitter")) {
@@ -1279,8 +1277,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     System.out.println("more sure same laboratory but let's check once more");
                     if (checkLab.getAddr_line_1().contains(address1)) {
                         System.out.println("deffo same so let us set the labID var to the dao lab id");
-                         //Removed after discussion with PO (Sabine) as we may aswell add all laboratories to database rather than re-use old
-        //when user accounts are implemented we then have nice new laboratory data
+                        //Removed after discussion with PO (Sabine) as we may aswell add all laboratories to database rather than re-use old
+                        //when user accounts are implemented we then have nice new laboratory data
                         //labID = Integer.parseInt(checkLab.getId_labo());
                     }
                 }
@@ -1368,8 +1366,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
     public void setJavaMailSender(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
-    
-        /**
+
+    /**
      * @return the BASEURL
      */
     public String getBASEURL() {
