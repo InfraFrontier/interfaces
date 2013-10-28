@@ -146,7 +146,7 @@ JSON return for submission form people data fro PI and contact
              </script>
          </c:if>
              <c:if test="${empty paper}">
-                 <%--<script type="text/javascript">alert("No results returned from PubMed.\n\nPlease check the PubMed ID you entered is valid.")</script>--%>
+                 No reference received from PubMed!!
              </c:if>
              
              <c:set var="files" value="${keyRef.fileListing}" scope="page"/>
