@@ -319,11 +319,11 @@ public class PdfView extends AbstractPdfView {
 
             sd = (StrainsDAO) map.get("StrainsDAO");
             pd = pm.getPerson(sd.getPer_id_per_contact());//For shipping details
-            
-            if(sd.getPer_id_per_sub() != null){
+
+            if (sd.getPer_id_per_sub() != null) {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
-            
+
             pdfTitle = "EMMA Mutant Submission Form";
 
             Paragraph pHead = new Paragraph(
@@ -430,47 +430,47 @@ public class PdfView extends AbstractPdfView {
             cell = new PdfPCell(new Paragraph("\nSubmitter contact\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
-  if(sd.getPer_id_per_sub() != null){
-            table.addCell(cell);
-            table.addCell("Title");
-            table.addCell("" + subPDAO.getTitle());
-            table.addCell("Firstname");
-            table.addCell("" + subPDAO.getFirstname());
-            table.addCell("Surname");
-            table.addCell("" + subPDAO.getSurname());
-            table.addCell("E-mail");
-            table.addCell("" + subPDAO.getEmail());
-            table.addCell("Phone");
-            table.addCell("" + subPDAO.getPhone());
-            table.addCell("Fax");
-            table.addCell("" + subPDAO.getFax());
-            if(subPDAO.getLabsDAO() != null){
-            table.addCell("Institution");
-            table.addCell("" + subPDAO.getLabsDAO().getName());
-            table.addCell("Department");
-            table.addCell("" + subPDAO.getLabsDAO().getDept());
-            table.addCell("Address Line 1");
-            table.addCell("" + subPDAO.getLabsDAO().getAddr_line_1());
-            table.addCell("Address Line 2");
-            table.addCell("" + subPDAO.getLabsDAO().getAddr_line_2());
-            table.addCell("County/province");
-            table.addCell("" + subPDAO.getLabsDAO().getProvince());
-            table.addCell("Town");
-            table.addCell("" + subPDAO.getLabsDAO().getTown());
-            table.addCell("Postcode");
-            table.addCell("" + subPDAO.getLabsDAO().getPostcode());
-            table.addCell("Country");
-            table.addCell("" + subPDAO.getLabsDAO().getCountry());
+            if (sd.getPer_id_per_sub() != null) {
+                table.addCell(cell);
+                table.addCell("Title");
+                table.addCell("" + subPDAO.getTitle());
+                table.addCell("Firstname");
+                table.addCell("" + subPDAO.getFirstname());
+                table.addCell("Surname");
+                table.addCell("" + subPDAO.getSurname());
+                table.addCell("E-mail");
+                table.addCell("" + subPDAO.getEmail());
+                table.addCell("Phone");
+                table.addCell("" + subPDAO.getPhone());
+                table.addCell("Fax");
+                table.addCell("" + subPDAO.getFax());
+                if (subPDAO.getLabsDAO() != null) {
+                    table.addCell("Institution");
+                    table.addCell("" + subPDAO.getLabsDAO().getName());
+                    table.addCell("Department");
+                    table.addCell("" + subPDAO.getLabsDAO().getDept());
+                    table.addCell("Address Line 1");
+                    table.addCell("" + subPDAO.getLabsDAO().getAddr_line_1());
+                    table.addCell("Address Line 2");
+                    table.addCell("" + subPDAO.getLabsDAO().getAddr_line_2());
+                    table.addCell("County/province");
+                    table.addCell("" + subPDAO.getLabsDAO().getProvince());
+                    table.addCell("Town");
+                    table.addCell("" + subPDAO.getLabsDAO().getTown());
+                    table.addCell("Postcode");
+                    table.addCell("" + subPDAO.getLabsDAO().getPostcode());
+                    table.addCell("Country");
+                    table.addCell("" + subPDAO.getLabsDAO().getCountry());
 
+                }
+                doc.add(table);
+                doc.add(Chunk.NEWLINE);
+                doc.add(Chunk.NEWLINE);
+                doc.add(underlined);
+                table = new PdfPTable(widths);
+
+                table.setWidthPercentage(100);
             }
-            doc.add(table);
-            doc.add(Chunk.NEWLINE);
-            doc.add(Chunk.NEWLINE);
-            doc.add(underlined);
-            table = new PdfPTable(widths);
-
-            table.setWidthPercentage(100);
-}
             /*
             
              Mutation information section
