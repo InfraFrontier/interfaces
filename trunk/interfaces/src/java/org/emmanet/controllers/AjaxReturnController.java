@@ -44,29 +44,27 @@ public class AjaxReturnController extends SimpleFormController {
     final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
 
     @Override
-    
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getParameter("q") != null) {
             System.out.println("we are here");
-            
+
             //this is an jquery ajax call for autocomplete strain names from insert form
         /*    if (request.getParameter("list") != null) {
-            if (request.getParameter("list").equals("cryo")) {
-            //this is to generate a cryo list autocompletedropdown on the fly
-            BackgroundManager bm = new BackgroundManager();
-            String query = request.getParameter("q");
-            bm.
-            }
-            }*/
-            if(request.getParameter("funct") != null && request.getParameter("funct").equals("esCellLineCall")){
+             if (request.getParameter("list").equals("cryo")) {
+             //this is to generate a cryo list autocompletedropdown on the fly
+             BackgroundManager bm = new BackgroundManager();
+             String query = request.getParameter("q");
+             bm.
+             }
+             }*/
+            if (request.getParameter("funct") != null && request.getParameter("funct").equals("esCellLineCall")) {
                 returnedOut = new HashMap();
-             System.out.println("q value is::" + request.getParameter("q"));
-             SubmissionsManager sm = new SubmissionsManager();
-             returnedResults=sm.getesCellLines(request.getParameter("q"));
-             returnedOut.put("ajaxReturn", returnedResults);
-                 System.out.println("returned out size==" + returnedResults.size());
-            }
-            else if (!request.getParameter("q").startsWith("em:") && request.getParameter("query") == null) {
+                System.out.println("q value is::" + request.getParameter("q"));
+                SubmissionsManager sm = new SubmissionsManager();
+                returnedResults = sm.getesCellLines(request.getParameter("q"));
+                returnedOut.put("ajaxReturn", returnedResults);
+                System.out.println("returned out size==" + returnedResults.size());
+            } else if (!request.getParameter("q").startsWith("em:") && request.getParameter("query") == null) {
                 returnedOut = new HashMap();
                 System.out.println("query will be from webrequests");
                 webRequest = new WebRequests();
@@ -94,10 +92,10 @@ public class AjaxReturnController extends SimpleFormController {
         }
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("peopleCall")) {
-returnedOut = new HashMap();
+            returnedOut = new HashMap();
             System.out.println("AJAXCONTROLLERFUNCTIONCALLED " + request.getParameter("email"));
             if (request.getParameter("email") != null || !request.getParameter("email").equals("")) {
-                
+
                 PeopleDAO pd = new PeopleDAO();
                 PeopleManager pm = new PeopleManager();
                 List people = pm.getPeopleByEMail(request.getParameter("email"));
@@ -145,46 +143,53 @@ returnedOut = new HashMap();
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("pubMed")) {
             int pmID = 0;
-        String strID=request.getParameter("pubmedid");
+            String strID = request.getParameter("pubmedid");
+            System.out.println("BIBLIO REFERENCE IS::- " + strID);
             returnedOut = new HashMap();
             List paper = new LinkedList();
             EmmaBiblioJOB ej = new EmmaBiblioJOB();
             //Use Mike's validator??
             Pattern replace = Pattern.compile("[^\\d+]");
-             try {
+            try {
+                System.out.println("we are at try line 156");
                 pmID = Integer.parseInt(strID);
+               
+                System.out.println("we are at try line 158");
             } catch (NumberFormatException ex) {
-                Matcher matcher = replace.matcher(strID);
             
+            }
+                Matcher matcher = replace.matcher(strID);
+
                 while (matcher.find()) {
+                    System.out.println("we are at matcher find line 164");
                     strID = matcher.replaceAll("");
                     pmID = Integer.parseInt(strID);
-                    
-            FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
-         //   System.out.println("BIBLIO REFERENCE/PAPER RETURNED IS::- " + fb.paperid);
-            paper.add(0, fb.title);
-            paper.add(1, fb.author1);
-            paper.add(2, fb.author2);
-            paper.add(3, fb.journal);
-            paper.add(4, fb.year);
-            paper.add(5, fb.volume);
-            paper.add(6, fb.issue);
-            paper.add(7, fb.pages);
-            paper.add(8, fb.paperid);
-                }
-            }
-          //  int pmID = Integer.parseInt(request.getParameter("pubmedid"));
+ }
+                    System.out.println("BIBLIO REFERENCE CLEANED IS::- " + pmID);
+                    FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
+                    paper.add(0, fb.title);
+                    paper.add(1, fb.author1);
+                    paper.add(2, fb.author2);
+                    paper.add(3, fb.journal);
+                    paper.add(4, fb.year);
+                    paper.add(5, fb.volume);
+                    paper.add(6, fb.issue);
+                    paper.add(7, fb.pages);
+                    paper.add(8, fb.paperid);
+              //  }
+          //  }
+            //  int pmID = Integer.parseInt(request.getParameter("pubmedid"));
 
             returnedOut.put("paper", paper);
         }
-         if (request.getParameter("funct") != null && request.getParameter("funct").equals("bibliosEdit")) {
-             returnedOut = new HashMap();
+        if (request.getParameter("funct") != null && request.getParameter("funct").equals("bibliosEdit")) {
+            returnedOut = new HashMap();
             List paper = new LinkedList();
-            
+
             BibliosManager bm = new BibliosManager();
             int ID = Integer.parseInt(request.getParameter("biblioid"));
             //FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
-            SubmissionBibliosDAO sbd=bm.getSubBiblioBySubBiblioID(ID);
+            SubmissionBibliosDAO sbd = bm.getSubBiblioBySubBiblioID(ID);
             System.out.println("I D + + " + ID);
             paper.add(0, sbd.getTitle());
             paper.add(1, sbd.getAuthor1());
@@ -195,19 +200,19 @@ returnedOut = new HashMap();
             paper.add(6, null);
             paper.add(7, sbd.getPages());
             paper.add(8, sbd.getPubmed_id());
-           // System.out.println("BIBLIOID==" + ID );
+            // System.out.println("BIBLIOID==" + ID );
             paper.add(9, ID);
             //System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }
-         
+
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
             // $('#fileList').load('ajaxFileListing.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
             returnedOut = new HashMap();
             System.out.println("F I L E  L I S T I N G  R E A C H E D ! !");
             Encrypter enc = new Encrypter();
             String subID = enc.decrypt(request.getParameter("encID"));
-            
+
             String fileType = request.getParameter("submissionFileType");
             String searchString = subID + "_" + fileType;
             System.out.println("subID value is  _  " + subID);
@@ -235,5 +240,4 @@ returnedOut = new HashMap();
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
         //  return returnedResults;
     }
-    
 }
