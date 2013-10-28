@@ -43,7 +43,7 @@
         <script type="text/javascript" charset="UTF-8" src="../js/peopleData.js?<%= new java.util.Date()%>"></script>
         <script type="text/javascript" src="../js/jquery.floatobject-1.0.js"></script>
         <script type="text/javascript" src="../js/tooltip.js"></script>
-                <SCRIPT>
+        <SCRIPT>
             (function(i,s,o,g,r,a,m){
                 i['GoogleAnalyticsObject']=r;
                 i[r]=i[r]||function(){
@@ -63,47 +63,47 @@
         <br/>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"></a></p>
 
-            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
-            ${requestScope.recall_window}
+        <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+        ${requestScope.recall_window}
         <div id="dialog-confirm" title="Recall Previous Submission?">
             <c:if test="${not empty requestScope.previousSub}">
                 <c:if test="${requestScope.recall_window != 'Yes'}">
-                <c:set var="submissionDAO"  value="${requestScope.previousSub}"/>
-                <c:set var="step"  value="${submissionDAO.step}"/>
+                    <c:set var="submissionDAO"  value="${requestScope.previousSub}"/>
+                    <c:set var="step"  value="${submissionDAO.step}"/>
 
-                <script>
-                    $(function() {   
-                        $( "#dialog-confirm" ).dialog({
-                            resizable: false,
-                            height:220,
-                            modal: true       
+                    <script>
+                        $(function() {   
+                            $( "#dialog-confirm" ).dialog({
+                                resizable: false,
+                                height:220,
+                                modal: true       
+                            });
                         });
-                    });
-                </script>
-                <%-- <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}"> --%>
-                <form method="POST" id="loadprev" action="interstitialSubmit.emma">
-                    <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
-                    <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
+                    </script>
+                    <%-- <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}"> --%>
+                    <form method="POST" id="loadprev" action="interstitialSubmit.emma">
+                        <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
+                        <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
 
-                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?
-                            <br/><br/>
-                        <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;
-                            <input type="button" name="recall_window" value="Yes" onclick="javascript:window.location.assign('submissionForm.emma?getprev=${submissionDAO.encryptedId_sub}&recall_window=Yes');">
-                        <!-- <input type="button" name="recall_window" value="Yes" onclick="javascript:document.forms['loadprev'].submit();">-->
-                    </center>
-                    </p>
-                </form>
-                <script>
-                    $( "#No" )
-                    .click(function() {
-                        //redirect
-                        $( "#dialog-confirm" ).dialog( "close" );
-                        // //http://localhost:8084/apps/internal/publicSubmission/submissionForm.emma?getprev=hYbF4-FI9GR97SRLeYourw&_target11=Next&recall_window=Yes
-                    });
-                </script>
-            </div>
-                </c:if>>
-</c:if>
+                        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?
+                                <br/><br/>
+                            <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;
+                                <input type="button" name="recall_window" value="Yes" onclick="javascript:window.location.assign('submissionForm.emma?getprev=${submissionDAO.encryptedId_sub}&recall_window=Yes');">
+                            <!-- <input type="button" name="recall_window" value="Yes" onclick="javascript:document.forms['loadprev'].submit();">-->
+                        </center>
+                        </p>
+                    </form>
+                    <script>
+                        $( "#No" )
+                        .click(function() {
+                            //redirect
+                            $( "#dialog-confirm" ).dialog( "close" );
+                            // //http://localhost:8084/apps/internal/publicSubmission/submissionForm.emma?getprev=hYbF4-FI9GR97SRLeYourw&_target11=Next&recall_window=Yes
+                        });
+                    </script>
+                </div>
+            </c:if>>
+        </c:if>
 
         <div id="wrapper">
 
@@ -156,7 +156,7 @@
 &addr_line_1=${user.labsDAO['addr_line_1']}&addr_line_2=${user.labsDAO['addr_line_2']}\
 &town=${user.labsDAO['town']}&county=${user.labsDAO['province']}\
 &postcode=${user.labsDAO['postcode']}&country=${user.labsDAO['country']}&ilar=${user.ilarDAO['labcode']}&fieldset=submitter&auth=${user.labsDAO['authority']}')" 
-                                                       value="Yes"/><br/>
+                                                           value="Yes"/><br/>
                                             </p>
                                         </c:forEach>
                                         Or click anywhere else to return to the form.
