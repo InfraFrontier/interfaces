@@ -9,6 +9,7 @@ package org.emmanet.model;
  * @author phil
  */
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -50,6 +51,17 @@ public class BibliosManager implements BibliosManagerIO {
         return bd;
     }
 
+    /**
+     * 
+     * @param pmid
+     * @return
+     * @deprecated This method has been replaced by getBibliosByPubmed_id(), which
+     *             allows the caller to pass in any pmid, including null, and which
+     *             returns a list of matches. Remember, biblios.pubmed_id is defined
+     *             in the database as a varchar, with no unique constraint, and may
+     *             thus may return multiple BibliosDAO records.
+     */
+    @Deprecated
     public BibliosDAO getPubmedIDByID(int pmid) {
         BibliosDAO bd = null;
         if (pmid > 0) {
@@ -71,6 +83,35 @@ public class BibliosManager implements BibliosManagerIO {
         }
         return bd;
     }
+    
+    /**
+     * Given a pubmed_id string that may be null, this method returns a list of
+     * matching <code>BibliosDAO</code> objects matching the pubmed_id. When the
+     * pubmed_id is an integer &gt; 0, a match will always return exactly one element
+     * in the list. If pubmed_id is null, 0, or not a number, the list may return
+     * any number of matching elements, including zero. <strong>NOTE: The returned
+     * list is guaranteed to not be null.</strong>
+     * @param pubmed_id the pubmed id against which to search
+     * @return a <code>List&lt;BibliosDAO&gt</code> of matches. The list is guaranteed never to be null.
+     */
+    public List<BibliosDAO> getBibliosByPubmed_id(String pubmed_id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<BibliosDAO> bibliosList = new ArrayList<>();
+
+        try {
+            if (pubmed_id == null) {
+                bibliosList = (List<BibliosDAO>) session.createQuery("FROM BibliosDAO WHERE pubmed_id IS NULL").list();
+            } else {
+                bibliosList = (List<BibliosDAO>) session.createQuery("FROM BibliosDAO WHERE pubmed_id = ?").setParameter(0, pubmed_id).list();
+            }
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+
+        return bibliosList;
+    }
 
     @Override
     public List<BibliosDAO> getUpdateCandidateBiblios() {
@@ -78,7 +119,6 @@ public class BibliosManager implements BibliosManagerIO {
         session.beginTransaction();
         List bd = null;
         try {
-
             bd = session.createQuery("FROM BibliosDAO WHERE (updated IS NULL OR updated != 'Y') "
                     + "AND (pubmed_id IS NOT NULL AND pubmed_id !='')").list();
             session.getTransaction().commit();
