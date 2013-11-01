@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Set;
 import org.emmanet.model.BibliosManager;
 import org.emmanet.model.BibliosStrainsDAO;
-import org.emmanet.model.CategoriesDAO;
 import org.emmanet.model.CategoriesStrainsDAO;
 import org.emmanet.model.MutationsStrainsDAO;
 import org.emmanet.model.PeopleDAO;
@@ -358,11 +357,56 @@ public class PdfView extends AbstractPdfView {
 
             table.setWidthPercentage(100);
 
-            PdfPCell cell = new PdfPCell(new Paragraph("Producer\n\n", font));
+            // Submitter
+            PdfPCell cell = new PdfPCell(new Paragraph("\nSubmitter (Steps 1 and 2 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
-
+            if(sd.getPer_id_per_sub() != null) {
+                table.addCell(cell);
+                table.addCell("Title");
+                table.addCell("" + subPDAO.getTitle());
+                table.addCell("Firstname");
+                table.addCell("" + subPDAO.getFirstname());
+                table.addCell("Surname");
+                table.addCell("" + subPDAO.getSurname());
+                table.addCell("E-mail");
+                table.addCell("" + subPDAO.getEmail());
+                table.addCell("Phone");
+                table.addCell("" + subPDAO.getPhone());
+                table.addCell("Fax");
+                table.addCell("" + subPDAO.getFax());
+            }
+            if(subPDAO.getLabsDAO() != null) {
+                table.addCell("Institution");
+                table.addCell("" + subPDAO.getLabsDAO().getName());
+                table.addCell("Department");
+                table.addCell("" + subPDAO.getLabsDAO().getDept());
+                table.addCell("Address Line 1");
+                table.addCell("" + subPDAO.getLabsDAO().getAddr_line_1());
+                table.addCell("Address Line 2");
+                table.addCell("" + subPDAO.getLabsDAO().getAddr_line_2());
+                table.addCell("County/province");
+                table.addCell("" + subPDAO.getLabsDAO().getProvince());
+                table.addCell("Town");
+                table.addCell("" + subPDAO.getLabsDAO().getTown());
+                table.addCell("Postcode");
+                table.addCell("" + subPDAO.getLabsDAO().getPostcode());
+                table.addCell("Country");
+                table.addCell("" + subPDAO.getLabsDAO().getCountry());
+            }
+            doc.add(table);
+            doc.add(Chunk.NEWLINE);
+            doc.add(Chunk.NEWLINE);
+            doc.add(underlined);
+            table = new PdfPTable(widths);
+            table.setWidthPercentage(100);
+            
+            // Producer
+            cell = new PdfPCell(new Paragraph("Producer (Step 3 of 11)\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
             table.addCell(cell);
+
             table.addCell("Title");
             table.addCell("" + sd.getPeopleDAO().getTitle());
             table.addCell("Firstname");
@@ -392,11 +436,19 @@ public class PdfView extends AbstractPdfView {
             table.addCell("Country");
             table.addCell("" + sd.getPeopleDAO().getLabsDAO().getCountry());
 
-            cell = new PdfPCell(new Paragraph("\nShipping contact\n\n", font));
+            doc.add(table);
+            doc.add(Chunk.NEWLINE);
+            doc.add(Chunk.NEWLINE);
+            doc.add(underlined);
+            table = new PdfPTable(widths);
+            table.setWidthPercentage(100);
+            
+            // Shipper
+            cell = new PdfPCell(new Paragraph("\nShipper (Step 4 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
-
             table.addCell(cell);
+
             table.addCell("Title");
             table.addCell("" + pd.getTitle());
             table.addCell("Firstname");
@@ -426,96 +478,59 @@ public class PdfView extends AbstractPdfView {
             table.addCell("Country");
             table.addCell("" + pd.getLabsDAO().getCountry());
 
-
-            cell = new PdfPCell(new Paragraph("\nSubmitter contact\n\n", font));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            if (sd.getPer_id_per_sub() != null) {
-                table.addCell(cell);
-                table.addCell("Title");
-                table.addCell("" + subPDAO.getTitle());
-                table.addCell("Firstname");
-                table.addCell("" + subPDAO.getFirstname());
-                table.addCell("Surname");
-                table.addCell("" + subPDAO.getSurname());
-                table.addCell("E-mail");
-                table.addCell("" + subPDAO.getEmail());
-                table.addCell("Phone");
-                table.addCell("" + subPDAO.getPhone());
-                table.addCell("Fax");
-                table.addCell("" + subPDAO.getFax());
-                if (subPDAO.getLabsDAO() != null) {
-                    table.addCell("Institution");
-                    table.addCell("" + subPDAO.getLabsDAO().getName());
-                    table.addCell("Department");
-                    table.addCell("" + subPDAO.getLabsDAO().getDept());
-                    table.addCell("Address Line 1");
-                    table.addCell("" + subPDAO.getLabsDAO().getAddr_line_1());
-                    table.addCell("Address Line 2");
-                    table.addCell("" + subPDAO.getLabsDAO().getAddr_line_2());
-                    table.addCell("County/province");
-                    table.addCell("" + subPDAO.getLabsDAO().getProvince());
-                    table.addCell("Town");
-                    table.addCell("" + subPDAO.getLabsDAO().getTown());
-                    table.addCell("Postcode");
-                    table.addCell("" + subPDAO.getLabsDAO().getPostcode());
-                    table.addCell("Country");
-                    table.addCell("" + subPDAO.getLabsDAO().getCountry());
-
-                }
-                doc.add(table);
-                doc.add(Chunk.NEWLINE);
-                doc.add(Chunk.NEWLINE);
-                doc.add(underlined);
-                table = new PdfPTable(widths);
-
-                table.setWidthPercentage(100);
-            }
-            /*
-            
-             Mutation information section
-            
-             */
-
-            /*strain name and description*/
-            Set sSynonym = sd.getSyn_strainsDAO();
-            String strainName = "";
-            StringBuffer sName = new StringBuffer();
-            for (Iterator it = sSynonym.iterator(); it.hasNext();) {
-                Syn_StrainsDAO synDAO = (Syn_StrainsDAO) it.next();
-                if (synDAO.getName() != null) {
-                    sName = new StringBuffer(strainName).append(synDAO.getName().toString());
-                }
-            }
-
-            cell = new PdfPCell(new Paragraph("\nYour strain/line name " + sName + "\n", font));
-
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
             doc.add(table);
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             doc.add(underlined);
             table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
 
-
-            cell = new PdfPCell(new Paragraph("Mutation/s\n\n", font));
+            // Genotype preparation - strain name and description
+            Set sSynonym = sd.getSyn_strainsDAO();
+            String strainName = "";
+            StringBuffer strainNameAndSynonyms = new StringBuffer();
+            for (Iterator it = sSynonym.iterator(); it.hasNext();) {
+                Syn_StrainsDAO synDAO = (Syn_StrainsDAO) it.next();
+                if (synDAO.getName() != null) {
+                    strainNameAndSynonyms = new StringBuffer(strainName).append(synDAO.getName().toString());
+                }
+            }
+            String origBgName = sd.getBackgroundDAO().getName();
+            
+            // Genotype
+            cell = new PdfPCell(new Paragraph("\nGenotype (Step 5 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            /* cell = new PdfPCell(new Paragraph("" + sd.getCharact_gen() + sd.getMaintenance() + sd.getPheno_text()));
-             cell.setColspan(2);
-             table.addCell(cell);*/
-            /*END of strain name and description*/
+            table.addCell("Strain Name");
+            table.addCell("" + strainNameAndSynonyms);
+            
+            table.addCell("Genetic description");
+            table.addCell("" + cleanNULLS(sd.getCharact_gen(), false));
 
-            /* MUTATIONS */
-            String origBgName = "";
-            origBgName = sd.getBackgroundDAO().getName();
+            table.addCell("Current genetic background");
+            table.addCell("" + cleanNULLS(origBgName, false));
+            
+            table.addCell("Number of generations backcrossed");
+            table.addCell("" + cleanNULLS(sd.getGeneration(), false));
+            
+            table.addCell("Number of generations sib-mated");
+            table.addCell("" + cleanNULLS(sd.getSibmatings(), false));
+            
+            table.addCell("Breeding history");
+            table.addCell("" + sd.getMaintenance());
+            
+            doc.add(table);
+            doc.add(Chunk.NEWLINE);
+            table = new PdfPTable(widths);
+            table.setWidthPercentage(100);
+
+            // Genotype - Mutations
+            cell = new PdfPCell(new Paragraph("Mutation(s)\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
             Set sMutations = sd.getMutationsStrainsDAO();
 
             StringBuffer sDom = new StringBuffer();
@@ -525,7 +540,7 @@ public class PdfView extends AbstractPdfView {
                     sDom = new StringBuffer(sDom).append(mutDAO.getMutationsDAO().getDominance().toString());
                 }
 
-                cell = new PdfPCell(new Paragraph("Main type: " + cleanNULLS(mutDAO.getMutationsDAO().getMain_type(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Type: " + cleanNULLS(mutDAO.getMutationsDAO().getMain_type(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -565,19 +580,34 @@ public class PdfView extends AbstractPdfView {
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                // origBgName = mutDAO.getMutationsDAO().getBackgroundDAO().getName();
-
                 if (mutDAO.getMutationsDAO().getBackgroundDAO() != null) {
-                    cell = new PdfPCell(new Paragraph("Original background: " + cleanNULLS(mutDAO.getMutationsDAO().getBackgroundDAO().getName(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                    cell = new PdfPCell(new Paragraph("Original genetic background: " + cleanNULLS(mutDAO.getMutationsDAO().getBackgroundDAO().getName(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 } else {
                     cell = new PdfPCell(new Paragraph("\n"));
                 }
-
+                cell.setColspan(2);
+                cell.setBorder(0);
+                table.addCell(cell);
+                
+                if (mutDAO.getMutationsDAO().getCh_ano_name() != null) {
+                    cell = new PdfPCell(new Paragraph("Chromosomal anomaly name: " + cleanNULLS(mutDAO.getMutationsDAO().getCh_ano_name(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                } else {
+                    cell = new PdfPCell(new Paragraph("\n"));
+                }
+                cell.setColspan(2);
+                cell.setBorder(0);
+                table.addCell(cell);
+                
+                if (mutDAO.getMutationsDAO().getCh_ano_desc()!= null) {
+                    cell = new PdfPCell(new Paragraph("Chromosomal anomaly description: " + cleanNULLS(mutDAO.getMutationsDAO().getCh_ano_desc(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                } else {
+                    cell = new PdfPCell(new Paragraph("\n"));
+                }
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("ES cell line: " + cleanNULLS(mutDAO.getMutationsDAO().getTm_esline(), false) + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("ES cell line used: " + cleanNULLS(mutDAO.getMutationsDAO().getTm_esline(), false) + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -590,95 +620,72 @@ public class PdfView extends AbstractPdfView {
             doc.add(Chunk.NEWLINE);
             doc.add(underlined);
             table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
-
-            /* STRAIN GENETIC BACKGROUND */
-            cell = new PdfPCell(new Paragraph("Strain genetic description\n\n", font));
+            
+            cell = new PdfPCell(new Paragraph("\nONE mutant strain is defined by its specific set of mutation(s) "
+            + "and its specific genetic background. Therefore strains with the same set of mutation(s) but different "
+            + "backgrounds do require DISTINCT submission forms (i.e) ONE form for each background\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Short genetic description of your mouse strain\n(this will be used in the public web listing)\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getCharact_gen(), true)));
-            cell.setColspan(2);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nOn what genetic background is this strain currently maintained? " + cleanNULLS(origBgName, false)/*cleanNULLS(sd.getBackgroundDAO().getName()) */, FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nNumber of generations backcrossed? " + cleanNULLS(sd.getGeneration(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nNumber of generations sib-mated? " + cleanNULLS(sd.getSibmatings(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-
-            cell = new PdfPCell(new Paragraph("\n\nONE mutant strain is defined by its specific set of mutation(s) "
-                    + "and its specific genetic background. Therefore strains with the same set of mutation(s) but different "
-                    + "backgrounds do require DISTINCT submission forms (i.e) ONE form for each background\n\n", font));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            /* END OF STRAIN GENETIC BACKGROUND */
 
             doc.add(table);
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             doc.add(underlined);
             table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
 
-            /* STRAIN PHENOTYPE DESCRIPTION */
-
-            cell = new PdfPCell(new Paragraph("Strain phenotype description\n\n", font));
+            // Phenotype
+            cell = new PdfPCell(new Paragraph("\nPhenotype (Step 6 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("Short phenotype description of your mouse strain\n(this will be used in the public web listing)\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("Phenotypic description of homozygous mice\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
             cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getPheno_text(), true)));
             cell.setColspan(2);
             table.addCell(cell);
-
-            /* END OF STRAIN PHENOTYPE DESCRIPTION */
-
             doc.add(table);
+            
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             doc.add(underlined);
             table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
-
-            /* BIBLIOGRAPHY */
+            
+            // References
             List bibliosStrains = bm.bibliosStrains(sd.getId_str());
-
-
-            cell = new PdfPCell(new Paragraph("Relevant bibliographic/database references\n\n", font));
+            cell = new PdfPCell(new Paragraph("\nReferences (Step 7 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
+            cell = new PdfPCell(new Paragraph("Has this mouse mutant strain been published or accepted for publication? " + cleanNULLS(sd.getResiduesDAO().getAccepted() + "\n\n", false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("Short description\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            if (sd.getResiduesDAO() != null) {
+                cell = new PdfPCell(new Paragraph("" + /*cleanNULLS(sd.getResiduesDAO().getChar_genotyping(), true)*/"FIXME FIXME FIXME  See SubmissionFormController line 650 where this value is supposed to be set."));
+            } else {
+                cell = new PdfPCell(new Paragraph(""));
+            }
+            cell.setColspan(2);
+            table.addCell(cell);
+            
             for (Iterator it = bibliosStrains.iterator(); it.hasNext();) {
                 BibliosStrainsDAO bsdao = (BibliosStrainsDAO) it.next();
 
-                cell = new PdfPCell(new Paragraph("PubMed ID: " + bsdao.getBibliosDAO().getPubmed_id(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("\nPubMed ID: " + bsdao.getBibliosDAO().getPubmed_id(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -688,17 +695,15 @@ public class PdfView extends AbstractPdfView {
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Author: " + bsdao.getBibliosDAO().getAuthor1(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                String authors = "Authors: " + bsdao.getBibliosDAO().getAuthor1();
+                if (bsdao.getBibliosDAO().getAuthor2() != null)
+                    authors = authors + ", " + bsdao.getBibliosDAO().getAuthor2();
+                cell = new PdfPCell(new Paragraph(authors, FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Other author(s): " + bsdao.getBibliosDAO().getAuthor2(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-                cell.setColspan(2);
-                cell.setBorder(0);
-                table.addCell(cell);
-
-                cell = new PdfPCell(new Paragraph("Journal: " + bsdao.getBibliosDAO().getJournal(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Journal/Book: " + bsdao.getBibliosDAO().getJournal(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -717,174 +722,20 @@ public class PdfView extends AbstractPdfView {
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
-
             }
-
-            /* END BIBLIOGRAPHY */
-
             doc.add(table);
+            
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             doc.add(underlined);
             table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
-
-            /* BREEDING PROCEDURES AND SANITARY STATUS OF YOUR STRAIN */
-
-            cell = new PdfPCell(new Paragraph("Breeding procedures and sanitary status of your strain\n\n", font));
+            
+            // Characterization
+            cell = new PdfPCell(new Paragraph("\nCharacterization (Step 8 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Describe breeding history (was it backcrossed/outcrossed/inbred? "
-                    + "How many generations? How is it currently bred?))\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getMaintenance(), true)));
-            cell.setColspan(2);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nAre homozygous mice viable? " + cleanNULLS(sd.getMutant_viable(), false), FontFactory.getFont(
-                    FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-            cell = new PdfPCell(new Paragraph("Are homozygous mice fertile?  " + cleanNULLS(sd.getMutant_fertile(), false), FontFactory.getFont(
-                    FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Are heterozygous/hemizygous mice fertile? " + cleanNULLS(sd.getHethemi_fertile(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Does the strain necessarily require homozygous matings? " + cleanNULLS(sd.getRequire_homozygous(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            //new
-
-            cell = new PdfPCell(new Paragraph("Average age of reproductive maturity (weeks)? " + cleanNULLS(sd.getResiduesDAO().getReproductive_maturity_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Average age of reproductive decline (months)? " + cleanNULLS(sd.getResiduesDAO().getReproductive_decline_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Average length of gestation (days)? " + cleanNULLS(sd.getResiduesDAO().getGestation_length(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Average number of pups at birth? " + cleanNULLS(sd.getResiduesDAO().getPups_at_birth(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Average number of pups surviving to weaning? " + cleanNULLS(sd.getResiduesDAO().getPups_at_weaning(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Recommended weaning age (days)? " + cleanNULLS(sd.getResiduesDAO().getWeaning_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Average number of litters in lifetime? " + cleanNULLS(sd.getResiduesDAO().getLitters_in_lifetime(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("Breeding performance? " + cleanNULLS(sd.getResiduesDAO().getBreeding_performance(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-
-            //end new
-            cell = new PdfPCell(new Paragraph("Is the strain immunocompromised? " + cleanNULLS(sd.getImmunocompromised(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nWhat is the current sanitary status of the strain of mice being archived "
-                    + "(detected viruses, bacteria, parasites, etc.)\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getCurrent_sanitary_status(), true)));
-            } else {
-                cell = new PdfPCell(new Paragraph("\n"));
-            }
-            cell.setColspan(2);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\nSpecific information on animal husbandry (nutrition, special handling, light cycle ...)\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getAnimal_husbandry(), true)));
-            } else {
-                cell = new PdfPCell(new Paragraph("\n"));
-            }
-            cell.setColspan(2);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\nAnaimal welfare\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getWelfare(), true)));
-            cell.setColspan(2);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\nRemedial actions\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getRemedial_actions(), true)));
-            cell.setColspan(2);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nPlease note that under certain circumstances "
-                    + "(e.g.: long-term cryopreservation by sperm freezing) the strain's original genotype will not "
-                    + "always be available for future reconstitution of live colonies. Therefore, the original genetic "
-                    + "background cannot be guaranteed.\n\n", font));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            /* END OF  BREEDING PROCEDURES AND SANITARY STATUS OF YOUR STRAIN */
-
-            doc.add(table);
-            doc.add(Chunk.NEWLINE);
-            doc.add(Chunk.NEWLINE);
-            doc.add(underlined);
-            table = new PdfPTable(widths);
-
-            table.setWidthPercentage(100);
-
-            /* STRAIN CHARACTERISATION */
-
-            cell = new PdfPCell(new Paragraph("Characterisation of your strain? \n\n", font));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
             cell = new PdfPCell(new Paragraph("By genotyping \n"
                     + "(e.g. sequence of PCR primers and PCR settings,Southern probes and "
                     + "hybridization protocol)\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
@@ -913,7 +764,7 @@ public class PdfView extends AbstractPdfView {
             cell.setColspan(2);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("\nBy any other means that is not a genotyping nor a phenotyping procedure\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("\nBy any other means that are not genotyping or phenotyping\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
@@ -921,47 +772,181 @@ public class PdfView extends AbstractPdfView {
             if (sd.getResiduesDAO() != null) {
                 cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getChar_other(), true)));
             } else {
-                cell = new PdfPCell(new Paragraph("\n"));
+                cell = new PdfPCell(new Paragraph(""));
             }
             cell.setColspan(2);
             table.addCell(cell);
-
-
-            //original taken from submissions table now unused
-
-
-            /* END OF STRAIN CHARACTERISATION */
-
             doc.add(table);
+            
+            doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             doc.add(underlined);
             table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
-
-            /* SCIENTIFIC INTEREST */
-
-            cell = new PdfPCell(new Paragraph("Scientific interest \n\n", font));
+            
+            // Breeding
+            cell = new PdfPCell(new Paragraph("\nBreeding (Step 9 of 11)\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("Are homozygous mice viable? " + cleanNULLS(sd.getMutant_viable(), false), FontFactory.getFont(
+                    FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            cell = new PdfPCell(new Paragraph("Are homozygous mice fertile? " + cleanNULLS(sd.getMutant_fertile(), false), FontFactory.getFont(
+                    FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("Does this mutant strain model a human condition? " + cleanNULLS(sd.getHuman_model(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("Are heterozygous/hemizygous mice fertile? " + cleanNULLS(sd.getHethemi_fertile(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
+            cell = new PdfPCell(new Paragraph("Are homozygous matings required? " + cleanNULLS(sd.getRequire_homozygous() + "\n\n", false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
             if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("OMIM IDs " + cleanNULLS(sd.getResiduesDAO().getOmim_ids(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getHomozygous_matings_required_text(), true)));
             } else {
-                cell = new PdfPCell(new Paragraph("OMIM IDs ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph(""));
             }
             cell.setColspan(2);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("\nAverage age of reproductive maturity (weeks): " + cleanNULLS(sd.getResiduesDAO().getReproductive_maturity_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("Otherwise please describe human condition in the box below\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("Average age of reproductive decline (months): " + cleanNULLS(sd.getResiduesDAO().getReproductive_decline_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average length of gestation (days): " + cleanNULLS(sd.getResiduesDAO().getGestation_length(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average number of pups at birth: " + cleanNULLS(sd.getResiduesDAO().getPups_at_birth(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average number of pups surviving to weaning: " + cleanNULLS(sd.getResiduesDAO().getPups_at_weaning(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Recommended weaning age (days): " + cleanNULLS(sd.getResiduesDAO().getWeaning_age(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Average number of litters in lifetime: " + cleanNULLS(sd.getResiduesDAO().getLitters_in_lifetime(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Breeding performance: " + cleanNULLS(sd.getResiduesDAO().getBreeding_performance(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Husbandry requirements:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            if (sd.getResiduesDAO() != null) {
+                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getAnimal_husbandry() + "\n", true)));
+            } else {
+                cell = new PdfPCell(new Paragraph(""));
+            }
+            cell.setColspan(2);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nAre mice immunicompromised? " + cleanNULLS(sd.getImmunocompromised(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("\nSanitary status:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            if (sd.getResiduesDAO() != null) {
+                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getCurrent_sanitary_status(), true)));
+            } else {
+                cell = new PdfPCell(new Paragraph("\n"));
+            }
+            cell.setColspan(2);
+            
+            table.addCell(cell);
+            cell = new PdfPCell(new Paragraph("\nAnimal welfare:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getWelfare(), true)));
+            cell.setColspan(2);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nRemedial actions:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getRemedial_actions(), true)));
+            cell.setColspan(2);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nPlease note that under certain circumstances "
+                    + "(e.g.: long-term cryopreservation by sperm freezing) the strain's original genotype will not "
+                    + "always be available for future reconstitution of live colonies. Therefore, the original genetic "
+                    + "background cannot be guaranteed.\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            doc.add(table);
+            
+            doc.add(Chunk.NEWLINE);
+            doc.add(Chunk.NEWLINE);
+            doc.add(underlined);
+            table = new PdfPTable(widths);
+            table.setWidthPercentage(100);
+            doc.add(table);
+
+            // Research value
+            cell = new PdfPCell(new Paragraph("\n\n\nResearch value (Step 10 of 11)\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("Does this strain model a human condition or disease? " + cleanNULLS(sd.getHuman_model(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nOMIM IDs:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            if (sd.getResiduesDAO() != null) {
+                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getOmim_ids(), true), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            } else {
+                cell = new PdfPCell(new Paragraph("", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            }
+            cell.setColspan(2);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\n\nIf OMIM IDs are not available, please describe the human condition or disease:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
@@ -970,15 +955,16 @@ public class PdfView extends AbstractPdfView {
             cell.setColspan(2);
             table.addCell(cell);
 
+            // Prep for Research areas
             Set cs = sd.getCategoriesStrainsDAO();
             StringBuffer categories = new StringBuffer();
             for (Iterator it = cs.iterator(); it.hasNext();) {
                 CategoriesStrainsDAO cd = (CategoriesStrainsDAO) it.next();
-                categories = new StringBuffer(categories).append(cd.getCategoriesDAO().getMain_cat().toString()).append("\n        ");
-
+                
+                categories.append("\n        ").append(cd.getCategoriesDAO().getMain_cat());
             }
 
-            cell = new PdfPCell(new Paragraph("\n\nResearch areas:\n\n        " + categories + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("\n\nResearch areas:\n        " + categories + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
@@ -987,15 +973,20 @@ public class PdfView extends AbstractPdfView {
             StringBuffer rtools = new StringBuffer();
             for (Iterator it = sRTools.iterator(); it.hasNext();) {
                 RToolsDAO rtd = (RToolsDAO) it.next();
-                rtools = new StringBuffer(rtools).append(rtd.getCvrtoolsDAO().getDescription().toString()).append("\n        ");
+                rtools.append("\n        ").append(rtd.getCvrtoolsDAO().getDescription());
             }
 
-            cell = new PdfPCell(new Paragraph("Research tools:\n\n        " + rtools + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("\n\nOther Research areas:\n\n        " + "FIXME FIXME FIXME" + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            /* END OF SCIENTIFIC INTEREST */
+            cell = new PdfPCell(new Paragraph("\n\nResearch tools:\n        " + rtools, FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+            /* END OF Research value */
 
             doc.add(table);
             doc.add(Chunk.NEWLINE);
@@ -1005,9 +996,9 @@ public class PdfView extends AbstractPdfView {
 
             table.setWidthPercentage(100);
 
-            /* ADDITIONAL INFORMATION */
+            /* Additional information */
 
-            cell = new PdfPCell(new Paragraph("Additional information\n\n", font));
+            cell = new PdfPCell(new Paragraph("\n\nAdditional information (Step 11 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
@@ -1025,7 +1016,7 @@ public class PdfView extends AbstractPdfView {
 
             if (sd.getResiduesDAO() != null) {
                 cell = new PdfPCell(new Paragraph("Is this strain being deposited with any other institution or biotechnology company? "
-                        + cleanNULLS(sd.getResiduesDAO().getDeposited_elsewhere(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                        + cleanNULLS(sd.getResiduesDAO().getDeposited_elsewhere() + "\n\n", false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
             } else {
                 cell = new PdfPCell(new Paragraph("Is this strain being deposited with any other institution or biotechnology company? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             }
@@ -1034,21 +1025,30 @@ public class PdfView extends AbstractPdfView {
             table.addCell(cell);
 
             if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("Are other laboratories producing similar mutant strains? "
+                if (sd.getResiduesDAO().getIpr_description() != null) {
+                    cell = new PdfPCell(new Paragraph(cleanNULLS(sd.getResiduesDAO().getDeposited_elsewhere_text(), true)));
+                    cell.setColspan(2);
+                    table.addCell(cell);
+                }
+            }
+            
+            if (sd.getResiduesDAO() != null) {
+                cell = new PdfPCell(new Paragraph("\n\nAre other laboratories producing similar strains? "
                         + cleanNULLS(sd.getResiduesDAO().getOther_labos(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
             } else {
-                cell = new PdfPCell(new Paragraph("Are other laboratories producing similar mutant strains? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("\n\nAre other laboratories producing similar strains? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             }
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
+            
             String IPRights = "";
             if (sd.getResiduesDAO() != null) {
                 IPRights = sd.getResiduesDAO().getIp_rights();
             } else {
                 //do nothing
             }
-            cell = new PdfPCell(new Paragraph("Are there particular intellectual property rights linked to this strain? "
+            cell = new PdfPCell(new Paragraph("Are there any intellectual property rights or patented technologies linked to this strain? "
                     + IPRights + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
@@ -1062,7 +1062,7 @@ public class PdfView extends AbstractPdfView {
                 }
             }
 
-            cell = new PdfPCell(new Paragraph("\nAre you the exclusive owner of the strain? "
+            cell = new PdfPCell(new Paragraph("\nIs the producer the exclusive owner of this strain? "
                     + cleanNULLS(sd.getExclusive_owner(), false) + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
@@ -1071,92 +1071,128 @@ public class PdfView extends AbstractPdfView {
             cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getEx_owner_description(), true)));
             cell.setColspan(2);
             table.addCell(cell);
-
-            cell = new PdfPCell(new Paragraph("\n\nWere any of the following techniques used in the construction of this mutant?\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            
+            cell = new PdfPCell(new Paragraph("\nDo you have permission from all owners to deposit this strain in the EMMA repository? "
+                    + cleanNULLS(sd.getResiduesDAO().getOwner_permission(), false) + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("Cre recombinase-loxP technology? " + cleanNULLS(sd.getResiduesDAO().getCrelox(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            } else {
-                cell = new PdfPCell(new Paragraph("Cre recombinase-loxP technology? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            }
+            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getOwner_permission_text(), true)));
             cell.setColspan(2);
-            cell.setBorder(0);
             table.addCell(cell);
-
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("FLP recombinase technology? " + cleanNULLS(sd.getResiduesDAO().getFlp(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            } else {
-                cell = new PdfPCell(new Paragraph("FLP recombinase technology? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            }
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("TET-system technology? " + cleanNULLS(sd.getResiduesDAO().getTet(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            } else {
-                cell = new PdfPCell(new Paragraph("TET-system technology? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            }
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("\n\nIf the submission request is accepted when could you provide "
-                        + "10 females and 6 males (5-12 weeks old)?"
-                        + "\nEstimated date of shipping\nMonth: " + cleanNULLS(sd.getResiduesDAO().getWhen_mice_month(), false) + "\nYear: " + cleanNULLS(sd.getResiduesDAO().getWhen_mice_year(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            } else {
-                cell = new PdfPCell(new Paragraph("\n\nIf the submission request is accepted when could you provide "
-                        + "10 females and 6 males (5-12 weeks old)?"
-                        + "\nEstimated date of shipping\nMonth: \nYear:", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            }
-
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
-
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("\n\nIf unable to provide this number of mice how many could you provide and when?"
-                        + "\nEstimated date of shipping\nMonth: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_month(), false)
-                        + "\nYear: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_year(), false)
-                        + "\nNumber of males: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_males(), false)
-                        + "\nNumber of females: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_females(), false),
-                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            } else {
-                cell = new PdfPCell(new Paragraph("\n\nIf unable to provide this number of mice how many could you provide and when?"
-                        + "\nEstimated date of shipping\nMonth: "
-                        + "\nYear: "
-                        + "\nNumber of males: "
-                        + "\nNumber of females: ",
-                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            }
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-
+            
+            
             String delayedRelease = "";
             if (sd.getResiduesDAO() != null) {
                 delayedRelease = cleanNULLS(sd.getResiduesDAO().getDelayed_wanted(), false);
             }
             if (delayedRelease != null && delayedRelease.startsWith("yes")) {
-                delayedRelease = new StringBuffer(delayedRelease).append(" (briefly explain below)\n\n ").toString();
+                delayedRelease = new StringBuffer(delayedRelease).append(" (briefly explain below)\n\n").toString();
             }
 
             cell = new PdfPCell(new Paragraph("\nDo you require delayed release for your strain? " + delayedRelease, FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
-
             if (delayedRelease != null && delayedRelease.startsWith("yes")) {
                 cell = new PdfPCell(new Paragraph("" + sd.getResiduesDAO().getDelayed_description()));
                 cell.setColspan(2);
                 table.addCell(cell);
             }
+            
+            if (sd.getResiduesDAO() != null) {
+                cell = new PdfPCell(new Paragraph("\nHow many mice of breeding age could you provide and when?"
+                        + "\n\nEstimated date of shipping:\n\nMonth: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_month(), false)
+                        + "\n\nYear: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_year(), false)
+                        + "\n\nNumber of males: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_males(), false)
+                        + "\n\nNumber of females: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_females(), false),
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            } else {
+                cell = new PdfPCell(new Paragraph("\n\nHow many mice of breeding age could you provide and when?"
+                        + "\n\nEstimated date of shipping:\n\nMonth: "
+                        + "\n\nYear: "
+                        + "\n\nNumber of males: "
+                        + "\n\nNumber of females: ",
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            }
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            
+            
+            
+            
+            
+            
+//            cell = new PdfPCell(new Paragraph("\n\nWere any of the following techniques used in the construction of this mutant?\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            cell.setColspan(2);
+//            cell.setBorder(0);
+//            table.addCell(cell);
+//
+//            if (sd.getResiduesDAO() != null) {
+//                cell = new PdfPCell(new Paragraph("Cre recombinase-loxP technology? " + cleanNULLS(sd.getResiduesDAO().getCrelox(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            } else {
+//                cell = new PdfPCell(new Paragraph("Cre recombinase-loxP technology? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            }
+//            cell.setColspan(2);
+//            cell.setBorder(0);
+//            table.addCell(cell);
+//
+//            if (sd.getResiduesDAO() != null) {
+//                cell = new PdfPCell(new Paragraph("FLP recombinase technology? " + cleanNULLS(sd.getResiduesDAO().getFlp(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            } else {
+//                cell = new PdfPCell(new Paragraph("FLP recombinase technology? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            }
+//            cell.setColspan(2);
+//            cell.setBorder(0);
+//            table.addCell(cell);
+//
+//            if (sd.getResiduesDAO() != null) {
+//                cell = new PdfPCell(new Paragraph("TET-system technology? " + cleanNULLS(sd.getResiduesDAO().getTet(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            } else {
+//                cell = new PdfPCell(new Paragraph("TET-system technology? ", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            }
+//            cell.setColspan(2);
+//            cell.setBorder(0);
+//            table.addCell(cell);
+//
+//
+//            if (sd.getResiduesDAO() != null) {
+//                cell = new PdfPCell(new Paragraph("\n\nIf the submission request is accepted when could you provide "
+//                        + "10 females and 6 males (5-12 weeks old)?"
+//                        + "\nEstimated date of shipping\nMonth: " + cleanNULLS(sd.getResiduesDAO().getWhen_mice_month(), false) + "\nYear: " + cleanNULLS(sd.getResiduesDAO().getWhen_mice_year(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            } else {
+//                cell = new PdfPCell(new Paragraph("\n\nIf the submission request is accepted when could you provide "
+//                        + "10 females and 6 males (5-12 weeks old)?"
+//                        + "\nEstimated date of shipping\nMonth: \nYear:", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            }
+//
+//            cell.setColspan(2);
+//            cell.setBorder(0);
+//            table.addCell(cell);
+
+
+//            if (sd.getResiduesDAO() != null) {
+//                cell = new PdfPCell(new Paragraph("\n\nIf unable to provide this number of mice how many could you provide and when?"
+//                        + "\nEstimated date of shipping\nMonth: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_month(), false)
+//                        + "\nYear: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_year(), false)
+//                        + "\nNumber of males: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_males(), false)
+//                        + "\nNumber of females: " + cleanNULLS(sd.getResiduesDAO().getWhen_how_many_females(), false),
+//                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            } else {
+//                cell = new PdfPCell(new Paragraph("\n\nIf unable to provide this number of mice how many could you provide and when?"
+//                        + "\nEstimated date of shipping\nMonth: "
+//                        + "\nYear: "
+//                        + "\nNumber of males: "
+//                        + "\nNumber of females: ",
+//                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+//            }
+//            cell.setColspan(2);
+//            cell.setBorder(0);
+//            table.addCell(cell);
+
             /* END OF ADDITIONAL INFORMATION */
             doc.add(table);
         }

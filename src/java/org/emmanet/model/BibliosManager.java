@@ -84,6 +84,25 @@ public class BibliosManager implements BibliosManagerIO {
         return bd;
     }
     
+////    public String getNotes(int pubmed_id) {
+////        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+////        session.beginTransaction();
+////        List<BibliosDAO> bibliosList = new ArrayList<>();
+////
+////        try {
+////            if (pubmed_id == null) {
+////                bibliosList = (List<BibliosDAO>) session.createQuery("FROM BibliosDAO WHERE pubmed_id IS NULL").list();
+////            } else {
+////                bibliosList = (List<BibliosDAO>) session.createQuery("FROM BibliosDAO WHERE pubmed_id = ?").setParameter(0, pubmed_id).list();
+////            }
+////        } catch (HibernateException e) {
+////            session.getTransaction().rollback();
+////            throw e;
+////        }
+////
+////        return bibliosList;
+////    }
+    
     /**
      * Given a pubmed_id string that may be null, this method returns a list of
      * matching <code>BibliosDAO</code> objects matching the pubmed_id. When the
