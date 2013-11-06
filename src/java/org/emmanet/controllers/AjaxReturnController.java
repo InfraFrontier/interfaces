@@ -19,9 +19,11 @@ import org.emmanet.jobs.EmmaBiblioJOB.FetchBiblio;
 import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.BackgroundManager;
 import org.emmanet.model.BibliosManager;
+import org.emmanet.model.MutationsManager;
 import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
 import org.emmanet.model.SubmissionBibliosDAO;
+import org.emmanet.model.SubmissionMutationsDAO;
 import org.emmanet.model.SubmissionsManager;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.DirFileList;
@@ -205,6 +207,44 @@ public class AjaxReturnController extends SimpleFormController {
             //System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }
+        
+        
+        ///to edit mutations
+        
+        
+        
+        
+                if (request.getParameter("funct") != null && request.getParameter("funct").equals("mutationEdit")) {
+            returnedOut = new HashMap();
+            List mutations = new LinkedList();
+
+            MutationsManager mm = new MutationsManager();
+            int ID = Integer.parseInt(request.getParameter("mutid"));
+            //FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
+            SubmissionMutationsDAO smd = mm.getSubMutationBySubMutID(ID);
+            System.out.println("I D + + " + ID);
+            mutations.add(0, smd.getMutation_allele_mgi_symbol());//.getTitle());
+            mutations.add(1, smd.getMutation_chrom());//.getAuthor1());
+            mutations.add(2, smd.getMutation_chrom_anomaly_descr());//.getAuthor2());
+            mutations.add(3, smd.getMutation_chrom_anomaly_name());//getJournal());
+            mutations.add(4, smd.getMutation_dominance_pattern());//.getYear());
+            mutations.add(5, smd.getMutation_es_cell_line());//getVolume());
+            mutations.add(6, smd.getMutation_founder_line_number());
+            mutations.add(7, smd.getMutation_gene_mgi_symbol());//.getPages());
+            mutations.add(8, smd.getMutation_mutagen());//.getPubmed_id());
+            mutations.add(9, smd.getMutation_original_backg());
+            mutations.add(10, smd.getMutation_original_backg_text());
+            mutations.add(11, smd.getMutation_plasmid());
+            mutations.add(12, smd.getMutation_promoter());
+            mutations.add(13, smd.getMutation_subtype());
+            mutations.add(14, smd.getMutation_transgene_mgi_symbol());
+            mutations.add(15, smd.getMutation_type());
+            mutations.add(16, smd.getMutationCount());
+            mutations.add(17, ID);
+            returnedOut.put("mutations", mutations);
+        }
+        
+        
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
             // $('#fileList').load('ajaxFileListing.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});

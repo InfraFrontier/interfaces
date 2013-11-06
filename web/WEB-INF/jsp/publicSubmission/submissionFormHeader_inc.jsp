@@ -58,5 +58,5 @@ Header for all pages in the form submission
     </ol>
 </div> 
 <br/>
-<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">TEST BUILD V1.4.4</div>
+<div id="build" style="width:200px;height:10px;margin-left: auto;margin-right: auto;color: #cccccc;}">V1.4.5</div>
 <p>&nbsp;</p>

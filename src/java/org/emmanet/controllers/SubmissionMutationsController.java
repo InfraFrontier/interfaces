@@ -168,6 +168,7 @@ mutdaos = new ArrayList();
                 System.out.println("CHECK FOR  CURRENT DAO AND THAT IT IS CORRECT: " + smd.getMutation_type() + " == " + smd.getMutation_original_backg());
                 //save
                 mm.save(smd);
+                mutdaos = mm.getSubMutationBySubID(Integer.parseInt(enc.decrypt(request.getParameter("Id_sub"))));
             }
             //load record in fields
 
@@ -175,7 +176,7 @@ mutdaos = new ArrayList();
             if (request.getParameter("Id_sub").isEmpty()) {
                 //ID = Integer.parseInt(enc.decrypt(request.getParameter("sessencID")));
                 ID = Integer.parseInt(enc.decrypt(request.getParameter("IDFromSession")));
-            }else{
+            } else {
                 ID = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
             }
 

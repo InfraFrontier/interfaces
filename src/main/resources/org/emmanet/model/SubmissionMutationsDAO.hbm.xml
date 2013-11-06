@@ -5,6 +5,9 @@
     <id column="id" name="id">
       <generator class="native"/>
     </id>
+    
+     <many-to-one cascade="all" class="org.emmanet.model.BackgroundDAO" column="mutation_original_backg" insert="false" lazy="false" name="backgroundDAO" not-found="ignore" update="false"/>
+    
     <property column="id_sub" name="id_sub"/>
     <property column="mutation_allele_mgi_symbol" name="mutation_allele_mgi_symbol"/>
     <property column="mutation_chrom" name="mutation_chrom"/>

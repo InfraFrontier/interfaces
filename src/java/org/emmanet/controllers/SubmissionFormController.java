@@ -469,7 +469,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
             System.out.println("AT THE POINT OF SAVING SUBMISSION");
             sm.save(sd);
         }
-
         String ilarCode = "";
         ilarCode = sd.getProducer_ilar();
         //LOOKUP IN ILAR TABLE FOR ID
@@ -633,7 +632,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         stm.save(nsd);
 
         StringBuffer PhenoText = new StringBuffer("");
-
+//TODO - check 
         if (!/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr().isEmpty()) {
             PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr() + " ");
         } else if (!/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr().isEmpty()) {
@@ -871,6 +870,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             BibliosDAO chkBibDAO = new BibliosDAO();
             chkBibDAO = (BibliosDAO) bm.getPubmedIDByID(pmid);
             BibliosDAO bud = new BibliosDAO();
+            
             if (chkBibDAO != null) {
                 System.out.println("chkBibDAO is not null " + chkBibDAO.getId_biblio());
                 bud.setId_biblio(chkBibDAO.getId_biblio());
