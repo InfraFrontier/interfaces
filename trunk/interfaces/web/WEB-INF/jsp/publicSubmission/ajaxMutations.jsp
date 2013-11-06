@@ -32,6 +32,11 @@
         <input value="Record this mutation" class="btn big" type="button" id="add_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
+    <div name="editMut" id="editMut" style="display: none">
+    <p>
+        <input value="Edit Mutation" class="btn" type="button" id="edit_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
+    </p>
+</div>
 <p>&nbsp;</p>
 <h4>Mutations for Submission</h4>
 <script type="text/javascript" >  $("#addMut").show(); </script>
@@ -54,7 +59,7 @@
                     <tbody>
                         <c:forEach var="mut" items="${subMutsDAO}">
                             <tr>
-                                <td>${mut.mutation_original_backg_text}</td>
+                                <td>${mut.backgroundDAO.name}</td>
                                 <td>${mut.mutation_type}</td>
                                 <td>${mut.mutation_subtype}</td>
                                 <td>${mut.mutation_dominance_pattern}</td>
@@ -70,14 +75,28 @@
 </c:choose>
 <script type="text/javascript" > 
     $("a[id^='editmutation']").click(function() {
-        //alert("Handler for edit mutation called. FUNCTIONALITY NOT IN PLACE YET!");
+       // alert("Handler for edit mutation called. FUNCTIONALITY NOT IN PLACE YET!");
         //testcall();
-        alert($('#mutation_type').val() + "    " + $('#mutation_type').val() + "      " );
+       // alert("Mutation values are :: - " + $('#mutation_type').val() + "    " + $('#mutation_type').val() + "      " );
+        $("#addMut").hide();
+        $("#editMut").show();
+
+        alert("Mutation details will be returned to the fields for editing.Click Edit Mutation to save changes.");
+        $('#mutRef').load('../ajaxReturn.emma',{mutid:$(this).attr("title"), funct: "mutationEdit"});
+
+        // alert($(this).attr("title"));
+ 
+    });
+    
+    //edit_mutation
+      $('#edit_mutation').click(function() {
+         //  alert($(this).attr("E  D  I  T  I  N  G  !  ! "));$(this).attr("title")
+          //  alert("E  D  I  T  I  N  G  !  ! ");
         $('#subMutations').load('ajaxMutations.emma',{
             action: "edit",
             action2: "editRecord",
             Id_sub:$('#encID').val(),
-            Id_mut:$(this).attr("title"),
+            Id_mut:$('#id_mut').val(),
             mutation_allele_mgi_symbol:$('#mutation_allele_mgi_symbol').val(),
             mutation_chrom:$('#mutation_chrom').val(), 
             mutation_chrom_anomaly_name:$('#mutation_chrom_anomaly_name').val(), 
@@ -95,8 +114,7 @@
             mutation_transgene_mgi_symbol:$('#mutation_transgene_mgi_symbol').val(),
             mutation_type:$('#mutation_type').val()
         });
-        //alert($(this).attr("title"));
-    });
+  });
         
     $("a[id^='deletemutation']").click(function() {
         var r= confirm("Your mutation will be deleted from your submission\n\n\ ");

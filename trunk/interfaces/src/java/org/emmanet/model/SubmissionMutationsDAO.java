@@ -29,6 +29,8 @@ public class SubmissionMutationsDAO {
     private String mutation_subtype;
     private String mutation_type;
     private int mutationCount;
+    
+    private BackgroundDAO backgroundDAO;
 
     /**
      * @return the id_sub
@@ -294,5 +296,19 @@ public class SubmissionMutationsDAO {
      */
     public void setMutationCount(int mutationCount) {
         this.mutationCount = mutationCount;
+    }
+
+    /**
+     * @return the backgroundDAO
+     */
+    public BackgroundDAO getBackgroundDAO() {
+        return backgroundDAO;
+    }
+
+    /**
+     * @param backgroundDAO the backgroundDAO to set
+     */
+    public void setBackgroundDAO(BackgroundDAO backgroundDAO) {
+        this.backgroundDAO = backgroundDAO;
     }
 }

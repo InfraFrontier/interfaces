@@ -85,10 +85,10 @@
                         <div class="form visible">
                             <div class="boxcontainer">
                                 <h4>
-                                    Characterization (Step ${stepCurrent} of ${stepTotal})
+                                    Characterisation (Step ${stepCurrent} of ${stepTotal})
                                 </h4>
                                 <p>
-                                    Please enter information on how you characterize the mouse strain you want to deposit in EMMA.
+                                    Please enter information on how you characterise the mouse strain you want to deposit in EMMA.
                                 </p>
                                 <form:form method="POST" commandName="command" >
                                     <spring:bind path="command.genotyping">

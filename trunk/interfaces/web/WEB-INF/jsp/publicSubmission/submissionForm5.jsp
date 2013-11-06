@@ -39,7 +39,8 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-
+ <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+        <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/submission.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <script type="text/javascript" src="../js/mutData.js?<%= new java.util.Date()%>"></script>
@@ -213,6 +214,7 @@
                                 <div class="boxcontainer">
                                     <div class="clear"></div>
                                     <fieldset class="mutation" id="mutation">
+                                        <div id="mutRef" name="mutRef"></div>
                                         <h4>Mutation(s)</h4>
                                         <div class="field mutation_type">
                                             <label class="label" for="mutation_type"><strong>Type<sup><font color="red">*</font></sup></strong></label>
@@ -498,16 +500,15 @@
                                                         </c:forEach>        
                                                     </form:select>
                                                 </div>
-                                                
                                             </div>
 
 
                                         </spring:bind>
                                         <div id="mutOriginalBGText"  style="display: none">
                                             <p>
-                                                <spring:bind path="command.mutation_original_backg">
+                                                <spring:bind path="command.current_backg_text">
                                                     <form:errors path="${status.expression}" cssClass="error" />
-                                                    <input type="text" name="command.mutation_original_backg" id="mutation_original_backg_text" />
+                                                    <input type="text" name="command.current_backg_text" id="mutation_original_backg_text" />
                                                     
                                                 </spring:bind>
                                             </p>
@@ -595,7 +596,7 @@
                                             </div>
                                         </div>
                                         <br/>
-
+<input type="hidden" name="id_mut" id="id_mut"  value=""/>
                                     </fieldset>
                                     <div class="box half first">&nbsp;</div>
                                     <div class="box half last">

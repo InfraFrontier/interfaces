@@ -19,8 +19,8 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-                    <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
-        <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+<script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
 
 <c:set var="keyRef" value='${returnedOut}' scope="page"></c:set>
 <c:choose>
@@ -44,11 +44,11 @@
                 </c:otherwise>
             </c:choose>
         </c:if>
-                <c:if test='${param.query=="es"}'>
-            
-                    <c:forEach var="es"  items='${keyRef["ajaxReturn"]}'>
-                        ${es}
-                    </c:forEach>
+        <c:if test='${param.query=="es"}'>
+
+            <c:forEach var="es"  items='${keyRef["ajaxReturn"]}'>
+                ${es}
+            </c:forEach>
         </c:if>
     </c:otherwise>
 </c:choose>
@@ -131,29 +131,42 @@ JSON return for submission form people data fro PI and contact
                        value="Yes"/><br/>
             </p>
         </c:forEach>
-            Or click anywhere else to return to the form.
+        Or click anywhere else to return to the form.
     </c:if>
     <%--</body>
 </html> --%>
 </c:if>
-        <c:set var="paper" value="${keyRef.paper}" />  
-         <c:if test="${not empty paper}">
-             <script type="text/javascript" >
-                 populateBibDetails("?title=${paper[0]}&author1=${paper[1]}&author2=${paper[2]}\
+<c:set var="paper" value="${keyRef.paper}" />  
+<c:if test="${not empty paper}">
+    <script type="text/javascript" >
+        populateBibDetails("?title=${paper[0]}&author1=${paper[1]}&author2=${paper[2]}\
 &journal=${paper[3]}&year=${paper[4]}&volume=${paper[5]}&issue=${paper[6]}&pages=${paper[7]}\
 &paperid=${paper[8]}&biblioid=${paper[9]}",0);
 
-             </script>
-         </c:if>
-             <c:if test="${empty paper}">
-                 No reference received from PubMed!!
-             </c:if>
-             
-             <c:set var="files" value="${keyRef.fileListing}" scope="page"/>
+    </script>
+</c:if>
+<c:if test="${empty paper}">
+    <%--error message here--%>
+</c:if>
 
-             <c:if test="${not empty files}">
-                 <br/>
-                 <c:forEach var="file" items="${files}" varStatus="status">
-                     <c:if test="${status.count <= 5}"><img src="../images/pdf_icon.gif" width="28" height="29" border ="0" valign="middle"/>&nbsp;${file} uploaded<br/></c:if></c:forEach> 
-                 <br/>
-             </c:if>          
+<c:set var="mutations" value="${keyRef.mutations}" />
+<c:if test="${not empty mutations}">
+    <script type="text/javascript" >
+        populateMutDetails("?mutation_allele_mgi_symbol=${mutations[0]}&mutation_chrom=${mutations[1]}\
+&mutation_chrom_anomaly_descr=${mutations[2]}&Mutation_chrom_anomaly_name=${mutations[3]}\
+&mutation_dominance_pattern=${mutations[4]}&mutation_es_cell_line=${mutations[5]}&mutation_founder_line_number=${mutations[6]}\
+&mutation_gene_mgi_symbol=${mutations[7]}&mutation_mutagen=${mutations[8]}&mutation_original_backg=${mutations[9]}\
+&mutation_original_backg_text=${mutations[10]}&mutation_plasmid=${mutations[11]}&mutation_promoter=${mutations[12]}\
+&mutation_subtype=${mutations[13]}&mutation_transgene_mgi_symbol=${mutations[14]}&mutation_type=${mutations[15]}\
+&mutationcount=${mutations[16]}&mutationid=${mutations[17]}&mutid=${mutations[17]}",0);
+    </script>
+</c:if>
+
+<c:set var="files" value="${keyRef.fileListing}" scope="page"/>
+
+<c:if test="${not empty files}">
+    <br/>
+    <c:forEach var="file" items="${files}" varStatus="status">
+        <c:if test="${status.count <= 5}"><img src="../images/pdf_icon.gif" width="28" height="29" border ="0" valign="middle"/>&nbsp;${file} uploaded<br/></c:if></c:forEach> 
+        <br/>
+</c:if>          

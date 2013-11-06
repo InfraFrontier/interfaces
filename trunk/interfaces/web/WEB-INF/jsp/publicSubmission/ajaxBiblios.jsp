@@ -25,6 +25,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
 <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
+<script type="text/javascript" src="../js/biblioData.js?<%= new java.util.Date()%>"></script>
 <!DOCTYPE html>
 <div name="addBib" id="addBib">
     <p>
@@ -75,9 +76,6 @@
         $("#editBib").show();
         alert("Publication details will be returned to the fields for editing.");
         $('#bibRef').load('../ajaxReturn.emma',{biblioid:$(this).attr("title"), funct: "bibliosEdit"});
-
-        // alert($(this).attr("title"));
- 
     });
     
     //edit_biblio
@@ -98,8 +96,8 @@
             pages:$('#pages').val()
             
         });
-        removeBibDetails();
-        });
+       // removeBibDetails();
+        })
         
     $("a[id^='deleteReference']").click(function() {
         alert("Your bibliographic reference will be deleted from your submission\n\n\
@@ -128,6 +126,10 @@ Are you sure you wish to continue? ");
             volume:$('#volume').val(),
             pages:$('#pages').val()
         });
+        removeBibDetails();
+        $("#reference").hide("fast");
+       // $('#published-no').val(null);  $( "input").val([ "published-no" ]);
+        $('input:radio[name="published"]').filter('[value="no"]').attr('checked', true);
     });
 </script>
 <c:if test="${count >= 10}"><script type="text/javascript" >  $("#addBib").hide(); </script></c:if>
