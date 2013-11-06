@@ -81,6 +81,7 @@ public class SubmissionsDAO implements Serializable {
     //bibliography
     private String published;
     private String notes;
+    private String notesadditional;
     private String reference_descr_text_0;
     private String pubmed_id;
     private String title;
@@ -2497,5 +2498,19 @@ public class SubmissionsDAO implements Serializable {
      */
     public void setTermsAgreed(boolean termsAgreed) {
         this.termsAgreed = termsAgreed;
+    }
+
+    /**
+     * @return the notesadditional
+     */
+    public String getNotesadditional() {
+        return notesadditional;
+    }
+
+    /**
+     * @param notesadditional the notesadditional to set
+     */
+    public void setNotesadditional(String notesadditional) {
+        this.notesadditional = notesadditional;
     }
 }

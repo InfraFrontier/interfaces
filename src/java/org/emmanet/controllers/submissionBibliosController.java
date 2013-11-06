@@ -56,6 +56,7 @@ sub_id_sub = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
         String biblio_number = request.getParameter("biblio_number");//TODO probably ditch this field we have biblio ref
         String last_change = request.getParameter("last_change");
         String notes = request.getParameter("notes");
+        String notesadditional = request.getParameter("notesadditional");
         String mgi_original = request.getParameter("mgi_original");
 
         if (request.getParameter("action").equals("add")) {
@@ -72,6 +73,7 @@ sub_id_sub = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
             sbd.setPages(pages);
             sbd.setLast_change(last_change);
             sbd.setNotes(notes);
+            sbd.setNotesadditional(notesadditional);
             sbd.setMgi_original(mgi_original);
            // sbd.setBiblio_number(Integer.parseInt(biblio_number));
             sbd.setPubmed_id(pubmed_id);
@@ -97,6 +99,7 @@ sub_id_sub = Integer.parseInt(enc.decrypt(request.getParameter("Id_sub")));
             sbd.setPages(pages);
             sbd.setLast_change(last_change);
             sbd.setNotes(notes);
+            sbd.setNotesadditional(notesadditional);
             
             //sbd.setBiblio_number(Integer.parseInt(biblio_number));
             sbd.setPubmed_id(pubmed_id);

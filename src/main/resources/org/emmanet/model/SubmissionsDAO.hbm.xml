@@ -69,6 +69,7 @@
    
         <property column="published" name="published"/>
         <property column="notes" name="notes"/>
+        <property column="notesadditional" name="notesadditional"/>
         <property column="reference_descr_text_0" name="reference_descr_text_0"/>
         <property column="pubmed_id" name="pubmed_id"/>
         <property column="title" name="title"/>

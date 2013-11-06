@@ -970,12 +970,14 @@ public class PdfView extends AbstractPdfView {
             table.addCell(cell);
 
             Set sRTools = sd.getRtoolsDAO();
-            StringBuffer rtools = new StringBuffer();
+            StringBuffer rtools = new StringBuffer("");
+            System.out.println("size of rtoolsdao set is :- " + sRTools.size());
             for (Iterator it = sRTools.iterator(); it.hasNext();) {
                 RToolsDAO rtd = (RToolsDAO) it.next();
-                rtools.append("\n        ").append(rtd.getCvrtoolsDAO().getDescription());
+                rtools = new StringBuffer(rtools).append("\n        ").append(rtd.getCvrtoolsDAO().getDescription());
+                //System.out.println("Rtools set iterator value is: " + rtools);
             }
-
+//System.out.println("Rtools set for writing is " + rtools);
             cell = new PdfPCell(new Paragraph("\n\nOther Research areas:\n\n        " + "FIXME FIXME FIXME" + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);

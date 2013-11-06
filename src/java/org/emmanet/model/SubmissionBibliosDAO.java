@@ -24,6 +24,7 @@ public class SubmissionBibliosDAO {
     private int biblio_number;
     private String last_change;
     private String notes;
+    private String notesadditional;
     private String mgi_original;
     
     private int BiblioCount;
@@ -250,5 +251,19 @@ public class SubmissionBibliosDAO {
      */
     public void setBiblioCount(int BiblioCount) {
         this.BiblioCount = BiblioCount;
+    }
+
+    /**
+     * @return the notesadditional
+     */
+    public String getNotesadditional() {
+        return notesadditional;
+    }
+
+    /**
+     * @param notesadditional the notesadditional to set
+     */
+    public void setNotesadditional(String notesadditional) {
+        this.notesadditional = notesadditional;
     }
 }

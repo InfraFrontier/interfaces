@@ -93,8 +93,9 @@
             journal:$('#journal').val(),
             year:$('#year').val(),
             volume:$('#volume').val(),
-            pages:$('#pages').val()
-            
+            pages:$('#pages').val(),
+            notes:$('#notes').val(),
+            notesadditional:$('#notesadditional').val()
         });
        // removeBibDetails();
         })
@@ -124,7 +125,9 @@ Are you sure you wish to continue? ");
             journal:$('#journal').val(),
             year:$('#year').val(),
             volume:$('#volume').val(),
-            pages:$('#pages').val()
+            pages:$('#pages').val(),
+            notes:$('#notes').val(),
+            notesadditional:$('#notesadditional').val()
         });
         removeBibDetails();
         $("#reference").hide("fast");
