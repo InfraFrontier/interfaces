@@ -18,6 +18,7 @@
         <property column="biblio_number" name="biblio_number"/>
         <property column="last_change" name="last_change"/>
         <property column="notes" name="notes"/>
+        <property column="notesadditional" name="notesadditional"/>
         <property column="mgi_original" name="mgi_original"/>
     </class>
 </hibernate-mapping>

@@ -439,8 +439,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     }
                     sda.setResearch_areas(cats);
                 }
-
-
                 sda.setStep("11");
                 break;
 
@@ -455,6 +453,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Object command, org.springframework.validation.BindException be) throws Exception {
         RToolsManager rtm = new RToolsManager();
         SubmissionsDAO sd = (SubmissionsDAO) command;
+        
         StrainsManager stm = new StrainsManager();
         System.out.println("CHECKING RECALLED SUBMISSIONDAO :-");
         System.out.println(sd.getId_sub());
@@ -1018,6 +1017,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
+        //ok submission pretty much complete, let's now set the step to the last position for user details
+        sd.setStep("4");
         return new ModelAndView("/publicSubmission/success");
     }
 

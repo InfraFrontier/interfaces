@@ -98,7 +98,6 @@
                         .click(function() {
                             //redirect
                             $( "#dialog-confirm" ).dialog( "close" );
-                            // //http://localhost:8084/apps/internal/publicSubmission/submissionForm.emma?getprev=hYbF4-FI9GR97SRLeYourw&_target11=Next&recall_window=Yes
                         });
                     </script>
                 </div>

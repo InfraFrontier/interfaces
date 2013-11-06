@@ -4,10 +4,10 @@
     Author     : phil
 --%>
 <%
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", -1);
-        response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", -1);
+    response.setHeader("Cache-Control", "no-store");
 %>
 
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -38,7 +38,7 @@
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/biblioData.js?<%= new java.util.Date()%>"></script>
         <style type="text/css">@import url(../css/default.css);</style>
-                <SCRIPT>
+        <SCRIPT>
             (function(i,s,o,g,r,a,m){
                 i['GoogleAnalyticsObject']=r;
                 i[r]=i[r]||function(){
@@ -49,7 +49,7 @@
                 a.async=1;
                 a.src=g;
                 m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             ga('create', '${GOOGLEANAL}', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
@@ -62,7 +62,7 @@
         </script>
         <br/>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
-            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+                <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
         <div id="container">
             <div class="region region-content">
                 <div id="block-infrablocks-infraformtest" class="block block-infrablocks">
@@ -105,13 +105,25 @@
                                                     <form:option  value="Other">Other (please specify)</form:option>
                                                 </form:select>
                                             </spring:bind>
-                                            <spring:bind path="command.notes">
+                                        </div>
+                                        <spring:bind path="command.notesadditional">
+                                            <div id="additionalNotes"  style="display: none">
                                                 <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                                                </div>
-                                            <form:errors path="${status.expression}" cssClass="error" />
+
+                                                <form:errors path="${status.expression}" cssClass="error" />
+                                            </div> 
                                         </div>
                                     </spring:bind>
-
+                                    <script>
+                                        $("#notes").click(function () {
+                                            var optionValue = $("select#notes").val();
+                                            if(optionValue == 'Other'){
+                                                $("#additionalNotes").show("slow");
+                                            } else {
+                                                $("#additionalNotes").hide("fast");
+                                            }
+                                        });        
+                                    </script>
                                     <spring:bind path="command.pubmed_id">
                                         <div class="field reference_pmid">
                                             <p><strong>PubMed ID (if available, if not just complete the fields below.)</strong></p>
@@ -208,9 +220,9 @@
                                     </p>
                                 --%>
                                 <script>
-                                     if ($('input[name=published]:checked').val() == "yes") {
-                                                $("#reference").show("slow");
-                                            }
+                                    if ($('input[name=published]:checked').val() == "yes") {
+                                        $("#reference").show("slow");
+                                    }
                                     $("#published-yes").click(function () {
                                         $("#reference").show("slow");
                                     });

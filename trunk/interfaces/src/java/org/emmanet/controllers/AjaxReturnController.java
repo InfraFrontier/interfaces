@@ -204,6 +204,8 @@ public class AjaxReturnController extends SimpleFormController {
             paper.add(8, sbd.getPubmed_id());
             // System.out.println("BIBLIOID==" + ID );
             paper.add(9, ID);
+            paper.add(10,sbd.getNotes());
+            paper.add(11,sbd.getNotesadditional());
             //System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }

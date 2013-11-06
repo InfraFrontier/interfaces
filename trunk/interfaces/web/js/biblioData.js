@@ -12,6 +12,8 @@ function populateBibDetails(userString,refNo){
     $('#pubmed_id').val(q.paperid);
     //alert("BIBLIOID="+ q.biblioid);
     $('#id_biblio').val(q.biblioid);
+    $('#notes').val(q.notes);
+    $('#notesadditional').val(q.notesadditional);
 }
 function removeBibDetails(){
     $('#pubmed_id').val(null);
@@ -24,5 +26,7 @@ function removeBibDetails(){
     $('#volume').val(null);
     $('#pages').val(null);
     $('#id_biblio').val(null);
+    $('#notes').val(null);
+    $('#notesadditional').val(null);
 }
 

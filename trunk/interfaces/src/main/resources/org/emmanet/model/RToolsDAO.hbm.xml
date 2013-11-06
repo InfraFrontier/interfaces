@@ -2,18 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="org.emmanet.model.RToolsDAO" table="rtools_strains">
-    <id column="str_id_str" name="str_id_str">
-    <generator class="assigned"/>
-      <!---<generator class="assigned"/>CHANGED TO ALLOW SUBMISSION FORM TO WORK AND SAVE RTOOLS ENTRIES-->
-      <!--  class="assigned" removed, neededto allow setting programmatically on rtools update page-->
-    </id>
-    <!-- previous version had just these 4 lines
+
     <composite-id>        
         <key-many-to-one class="org.emmanet.model.CVRtoolsDAO"  column="rtls_id"  lazy="false" name="cvrtoolsDAO" />
         <key-many-to-one class="org.emmanet.model.StrainsDAO" column="str_id_str" lazy="false" name="strainsDAO" />
-    </composite-id>-->
+    </composite-id>
    <many-to-one cascade="all" class="org.emmanet.model.StrainsDAO" column="str_id_str" foreign-key="id_str" insert="false" lazy="false" name="strainsDAO" not-found="ignore" update="false"/><!-- REMOVED CAUSING ISSUES DURING SUBMISSION SAVE -->
     <many-to-one cascade="all" class="org.emmanet.model.CVRtoolsDAO" column="rtls_id" insert="false" lazy="false" name="cvrtoolsDAO" not-found="ignore" update="false"/>
-    <property column="rtls_id" name="rtls_id"/>
+    <property column="rtls_id" name="rtls_id" update="false" insert="false"/>
   </class>
 </hibernate-mapping>
