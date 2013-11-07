@@ -857,9 +857,6 @@ END OF CRYOPRESERVATION HISTORY --%>
                 <td>
                     OMIM ID(s):
                 </td>
-                <td>
-                    <c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.omim_ids"><input type="text" size="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if><c:if test="${empty residuesDAO}">None</c:if>
-                        </td>
                     </tr>
                     <tr>
                         <td valign="top">

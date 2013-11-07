@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="org.emmanet.model.Strains_OmimDAO" table="strains_omim">
+    <id column="id_strains_omim" name="id_strains_omim">
+      <generator class="native"/>
+    </id>
+    
+    <many-to-one cascade="all" class="org.emmanet.model.StrainsDAO" column="id_strains" foreign-key="id_str" insert="false" lazy="false" name="strainsDAO" not-found="ignore" update="false"/>
+    <many-to-one cascade="all" class="org.emmanet.model.OmimDAO" column="id_omim" foreign-key="id_omim" insert="false" lazy="false" name="omimDAO" not-found="ignore" update="false"/>
+    
+    <property column="id_strains" name="id_strains"/>
+    <property column="id_omim" name="id_omim"/>
+  </class>
+</hibernate-mapping>

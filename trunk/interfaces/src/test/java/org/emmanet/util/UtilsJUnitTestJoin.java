@@ -112,4 +112,44 @@ public class UtilsJUnitTestJoin extends TestCase {
         for (Integer i = 0; i < 6; i++)
             assertEquals(i.toString(), result[i]);
     }
+    
+    // Test with null.
+    public void testTryParseDoubleWithNull() {
+        System.out.println("testTryParseDoubleWithNull");
+        Double expResult = null;
+        Double result = Utils.tryParseDouble(null);
+        assertEquals(expResult, result);
+    }
+    
+    // Test with int.
+    public void testTryParseDoubleWithInt() {
+        System.out.println("testTryParseDoubleWithInt");
+        Double expResult = 7.0;
+        Double result = Utils.tryParseDouble(7);
+        assertEquals(expResult, result);
+    }
+    
+    // Test with int with trailing decimal point.
+    public void testTryParseDoubleWithIntWithTrailingDecimalPoint() {
+        System.out.println("testTryParseDoubleWithIntWithTrailingDecimalPoint");
+        Double expResult = 7.;
+        Double result = Utils.tryParseDouble(7);
+        assertEquals(expResult, result);
+    }
+    
+    // Test with float.
+    public void testTryParseDoubleWithFloat() {
+        System.out.println("testTryParseDoubleWithFloat");
+        Double expResult = 7.0;
+        Double result = Utils.tryParseDouble(7);
+        assertEquals(expResult, result);
+    }
+    
+    // Test with garbage.
+    public void testTryParseDoubleWithGarbage() {
+        System.out.println("testTryParseDoubleWithGarbage");
+        Double expResult = null;
+        Double result = Utils.tryParseDouble("abc");
+        assertEquals(expResult, result);
+    }
 }
