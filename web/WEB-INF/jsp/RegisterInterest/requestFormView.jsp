@@ -792,7 +792,7 @@
                                                                     <spring:bind path="command.terms_read">
                                                                         <input type="checkbox" onChange="javascript:ajax('js/printclear.js','conditions');return false;" name="<c:out value="${status.expression}"/>" value="on"<c:if test="${command.terms_read  != null}" >checked</c:if>/>
                                                                     </spring:bind>
-                                                                    Please check this box to confirm you have read <a href="#" onclick="javascript:ajax('conditions.html','conditions');return false;" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="https://dev.infrafrontier.eu/resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
+                                                                    Please check this box to confirm you have read <a href="#" onclick="javascript:ajax('conditions.html','conditions');return false;" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
                                                                     <%-- to resolve issue with null application type for normal requests 07012013--%>
                                                                     <spring:bind path="command.application_type">
                                                                         <input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="request_only" />
