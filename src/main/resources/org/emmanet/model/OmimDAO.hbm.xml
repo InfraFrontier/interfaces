@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="org.emmanet.model.OmimDAO" table="omim">
+    <id column="id_omim" name="id_omim">
+      <generator class="native"/>
+    </id>
+    <property column="omim" name="omim"/>
+  </class>
+</hibernate-mapping>

@@ -39,6 +39,8 @@ import org.emmanet.model.LabsDAO;
 import org.emmanet.model.MutationsDAO;
 import org.emmanet.model.MutationsManager;
 import org.emmanet.model.MutationsStrainsDAO;
+import org.emmanet.model.OmimDAO;
+import org.emmanet.model.OmimManager;
 import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
 import org.emmanet.model.ProjectsStrainsDAO;
@@ -51,14 +53,16 @@ import org.emmanet.model.SourcesStrainsManager;
 import org.emmanet.model.Sources_StrainsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.model.Strains_OmimDAO;
+import org.emmanet.model.Strains_OmimManager;
 import org.emmanet.model.SubmissionBibliosDAO;
 import org.emmanet.model.SubmissionMutationsDAO;
 import org.emmanet.model.SubmissionsDAO;
 import org.emmanet.model.SubmissionsManager;
 import org.emmanet.model.Syn_StrainsDAO;
 import org.emmanet.model.Syn_StrainsManager;
-import org.emmanet.util.Configuration;
 import org.emmanet.util.Encrypter;
+import org.emmanet.util.PubmedID;
 import org.json.simple.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -572,7 +576,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         //nsd.setHealth_status(sd.getHealth_status());
         nsd.setHuman_model(sd.getHuman_condition());
-        nsd.setHuman_model_desc(sd.getHuman_condition_text() + sd.getHuman_condition_more());// + sd.getHuman_condition_omim()
+        nsd.setHuman_model_desc(sd.getHuman_condition_text());                  // The human condition or disease
         nsd.setImmunocompromised(sd.getImmunocompromised());
         //nsd.setLast_change(null);
         nsd.setMaintenance(sd.getBreeding_history());
@@ -630,16 +634,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         stm.save(nsd);
 
-        StringBuffer PhenoText = new StringBuffer("");
-//TODO - check 
-        if (!/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr().isEmpty()) {
-            PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getGenotyping()*/sd.getHomozygous_phenotypic_descr() + " ");
-        } else if (!/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr().isEmpty()) {
-            PhenoText = new StringBuffer().append(PhenoText).append(/*sd.getPhenotyping()*/sd.getHeterozygous_phenotypic_descr() + " ");
-            /* } else if (!sd.getOthertyping().isEmpty()) {
-             PhenoText = new StringBuffer().append(PhenoText).append(sd.getOthertyping() + " ");*/
-        }
-        nsd.setPheno_text(PhenoText.toString().trim());
+        String phenoTextHomo = (sd.getHomozygous_phenotypic_descr().isEmpty() ? "" : sd.getHomozygous_phenotypic_descr());
+        nsd.setPheno_text(phenoTextHomo.trim());
+        String phenoTextHetero = (sd.getHeterozygous_phenotypic_descr().isEmpty() ? "" : sd.getHeterozygous_phenotypic_descr());
+        nsd.setPheno_text_hetero(phenoTextHetero.trim());
         nsd.setRequire_homozygous(sd.getHomozygous_matings_required());
 
         //RESIDUES OBJECT
@@ -668,7 +666,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setIp_rights(sd.getIp_rights());
         rd.setIpr_description(sd.getIp_rights_text());
         rd.setNumber_of_requests(sd.getPast_requests());
-        rd.setOmim_ids(sd.getHuman_condition_more());
         rd.setOther_labos(sd.getSimilar_strains());
         rd.setSpecific_info(null);
         rd.setTet(null);
@@ -708,6 +705,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setRemedial_actions(sd.getRemedial_actions());
 
         //END RESIDUES OBJECT
+        
 //SAVE RESIDUES
         ResiduesManager rm = new ResiduesManager();
         rm.save(rd);
@@ -735,6 +733,40 @@ public class SubmissionFormController extends AbstractWizardFormController {
             }
         }
 
+        // The OMIM ids are presented as a comma-separated list of alphanumeric characters in sd.getHuman_condition_more().
+        if (sd.getHuman_condition_more() != null) {
+            OmimManager omimManager = new OmimManager();
+            Strains_OmimManager strains_OmimManager = new Strains_OmimManager();
+            String[] omims = sd.getHuman_condition_more().split(",");
+            for (String omimRaw : omims) {
+                String omim = omimRaw.trim();
+                OmimDAO omimDAO = OmimManager.findByOmim(omim);
+                if (omimDAO == null) {                                          // The omim doesn't yet exist. Add it to the omim table.
+                    omimDAO = new OmimDAO();
+                    omimDAO.setOmim(omim);
+                    omimManager.save(omimDAO);
+                }
+                Strains_OmimDAO strainsOmniDAO = new Strains_OmimDAO();
+                strainsOmniDAO.setId_omim(omimDAO.getId_omim());
+                strainsOmniDAO.setId_strains(nsd.getId_str());
+                strains_OmimManager.save(strainsOmniDAO);                       // Add the strain/omim combination to the Strains_Omim lookup table.
+            }
+        }
+        
+        // OMIM and STRAINS_OMIM
+        String s1 = sd.getHuman_condition();
+        String s2 = sd.getHuman_conditionNo();
+        String s3 = sd.getHuman_conditionUnknown();
+        String s4 = sd.getHuman_condition_more();
+        String s5 = sd.getHuman_condition_omim();
+        String s6 = sd.getHuman_condition_text();
+        
+        
+        
+        
+        
+        
+        
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             nsd.setStr_access("C");
         } else {
@@ -764,7 +796,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         System.out.println("ADDITIONAL OBJECTS SECTION LINE 537::" + sd.getId_sub());
         List smd = sm.getSubMutationsBySUBID(Integer.parseInt(sd.getId_sub()));
         SubmissionMutationsDAO smdao = new SubmissionMutationsDAO();
-        SubmissionBibliosDAO sbdao = new SubmissionBibliosDAO();
         List sbd = sm.getSubBibliosBySUBID(Integer.parseInt(sd.getId_sub()));
 //Set setMutationsStrainsDAO = new LinkedHashSet();
 
@@ -850,59 +881,44 @@ public class SubmissionFormController extends AbstractWizardFormController {
             rtm.saveMutsStrainsUsingJDBCSQL(mud.getId(), nsd.getId_str());
             setMutationsStrainsDAO.add(msd);
         }
-        //~~~~~~~~~~~~nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
-        // stm.save(nsd);
-//nsd.setMutationsStrainsDAO(setMutationsStrainsDAO);
-        //SET BIBLIOSDAO
-        BibliosManager bm = new BibliosManager();
-        Set BibliosStrains = new LinkedHashSet();
-        for (Iterator it = sbd.listIterator(); it.hasNext();) {
-            int pmid = 0;
-            sbdao = (SubmissionBibliosDAO) it.next();
-            //need to check pubmedid not already in database
-            System.out.println("TRIMMED PUBMED ID IS::- " + sbdao.getPubmed_id().trim());
-            String trimmedPubmedId = sbdao.getPubmed_id().trim();
-            if (!trimmedPubmedId.isEmpty()) {
-                pmid = Integer.parseInt(trimmedPubmedId);
-            }
-            //int pmid = Integer.parseInt(trimmedPubmedId);
-            BibliosDAO chkBibDAO = new BibliosDAO();
-            chkBibDAO = (BibliosDAO) bm.getPubmedIDByID(pmid);
-            BibliosDAO bud = new BibliosDAO();
+        
+        /**
+         * Loop through all of the bibliographic records in this strain submission,
+         * adding each reference to the biblios table. Before updating the pubmed_id,
+         * check first to make sure it's valid. If it is not valid, store the
+         * biblio record but leave the pubmed_id NULL.
+         */
+        for (Iterator it = sbd.listIterator(); it.hasNext(); ) {
+            BibliosManager bibliosManager = new BibliosManager();
             
-            if (chkBibDAO != null) {
-                System.out.println("chkBibDAO is not null " + chkBibDAO.getId_biblio());
-                bud.setId_biblio(chkBibDAO.getId_biblio());
-                //do nothing else
-            } else {
-                //new reference not in database
-                System.out.println("chkBibDAO is null, sub biblios dao id for pubmed is " + sbdao.getPubmed_id());
-                bud.setAuthor1(sbdao.getAuthor1());
-                bud.setAuthor2(sbdao.getAuthor2());
-                bud.setJournal(sbdao.getJournal());
-                bud.setLast_change(currentDate);
-                bud.setNotes(sbdao.getNotes());
-                bud.setPages(sbdao.getPages());
-                bud.setPubmed_id(sbdao.getPubmed_id());
-                bud.setTitle(sbdao.getTitle());
-                bud.setUpdated(null);
-                bud.setUsername("EMMA");
-                bud.setVolume(sbdao.getVolume());
-                bud.setYear(sbdao.getYear());
-            }
+            SubmissionBibliosDAO submissionBiblioDAO = (SubmissionBibliosDAO)it.next();
+            PubmedID pubmedID = new PubmedID(submissionBiblioDAO.getPubmed_id());
+            if ( ! pubmedID.isValid())
+                submissionBiblioDAO.setPubmed_id(null);
+            
+            BibliosDAO bibliosDAO = new BibliosDAO();
 
-//now update strains_biblios with new id or add old exisitng biblio id
-            //save new BibliosDAO then add reference to biblios_strains
-            bm.save(bud);
-            ////////////////////////
-            BibliosStrainsDAO bsd = new BibliosStrainsDAO();
-            bsd.setBib_id_biblio(bud.getId_biblio());
-            bsd.setStr_id_str(nsd.getId_str());
-            System.out.println("STRING ID FROM STRAINS OBJECT1==" + bsd.getStr_id_str());
-            BibliosStrains.add(bsd);
-            bm.save(bsd);
-            //~~~~~~~~~nsd.setSetBibliosStrainsDAO(BibliosStrains);
+            bibliosDAO.setAuthor1(submissionBiblioDAO.getAuthor1());
+            bibliosDAO.setAuthor2(submissionBiblioDAO.getAuthor2());
+            bibliosDAO.setJournal(submissionBiblioDAO.getJournal());
+            bibliosDAO.setLast_change(currentDate);
+            bibliosDAO.setNotes(submissionBiblioDAO.getNotes());
+            bibliosDAO.setPages(submissionBiblioDAO.getPages());
+            bibliosDAO.setPubmed_id(submissionBiblioDAO.getPubmed_id());
+            bibliosDAO.setTitle(submissionBiblioDAO.getTitle());
+            bibliosDAO.setUpdated(null);
+            bibliosDAO.setUsername("EMMA");
+            bibliosDAO.setVolume(submissionBiblioDAO.getVolume());
+            bibliosDAO.setYear(submissionBiblioDAO.getYear());
+
+            bibliosManager.save(bibliosDAO);
+            
+            BibliosStrainsDAO biblioStrainsDAO = new BibliosStrainsDAO();
+            biblioStrainsDAO.setBib_id_biblio(bibliosDAO.getId_biblio());
+            biblioStrainsDAO.setStr_id_str(nsd.getId_str());
+            bibliosManager.save(biblioStrainsDAO);
         }
+
         //Syn_strains/////////////////////////////////////////////////////
         Set synStrains = new LinkedHashSet();
         Syn_StrainsDAO ssd = new Syn_StrainsDAO();

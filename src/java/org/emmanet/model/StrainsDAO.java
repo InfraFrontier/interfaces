@@ -32,6 +32,7 @@ public class StrainsDAO implements Serializable {
     //   private String last_change;
     private Date last_change;
     private String pheno_text;
+    private String pheno_text_hetero;
     private String bg_id_bg;
     private String per_id_per;
     private String per_id_per_contact;
@@ -170,6 +171,14 @@ public class StrainsDAO implements Serializable {
 
     public void setPheno_text(String pheno_text) {
         this.pheno_text = pheno_text;
+    }
+
+    public String getPheno_text_hetero() {
+        return pheno_text_hetero;
+    }
+
+    public void setPheno_text_hetero(String pheno_text_hetero) {
+        this.pheno_text_hetero = pheno_text_hetero;
     }
 
     public String getBg_id_bg() {

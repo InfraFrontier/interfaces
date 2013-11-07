@@ -12,7 +12,6 @@ package org.emmanet.model;
 public class ResiduesDAO {
     
 private int id;
-private String omim_ids;
 private String current_sanitary_status;
 private String animal_husbandry;
 private String char_genotyping;
@@ -60,14 +59,6 @@ private String remedial_actions;
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getOmim_ids() {
-        return omim_ids;
-    }
-
-    public void setOmim_ids(String omim_ids) {
-        this.omim_ids = omim_ids;
     }
 
     public String getCurrent_sanitary_status() {

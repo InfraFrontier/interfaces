@@ -202,6 +202,28 @@ public class Utils {
     }
     
     /**
+     * Given an <code>Object</code> that may be null or may be a float or double, this
+     * method attempts to convert the value to a <code>Double</code>. If successful,
+     * the <code>Double</code> value is returned; otherwise, <code>null</code> is returned.
+     * NOTE: the [non-null] object is first converted to a string and is trimmed of whitespace.
+     * @param o the object to try to convert
+     * @return the converted value, if <em>o</em> is a <code>Float or Double</code>; null otherwise
+     */
+    public static Double tryParseDouble(Object o) {
+        if (o == null)
+            return null;
+        
+        Double retVal = null;
+        try {
+            retVal = Double.parseDouble(o.toString().trim());
+        }
+        catch (NumberFormatException nfe ) { }
+        catch (Exception e) { }
+        
+        return retVal;
+    }
+    
+    /**
      * Given an <code>Object</code> that may be null or may be an Integer, this
      * method attempts to convert the value to an <code>Integer</code>. If successful,
      * the <code>Integer</code> value is returned; otherwise, <code>null</code> is returned.

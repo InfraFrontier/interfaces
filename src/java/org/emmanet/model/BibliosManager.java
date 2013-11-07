@@ -12,11 +12,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.emmanet.util.HibernateUtil;
+import org.emmanet.util.PubmedID;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 public class BibliosManager implements BibliosManagerIO {
-
+    
     public BibliosStrainsDAO getBibStrainsByID(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -292,5 +293,21 @@ System.out.println("S A V I N G ! !");
             session.getTransaction().rollback();
             throw e;
         }
+    }
+    
+    public boolean exists(PubmedID pubmed_id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Integer count;
+        try {
+            count = (Integer) session.createSQLQuery(
+                    "SELECT COUNT(*) FROM biblios WHERE pubmed_id = ?").setParameter(0, pubmed_id.toString()).uniqueResult();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+
+        return ((count != null) && (count.intValue() > 0) ? true : false);
     }
 }

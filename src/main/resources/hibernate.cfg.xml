@@ -34,6 +34,8 @@
         <mapping resource="org/emmanet/model/ArchiveDAO.hbm.xml" />
         <mapping resource="org/emmanet/model/Syn_StrainsDAO.hbm.xml" />
         <mapping resource="org/emmanet/model/Sources_StrainsDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/OmimDAO.hbm.xml" />
+        <mapping resource="org/emmanet/model/Strains_OmimDAO.hbm.xml" />
         <mapping resource="org/emmanet/model/PeopleDAO.hbm.xml" />
         <mapping resource="org/emmanet/model/RToolsDAO.hbm.xml" />
         <mapping resource="org/emmanet/model/CVRtoolsDAO.hbm.xml" />

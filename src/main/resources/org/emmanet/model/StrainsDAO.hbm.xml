@@ -64,6 +64,7 @@
     <property column="username" name="username"/>
     <!--  <property column="last_change" name="last_change"/> -->
     <property column="pheno_text" name="pheno_text"/>
+    <property column="pheno_text_hetero" name="pheno_text_hetero"/>
     <property column="bg_id_bg" name="bg_id_bg"/>
     <property column="per_id_per" name="per_id_per"/>
     <property column="per_id_per_contact" name="per_id_per_contact"/>

@@ -34,6 +34,8 @@ import org.emmanet.model.PeopleManager;
 import org.emmanet.model.RToolsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.model.Strains_OmimDAO;
+import org.emmanet.model.Strains_OmimManager;
 import org.emmanet.model.Syn_StrainsDAO;
 
 /**
@@ -332,8 +334,7 @@ public class PdfView extends AbstractPdfView {
             doc.add(pHead);
             doc.add(new Paragraph(pdfTitle + "\n\n",
                     FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20)));
-            Paragraph pSubHead = new Paragraph(
-                    "Following data have been submitted to EMMA on " + sd.getArchiveDAO().getSubmitted(), FontFactory.getFont(
+            Paragraph pSubHead = new Paragraph("Following data have been submitted to EMMA on " + sd.getArchiveDAO().getSubmitted(), FontFactory.getFont(
                     FontFactory.HELVETICA, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
 
@@ -357,6 +358,12 @@ public class PdfView extends AbstractPdfView {
 
             table.setWidthPercentage(100);
 
+            pSubHead = new Paragraph(
+                    "The terms and conditions have been accepted.\n\n", FontFactory.getFont(
+                    FontFactory.HELVETICA, 11));
+            pSubHead.setAlignment(Element.ALIGN_CENTER);
+            doc.add(pSubHead);
+            
             // Submitter
             PdfPCell cell = new PdfPCell(new Paragraph("\nSubmitter (Steps 1 and 2 of 11)\n\n", font));
             cell.setColspan(2);
@@ -649,6 +656,14 @@ public class PdfView extends AbstractPdfView {
             cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getPheno_text(), true)));
             cell.setColspan(2);
             table.addCell(cell);
+
+            cell = new PdfPCell(new Paragraph("\nPhenotypic description of heterozygous mice\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getPheno_text_hetero(), true)));
+            cell.setColspan(2);
+            table.addCell(cell);
             doc.add(table);
             
             doc.add(Chunk.NEWLINE);
@@ -659,32 +674,33 @@ public class PdfView extends AbstractPdfView {
             
             // References
             List bibliosStrains = bm.bibliosStrains(sd.getId_str());
+            String acceptedString = (( ! bibliosStrains.isEmpty()) && (bibliosStrains.size() > 0) ? "Yes/Accepted" : "No/Not known");
             cell = new PdfPCell(new Paragraph("\nReferences (Step 7 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("Has this mouse mutant strain been published or accepted for publication? " + cleanNULLS(sd.getResiduesDAO().getAccepted() + "\n\n", false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Paragraph("Short description\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell = new PdfPCell(new Paragraph("Has this mouse mutant strain been published or accepted for publication? " + acceptedString + "\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
 
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("" + /*cleanNULLS(sd.getResiduesDAO().getChar_genotyping(), true)*/"FIXME FIXME FIXME  See SubmissionFormController line 650 where this value is supposed to be set."));
-            } else {
-                cell = new PdfPCell(new Paragraph(""));
-            }
-            cell.setColspan(2);
-            table.addCell(cell);
-            
             for (Iterator it = bibliosStrains.iterator(); it.hasNext();) {
                 BibliosStrainsDAO bsdao = (BibliosStrainsDAO) it.next();
+            
+                cell = new PdfPCell(new Paragraph("Short description\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell.setColspan(2);
+                cell.setBorder(0);
+                table.addCell(cell);
 
+                if (bsdao.getBibliosDAO().getNotes() != null) {
+                    cell = new PdfPCell(new Paragraph("" + cleanNULLS(bsdao.getBibliosDAO().getNotes(), true)));
+                } else {
+                    cell = new PdfPCell(new Paragraph("\n"));
+                }
+                cell.setColspan(2);
+                table.addCell(cell);
+                
                 cell = new PdfPCell(new Paragraph("\nPubMed ID: " + bsdao.getBibliosDAO().getPubmed_id(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
@@ -933,18 +949,21 @@ public class PdfView extends AbstractPdfView {
             cell.setBorder(0);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("\nOMIM IDs:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
+            Strains_OmimManager strainsOmimManager = new Strains_OmimManager();
+            List<Strains_OmimDAO> strains_omimDAOList = strainsOmimManager.findById_Strains(sd.getId_str());         
             
-            if (sd.getResiduesDAO() != null) {
-                cell = new PdfPCell(new Paragraph("" + cleanNULLS(sd.getResiduesDAO().getOmim_ids(), true), FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            } else {
-                cell = new PdfPCell(new Paragraph("", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            if ( ! strains_omimDAOList.isEmpty()) {
+                cell = new PdfPCell(new Paragraph("\nOMIM IDs:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell.setColspan(2);
+                cell.setBorder(0);
+                table.addCell(cell);
+                
+                for (Strains_OmimDAO strainsOmimDAO : strains_omimDAOList) {
+                    cell = new PdfPCell(new Paragraph("" + cleanNULLS(strainsOmimDAO.getOmimDAO().getOmim(), true)));
+                    cell.setColspan(2);
+                    table.addCell(cell);
+                }
             }
-            cell.setColspan(2);
-            table.addCell(cell);
 
             cell = new PdfPCell(new Paragraph("\n\nIf OMIM IDs are not available, please describe the human condition or disease:\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
