@@ -32,6 +32,8 @@ import org.emmanet.model.BibliosDAO;
 import org.emmanet.model.BibliosManager;
 import org.emmanet.model.BibliosStrainsDAO;
 import org.emmanet.model.CVRtoolsDAO;
+import org.emmanet.model.CategoriesDAO;
+import org.emmanet.model.CategoriesManager;
 import org.emmanet.model.CategoriesStrainsDAO;
 import org.emmanet.model.GenesDAO;
 import org.emmanet.model.LaboratoriesManager;
@@ -135,11 +137,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         sda.setCvDAO(wr.isoCountries());
 
-
+        CategoriesManager categoriesManager = new CategoriesManager();
         session.setAttribute("backgroundsDAO", bm.getCuratedBackgrounds());
         sda.setBgDAO(bm.getCuratedBackgrounds());
-        session.setAttribute("categoriesDAO", sm.getCategories());
-        sda.setCatDAO(sm.getCategories());
+        session.setAttribute("categoriesDAO", categoriesManager.getCategoryListCurated("Y"));
+        sda.setCatDAO(categoriesManager.getCategoryListCurated("Y"));
 
         return sda;
     }
@@ -824,6 +826,27 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 //~~~~~~~~~nsd.setCategoriesStrainsDAO(setCategories);
             }
         }
+        
+        // If 'Other research areas' was specified, query the Categories table. If it doesn't exist, add it to the Categories
+        // table (making sure the 'curated' flag is set to 'N') and return the pk. If it already exists, save the pk.
+        // The pk is then used to add the category to the categories_strains table.
+        if ((sd.getResearch_areas_other_text() != null) && (sd.getResearch_areas_other_text().trim().length() > 0)) {
+            CategoriesManager categoriesManager = new CategoriesManager();
+            CategoriesDAO categoriesDAO;
+            List<CategoriesDAO> categoriesDAOList = categoriesManager.findByCategoryName(sd.getResearch_areas_other_text());
+            if ((categoriesDAOList != null) && (categoriesDAOList.size() > 0)) {
+                categoriesDAO = categoriesDAOList.get(0);
+            } else {
+                categoriesDAO = new CategoriesDAO();
+                categoriesDAO.setCurated("N");
+                categoriesDAO.setDescription(sd.getResearch_areas_other_text());
+                categoriesDAO.setLast_change(currentDate);
+                categoriesDAO.setMain_cat(sd.getResearch_areas_other_text());
+                categoriesDAO.setUsername("EMMA");
+                categoriesManager.save(categoriesDAO);
+            }
+            rtm.saveCategoriesUsingJDBCSQL(categoriesDAO.getId_cat(), nsd.getId_str());
+        }
 
         //SUBMISSIONMUTATIONSDAO
         Set setMutationsStrainsDAO = new LinkedHashSet();
@@ -847,7 +870,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             ald.setName(sd.getStrain_name());
             ald.setAlls_form("Unknown at present");
             ald.setGen_id_gene("" + gd.getId_gene());
-            ald.setMgi_ref(smdao.getMutation_gene_mgi_symbol());
+            ald.setMgi_ref(smdao.getMutation_allele_mgi_symbol());
             ald.setGenesDAO(gd);
             mm.save(ald);
 
@@ -902,7 +925,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
             bibliosDAO.setAuthor2(submissionBiblioDAO.getAuthor2());
             bibliosDAO.setJournal(submissionBiblioDAO.getJournal());
             bibliosDAO.setLast_change(currentDate);
-            bibliosDAO.setNotes(submissionBiblioDAO.getNotes());
+            // getNotes() is a cv. The 'Other' option causes a free-text box to open.
+            String notes = (submissionBiblioDAO.getNotes().compareTo("Other") == 0 ? submissionBiblioDAO.getNotesadditional() : submissionBiblioDAO.getNotes());
+            bibliosDAO.setNotes(notes);
             bibliosDAO.setPages(submissionBiblioDAO.getPages());
             bibliosDAO.setPubmed_id(submissionBiblioDAO.getPubmed_id());
             bibliosDAO.setTitle(submissionBiblioDAO.getTitle());
