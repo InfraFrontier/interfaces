@@ -18,6 +18,7 @@ public class CategoriesDAO implements Serializable {
     private String sub_cat;
     private String description;
     private String username;
+    private String curated;
 
     /**
      * @return the id_cat
@@ -102,4 +103,13 @@ public class CategoriesDAO implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getCurated() {
+        return curated;
+    }
+
+    public void setCurated(String curated) {
+        this.curated = curated;
+    }
+
 }

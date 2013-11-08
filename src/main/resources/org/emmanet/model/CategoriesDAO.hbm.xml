@@ -3,12 +3,13 @@
 <hibernate-mapping>
     <class name="org.emmanet.model.CategoriesDAO" table="categories">
         <id column="id_cat" name="id_cat">
-            <generator class="assigned"/>
+            <generator class="native"/>
         </id>
         <property column="last_change" name="last_change"/>
         <property column="main_cat" name="main_cat"/>
         <property column="sub_cat" name="sub_cat"/>
         <property column="description" name="description"/>
         <property column="username" name="username"/>
+        <property column="curated" name="curated"/>
     </class>
 </hibernate-mapping>

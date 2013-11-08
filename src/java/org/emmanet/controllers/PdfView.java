@@ -701,7 +701,8 @@ public class PdfView extends AbstractPdfView {
                 cell.setColspan(2);
                 table.addCell(cell);
                 
-                cell = new PdfPCell(new Paragraph("\nPubMed ID: " + bsdao.getBibliosDAO().getPubmed_id(), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                String pubmedId = (bsdao.getBibliosDAO().getPubmed_id() == null ? "" : bsdao.getBibliosDAO().getPubmed_id());
+                cell = new PdfPCell(new Paragraph("\nPubMed ID: " + pubmedId, FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
@@ -976,11 +977,14 @@ public class PdfView extends AbstractPdfView {
 
             // Prep for Research areas
             Set cs = sd.getCategoriesStrainsDAO();
+            String otherCategory = "";
             StringBuffer categories = new StringBuffer();
             for (Iterator it = cs.iterator(); it.hasNext();) {
                 CategoriesStrainsDAO cd = (CategoriesStrainsDAO) it.next();
-                
-                categories.append("\n        ").append(cd.getCategoriesDAO().getMain_cat());
+                if (cd.getCategoriesDAO().getCurated().compareTo("Y") == 0)
+                    categories.append("\n        ").append(cd.getCategoriesDAO().getMain_cat());
+                else
+                    otherCategory = cd.getCategoriesDAO().getMain_cat();
             }
 
             cell = new PdfPCell(new Paragraph("\n\nResearch areas:\n        " + categories + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
@@ -996,13 +1000,14 @@ public class PdfView extends AbstractPdfView {
                 rtools = new StringBuffer(rtools).append("\n        ").append(rtd.getCvrtoolsDAO().getDescription());
                 //System.out.println("Rtools set iterator value is: " + rtools);
             }
-//System.out.println("Rtools set for writing is " + rtools);
-            cell = new PdfPCell(new Paragraph("\n\nOther Research areas:\n\n        " + "FIXME FIXME FIXME" + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
-            cell.setColspan(2);
-            cell.setBorder(0);
-            table.addCell(cell);
 
-            cell = new PdfPCell(new Paragraph("\n\nResearch tools:\n        " + rtools, FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            if ((otherCategory != null) && (otherCategory.trim().length() > 0)) {
+                cell = new PdfPCell(new Paragraph("\n\nOther Research areas:\n\n        " + otherCategory + "\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell.setColspan(2);
+                cell.setBorder(0);
+                table.addCell(cell);
+            }
+            cell = new PdfPCell(new Paragraph("\n\nResearch tools:\n" + rtools, FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
