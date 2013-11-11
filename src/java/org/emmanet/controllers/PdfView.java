@@ -37,6 +37,7 @@ import org.emmanet.model.StrainsManager;
 import org.emmanet.model.Strains_OmimDAO;
 import org.emmanet.model.Strains_OmimManager;
 import org.emmanet.model.Syn_StrainsDAO;
+import org.emmanet.util.Utils;
 
 /**
  *
@@ -442,6 +443,11 @@ public class PdfView extends AbstractPdfView {
             table.addCell("" + sd.getPeopleDAO().getLabsDAO().getPostcode());
             table.addCell("Country");
             table.addCell("" + sd.getPeopleDAO().getLabsDAO().getCountry());
+            Integer id_ilar = Utils.tryParseInt(sd.getPeopleDAO().getId_ilar());
+            if ((id_ilar != null) && (id_ilar.intValue() > 0)) {                // If there is a valid ILAR, display it.
+                table.addCell("ILAR");
+                table.addCell(sd.getPeopleDAO().getIlarDAO().getLabcode());
+            }
 
             doc.add(table);
             doc.add(Chunk.NEWLINE);
