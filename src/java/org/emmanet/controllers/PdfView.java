@@ -16,6 +16,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
@@ -325,17 +326,26 @@ public class PdfView extends AbstractPdfView {
             if (sd.getPer_id_per_sub() != null) {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
-
+            
+            String infrafrontierIconPath = request.getSession().getServletContext().getRealPath("/Images/infrafrontier/icon/footerlogo.jpg");
+            String emmaIconPath = request.getSession().getServletContext().getRealPath("/Images/infrafrontier/icon/emma-logo-soft.png");
+            Image infrafrontierIcon = Image.getInstance(infrafrontierIconPath);
+            Image emmaIcon = Image.getInstance(emmaIconPath);
             pdfTitle = "EMMA Mutant Submission Form";
+            doc.add(new Chunk(infrafrontierIcon, 0, 0));
+            doc.add(new Chunk(emmaIcon, 320, 0));
+            doc.add(Chunk.NEWLINE);
+            doc.add(Chunk.NEWLINE);
+            Paragraph paragraph = new Paragraph(pdfTitle, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20));
+            paragraph.setAlignment(Element.ALIGN_CENTER);
+            doc.add(paragraph);
+            
+            float[] widths = {0.25f, 0.75f};
+            PdfPTable table = new PdfPTable(widths);
+            table.setWidthPercentage(100);
+            PdfPCell cell;
 
-            Paragraph pHead = new Paragraph(
-                    pdfTitle + "\n\n", FontFactory.getFont(
-                    FontFactory.HELVETICA, 11));
-            pHead.setAlignment(Element.ALIGN_CENTER);
-            doc.add(pHead);
-            doc.add(new Paragraph(pdfTitle + "\n\n",
-                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20)));
-            Paragraph pSubHead = new Paragraph("Following data have been submitted to EMMA on " + sd.getArchiveDAO().getSubmitted(), FontFactory.getFont(
+            Paragraph pSubHead = new Paragraph("\nThe Following data have been submitted to EMMA on " + sd.getArchiveDAO().getSubmitted(), FontFactory.getFont(
                     FontFactory.HELVETICA, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
 
@@ -349,16 +359,7 @@ public class PdfView extends AbstractPdfView {
             doc.add(underlined);
             Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11);
 
-            Font f = FontFactory.getFont(FontFactory.ZAPFDINGBATS, 11);
-            char checkbox = '\u2611';
-
-//sd.getEmma_id();
-            // Set table cell widths equiv. to 25% and 75%
-            float[] widths = {0.25f, 0.75f};
-            PdfPTable table = new PdfPTable(widths);
-
-            table.setWidthPercentage(100);
-
+            table = new PdfPTable(widths);
             pSubHead = new Paragraph(
                     "The terms and conditions have been accepted.\n\n", FontFactory.getFont(
                     FontFactory.HELVETICA, 11));
@@ -366,7 +367,7 @@ public class PdfView extends AbstractPdfView {
             doc.add(pSubHead);
             
             // Submitter
-            PdfPCell cell = new PdfPCell(new Paragraph("\nSubmitter (Steps 1 and 2 of 11)\n\n", font));
+            cell = new PdfPCell(new Paragraph("\nSubmitter (Steps 1 and 2 of 11)\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
             if(sd.getPer_id_per_sub() != null) {
