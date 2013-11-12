@@ -358,8 +358,8 @@ public class PdfView extends AbstractPdfView {
                     16.0f, 0.0f, PdfContentByte.LINE_CAP_BUTT);//Black line
             doc.add(underlined);
             Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11);
-
             table = new PdfPTable(widths);
+            table.setWidthPercentage(100);
             pSubHead = new Paragraph(
                     "The terms and conditions have been accepted.\n\n", FontFactory.getFont(
                     FontFactory.HELVETICA, 11));
