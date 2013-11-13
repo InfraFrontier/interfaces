@@ -80,7 +80,7 @@
                             });
                         });
                     </script>
-                    <%-- <form method="POST" action="${requestScope['javax.servlet.forward.request_uri']}"> --%>
+                   
                     <form method="POST" id="loadprev" action="interstitialSubmit.emma">
                         <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
                         <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
@@ -89,7 +89,6 @@
                                 <br/><br/>
                             <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;
                                 <input type="button" name="recall_window" value="Yes" onclick="javascript:window.location.assign('submissionForm.emma?getprev=${submissionDAO.encryptedId_sub}&recall_window=Yes');">
-                            <!-- <input type="button" name="recall_window" value="Yes" onclick="javascript:document.forms['loadprev'].submit();">-->
                         </center>
                         </p>
                     </form>
@@ -101,7 +100,7 @@
                         });
                     </script>
                 </div>
-            </c:if>>
+            </c:if>
         </c:if>
 
         <div id="wrapper">
