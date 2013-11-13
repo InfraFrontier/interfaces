@@ -499,14 +499,15 @@ public class PdfView extends AbstractPdfView {
             table = new PdfPTable(widths);
             table.setWidthPercentage(100);
 
-            // Genotype preparation - strain name and description
+            // Genotype preparation - strain name [actually, synonym] and description
             Set sSynonym = sd.getSyn_strainsDAO();
-            String strainName = "";
-            StringBuffer strainNameAndSynonyms = new StringBuffer();
-            for (Iterator it = sSynonym.iterator(); it.hasNext();) {
-                Syn_StrainsDAO synDAO = (Syn_StrainsDAO) it.next();
-                if (synDAO.getName() != null) {
-                    strainNameAndSynonyms = new StringBuffer(strainName).append(synDAO.getName().toString());
+            StringBuffer strainSynonyms = new StringBuffer();
+            for (Iterator iterator = sSynonym.iterator(); iterator.hasNext(); ) {
+                Syn_StrainsDAO syn_strainsDAO = (Syn_StrainsDAO)iterator.next();
+                if (syn_strainsDAO.getName() != null) {
+                    if (strainSynonyms.length() > 0)
+                        strainSynonyms.append(", ");
+                    strainSynonyms.append(syn_strainsDAO.getName());
                 }
             }
             String origBgName = sd.getBackgroundDAO().getName();
@@ -518,7 +519,7 @@ public class PdfView extends AbstractPdfView {
             table.addCell(cell);
 
             table.addCell("Strain Name");
-            table.addCell("" + strainNameAndSynonyms);
+            table.addCell("" + strainSynonyms);
             
             table.addCell("Genetic description");
             table.addCell("" + cleanNULLS(sd.getCharact_gen(), false));
@@ -559,7 +560,7 @@ public class PdfView extends AbstractPdfView {
                 cell.setBorder(0);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Paragraph("Sub type: " + cleanNULLS(mutDAO.getMutationsDAO().getSub_type(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
+                cell = new PdfPCell(new Paragraph("Subtype: " + cleanNULLS(mutDAO.getMutationsDAO().getSub_type(), false), FontFactory.getFont(FontFactory.HELVETICA, 11)));
                 cell.setColspan(2);
                 cell.setBorder(0);
                 table.addCell(cell);
