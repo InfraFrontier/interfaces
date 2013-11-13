@@ -67,7 +67,7 @@
                                     </p>
                                     <p>
                                         The online form is a step-through form and you will be able to download a printable version before form submission. Please fill the form as accurately as you can using "unknown", "not applicable" or "none" if you do not 
-                                        possess the information requested. A sample submission is provided <a href="#">here</a> for your 
+                                        possess the information requested. A sample submission is provided <a href="../downloads/EMMA-example-submission.pdf" target="_blank">here</a> for your 
                                         convenience to examine all the information that is required.
                                     </p>
                                     <p>
@@ -78,7 +78,7 @@
                                         EMMA Evaluation Committee and inform depositors about the outcome of the evaluation by e-mail within 60 days.
                                     </p>
                                     <p>
-                                        We strongly recommend that you carefully read the <a target="emma" href="http://dev.infrafrontier.eu/procedures">
+                                        We strongly recommend that you carefully read the <a target="emma" href="${BASEURL}procedures">
                                             EMMA Procedures</a> on this website. These documents describe the responsibilities EMMA has in 
                                         maintaining and distributing the submitted strains as well as the responsibilities assumed by the 
                                         submitter.
