@@ -112,6 +112,22 @@ public class SubmissionFormController extends AbstractWizardFormController {
             idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
             if (request.getParameter("recall_window").equals("Yes") && action) {
                 sda = sm.getSubByID(Integer.parseInt(idDecrypt));
+                
+                                            if(sda.getStep().equals("-1")){
+                                System.out.println("ok prevsub is -1");
+                                  //lets give them their user details only
+                                SubmissionsDAO newSub = new SubmissionsDAO();
+                                newSub.setPer_id_per(sda.getPer_id_per());
+                                newSub.setPer_id_per_contact(sda.getPer_id_per_contact());
+                                newSub.setPer_id_per_sub(sda.getPer_id_per_sub());
+                                // request.setAttribute("previousSub", newSub);
+                                newSub.setStep("4");
+                                sda=newSub; 
+                            }
+                
+                
+                
+          
                 System.out.println("NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                 System.out.println("g e t p r e v::" + idDecrypt);
                 System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
@@ -165,6 +181,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         if (request.getParameter("getprev") != null) {
 
             if (request.getParameter("recall_window").equals("Yes") && action) {
+                       
                 System.out.println("REF DATA NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                 System.out.println("REF DATA PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
                 System.out.println("REF DATAPREVIOUS STEP IS :: " + sda.getStep());
@@ -194,9 +211,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 break;
             case 2:
                 encrypter = new Encrypter();
-//System.out.println("toencrypt==" + sda.getId_sub());
-                // Encrypt
-                //String encrypted = encrypter.encrypt(sda.getId_sub());
 
                 if (sda.getSubmitter_email()/*.getPeopleDAO().getEmail()*/ != null) {
                     wr = new WebRequests();
@@ -207,17 +221,37 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     if (/*prevSub*/submitterDAO != null) {
                         for (Iterator it = submitterDAO.listIterator(); it.hasNext();) {
                             prevSub = (SubmissionsDAO) it.next();
-                            System.out.println("TIMESTAMP :: " + prevSub.getTimestamp());
+                            System.out.println("TIMESTAMP :: " + prevSub.getTimestamp() + " step is ::- " + prevSub.getStep());
 
+     
                             encrypter = new Encrypter();
 
                             // Encrypt
                             String encrypted = encrypter.encrypt(prevSub.getId_sub());
-                            if (encrypted.isEmpty() || encrypted != null) {
-                                session.setAttribute("getprev", encrypted);
-                            } else {
+                                if (encrypted.isEmpty() || encrypted != null) {
+                                    session.setAttribute("getprev", encrypted);
+                                } else {
+                                    //do nothing
+                                }
+                                           
+                            
+                              
+                                            if(prevSub.getStep().equals("-1")){
+                                System.out.println("ok prevsub is -1");
+                                  //lets give them their user details only
+                                SubmissionsDAO newSub = new SubmissionsDAO();
+                                newSub.setPer_id_per(prevSub.getPer_id_per());
+                                newSub.setPer_id_per_contact(prevSub.getPer_id_per_contact());
+                                newSub.setPer_id_per_sub(prevSub.getPer_id_per_sub());
+                                // request.setAttribute("previousSub", newSub);
+                                newSub.setStep("5");
+                                prevSub=newSub; 
                             }
-
+          
+                            
+                            
+                            
+                            
                             prevSub.setEncryptedId_sub(encrypted);
                             prevSub.setCvDAO(wr.isoCountries());
                             request.setAttribute("previousSub", prevSub);
@@ -446,6 +480,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     sda.setResearch_areas(cats);
                 }
                 sda.setStep("11");
+                sm.save(sda);
                 break;
 
         }
@@ -505,7 +540,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //  stm.save(nsd);//need to save to get ID but this causes stalobject error when updating 
         Date dt = new Date();
         SimpleDateFormat sdf =
-                new SimpleDateFormat("yyyy-MM-dd");
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String currentDate = sdf.format(dt);
         nsd.setAdditional_owner(sd.getExclusive_owner_text());//TODO not exclusive owner!!!!
@@ -1059,7 +1094,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
             ex.printStackTrace();
         }
         //ok submission pretty much complete, let's now set the step to the last position for user details
-        sd.setStep("4");
+        sd.setStep("-1");
+        System.out.println("Step is::-" + sd.getStep());
+        System.out.println("Starting to save submissionsDAO at line 1024");
+        sm.save(sd);
+        System.out.println("Saved submissionsDAO at line 1025");
         return new ModelAndView("/publicSubmission/success");
     }
 
