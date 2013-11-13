@@ -95,9 +95,11 @@
             volume:$('#volume').val(),
             pages:$('#pages').val(),
             notes:$('#notes').val(),
-            notesadditional:$('#notesadditional').val()
+            notesadditional:$('#notesadditional').val(),
+            published:"yes"
         });
        // removeBibDetails();
+       // $('input:radio[name="published"]').filter('[value="yes"]').attr('checked', true);
         })
         
     $("a[id^='deleteReference']").click(function() {
@@ -127,7 +129,8 @@ Are you sure you wish to continue? ");
             volume:$('#volume').val(),
             pages:$('#pages').val(),
             notes:$('#notes').val(),
-            notesadditional:$('#notesadditional').val()
+            notesadditional:$('#notesadditional').val(),
+            published:"yes"
         });
         removeBibDetails();
         $("#reference").hide("fast");

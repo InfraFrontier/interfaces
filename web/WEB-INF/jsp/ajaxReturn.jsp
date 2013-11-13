@@ -141,7 +141,7 @@ JSON return for submission form people data fro PI and contact
     <script type="text/javascript" >
         populateBibDetails("?title=${paper[0]}&author1=${paper[1]}&author2=${paper[2]}\
 &journal=${paper[3]}&year=${paper[4]}&volume=${paper[5]}&issue=${paper[6]}&pages=${paper[7]}\
-&paperid=${paper[8]}&biblioid=${paper[9]}&notes=${paper[10]}&notesadditional=${paper[11]}",0);
+&paperid=${paper[8]}&biblioid=${paper[9]}&notes=${paper[10]}&notesadditional=${paper[11]}&published=yes",0);
 
     </script>
 </c:if>

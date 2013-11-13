@@ -221,11 +221,14 @@
                                 <script>
                                     if ($('input[name=published]:checked').val() == "yes") {
                                         $("#reference").show("slow");
+                                        
                                     }
                                     $("#published-yes").click(function () {
+                                        removeBibDetails();
                                         $("#reference").show("slow");
                                     });
                                     $("#published-acc").click(function () {
+                                        removeBibDetails();
                                         $("#reference").show("slow");
                                     });
                                     $("#published-no").click(function () {
