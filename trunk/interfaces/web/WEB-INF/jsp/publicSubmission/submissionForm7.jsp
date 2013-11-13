@@ -157,7 +157,6 @@
                                                 </div>
                                             <form:errors path="${status.expression}" cssClass="error" />
                                         </div>
-
                                     </spring:bind>
 
                                     <spring:bind path="command.journal">   
