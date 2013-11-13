@@ -23,6 +23,7 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -327,13 +328,27 @@ public class PdfView extends AbstractPdfView {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
             
-            String infrafrontierIconPath = request.getSession().getServletContext().getRealPath("/images/infrafrontier/icon/footerlogo.jpg");
-            String emmaIconPath = request.getSession().getServletContext().getRealPath("/images/infrafrontier/icon/emma-logo-soft.png");
-            Image infrafrontierIcon = Image.getInstance(infrafrontierIconPath);
-            Image emmaIcon = Image.getInstance(emmaIconPath);
+            
+            
+            
+            
+            
+            
+//            String infrafrontierIconPath = request.getSession().getServletContext().getRealPath("http://localhost:8100/emma/images/infrafrontier/icon/footerlogo.jpg");
+//            String emmaIconPath = request.getSession().getServletContext().getRealPath("http://localhost:8100/emma/images/infrafrontier/icon/emma-logo-soft.png");
+//            infrafrontierIconPath = "http://localhost:8100/emma/images/infrafrontier/icon/footerlogo.jpg";
+//            emmaIconPath = "http://localhost:8100/emma/images/infrafrontier/icon/emma-logo-soft.png";
+//            Image infrafrontierIcon = Image.getInstance(infrafrontierIconPath);
+//            Image emmaIcon = Image.getInstance(emmaIconPath);
+            
+            
+            
+            
+            
+            
             pdfTitle = "EMMA Mutant Submission Form";
-            doc.add(new Chunk(infrafrontierIcon, 0, 0));
-            doc.add(new Chunk(emmaIcon, 320, 0));
+//            doc.add(new Chunk(infrafrontierIcon, 0, 0));
+//            doc.add(new Chunk(emmaIcon, 320, 0));
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             Paragraph paragraph = new Paragraph(pdfTitle, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20));
