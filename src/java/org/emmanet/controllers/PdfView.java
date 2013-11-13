@@ -327,8 +327,8 @@ public class PdfView extends AbstractPdfView {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
             
-            String infrafrontierIconPath = request.getSession().getServletContext().getRealPath("/Images/infrafrontier/icon/footerlogo.jpg");
-            String emmaIconPath = request.getSession().getServletContext().getRealPath("/Images/infrafrontier/icon/emma-logo-soft.png");
+            String infrafrontierIconPath = request.getSession().getServletContext().getRealPath("/images/infrafrontier/icon/footerlogo.jpg");
+            String emmaIconPath = request.getSession().getServletContext().getRealPath("/images/infrafrontier/icon/emma-logo-soft.png");
             Image infrafrontierIcon = Image.getInstance(infrafrontierIconPath);
             Image emmaIcon = Image.getInstance(emmaIconPath);
             pdfTitle = "EMMA Mutant Submission Form";
