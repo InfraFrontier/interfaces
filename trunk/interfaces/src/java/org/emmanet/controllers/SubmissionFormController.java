@@ -113,7 +113,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             if (request.getParameter("recall_window").equals("Yes") && action) {
                 sda = sm.getSubByID(Integer.parseInt(idDecrypt));
                 
-                                            if(sda.getStep().equals("-1")){
+                                            if(sda.getStep().equals("-2")){
                                 System.out.println("ok prevsub is -1");
                                   //lets give them their user details only
                                 SubmissionsDAO newSub = new SubmissionsDAO();
@@ -1094,7 +1094,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             ex.printStackTrace();
         }
         //ok submission pretty much complete, let's now set the step to the last position for user details
-        sd.setStep("-1");
+        //sd.setStep("-1");
         System.out.println("Step is::-" + sd.getStep());
         System.out.println("Starting to save submissionsDAO at line 1024");
         sm.save(sd);
