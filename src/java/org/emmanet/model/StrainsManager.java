@@ -5,10 +5,18 @@
 package org.emmanet.model;
 
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -232,7 +240,34 @@ public class StrainsManager {
         return reqs;
     }
     
-     public List getStrainsBySQL(String sql) {
+     
+    public void queryUsingJDBCSQL(String sql) throws SQLException, NamingException, Exception {
+        Connection connect = null;
+        Statement preparedStatement = null;
+        DataSource ds = null;
+        String URL = "jdbc:mysql://mysql-emmastr:4167/ emmastr";
+        String USER = "emmaro";
+        String PASS = "read3remma";
+        String DRIVER = "com.mysql.jdbc.Driver";
+        try {
+            Class.forName(DRIVER);
+            connect = DriverManager.getConnection(URL, USER, PASS);
+            preparedStatement = connect.createStatement();
+            System.out.println(preparedStatement.toString());
+            ResultSet rs = preparedStatement.executeQuery(sql);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RToolsManager.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connect != null) {
+                connect.close();
+            }
+        }
+    }
+    
+    public List getStrainsBySQL(String sql) {
 
         List reqs = null;
 
