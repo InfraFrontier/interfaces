@@ -30,7 +30,7 @@
         <meta name="copyright" content="Infrafrontier" />
         <link rel="canonical" href="http://www.emmanet.org" />
         <base href="<%=path%>/" />
-<c:redirect url="https://www.infrafrontier.eu"/>
+
         <!-- css -->
         <link href="http://dev.infrafrontier.eu/fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css" />
         <link href="http://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/default.css" rel="stylesheet" type="text/css" />
