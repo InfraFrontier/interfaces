@@ -854,32 +854,35 @@ END OF CRYOPRESERVATION HISTORY --%>
                         <input <c:if test="${status.value=='not_known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
                     </spring:bind>
                 </td>
-                <td>
-                    OMIM ID(s):
+                <td colspan="2">OMIM ID(s):<br/><br/>
+                    <c:forEach var="omims" items="${requestScope.omims}" varStatus="status">
+                        ${omims}<br />
+                    </c:forEach>
                 </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            Human condition description:
-                        </td>
-                        <td valign="top">
+            </tr>
+            <tr>
+                <td valign="top">
+                    Human condition description:
+                </td>
+                <td valign="top">
                     <spring:bind path="command.human_model_desc"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='4'>${status.value}</textarea></spring:bind>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                    <td valign="top" >
-                        Research Tools
-                    </td>
-                    <td valign="top"><c:choose><c:when  test="${(sessionScope.rtCount) >= 1}"><a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit research tools</a></c:when><c:otherwise>No research tools recorded. <a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Add</a></c:otherwise></c:choose>
-                        </td>
-                        <td colspan="2">Research areas<br/><br/>
-                        <c:forEach var="cat" items="${requestScope.categories}" varStatus="status">
-                                ${cat}<br />
-                            </c:forEach></td>
-                    </tr>
-                </table>
+                </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td valign="top" >
+                    Research Tools
+                </td>
+                <td valign="top"><c:choose><c:when  test="${(sessionScope.rtCount) >= 1}"><a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit research tools</a></c:when><c:otherwise>No research tools recorded. <a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Add</a></c:otherwise></c:choose>
+                </td>
+                <td colspan="2">Research areas<br/><br/>
+                    <c:forEach var="cat" items="${requestScope.categories}" varStatus="status">
+                        ${cat}<br />
+                    </c:forEach>
+                </td>
+            </tr>
+        </table>
         <%-- End of scientific interest --%>
 
         <%-- Start of bibliographic details --%>
