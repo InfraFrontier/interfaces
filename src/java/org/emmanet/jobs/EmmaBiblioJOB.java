@@ -353,7 +353,7 @@ public class EmmaBiblioJOB {
             return "";
     }
     private String citationGetIssue(Result citation) {
-        if ((citation != null) && (citation.getJournalInfo() != null) & (citation.getJournalInfo().getIssue() != null))
+        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getIssue() != null))
             return citation.getJournalInfo().getIssue();
         else
             return "";
