@@ -331,9 +331,9 @@ public class PdfView extends AbstractPdfView {
             
             ServletContext servletContext = request.getSession().getServletContext();
             URL infrafrontierIconURL = servletContext.getResource("/images/infrafrontier/icon/footerlogo.jpg");
-            logger.info("infrafrontierIconURL = " + infrafrontierIconURL);
+            logger.debug("infrafrontierIconURL = " + infrafrontierIconURL);
             URL emmaIconURL = servletContext.getResource("/images/infrafrontier/icon/emma-logo-soft.png");
-            logger.info("emmaIconURL = " + emmaIconURL);
+            logger.debug("emmaIconURL = " + emmaIconURL);
             Image infrafrontierIcon = Image.getInstance(infrafrontierIconURL);
             Image emmaIcon = Image.getInstance(emmaIconURL);
             

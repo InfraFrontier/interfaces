@@ -4,7 +4,6 @@
  */
 package org.emmanet.controllers;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.emmanet.model.ArchiveDAO;
 import org.emmanet.model.ArchiveManager;
 import org.emmanet.model.BibliosManager;
 import org.emmanet.model.CategoriesStrainsDAO;
@@ -22,6 +20,8 @@ import org.emmanet.model.PeopleDAO;
 import org.emmanet.model.PeopleManager;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.model.Strains_OmimDAO;
+import org.emmanet.model.Strains_OmimManager;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.DirFileList;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,6 +38,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
     private ArchiveManager am = new ArchiveManager();
     private PeopleManager pm = new PeopleManager();
     private BibliosManager bm = new BibliosManager();
+    private Strains_OmimManager strainsOmimManager = new Strains_OmimManager();
     private Integer strainID;
     private String mtaPath;
     private String baseURL;
@@ -203,6 +204,15 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
            cats.add(o.getCategoriesDAO().getDescription());
        }
        request.setAttribute("categories", cats);
+       
+       // Create collection of OMIM ids.
+       List<Strains_OmimDAO> strainsOmimList = strainsOmimManager.findById_Strains(strainID);
+       List omims = new ArrayList();
+       for (Strains_OmimDAO strains_omimDAO : strainsOmimList) {
+           omims.add(strains_omimDAO.getOmimDAO().getOmim());
+       }
+       request.setAttribute("omims", omims);
+       
 //RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
         request.setAttribute("associatedFiles", null);
         DirFileList files = new DirFileList();
