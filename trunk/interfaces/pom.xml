@@ -611,15 +611,15 @@
                 </plugins>
             </build>
         </profile>
-<!--
-    <profile>
-      <id>production1</id>
 
+    <profile>
+      <id>production</id>
+<properties>
 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
                  <SERVERLOCATION>/prod/</SERVERLOCATION>
                  <BASEURL>https://infrafrontier.eu/</BASEURL>
-                 <GOOGLEANAL>UA-40422777-2</GOOGLEANAL>
-
+                 <GOOGLEANAL>UA-40422777-3</GOOGLEANAL>
+</properties>
       <build>
         <plugins>
           <plugin>
@@ -635,7 +635,7 @@
         </plugins>
       </build>
     </profile>
-
+<!--
     <profile>
       <id>production2</id>
 
