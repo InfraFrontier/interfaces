@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.servlet.ServletContext;
 import org.emmanet.model.BibliosManager;
 import org.emmanet.model.BibliosStrainsDAO;
 import org.emmanet.model.CategoriesStrainsDAO;
@@ -328,27 +329,17 @@ public class PdfView extends AbstractPdfView {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
             
-            
-            
-            
-            
-            
-            
-//            String infrafrontierIconPath = request.getSession().getServletContext().getRealPath("http://localhost:8100/emma/images/infrafrontier/icon/footerlogo.jpg");
-//            String emmaIconPath = request.getSession().getServletContext().getRealPath("http://localhost:8100/emma/images/infrafrontier/icon/emma-logo-soft.png");
-//            infrafrontierIconPath = "http://localhost:8100/emma/images/infrafrontier/icon/footerlogo.jpg";
-//            emmaIconPath = "http://localhost:8100/emma/images/infrafrontier/icon/emma-logo-soft.png";
-//            Image infrafrontierIcon = Image.getInstance(infrafrontierIconPath);
-//            Image emmaIcon = Image.getInstance(emmaIconPath);
-            
-            
-            
-            
-            
+            ServletContext servletContext = request.getSession().getServletContext();
+            URL infrafrontierIconURL = servletContext.getResource("/images/infrafrontier/icon/footerlogo.jpg");
+            logger.info("infrafrontierIconURL = " + infrafrontierIconURL);
+            URL emmaIconURL = servletContext.getResource("/images/infrafrontier/icon/emma-logo-soft.png");
+            logger.info("emmaIconURL = " + emmaIconURL);
+            Image infrafrontierIcon = Image.getInstance(infrafrontierIconURL);
+            Image emmaIcon = Image.getInstance(emmaIconURL);
             
             pdfTitle = "EMMA Mutant Submission Form";
-//            doc.add(new Chunk(infrafrontierIcon, 0, 0));
-//            doc.add(new Chunk(emmaIcon, 320, 0));
+            doc.add(new Chunk(infrafrontierIcon, 0, 0));
+            doc.add(new Chunk(emmaIcon, 320, 0));
             doc.add(Chunk.NEWLINE);
             doc.add(Chunk.NEWLINE);
             Paragraph paragraph = new Paragraph(pdfTitle, FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20));
