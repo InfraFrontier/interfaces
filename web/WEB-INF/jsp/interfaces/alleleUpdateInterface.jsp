@@ -7,6 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -30,7 +31,8 @@
         <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
     </head>
     <body>
-        <span id="loginHeader">Allele Update Interface - Logged in as user <c:out value="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME)}"/></span>
+        <%-- <span id="loginHeader">Allele Update Interface - Logged in as user <c:out value="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME)}"/></span> --%>
+        <span id="loginHeader">Allele Update Interface - Logged in as user "<sec:authentication property='principal.username'/>"</span>
         <br /><br />
 
     <center>
@@ -152,7 +154,7 @@ window.open("http://www.informatics.jax.org/searches/accession_report.cgi?id=MGI
                 </spring:bind>
                 <spring:bind path="command.mgi_ref">
                   <tr>
-                <td><b>MGI ref:</b></td> <td><form:input  id="${status.expression}" path="${status.expression}"></form:input>&nbsp;<a href="javascript:void(0)" target="_mgiWin" id="mgiDetails" text="Search MGI"  name="mgiDetails" onclick="checkMGIRef(this)">Test if exits</a></td>
+                <td><b>MGI ref:</b></td> <td><form:input  id="${status.expression}" path="${status.expression}"></form:input>&nbsp;<a href="javascript:void(0)" id="mgiDetails" text="Search MGI"  name="mgiDetails" onclick="checkMGIRef(this)">Test if exists</a></td>
                 <td>&nbsp;</td> 
                 </spring:bind>
                 </tr>
