@@ -28,6 +28,7 @@ import org.emmanet.model.SubmissionsManager;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.DirFileList;
 import org.emmanet.util.Encrypter;
+import org.emmanet.util.Utils;
 import org.json.simple.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -70,10 +71,12 @@ public class AjaxReturnController extends SimpleFormController {
                 returnedOut = new HashMap();
                 System.out.println("query will be from webrequests");
                 webRequest = new WebRequests();
-                int query = Integer.parseInt(request.getParameter("q"));
-                returnedResults = webRequest.strainList(query);
-                System.out.println("returned results" + returnedResults.size());
-                returnedOut.put("ajaxReturn", returnedResults);
+                Integer query = Utils.tryParseInt(request.getParameter("q"));
+                if (query != null) {
+                    returnedResults = webRequest.strainList(query.intValue());
+                    System.out.println("returned results" + returnedResults.size());
+                    returnedOut.put("ajaxReturn", returnedResults);
+                }
 
             } // 
             else if (request.getParameter("query") != null && request.getParameter("query").equals("bg")) {
