@@ -23,6 +23,7 @@ import org.emmanet.model.MutationsManager;
 import org.emmanet.model.MutationsStrainsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Utils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -71,7 +72,10 @@ public class AlleleUpdateInterfaceFormController extends SimpleFormController {
         }
 
         if (request.getParameter("strainID") != null && action.isEmpty()) {
-            strainID = Integer.parseInt(request.getParameter("strainID"));
+            Integer strainID_Integer = Utils.tryParseInt(request.getParameter("strainID"));
+            if (strainID_Integer == null)
+                return new MutationsStrainsDAO();
+            strainID = strainID_Integer.intValue();
             sd = sm.getStrainByID(strainID);
             session.setAttribute(
                     "strainName", sd.getName());
