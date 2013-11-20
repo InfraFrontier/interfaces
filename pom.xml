@@ -617,7 +617,7 @@
 <properties>
 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
                  <SERVERLOCATION>/prod/</SERVERLOCATION>
-                 <BASEURL>https://infrafrontier.eu/</BASEURL>
+                 <BASEURL>https://www.infrafrontier.eu/</BASEURL>
                  <GOOGLEANAL>UA-40422777-3</GOOGLEANAL>
 </properties>
       <build>
