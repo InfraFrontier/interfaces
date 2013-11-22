@@ -401,9 +401,9 @@
             </td> 
         </tr>
         <c:choose>
-            <c:when test="${ArchiveDAO['lab_id_labo']=='1961' || keyRef['per_id_per'] =='8374'}">
+            <c:when test="${ArchiveDAO['lab_id_labo']=='1961' || ArchiveDAO['lab_id_labo']=='2' || keyRef['per_id_per'] =='8374' || keyRef['per_id_per']=='6413'}">
                 <tr>
-                    <td class="boxoutB">Frozen Sanger material arrived:</td>
+                    <td class="boxoutB">Frozen material arrived from archiving node:</td>
                     <td class="boxoutB">
                         <spring:bind path="command.archiveDAO.frozen_sanger_embryos_arrived">
                             <input type="text"  size="22" name="<c:out value='${status.expression}'/>"   id="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}' />" > 
@@ -424,7 +424,7 @@
             </c:when>
             <c:otherwise>
                 <spring:bind path="command.archiveDAO.frozen_sanger_embryos_arrived">
-                    <input type="hidden"  name="<c:out value='${status.expression}'/>"   id="<c:out value='${status.expression}'/>" value="" >
+                    <input type="hidden" name="<c:out value='${status.expression}'/>"   id="<c:out value='${status.expression}'/>" value="" />
                 </spring:bind>
             </c:otherwise>
         </c:choose>
