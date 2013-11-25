@@ -226,17 +226,14 @@
         <property name="internalSuccessView">
             <value>redirect:http://www.emmanet.org/apps/internal/interfaces/requestsInterface.emma?listAll=y</value>
         </property>
-        <property name="validator">
+      <property name="validator">
             <ref bean="RequestFormValidator" />
         </property>
         <!--END VALIDATE/SUCCESS-->
         <property name="formView">
-            <value>requestFormView</value>
+            <value>/RegisterInterest/requestFormView</value>
         </property>
     </bean>
-    
-    
-    
     
     <bean name="DashboardController" class="org.emmanet.controllers.DashboardController">
         <property name="successView">

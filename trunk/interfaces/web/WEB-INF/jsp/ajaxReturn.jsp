@@ -2,11 +2,14 @@
     Document   : ajaxReturn.jsp
     Created on : 09-Feb-2010, 15:23:11
     Author     : phil
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
---%>
 
+--%>
+<%
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", -1);
+    response.setHeader("Cache-Control", "no-store");
+%>
 
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
