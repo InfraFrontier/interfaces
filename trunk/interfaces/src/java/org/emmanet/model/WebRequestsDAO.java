@@ -95,8 +95,8 @@ public class WebRequestsDAO {
     private String bil_vat;
     
     private String PO_ref;
-private String eucomm_funding;
-private String user;
+    private String eucomm_funding;
+    private String user;
 
 
     /**
@@ -708,19 +708,19 @@ private String user;
         this.all_paperwork_date = all_paperwork_date;
     }
 
-	/**
+    /**
 	 * @return the europhenome
-	 */
+     */
 	public String getEurophenome() {
 		return europhenome;
-	}
+    }
 
-	/**
+    /**
 	 * @param europhenome the europhenome to set
-	 */
+     */
 	public void setEurophenome(String europhenome) {
 		this.europhenome = europhenome;
-	}
+    }
 
 	/**
 	 * @return the wtsi_mouse_portal
@@ -734,7 +734,7 @@ private String user;
 	 */
 	public void setWtsi_mouse_portal(String wtsi_mouse_portal) {
 		this.wtsi_mouse_portal = wtsi_mouse_portal;
-	}
+}
 
     /**
      * @return the encryptedId_req
