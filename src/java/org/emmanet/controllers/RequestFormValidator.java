@@ -65,6 +65,11 @@ public class RequestFormValidator implements
                     errors.reject("Message", "Please add a project description. Applications for Transnational Access must be accompanied by a project description to be considered.");
                 }
             }
+            if (webReq.getApplication_type().equals("request_only") ) {
+                if(webReq.getTerms_read() == null || !webReq.getTerms_read().equals("on")){
+                errors.reject("Message", "Please read the conditions and check the box to confirm acceptance");
+                }
+            }
         }
 
         if (webReq.getSci_e_mail() != null || webReq.getSci_e_mail().trim().length() > 1 || patternMatch(EMAIL_PATTERN, webReq.getSci_e_mail())) {
@@ -164,7 +169,7 @@ public class RequestFormValidator implements
             // Now need to check billing compulsory fields
 
 
-            if (webReq.getEligible_country().equals("yes")) {
+            if (webReq.getEligible_country().equals("yesbeingignoredatpresent philw 25nov2013")) {
 
                 //make sure vat is filled in
                 if (webReq.getBil_vat() == null || webReq.getBil_vat().trim().length() < 1) {
@@ -174,10 +179,11 @@ public class RequestFormValidator implements
                     errors.reject("Message", "The VAT number field input appears to be too long for the database");
                 }
             }
-
+if(webReq.getPO_ref() != null){
             if (webReq.getPO_ref().length() >= 1 && webReq.getPO_ref().length() > wr.fieldMaxLength("PO_ref", table)) {
                 errors.reject("Message", "The purchase order reference field input appears to be too long for the database");
             }
+}
 
             if (webReq.getBil_firstname() == null || webReq.getBil_firstname().trim().length() < 1) {
                 errors.reject("Message", "The billing contacts firstname field appears to have no value. "

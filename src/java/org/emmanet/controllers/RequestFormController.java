@@ -123,8 +123,8 @@ public class RequestFormController extends SimpleFormController {
     private Iterator it;
     private boolean mailSend;
     public static final String MAP_KEY = "returnedOut";
-   // final static String BASEURL = Configuration.get("BASEURL");
-  //  final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
+    // final static String BASEURL = Configuration.get("BASEURL");
+    //  final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
     private static String BASEURL;
     private static String GOOGLEANAL;
     private Map returnedOut = new HashMap();
@@ -140,10 +140,10 @@ public class RequestFormController extends SimpleFormController {
         session = request.getSession(true);
         //System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
         session.setAttribute("BASEURL", getBASEURL());
-        
+
         session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
-       
-        
+
+
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
             String ID = request.getParameter("ID");
@@ -308,10 +308,10 @@ public class RequestFormController extends SimpleFormController {
             if (request.getParameter("q") != null) {
                 //this is an jquery ajax call for autocomplete strain names from insert form
                 int query = Integer.parseInt(request.getParameter("q"));
-                setSuccessView("ajaxReturn.emma");
+                setSuccessView("../ajaxReturn.emma");
                 returnedOut.put("ajaxReturn", webRequest.strainList(query));
 
-                return new ModelAndView("ajaxReturn.emma", MAP_KEY, returnedOut);
+                return new ModelAndView("../ajaxReturn.emma", MAP_KEY, returnedOut);
                 //  return "ajaxReturn.emma";
             }
 
@@ -368,7 +368,7 @@ public class RequestFormController extends SimpleFormController {
             BindException errors) {
         WebRequests wr = new WebRequests();
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
-
+        System.out.println("PO REFERENCE NUMBER IN CONTROLLER IS " + webRequest.getPO_ref());
         if (!webRequest.getStrain_name().toLowerCase().contains("wtsi")) {
             //webRequest.setWtsi_mouse_portal("no");
             // webRequest.setEurophenome("no");
@@ -406,6 +406,7 @@ public class RequestFormController extends SimpleFormController {
          webRequest.setEligible_country("yes");
          }*/
         System.out.println("wtsi mouse portal value is:: " + webRequest.getWtsi_mouse_portal());
+        //  webRequest.setBil_addr_1("testaddress1");
         wr.saveRequest(webRequest);
 
         if (request.getParameter("status") != null) {
