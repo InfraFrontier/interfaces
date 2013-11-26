@@ -15,14 +15,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.emmanet.jobs.WebRequests;
@@ -94,100 +92,100 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
             //   surname = wrd.getSci_surname().toLowerCase();
          /*   surname = request.getParameter("strainID").toString();
 
-                 if (date != null) {
+             if (date != null) {
             
-            strippedDate = date.replace("-", "");
-            strippedDate = strippedDate.replace(":", "");
-            strippedDate = strippedDate.replace(".", "");
-            strippedDate = strippedDate.replace(" ", "");
+             strippedDate = date.replace("-", "");
+             strippedDate = strippedDate.replace(":", "");
+             strippedDate = strippedDate.replace(".", "");
+             strippedDate = strippedDate.replace(" ", "");
             
-            //get year to determine search directory
-            String pdfYearDir = "PDF-";
-            pdfYearDir = pdfYearDir + strippedDate.substring(0, 4);
-            //Take out leading 2 digits of year
-            strippedDate = strippedDate.substring(2, strippedDate.length() - 1);
-            //server location of pdf to search for
-            String locatePDF = getServerPDFLocation() + pdfYearDir + getServerPDFLocationTail();
-            String pdfsources[] = {locatePDF, getServerPDFRecentLocation() + getServerPDFLocationTail()};
-            Boolean fileFound = false;
-            String pdfUrl = "";
+             //get year to determine search directory
+             String pdfYearDir = "PDF-";
+             pdfYearDir = pdfYearDir + strippedDate.substring(0, 4);
+             //Take out leading 2 digits of year
+             strippedDate = strippedDate.substring(2, strippedDate.length() - 1);
+             //server location of pdf to search for
+             String locatePDF = getServerPDFLocation() + pdfYearDir + getServerPDFLocationTail();
+             String pdfsources[] = {locatePDF, getServerPDFRecentLocation() + getServerPDFLocationTail()};
+             Boolean fileFound = false;
+             String pdfUrl = "";
             
-            subFile = subFile + strippedDate.substring(0, 6);
-            System.out.println("~~~surname is now strain id :) :: " + surname);
-            //ok lets search for...
-            for (int i = 0; i < pdfsources.length; i++) {
-            File dir = new File(pdfsources[i]);
-            locatePDF = pdfsources[i];
-            System.out.println("SEARCHING DIRECTORY " + locatePDF + " FOR FILE " + subFile);
-            if (i == 1) {
-            System.out.println("Setting base url to (i=1 then) :: " + getRecentBaseURL());
-            thisisthebase = getRecentBaseURL();
-            } else if (i == 0) {
-            System.out.println("Setting base url to (i=0 then):: " + getRecentBaseURL() + pdfYearDir);
-            thisisthebase = getBaseURL() + pdfYearDir + this.getServerPDFLocationTail();
-            }
-            String[] children = dir.list();
-            if (children == null) {
-            // Either dir does not exist or is not a directory
-            System.out.println("It appears that the directory " + locatePDF +
-            " doesn't exist.");
-            } else {
-            System.out.println("Directory exists::" + locatePDF);
-            for (int ii = 0; ii < children.length; ii++) {
-            // Get filename of file or directory
-            String filename = children[ii];
-            System.out.println(filename + " located");
-            System.out.println(subFile);
+             subFile = subFile + strippedDate.substring(0, 6);
+             System.out.println("~~~surname is now strain id :) :: " + surname);
+             //ok lets search for...
+             for (int i = 0; i < pdfsources.length; i++) {
+             File dir = new File(pdfsources[i]);
+             locatePDF = pdfsources[i];
+             System.out.println("SEARCHING DIRECTORY " + locatePDF + " FOR FILE " + subFile);
+             if (i == 1) {
+             System.out.println("Setting base url to (i=1 then) :: " + getRecentBaseURL());
+             thisisthebase = getRecentBaseURL();
+             } else if (i == 0) {
+             System.out.println("Setting base url to (i=0 then):: " + getRecentBaseURL() + pdfYearDir);
+             thisisthebase = getBaseURL() + pdfYearDir + this.getServerPDFLocationTail();
+             }
+             String[] children = dir.list();
+             if (children == null) {
+             // Either dir does not exist or is not a directory
+             System.out.println("It appears that the directory " + locatePDF +
+             " doesn't exist.");
+             } else {
+             System.out.println("Directory exists::" + locatePDF);
+             for (int ii = 0; ii < children.length; ii++) {
+             // Get filename of file or directory
+             String filename = children[ii];
+             System.out.println(filename + " located");
+             System.out.println(subFile);
             
-            if (filename.startsWith(subFile) && filename.indexOf(surname) != -1) {
-            subFile = filename;
-            fileFound = true;
-            //test
-            int iiii = filename.indexOf(surname);
-            System.out.println("THE INDEx OF THE SUBSTRING SURNAME IS: " + iiii);
-            } else {
-            System.out.println("No file with this name " + subFile + " here " + filename.indexOf(surname));
-            }
+             if (filename.startsWith(subFile) && filename.indexOf(surname) != -1) {
+             subFile = filename;
+             fileFound = true;
+             //test
+             int iiii = filename.indexOf(surname);
+             System.out.println("THE INDEx OF THE SUBSTRING SURNAME IS: " + iiii);
+             } else {
+             System.out.println("No file with this name " + subFile + " here " + filename.indexOf(surname));
+             }
             
-            if (fileFound) {
-            System.out.println("OK file found let's stop the search");
-            break;//stop searching now
-            }
-            }
-            }
-            if (fileFound) {
-            break;
-            }
-            }//end of pdfsources loop
+             if (fileFound) {
+             System.out.println("OK file found let's stop the search");
+             break;//stop searching now
+             }
+             }
+             }
+             if (fileFound) {
+             break;
+             }
+             }//end of pdfsources loop
             
-            if (fileFound) {
-            //We have a pdf file located
-            pdfUrl = null;
-            pdfUrl = thisisthebase + subFile;
-            setPdfURL(pdfUrl);
+             if (fileFound) {
+             //We have a pdf file located
+             pdfUrl = null;
+             pdfUrl = thisisthebase + subFile;
+             setPdfURL(pdfUrl);
             
-            System.out.println("Accessor method value for getPDF == " + getPdfURL());
-           //  */
-            
-           //  session.setAttribute("reqPDF", this.getPdfURL());
+             System.out.println("Accessor method value for getPDF == " + getPdfURL());
+             //  */
 
-           //  session.setAttribute("reqPDF", wrd.getId_req() + "_temp.pdf"/**/);
-             session.setAttribute("reqID", wrd.getId_req());
-          //  System.out.println("URL as retrieved from the session object is:-- " + session.getAttribute("reqpdfUrl"));
-          //  if (request.getParameter("pdfView") != null) {
-                //String pdfLocation = pdf.createRequestPDF(wrd, serverPDFLocation);
-               // return new ModelAndView("redirect:"+ pdfLocation);
-               
+            //  session.setAttribute("reqPDF", this.getPdfURL());
 
-       //     }
-            
+            //  session.setAttribute("reqPDF", wrd.getId_req() + "_temp.pdf"/**/);
+            session.setAttribute("reqID", wrd.getId_req());
+            //  System.out.println("URL as retrieved from the session object is:-- " + session.getAttribute("reqpdfUrl"));
+            //  if (request.getParameter("pdfView") != null) {
+            //String pdfLocation = pdf.createRequestPDF(wrd, serverPDFLocation);
+            // return new ModelAndView("redirect:"+ pdfLocation);
 
-        //      } else {
-           // System.out.println("No file can be found with the name " + subFile);
-          //  System.out.println("URL as retrieved from the session object on no location of file is:-- " + session.getAttribute("reqpdfUrl"));
-        //    }
-       //     }
-            
+
+            //     }
+
+
+            //      } else {
+            // System.out.println("No file can be found with the name " + subFile);
+            //  System.out.println("URL as retrieved from the session object on no location of file is:-- " + session.getAttribute("reqpdfUrl"));
+            //    }
+            //     }
+
             StrainsManager sm = new StrainsManager();
             int str_id_str = Integer.parseInt(request.getParameter("strainID").toString());
             ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
@@ -222,8 +220,12 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
                 // rtd=sm.get()RTOOLSByID(irtoolsID);
 
             } else if (iRtools == 1) {
-
-                rtd = sm.getRtoolsByID(str_id_str);
+                List rtool = sm.getRToolsByID(str_id_str);
+                // rtd = sm.getRtoolsByID(str_id_str);
+                //rtd = sm.getRToolsByID(str_id_str);
+                for (Iterator it = rtool.listIterator(); it.hasNext();) {
+                    rtd = (RToolsDAO) it.next();
+                }
                 //TODO SCREEN FOR STRAINS WITH NO ENTRY IN RTOOLS_STRAINS TABLE
                 irtoolsID = rtd.getRtls_id();
 
@@ -253,8 +255,8 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
             throws ServletException, Exception {
 
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
-        
-   
+
+
 
         if (!request.getParameter("noTAinfo").equals("true")) {
             String panelDecision = webRequest.getTa_panel_decision();
@@ -455,8 +457,8 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
         }
 
 
-        
-        
+
+
         wr.saveRequest(webRequest);
         request.getSession().setAttribute(
                 "message",
@@ -542,7 +544,7 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
 
                 model.put("europhenome", webRequest.getEurophenome());
                 model.put("wtsi_mouse_portal", webRequest.getWtsi_mouse_portal());
-                
+
                 //now create xml file
 
                 String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
@@ -574,176 +576,176 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
         return new ModelAndView("redirect:requestsUpdateInterface.emma?Edit=" + request.getParameter("Edit").toString() + "&strainID=" + request.getParameter("strainID").toString() + "&archID=" + request.getParameter("archID").toString());
     }
 
-	public String escapeXml(String strToEscape) {
-		StringEscapeUtils seu = new StringEscapeUtils();
-		return seu.escapeXml(strToEscape);
-	}
+    public String escapeXml(String strToEscape) {
+        StringEscapeUtils seu = new StringEscapeUtils();
+        return seu.escapeXml(strToEscape);
+    }
 
-	public String getSubFile() {
-		return subFile;
-	}
+    public String getSubFile() {
+        return subFile;
+    }
 
-	public void setSubFile(String subFile) {
-		this.subFile = subFile;
-	}
+    public void setSubFile(String subFile) {
+        this.subFile = subFile;
+    }
 
-	public String getBaseURL() {
-		return baseURL;
-	}
+    public String getBaseURL() {
+        return baseURL;
+    }
 
-	public void setBaseURL(String baseURL) {
-		this.baseURL = baseURL;
-	}
+    public void setBaseURL(String baseURL) {
+        this.baseURL = baseURL;
+    }
 
-	public String getRecentBaseURL() {
-		return recentBaseURL;
-	}
+    public String getRecentBaseURL() {
+        return recentBaseURL;
+    }
 
-	public void setRecentBaseURL(String recentBaseURL) {
-		this.recentBaseURL = recentBaseURL;
-	}
+    public void setRecentBaseURL(String recentBaseURL) {
+        this.recentBaseURL = recentBaseURL;
+    }
 
-	public String getServerPDFLocation() {
-		return serverPDFLocation;
-	}
+    public String getServerPDFLocation() {
+        return serverPDFLocation;
+    }
 
-	public void setServerPDFLocation(String serverPDFLocation) {
-		this.serverPDFLocation = serverPDFLocation;
-	}
+    public void setServerPDFLocation(String serverPDFLocation) {
+        this.serverPDFLocation = serverPDFLocation;
+    }
 
-	public String getServerPDFLocationTail() {
-		return serverPDFLocationTail;
-	}
+    public String getServerPDFLocationTail() {
+        return serverPDFLocationTail;
+    }
 
-	public void setServerPDFLocationTail(String serverPDFLocationTail) {
-		this.serverPDFLocationTail = serverPDFLocationTail;
-	}
+    public void setServerPDFLocationTail(String serverPDFLocationTail) {
+        this.serverPDFLocationTail = serverPDFLocationTail;
+    }
 
-	public String getServerPDFRecentLocation() {
-		return serverPDFRecentLocation;
-	}
+    public String getServerPDFRecentLocation() {
+        return serverPDFRecentLocation;
+    }
 
-	public void setServerPDFRecentLocation(String serverPDFRecentLocation) {
-		this.serverPDFRecentLocation = serverPDFRecentLocation;
-	}
+    public void setServerPDFRecentLocation(String serverPDFRecentLocation) {
+        this.serverPDFRecentLocation = serverPDFRecentLocation;
+    }
 
-	public String getPdfURL() {
-		return pdfURL;
-	}
+    public String getPdfURL() {
+        return pdfURL;
+    }
 
-	public void setPdfURL(String pdfURL) {
-		this.pdfURL = pdfURL;
-	}
+    public void setPdfURL(String pdfURL) {
+        this.pdfURL = pdfURL;
+    }
 
-	public MailSender getMailSender() {
-		return mailSender;
-	}
+    public MailSender getMailSender() {
+        return mailSender;
+    }
 
-	public void setMailSender(MailSender mailSender) {
-		this.mailSender = mailSender;
-	}
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
-	public VelocityEngine getVelocityEngine() {
-		return velocityEngine;
-	}
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
 
-	public void setVelocityEngine(VelocityEngine velocityEngine) {
-		this.velocityEngine = velocityEngine;
-	}
+    public void setVelocityEngine(VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
+    }
 
-	public SimpleMailMessage getSimpleMailMessage() {
-		return simpleMailMessage;
-	}
+    public SimpleMailMessage getSimpleMailMessage() {
+        return simpleMailMessage;
+    }
 
-	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-		this.simpleMailMessage = simpleMailMessage;
-	}
+    public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
+        this.simpleMailMessage = simpleMailMessage;
+    }
 
-	public String getMsgSubject() {
-		return msgSubject;
-	}
+    public String getMsgSubject() {
+        return msgSubject;
+    }
 
-	public void setMsgSubject(String msgSubject) {
-		this.msgSubject = msgSubject;
-	}
+    public void setMsgSubject(String msgSubject) {
+        this.msgSubject = msgSubject;
+    }
 
-	public String getTemplatePath() {
-		return templatePath;
-	}
+    public String getTemplatePath() {
+        return templatePath;
+    }
 
-	public void setTemplatePath(String templatePath) {
-		this.templatePath = templatePath;
-	}
+    public void setTemplatePath(String templatePath) {
+        this.templatePath = templatePath;
+    }
 
-	public String getTaOrRequestYesTemplate() {
-		return taOrRequestYesTemplate;
-	}
+    public String getTaOrRequestYesTemplate() {
+        return taOrRequestYesTemplate;
+    }
 
-	public void setTaOrRequestYesTemplate(String taOrRequestYesTemplate) {
-		this.taOrRequestYesTemplate = taOrRequestYesTemplate;
-	}
+    public void setTaOrRequestYesTemplate(String taOrRequestYesTemplate) {
+        this.taOrRequestYesTemplate = taOrRequestYesTemplate;
+    }
 
-	public String getTaOrRequestNoTemplate() {
-		return taOrRequestNoTemplate;
-	}
+    public String getTaOrRequestNoTemplate() {
+        return taOrRequestNoTemplate;
+    }
 
-	public void setTaOrRequestNoTemplate(String taOrRequestNoTemplate) {
-		this.taOrRequestNoTemplate = taOrRequestNoTemplate;
-	}
+    public void setTaOrRequestNoTemplate(String taOrRequestNoTemplate) {
+        this.taOrRequestNoTemplate = taOrRequestNoTemplate;
+    }
 
-	public String getTaOnlyNoTemplate() {
-		return taOnlyNoTemplate;
-	}
+    public String getTaOnlyNoTemplate() {
+        return taOnlyNoTemplate;
+    }
 
-	public void setTaOnlyNoTemplate(String taOnlyNoTemplate) {
-		this.taOnlyNoTemplate = taOnlyNoTemplate;
-	}
+    public void setTaOnlyNoTemplate(String taOnlyNoTemplate) {
+        this.taOnlyNoTemplate = taOnlyNoTemplate;
+    }
 
-	public String[] getCc() {
-		return cc;
-	}
+    public String[] getCc() {
+        return cc;
+    }
 
-	public void setCc(String[] cc) {
-		this.cc = cc;
-	}
+    public void setCc(String[] cc) {
+        this.cc = cc;
+    }
 
-	public String[] getBcc() {
-		return bcc;
-	}
+    public String[] getBcc() {
+        return bcc;
+    }
 
-	public void setBcc(String[] bcc) {
-		this.bcc = bcc;
-	}
+    public void setBcc(String[] bcc) {
+        this.bcc = bcc;
+    }
 
-	public JavaMailSender getJavaMailSender() {
-		return javaMailSender;
-	}
+    public JavaMailSender getJavaMailSender() {
+        return javaMailSender;
+    }
 
-	public void setJavaMailSender(JavaMailSender javaMailSender) {
-		this.javaMailSender = javaMailSender;
-	}
+    public void setJavaMailSender(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
-	public String getSangerLineDistEmail() {
-		return sangerLineDistEmail;
-	}
+    public String getSangerLineDistEmail() {
+        return sangerLineDistEmail;
+    }
 
-	public void setSangerLineDistEmail(String sangerLineDistEmail) {
-		this.sangerLineDistEmail = sangerLineDistEmail;
-	}
+    public void setSangerLineDistEmail(String sangerLineDistEmail) {
+        this.sangerLineDistEmail = sangerLineDistEmail;
+    }
 
-	public String getPathToMTA() {
-		return pathToMTA;
-	}
+    public String getPathToMTA() {
+        return pathToMTA;
+    }
 
-	public void setPathToMTA(String pathToMTA) {
-		this.pathToMTA = pathToMTA;
-	}
+    public void setPathToMTA(String pathToMTA) {
+        this.pathToMTA = pathToMTA;
+    }
 
-	public String getFromAddress() {
-		return fromAddress;
-	}
+    public String getFromAddress() {
+        return fromAddress;
+    }
 
-	public void setFromAddress(String fromAddress) {
-		this.fromAddress = fromAddress;
-	}
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
 }

@@ -89,7 +89,7 @@ if(optionSelected == "CANC"){
         
         <center>
             
-            <IFRAME  HEIGHT="200" SRC="strainDetails_inc.emma?strainID=<%=id%>&archID=<%=archID%>&pdf=${sessionScope.reqPDF}" WIDTH=85%  FRAMEBORDER=0 scrolling="no">
+            <IFRAME  HEIGHT="250" SRC="strainDetails_inc.emma?strainID=<%=id%>&archID=<%=archID%>&pdf=${sessionScope.reqPDF}" WIDTH=85%  FRAMEBORDER=0 scrolling="no">
                 
             </IFRAME>
             
