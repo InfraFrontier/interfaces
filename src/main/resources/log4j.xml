@@ -72,7 +72,11 @@
 	<logger name="org.emmanet.jobs">
 		<level value="debug" />
 	</logger>
-		
+        
+	<logger name="org.emmanet.controllers">
+		<level value="debug" />
+	</logger>
+        
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

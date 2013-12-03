@@ -5,6 +5,8 @@
 
 package org.emmanet.model;
 
+import java.util.Set;
+
 /**
  *
  * @author phil
@@ -25,6 +27,7 @@ public class GenesDAO {
     private String founder_line_number;
     private String plasmid_construct;
     private String ensembl_ref;
+    private Set syn_genesDAO;
 
     public int getId_gene() {
         return id_gene;
@@ -138,8 +141,17 @@ public class GenesDAO {
         this.ensembl_ref = ensembl_ref;
     }
 
+    public Set getSyn_genesDAO() {
+        return syn_genesDAO;
+    }
 
+    public void setSyn_genesDAO(Set syn_genesDAO) {
+        this.syn_genesDAO = syn_genesDAO;
+    }
 
-
+    @Override
+    public String toString() {
+        return GenesManager.toJson(this);
+    }
     
 }
