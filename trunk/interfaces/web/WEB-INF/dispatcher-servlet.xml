@@ -125,7 +125,8 @@
                 </prop>
                 <prop key="/publicSubmission/ajaxFileListing.emma">ajaxReturnController
                 </prop>
-
+                <prop key="/interfaces/geneManagementList.emma">geneManagementListController</prop>
+                <prop key="/interfaces/geneManagementDetail.emma">geneManagementDetailController</prop>
             </props>
 
             
@@ -597,6 +598,22 @@
         </property>
         <property name="successView">
             <value>/publicSubmission/fileUploadSuccess</value>
+        </property>
+    </bean>
+    
+    <bean name="geneManagementListController" class="org.emmanet.controllers.GeneManagementListController">
+       <!-- <property name="action">
+            <value>initialize</value>
+        </property>
+       -->
+        <property name="successView">
+            <value>/interfaces/geneManagementList</value>
+        </property>
+    </bean>
+    
+    <bean name="geneManagementDetailController" class="org.emmanet.controllers.GeneManagementDetailController">
+        <property name="successView">
+            <value>/interfaces/geneManagementDetail</value>
         </property>
     </bean>
 

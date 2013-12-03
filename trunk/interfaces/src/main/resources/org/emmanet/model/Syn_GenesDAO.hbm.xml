@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="org.emmanet.model.Syn_GenesDAO" table="syn_genes">
+    <id column="id_syn" name="id_syn">
+      <generator class="native"/>
+    </id>
+    <timestamp column="last_change" generated="always" name="last_change" source="db"/>
+    <property column="name" name="name"/>
+    <property column="symbol" name="symbol"/>
+    <property column="username" name="username"/>
+    <property column="gen_id_gene" name="gen_id_gene"/>
+  </class>
+</hibernate-mapping>

@@ -266,4 +266,16 @@ public class Utils {
         return retVal;
     }
     
+    /**
+     * Returns a string, wrapped in <code>wrapper</code>. If value was null,
+     * an empty pair of quotes is returned.
+     * @param value value to be wrapped
+     * @param wrapper the wrapper
+     * @return 
+     */
+    public static String wrap(String value, String wrapper) {
+        String s = (value == null ? "" : value);
+        return wrapper + s + wrapper;
+    }
+    
 }
