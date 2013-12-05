@@ -90,7 +90,9 @@
 
         <form:form commandName="command">
             <input type="submit" value="New" style="margin-left: 470px; margin-bottom: 5px" formaction="geneManagementDetail.emma?id=0&action=newGene" />
+            
             <br />
+            
             <table style="border: 1px solid black">
                 <tr><th colspan="4" style="text-align: left">Filter</th></tr>
                 <tr>
@@ -146,8 +148,8 @@
 
             <table id="tabResults" style="border: 1px solid black">
                 <c:choose>
-                    <c:when test="${resultsCount > 0}">
-                        <tr>
+                    <c:when test="${fn:length(command) > 0}">
+                        <tr style="border: 1px solid black">
                             <th>Actions</th>
                             <th>Gene ID</th>
                             <th>Gene Name</th>
@@ -167,26 +169,49 @@
                 <c:forEach var="genes" items="${command}" varStatus="status">
                     <tr>
                         <td style="border: 1px solid black">
-                            <input type="hidden" id="geneCount" name="geneCount" value="${status.count}" />
+                            <input type="hidden" id="alleleCount" name="alleleCount" />
+                            
                             <table>
                                 <tr>
                                     <td><a href="geneManagementDetail.emma?id=${genes.id_gene}&action=editGene">Edit</a></td>
-                                    <td><a href="geneManagementList.emma?id=${genes.id_gene}&action=deleteGene">Delete</a></td>
+                                    <c:set var="boundAlleles" value="${genes.boundAlleles}" />
+                                    <c:set var="boundAllelesCount" value="${fn:length(boundAlleles)}" />
+                                    <c:set var="boundAlleleIds" value="" />
+                                    <c:forEach var="allele" items="${boundAlleles}" varStatus="status">
+                                        <c:if test="${status.index == 0}">
+                                            <c:set var="boundAlleleIds" value="${allele.id_allel}" scope="page" />
+                                        </c:if>
+                                        <c:if test="${status.index > 0}">
+                                            <c:set var="boundAlleleIds" value="${boundAlleleIds}, ${allele.id_allel}" />
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${boundAllelesCount == 1}">
+                                            <td><label title="Cannot delete gene as it is bound to allele ID ${boundAlleleIds}.">Delete</label></td>
+                                        </c:when>
+                                        <c:when test="${boundAllelesCount > 0}">
+                                            <td><label title="Cannot delete gene as it is bound to allele IDs ${boundAlleleIds}.">Delete</label></td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td><a href="geneManagementList.emma?id=${genes.id_gene}&action=deleteGene">Delete</a></td>
+                                        </c:otherwise>
+                                    </c:choose>
+                          <%--          <td><input alt="Delete Gene" id="inpDelete" type="image" src="../images/delete.jpg" formaction="geneManagementList.emma?id=${genes.id_gene}&action=deleteGene" /></td> --%>
                                 </tr>
                             </table>
                         </td>
-                        <td valign="top">${genes.id_gene}</td>
-                        <td valign="top">${genes.name}</td>
-                        <td valign="top">${genes.symbol}</td>
-                        <td valign="top">${genes.chromosome}</td>
-                        <td valign="top">${genes.species}</td>
-                        <td valign="top">${genes.centimorgan}</td>
-                        <td valign="top">${genes.mgi_ref}</td>
-                        <td valign="top">${genes.ensembl_ref}</td>
-                        <td valign="top">${genes.promoter}</td>
-                        <td valign="top">${genes.founder_line_number}</td>
-                        <td valign="top">${genes.plasmid_construct}</td>
-                        <td valign="top">${genes.cytoband}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.id_gene}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.name}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.symbol}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.chromosome}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.species}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.centimorgan}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.mgi_ref}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.ensembl_ref}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.promoter}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.founder_line_number}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.plasmid_construct}</td>
+                        <td style="border: 1px solid black" valign="top">${genes.cytoband}</td>
                     </tr>
                 </c:forEach>
             </table>

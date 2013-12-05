@@ -128,7 +128,9 @@
                         <td colspan="2"><form:input id="cytoband" tabindex="11" path="cytoband" /></td>
                     </tr >
                     <tr>
-                        <td colspan="4" align="right"><input type="submit" value="Save" formaction="geneManagementDetail.emma?id=${synonyms.id_syn}&action=save" /></td>
+                        <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma" /></td>
+                        <td colspan="2" align="center"><input type="submit" value="Cancel" formaction="geneManagementList.emma" /></td>
+                        <td colspan="2" align="right"><input type="submit" value="Save" formaction="geneManagementDetail.emma?id=${synonyms.id_syn}&action=save" /></td>
                     </tr>
                 </table>
         </form:form>

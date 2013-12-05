@@ -29,10 +29,10 @@ public class GeneManagementListController extends SimpleFormController {
     private Map<String, List<String>> options = null;
     private GenesDAO genesDAO;
     private final GenesManager genesManager = new GenesManager();
-
+    private final Filter filter = new Filter();
+    
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
-        List<GenesDAO> genesList = new ArrayList();
         if (options == null) {
             initialize();
         }
@@ -43,11 +43,17 @@ public class GeneManagementListController extends SimpleFormController {
         } else {
             logger.debug("formBackingObject: action: " + action);
             if (action.compareToIgnoreCase("applyFilter") == 0) {
-                return genesList;
+                ;   // Nothing to do.
+            } else if (action.compareToIgnoreCase("deleteGene") == 0) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                genesManager.delete(GenesManager.getGene(id));
+                filteredGenesDAOList = genesManager.getFilteredGenesList(filter);
+                request.setAttribute("filteredGenesDAOList", filteredGenesDAOList);
+                request.setAttribute("resultsCount", filteredGenesDAOList.size());
             }
         }
 
-        return genesList;
+        return filteredGenesDAOList;
     }
     
     @Override
@@ -64,7 +70,6 @@ public class GeneManagementListController extends SimpleFormController {
         } else {
             logger.debug("onSubmit: action = " + action);
             if (action.compareToIgnoreCase("applyFilter") == 0) {
-                Filter filter = new Filter();
                 filter.setGeneId(request.getParameter("filterGeneId"));
                 filter.setChromosome(request.getParameter("filterChromosome"));
                 filter.setGeneName(request.getParameter("filterGeneName"));
@@ -73,6 +78,8 @@ public class GeneManagementListController extends SimpleFormController {
                 filteredGenesDAOList = genesManager.getFilteredGenesList(filter);
                 request.setAttribute("filteredGenesDAOList", filteredGenesDAOList);
                 request.setAttribute("resultsCount", filteredGenesDAOList.size());
+            } else if (action.compareToIgnoreCase("deleteGene") == 0) {
+                genesManager.delete(genesDAO);
             }
         }
 
