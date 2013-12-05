@@ -24,9 +24,9 @@ import org.emmanet.model.Strains_OmimDAO;
 import org.emmanet.model.Strains_OmimManager;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.DirFileList;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.validation.BindException;
 
 /**
  *
@@ -58,90 +58,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
       //  if (request.getParameter("EditStrain") != null) {
             strainID = Integer.parseInt(request.getParameter("EditStrain"));
 
-     /*       /// START OF SUBMISSION FILE RETRIEVAL
-            int archID = sm.getArchID(strainID);
-
-            ArchiveDAO ad = am.getReqByID(archID);
-            String subFile = "sub_";
-            String date = ad.getSubmitted();
-
-            if (date != null) {
-                String strippedDate = date.replace("-", "");
-                strippedDate = strippedDate.replace(":", "");
-                strippedDate = strippedDate.replace(".", "");
-                strippedDate = strippedDate.replace(" ", "");
-
-                //get year to determine search directory
-                String pdfYearDir = "PDF-";
-                pdfYearDir = pdfYearDir + strippedDate.substring(0, 4);
-                //Take out leading 2 digits of year
-                strippedDate = strippedDate.substring(2, strippedDate.length() - 1);
-                //server location of pdf to search for
-                String locatePDF = getServerPDFLocation() + pdfYearDir + getServerPDFLocationTail();
-                String pdfsources[] = {locatePDF, getServerPDFRecentLocation()};
-                Boolean fileFound = false;
-                String pdfUrl = "";
-                subFile = subFile + strippedDate;
-                //ok lets search for...
-                for (int i = 0; i < pdfsources.length; i++) {
-                    File dir = new File(pdfsources[i]);
-                    locatePDF = pdfsources[i];
-                    System.out.println("SEARCHING DIRECTORY " + locatePDF + " FOR FILE " + subFile);
-                    if (i == 1) {
-                        System.out.println("Setting base url to (i=1 then) :: " + getRecentBaseURL());
-                        thisisthebase = getRecentBaseURL();
-                    } else if (i == 0) {
-                        System.out.println("Setting base url to (i=0 then):: " + getRecentBaseURL() + pdfYearDir);
-                        thisisthebase = getBaseURL() + pdfYearDir + this.getServerPDFLocationTail();
-                    }
-                    String[] children = dir.list();
-                    if (children == null) {
-                        // Either dir does not exist or is not a directory
-                        System.out.println("It appears that the directory " + locatePDF +
-                                " doesn't exist.");
-                    } else {
-                        System.out.println("Directory exists::" + locatePDF);
-                        for (int ii = 0; ii < children.length; ii++) {
-                            // Get filename of file or directory
-                            String filename = children[ii];
-                            System.out.println(filename + " located");
-                            System.out.println(subFile);
-                            if (filename.startsWith(subFile)) {
-                                subFile = filename;
-                                fileFound = true;
-                            } else {
-                                System.out.println("No file with this name " + subFile + " here");
-                            }
-
-                            if (fileFound) {
-                                System.out.println("OK file found let's stop the search");
-                                break;//stop searching now
-                            }
-                        }
-                    }
-                    if (fileFound) {
-                        break;
-                    }
-                }//end of pdfsources loop
-
-                if (fileFound) {
-                    //We have a pdf file located
-                    pdfUrl = null;
-                    // pdfUrl = getBaseURL() + subFile;
-                    pdfUrl = thisisthebase + subFile;
-                    //System.out.println("THIS IS THE URL TO USE@@@@@@@@@@@@@@" + pdfUrl);
-                    am.setPdfURL(pdfUrl);
-                    //System.out.println(pdfFile);
-                    ad.setPdfURL(pdfUrl);
-
-                } else {
-                    System.out.println("No file can be found with the name " + subFile);
-                }
-            }
-            //TODO YUK THIS IS ORRIBLE ANOTHER FUGLEY HACK ADD URL TO SESSION COOKIE ENABLING RETRIEVAL IN JSP PAGE
-            HttpSession session = request.getSession(true);
-
-            session.setAttribute("pdfUrl", ad.getPdfURL());
+    
 
         /// END OF SUBMISSION FILE RETRIEVAL*/
         //}
@@ -173,24 +90,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         session.setAttribute("con_postcode", ld.getPostcode());
         session.setAttribute("con_country", ld.getCountry());
 
-        // Create file containing background names from list
-        // Needed to populate droplist in strainsUpdateInterface.emma
-
-        /*  List backgroundNames = sm.getBackgrounds();
-        
-        try {
-        BufferedWriter out = new BufferedWriter(new FileWriter(this.getTmpDir() + "bgNamesList.emma", false));
-        for (Iterator it = backgroundNames.listIterator(); it.hasNext();) {
-        Object[] o =(Object[]) it.next();
-        out.write(o[0].toString()  + "||" );
-        out.write(o[1].toString());
-        out.newLine();
-        }
-        
-        out.close();
-        } catch (IOException e) {
-        }
-         */
+     
 
         //NOW SET NUMBER OF BIBLIOGRAPHIC REFS
         session.setAttribute("bibCount", bm.bibliosStrainCount(strainID));
@@ -231,8 +131,11 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         // SET IN SESSION THE MTAPATH
         // HttpSession session = request.getSession(true);
         //session.setAttribute("mtaPath", this.getMtaPath());
-        return sd;//sm.getStrainByID(strainID);
-    //  return new ModelAndView(getSuccessView() + "?EditArch=" + strainID, MAP_KEY,sd);
+        System.out.println("here follows different accessors to peopleDAOs:-");
+        System.out.println(sd.getPeopleDAOCon().getLabsDAO().getDept());
+    //    System.out.println(sd.getSubPeopleDAO().getFirstname());
+  //      System.out.println(sd.getConPeopleDAO().getSurname());
+        return sd;
     }
     // SAVE
     @Override
