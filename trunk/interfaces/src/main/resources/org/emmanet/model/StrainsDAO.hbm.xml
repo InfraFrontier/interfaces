@@ -7,7 +7,12 @@
       <generator class="increment"/>
     </id>
     <timestamp column="last_change" generated="always" name="last_change" source="db"/>
+    
     <many-to-one cascade="all" class="org.emmanet.model.PeopleDAO" column="per_id_per" foreign-key="id_per" insert="false" lazy="false" name="peopleDAO" not-found="ignore" update="false"/>
+    <many-to-one cascade="all" class="org.emmanet.model.PeopleDAO" column="per_id_per_contact" foreign-key="id_per" insert="false" lazy="false" name="peopleDAOT" not-found="ignore" update="false"/>
+    <many-to-one cascade="all" class="org.emmanet.model.PeopleDAO" column="per_id_per_contact" foreign-key="id_per" insert="false" lazy="false" name="peopleDAOCon" not-found="ignore" update="false"/>
+    <many-to-one cascade="all" class="org.emmanet.model.PeopleDAO" column="per_id_per_sub" foreign-key="id_per" insert="false" lazy="false" name="peopleDAOSub" not-found="ignore" update="false"/>
+    
     <many-to-one cascade="all" class="org.emmanet.model.ArchiveDAO" column="archive_id" insert="false" lazy="false" name="archiveDAO" unique="true" update="false"/>
     <!--<many-to-one cascade="all" class="org.emmanet.model.Syn_StrainsDAO" column="id_str" foreign-key="str_id_str" property-ref="str_id_str" insert="false" lazy="false" name="syn_strainsDAO" not-found="ignore" update="false"/>-->
     <many-to-one cascade="all" class="org.emmanet.model.ResiduesDAO" column="res_id" foreign-key="str_id_str" insert="false" lazy="false" name="residuesDAO" not-found="ignore" update="false"/>

@@ -59,6 +59,9 @@ public class StrainsDAO implements Serializable {
     private String additional_owner;
     private String ex_owner_description;    //relationship mapping
     private PeopleDAO peopleDAO;
+    private PeopleDAO peopleDAOT;
+    private PeopleDAO peopleDAOCon;
+    private PeopleDAO peopleDAOSub;
     private ArchiveDAO archiveDAO;
     private BibliosStrainsDAO bibliosstrainsDAO;
     private ResiduesDAO residuesDAO;
@@ -624,5 +627,47 @@ public class StrainsDAO implements Serializable {
      */
     public void setHethemi_fertile(String hethemi_fertile) {
         this.hethemi_fertile = hethemi_fertile;
+    }
+
+    /**
+     * @return the peopleDAOT
+     */
+    public PeopleDAO getPeopleDAOT() {
+        return peopleDAOT;
+    }
+
+    /**
+     * @param peopleDAOT the peopleDAOT to set
+     */
+    public void setPeopleDAOT(PeopleDAO peopleDAOT) {
+        this.peopleDAOT = peopleDAOT;
+    }
+
+    /**
+     * @return the peopleDAOCon
+     */
+    public PeopleDAO getPeopleDAOCon() {
+        return peopleDAOCon;
+    }
+
+    /**
+     * @param peopleDAOCon the peopleDAOCon to set
+     */
+    public void setPeopleDAOCon(PeopleDAO peopleDAOCon) {
+        this.peopleDAOCon = peopleDAOCon;
+    }
+
+    /**
+     * @return the peopleDAOSub
+     */
+    public PeopleDAO getPeopleDAOSub() {
+        return peopleDAOSub;
+    }
+
+    /**
+     * @param peopleDAOSub the peopleDAOSub to set
+     */
+    public void setPeopleDAOSub(PeopleDAO peopleDAOSub) {
+        this.peopleDAOSub = peopleDAOSub;
     }
 }
