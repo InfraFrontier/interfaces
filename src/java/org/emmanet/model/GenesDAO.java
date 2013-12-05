@@ -5,7 +5,9 @@
 
 package org.emmanet.model;
 
+import java.util.List;
 import java.util.Set;
+import javax.persistence.Transient;
 
 /**
  *
@@ -147,6 +149,11 @@ public class GenesDAO {
 
     public void setSyn_genesDAO(Set syn_genesDAO) {
         this.syn_genesDAO = syn_genesDAO;
+    }
+
+    @Transient
+    public List<AllelesDAO> getBoundAlleles() {
+        return new GenesManager().getBoundAlleles(id_gene);
     }
 
     @Override

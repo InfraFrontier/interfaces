@@ -58,6 +58,25 @@ public class GenesManager {
             throw e;
         }
     }
+    
+    /**
+     * Deletes the named <code>GenesDAO</code> object.
+     * @param gDAO the <code>GenesDAO</code> object to be deleted
+     */
+    public void delete(GenesDAO gDAO) {
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+
+        try {
+            session.delete(gDAO);
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+    }
 
     /**
      * Returns a <code>List&lt;String&gt;</code> of distinct gene ids suitable for
@@ -375,6 +394,30 @@ public class GenesManager {
     
     public static String toJson(GenesDAO genesDAO) {
         return new Gson().toJson(genesDAO);
+    }
+    
+    /**
+     * Returns a <code>List&lt;AllelesDAO&gt;</code> of allele records matching
+     * <code>id_gene</code>.
+     * @param id_gene the gene id to match
+     * @return  a <code>List&lt;AllelesDAO&gt;</code> of allele records matching
+     * <code>id_gene</code>.
+     */
+    public List<AllelesDAO> getBoundAlleles(int id_gene) {
+        List<AllelesDAO> allelesDAOList = null;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            // NOTE: AllelesDAO's id_gene parameter is defined as a STRING! It would be
+            // more appropriate to change it to an int, but might well break existing code.
+            allelesDAOList = session.createQuery(
+                    "FROM AllelesDAO WHERE gen_id_gene = ?").setParameter(0, Integer.toString(id_gene)).list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+        }
+
+        return allelesDAOList;
     }
     
     
