@@ -69,6 +69,7 @@ public class RegInterestJOB extends QuartzJobBean {
     private String Bcc;
     private String webmasterMsg = "";
     private Encrypter encrypter = new Encrypter();
+    private static String BASEURL=Configuration.get("BASEURL");
 
     public void generateStrainList(String emmaId) {
         try {
@@ -200,6 +201,7 @@ public class RegInterestJOB extends QuartzJobBean {
                     model.put("rtoolsID", rtoolsID);
 
                     model.put("labID", webReq.getLab_id_labo());
+                    model.put("BASEURL", BASEURL);
                     /* END */
 
                     // TODO: my email for testing - pull from database/hibernate
