@@ -77,6 +77,7 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
     private Sources_RequestsDAO srd;
     private String pathToMTA;
     private String fromAddress;
+    final static String BASEURL = Configuration.get("BASEURL");
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -314,7 +315,7 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
                     String dd = date.substring(8, 10);
 
                     date = dd + "-" + MM + "-" + yyyy;
-
+model.put("BASEURL",BASEURL);
                     model.put("name", webRequest.getSci_firstname() + " " + webRequest.getSci_surname());
                     model.put("emmaid", webRequest.getStrain_id().toString());
                     model.put("strainname", webRequest.getStrain_name());
