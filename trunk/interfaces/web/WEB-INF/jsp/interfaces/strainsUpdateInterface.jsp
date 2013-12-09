@@ -11,7 +11,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
-<%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
+<%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>©
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page import="org.emmanet.util.Configuration" %>
 
@@ -810,37 +810,37 @@
 
             <tr>
                 <td>Average age of reproductive maturity (weeks)</td>
-                <td><spring:bind path="command.residuesDAO.reproductive_maturity_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.reproductive_maturity_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
                 <td>Average age of reproductive decline (months)</td>
-                <td><spring:bind path="command.residuesDAO.reproductive_decline_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.reproductive_decline_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
             </tr>
 
             <tr>
                 <td>Average length of gestation (days)</td>
-                <td><spring:bind path="command.residuesDAO.gestation_length"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.gestation_length"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
                 <td>Average number of pups at birth</td>
-                <td><spring:bind path="command.residuesDAO.pups_at_birth"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.pups_at_birth"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
             </tr>
 
             <tr>
                 <td>Average number of pups surviving to weaning</td>
-                <td><spring:bind path="command.residuesDAO.pups_at_weaning"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.pups_at_weaning"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
                 <td>Recommended weaning age (days)</td>
-                <td><spring:bind path="command.residuesDAO.weaning_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.weaning_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
             </tr>
 
             <tr>
                 <td>Average number of litters in lifetime</td>
-                <td><spring:bind path="command.residuesDAO.litters_in_lifetime"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.litters_in_lifetime"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
                 <td>Breeding performance</td>
-                <td><spring:bind path="command.residuesDAO.breeding_performance"><input type="text" maxlength="10" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.breeding_performance"><input type="text" maxlength="10" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
             </tr>
 
             <tr>
                 <td valign="top">Animal welfare</td>
-                <td valign="top"><spring:bind path="command.residuesDAO.welfare"><input type="text" maxlength="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></td>
+                <td valign="top"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.welfare"><input type="text" maxlength="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
                 <td valign="top">Remedial actions</td>
-                <td><spring:bind path="command.residuesDAO.remedial_actions"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
+                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.remedial_actions"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
             </tr>
 
             <%-- Additional Files Supporting strain from submission --%>
@@ -1135,11 +1135,15 @@ END OF CRYOPRESERVATION HISTORY --%>
             <tr>
                 <td>Additional owner permission:</td>
                 <td>
+                    <c:if test="${not empty residuesDAO}">
                     <spring:bind path="command.residuesDAO.owner_permission">
                         <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
                         <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
                         <input <c:if test="${status.value=='not known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
-                    </spring:bind></td>
+                    </spring:bind>
+                    </c:if>
+                </td>
+                
                     <c:choose>
                         <c:when test="${residuesDAO.owner_permission=='no'}">
                         <td>Additional owner permission information:</td>
