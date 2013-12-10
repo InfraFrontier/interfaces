@@ -1087,7 +1087,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             helper.setFrom("emma@emmanet.org");
             helper.setBcc("webmaster@ebi.ac.uk");
             helper.setTo(model.get("emailsubmitter").toString().trim());
-            helper.setSubject("Your submission to EMMA of strain " + model.get("strainname").toString());//todo remove test prefix
+            helper.setSubject("Your submission to EMMA of strain " + model.get("strainname").toString());
             helper.setText(content);
             getJavaMailSender().send(message);
         } catch (MessagingException ex) {
