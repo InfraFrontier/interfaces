@@ -168,7 +168,7 @@
     </bean>
     <bean id="bglistTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="bgListJob"/>
-        <property name="cronExpression" value="0 30 5 * * ?"/><!--- 0 30 5 * * ? -->
+        <property name="cronExpression" value="0 30 22 * * ?"/><!--- 0 30 5 * * ? -->
     </bean>
         <bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="mailJob"/>

@@ -11,7 +11,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
-<%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>©
+<%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page import="org.emmanet.util.Configuration" %>
 
