@@ -124,7 +124,8 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
          assocFiles = new ArrayList();
         if (fileList != null && submissionID != null) {
             for (int i = 0; i < fileList.length; i++) {
-                if (fileList[i].startsWith("" + sd.getSub_id_sub())) {
+                System.out.println("FILELIST VALUE " + i + "==" + fileList[i]);
+                if (fileList[i].startsWith(submissionID)) {
                     assocFiles.add(fileList[i]);
                 }
             }
