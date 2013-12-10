@@ -1,6 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2009-2013 EMBL - European Bioinformatics Institute
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License.  
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.emmanet.model;
 
@@ -10,49 +21,65 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.emmanet.jobs.EmmaBiblioJOB;
 import org.emmanet.util.Filter;
-import org.emmanet.util.HibernateUtil;
 import org.emmanet.util.Utils;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import com.google.gson.Gson;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import org.emmanet.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 
 /**
  *
- * @author phil
+ * @author phil, mrelac
  */
 public class GenesManager {
 
-    protected Logger logger = Logger.getLogger(EmmaBiblioJOB.class);
-    
+    protected static Logger logger = Logger.getLogger(EmmaBiblioJOB.class);
+    protected SessionFactory factory = HibernateUtil.getSessionFactory();
+
+    /**
+     * Returns the full list of genes from persistent storage.
+     * @return  the full list of genes from persistent storage.
+     */
     public List<GenesDAO> getGenes() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         List<GenesDAO> genesList = null;
         try {
-            genesList = session.createQuery(
-                    "FROM GenesDAO").list();
+            session.beginTransaction();
+            genesList = session.createQuery("FROM GenesDAO").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
         }
+        
         return genesList;
     }
     
-    public void save(GenesDAO gDAO) {
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-
+    /**
+     * Saves the given <code>GenesDAO</code> gene
+     * @param gene the <code>GenesDAO</code> to be saved
+     */
+    public void save(GenesDAO gene) {
+        Session session = factory.getCurrentSession();
+        Integer centimorgan = Utils.tryParseInt(gene.getCentimorgan());
+        gene.setCentimorgan(centimorgan == null ? null : centimorgan.toString());   // Centimorgans are numeric, nullable in the database, so re-map any non-numeric values to null.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTimestamp = dateFormat.format(new Date());
+        gene.setLast_change(currentTimestamp);
+        gene.setUsername("EMMA");
         try {
-            session.saveOrUpdate(gDAO);
+            session.beginTransaction();
+            session.saveOrUpdate(gene);
             session.getTransaction().commit();
-
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
@@ -64,11 +91,10 @@ public class GenesManager {
      * @param gDAO the <code>GenesDAO</code> object to be deleted
      */
     public void delete(GenesDAO gDAO) {
-
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
 
         try {
+            session.beginTransaction();
             session.delete(gDAO);
             session.getTransaction().commit();
 
@@ -107,12 +133,11 @@ public class GenesManager {
      */
     public List<String> getNames() {
         List<String> targetList = new ArrayList();
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         List sourceList = null;
         try {
-            sourceList = session.createSQLQuery(
-                    "SELECT DISTINCT name FROM genes").list();
+            session.beginTransaction();
+            sourceList = session.createSQLQuery("SELECT DISTINCT name FROM genes").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -138,12 +163,11 @@ public class GenesManager {
      */
     public List<String> getSymbols() {
         List<String> targetList = new ArrayList();
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         List sourceList = null;
         try {
-            sourceList = session.createSQLQuery(
-                    "SELECT DISTINCT symbol FROM genes").list();
+            session.beginTransaction();
+            sourceList = session.createSQLQuery("SELECT DISTINCT symbol FROM genes").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -169,12 +193,11 @@ public class GenesManager {
      */
     public List<String> getChromosomes() {
         List<String> targetList = new ArrayList();
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         List sourceList = null;
         try {
-            sourceList = session.createSQLQuery(
-                    "SELECT DISTINCT chromosome FROM genes").list();
+            session.beginTransaction();
+            sourceList = session.createSQLQuery("SELECT DISTINCT chromosome FROM genes").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -200,12 +223,11 @@ public class GenesManager {
      */
     public List<String> getMGIReferences() {
         List<String> targetList = new ArrayList();
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         List sourceList = null;
         try {
-            sourceList = session.createSQLQuery(
-                    "SELECT DISTINCT mgi_ref FROM genes").list();
+            session.beginTransaction();
+            sourceList = session.createSQLQuery("SELECT DISTINCT mgi_ref FROM genes").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -223,13 +245,19 @@ public class GenesManager {
         return targetList;
     }
     
-    public static GenesDAO getGene(int id) {
+    /**
+     * Returns the <code>GenesDAO</code> object matching <code>id_gene</code>
+     * @param id_gene the gene id to match
+     * @return the <code>GenesDAO</code> object matching <code>id_gene</code>.
+     */
+    public GenesDAO getGene(int id_gene) {
         GenesDAO genesDAO = null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         try {
-            genesDAO = (GenesDAO)session.createQuery(
-                    "FROM GenesDAO WHERE id_gene = ?").setParameter(0, id).uniqueResult();
+            session.beginTransaction();
+            genesDAO = (GenesDAO)session.createQuery("FROM GenesDAO WHERE id_gene = ?")
+                    .setParameter(0, id_gene)
+                    .uniqueResult();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -238,33 +266,31 @@ public class GenesManager {
         // Re-map null fields to empty strings.
         if (genesDAO != null) {
             if (genesDAO.getCentimorgan() == null)
-                    genesDAO.setCentimorgan("");
-            
-            
+                genesDAO.setCentimorgan("");
             if (genesDAO.getChromosome()== null)
-                    genesDAO.setChromosome("");
+                genesDAO.setChromosome("");
             if (genesDAO.getCytoband()== null)
-                    genesDAO.setCytoband("");
+                genesDAO.setCytoband("");
             if (genesDAO.getEnsembl_ref()== null)
-                    genesDAO.setEnsembl_ref("");
+                genesDAO.setEnsembl_ref("");
             if (genesDAO.getFounder_line_number()== null)
-                    genesDAO.setFounder_line_number("");
+                genesDAO.setFounder_line_number("");
             if (genesDAO.getLast_change()== null)
-                    genesDAO.setLast_change("");
+                genesDAO.setLast_change("");
             if (genesDAO.getMgi_ref()== null)
-                    genesDAO.setMgi_ref("");
+                genesDAO.setMgi_ref("");
             if (genesDAO.getName() == null)
-                    genesDAO.setName("");
+                genesDAO.setName("");
             if (genesDAO.getPlasmid_construct()== null)
-                    genesDAO.setPlasmid_construct("");
+                genesDAO.setPlasmid_construct("");
             if (genesDAO.getPromoter()== null)
-                    genesDAO.setPromoter("");
+                genesDAO.setPromoter("");
             if (genesDAO.getSpecies()== null)
-                    genesDAO.setSpecies("");
+                genesDAO.setSpecies("");
             if (genesDAO.getSymbol() == null)
-                    genesDAO.setSymbol("");
+                genesDAO.setSymbol("");
             if (genesDAO.getUsername()== null)
-                    genesDAO.setUsername("");
+                genesDAO.setUsername("");
         }
         return genesDAO;
     }
@@ -318,9 +344,9 @@ public class GenesManager {
             queryString += mgiReferenceWhere;
         }
         
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         try {
+            session.beginTransaction();
             SQLQuery query = session.createSQLQuery(queryString);
             if ( ! chromosomeWhere.isEmpty())
                 query.setParameter("chromosome", "%" + filter.getChromosome() + "%");
@@ -365,9 +391,9 @@ public class GenesManager {
             jsonGeneDAO.put("species",             gene.getSpecies() == null ? "" : gene.getSpecies());
             jsonGeneDAO.put("symbol",              gene.getSymbol() == null ? "" : gene.getSymbol());
             
-            if ((gene.getSyn_genesDAO() != null) && (gene.getSyn_genesDAO().size() > 0)) {
+            if ((gene.getSynonyms() != null) && (gene.getSynonyms().size() > 0)) {
                 JSONArray synonyms = new JSONArray();
-                Iterator<Syn_GenesDAO> iterator = gene.getSyn_genesDAO().iterator();
+                Iterator<Syn_GenesDAO> iterator = gene.getSynonyms().iterator();
                 while (iterator.hasNext()) {
                     Syn_GenesDAO syn_genesDAO = iterator.next();
                     JSONObject synonym = new JSONObject();
@@ -405,9 +431,9 @@ public class GenesManager {
      */
     public List<AllelesDAO> getBoundAlleles(int id_gene) {
         List<AllelesDAO> allelesDAOList = null;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
+        Session session = factory.getCurrentSession();
         try {
+            session.beginTransaction();
             // NOTE: AllelesDAO's id_gene parameter is defined as a STRING! It would be
             // more appropriate to change it to an int, but might well break existing code.
             allelesDAOList = session.createQuery(
@@ -420,8 +446,80 @@ public class GenesManager {
         return allelesDAOList;
     }
     
+    /**
+     * Finds the <code>Syn_GenesDAO</code> identified by <code>
+     * id_syn_genesTarget</code> by searching the genesDAO's <code>Syn_GenesDAO
+     * </code> collection. Returns the object if found; null otherwise.
+     * @param genesDAO the <code>GenesDAO</code>containing the <code>Syn_GenesDAO
+     * </code> collection
+     * @param id_syn the id_syn to match
+     * @return The object if found; null otherwise.
+     */
+    public static Syn_GenesDAO findSyn_genesDAO(GenesDAO genesDAO, int id_syn) {
+        if (genesDAO.getSynonyms() == null)
+            return null;
+        Iterator<Syn_GenesDAO> syn_genesIterator = genesDAO.getSynonyms().iterator();
+        while (syn_genesIterator.hasNext()) {
+            Syn_GenesDAO itSyn_genesDAO = syn_genesIterator.next();
+            if (itSyn_genesDAO.getId_syn() == id_syn) {
+                return itSyn_genesDAO;
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Adds a new synonym to the gene identified by <code>gene</code>.
+     * @param gene the <code>GenesDAO</code> instance to which the new synonym is to be added
+     * @return the new <code>Syn_GenesDAO</code> instance.
+     */
+    public Syn_GenesDAO addSynonym(GenesDAO gene) {
+        synchronized(gene) {
+            Set<Syn_GenesDAO> syn_genesDAOSet = gene.getSynonyms();
+            if (syn_genesDAOSet == null) {
+                syn_genesDAOSet = new LinkedHashSet();
+                gene.setSynonyms(syn_genesDAOSet);
+            }
+            Syn_GenesDAO syn_genesDAO = new Syn_GenesDAO();
+            syn_genesDAO.setUsername("EMMA");
+            syn_genesDAO.setGenes(gene);
+            gene.getSynonyms().add(syn_genesDAO);
+            save(gene);
+            
+            return syn_genesDAO;
+        }
+    }
+    
+    /**
+     * Deletes the synonym identified by the primary key <code>id_syn</code> from
+     * the <code>GenesDAO</code> object identified by <code>gene</code>.
+     * @param gene the gene from which the synonym is to be deleted
+     * @param id_syn the primary key of the synonym to be deleted
+     */
+    public void deleteSynonym(GenesDAO gene, int id_syn) {
+        Session session = factory.getCurrentSession();
+        if (gene == null)
+            return;
+        
+        synchronized(gene) {
+            Syn_GenesDAO syn_genesDAO = findSyn_genesDAO(gene, id_syn);
+            if (syn_genesDAO != null) {
+                gene.getSynonyms().remove(syn_genesDAO);
+                
+                try {
+                    session.beginTransaction();
+                    session.delete(syn_genesDAO);
+                    session.getTransaction().commit();
+                } catch (HibernateException e) {
+                    session.getTransaction().rollback();
+                }
+            }
+        }
+    }
+    
     
     // PRIVATE METHODS
-    
+
 
 }

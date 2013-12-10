@@ -5,10 +5,12 @@
     <id column="id_syn" name="id_syn">
       <generator class="native"/>
     </id>
-    <timestamp column="last_change" generated="always" name="last_change" source="db"/>
+    <many-to-one cascade="save-update" class="org.emmanet.model.GenesDAO" lazy="false" name="genes">
+      <column name="gen_id_gene" not-null="false"/>
+    </many-to-one>
+    <property column="last_change" generated="always" name="last_change" type="timestamp"/>
     <property column="name" name="name"/>
     <property column="symbol" name="symbol"/>
     <property column="username" name="username"/>
-    <property column="gen_id_gene" name="gen_id_gene"/>
   </class>
 </hibernate-mapping>

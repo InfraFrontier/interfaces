@@ -5,9 +5,11 @@
     <id column="id_gene" name="id_gene">
       <generator class="native"/>
     </id>
-    <set lazy="false" name="syn_genesDAO" table="syn_genes">
-      <key column="gen_id_gene" update="false"/>
-      <one-to-many class="org.emmanet.model.Syn_GenesDAO" not-found="ignore"/>
+    <set name="synonyms" table="syn_genes" lazy="false" cascade="all">
+        <key>
+            <column name="gen_id_gene" />
+        </key>
+        <one-to-many class="org.emmanet.model.Syn_GenesDAO" />
     </set>
     <property column="name" name="name"/>
     <property column="symbol" name="symbol"/>

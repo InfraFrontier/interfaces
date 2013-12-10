@@ -1,13 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2013 EMBL - European Bioinformatics Institute
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License.  
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package org.emmanet.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +32,11 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class GeneManagementDetailController extends SimpleFormController {
     private GenesDAO genesDAO = new GenesDAO();
+    private final GenesManager genesManager;
+    
+    public GeneManagementDetailController() {
+        genesManager = new GenesManager();
+    }
     
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -34,10 +47,12 @@ public class GeneManagementDetailController extends SimpleFormController {
             logger.debug("formBackingObject: action = " + action);
             Integer id = Utils.tryParseInt(request.getParameter("id"));
             if (action.compareToIgnoreCase("editGene") ==  0) {
-                genesDAO = GenesManager.getGene(id.intValue());
+                genesDAO = genesManager.getGene(id.intValue());
             } else if (action.compareToIgnoreCase("newGene") ==  0) {
                 genesDAO = new GenesDAO();
-            }
+            } else if (action.compareToIgnoreCase("deleteSynonym") == 0) {
+                genesManager.deleteSynonym(genesDAO, id);
+            } 
         }
         
         return genesDAO;
@@ -57,29 +72,22 @@ public class GeneManagementDetailController extends SimpleFormController {
         } else {
             logger.debug("onSubmit: action = " + action);
             
-            if (action.compareToIgnoreCase("save") == 0) {
+            if (action.compareToIgnoreCase("newSynonym") == 0) {
                 genesDAO = (GenesDAO)command;
-                genesDAO.setUsername("EMMA");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String now = sdf.format(new Date());
-                genesDAO.setLast_change(now);                                   // Set last_changed timestamp.
-                // Centimorgan is defined as an int in the database. If it is not
-                // already null, validate that it is a number. If it is not a
-                // number, set it to null; otherwise, the insert/update will fail.
-                if (genesDAO.getCentimorgan() != null) {
-                    Integer centimorgan = Utils.tryParseInt(genesDAO.getCentimorgan().toString());
-                    genesDAO.setCentimorgan((centimorgan == null ? null : centimorgan.toString()));
-                }
-                
-                new GenesManager().save(genesDAO);
-            }  
+                genesManager.addSynonym(genesDAO);
+                genesManager.save(genesDAO); 
+            } else if (action.compareToIgnoreCase("save") == 0) {
+                genesDAO = (GenesDAO)command;
+                genesManager.save(genesDAO);                                    // Save the GenesDAO.
+            }
         }
         
         genesDAO = (GenesDAO)command;
 
         return new ModelAndView(getSuccessView(), "command", genesDAO);
     }
-
+    
+    
     // PRIVATE METHODS
     
     

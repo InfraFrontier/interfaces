@@ -1,6 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright © 2009-2013 EMBL - European Bioinformatics Institute
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License.  
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package org.emmanet.model;
@@ -29,7 +40,7 @@ public class GenesDAO {
     private String founder_line_number;
     private String plasmid_construct;
     private String ensembl_ref;
-    private Set syn_genesDAO;
+    private Set<Syn_GenesDAO> synonyms;
 
     public int getId_gene() {
         return id_gene;
@@ -143,12 +154,12 @@ public class GenesDAO {
         this.ensembl_ref = ensembl_ref;
     }
 
-    public Set getSyn_genesDAO() {
-        return syn_genesDAO;
+    public Set<Syn_GenesDAO> getSynonyms() {
+        return synonyms;
     }
 
-    public void setSyn_genesDAO(Set syn_genesDAO) {
-        this.syn_genesDAO = syn_genesDAO;
+    public void setSynonyms(Set synonyms) {
+        this.synonyms = synonyms;
     }
 
     @Transient

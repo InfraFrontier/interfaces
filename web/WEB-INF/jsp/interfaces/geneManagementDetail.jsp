@@ -79,7 +79,7 @@
                                     <th>Name</th>
                                     <th>Symbol</th>
                                 </tr>       
-                                <c:forEach var="synonyms" items="${command.syn_genesDAO}" varStatus="status">
+                                <c:forEach var="synonyms" items="${command.synonyms}" varStatus="status">
                                     <tr>
                                         <td style="border: 1px solid black">
                                             <table>
