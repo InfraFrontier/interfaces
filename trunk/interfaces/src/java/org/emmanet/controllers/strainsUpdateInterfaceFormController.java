@@ -4,6 +4,8 @@
  */
 package org.emmanet.controllers;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,16 +51,15 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
     private String thisisthebase;
     private String tmpDir;
     private List assocFiles;
-    
-        final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
+    final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
 
-      //  if (request.getParameter("EditStrain") != null) {
-            strainID = Integer.parseInt(request.getParameter("EditStrain"));
+        //  if (request.getParameter("EditStrain") != null) {
+        strainID = Integer.parseInt(request.getParameter("EditStrain"));
 
-    
+
 
         /// END OF SUBMISSION FILE RETRIEVAL*/
         //}
@@ -71,8 +72,8 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         String contactID = sd.getPer_id_per_contact();
         PeopleDAO pd = pm.getPerson(contactID);
         LabsDAO ld = pd.getLabsDAO();
-     
-       
+
+
 
         session.setAttribute("con_id", contactID);
         session.setAttribute("con_title", pd.getTitle());
@@ -90,7 +91,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         session.setAttribute("con_postcode", ld.getPostcode());
         session.setAttribute("con_country", ld.getCountry());
 
-     
+
 
         //NOW SET NUMBER OF BIBLIOGRAPHIC REFS
         session.setAttribute("bibCount", bm.bibliosStrainCount(strainID));
@@ -98,38 +99,64 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         session.setAttribute("rtCount", sm.getRToolsCount(strainID));
         Set csd = sd.getCategoriesStrainsDAO();
         List cats = new ArrayList();
-        
-       for (Iterator i=csd.iterator();i.hasNext();){
-           CategoriesStrainsDAO o = (CategoriesStrainsDAO) i.next();
-           cats.add(o.getCategoriesDAO().getDescription());
-       }
-       request.setAttribute("categories", cats);
-       
-       // Create collection of OMIM ids.
-       List<Strains_OmimDAO> strainsOmimList = strainsOmimManager.findById_Strains(strainID);
-       List omims = new ArrayList();
-       for (Strains_OmimDAO strains_omimDAO : strainsOmimList) {
-           omims.add(strains_omimDAO.getOmimDAO().getOmim());
-       }
-       request.setAttribute("omims", omims);
-       
+
+        for (Iterator i = csd.iterator(); i.hasNext();) {
+            CategoriesStrainsDAO o = (CategoriesStrainsDAO) i.next();
+            cats.add(o.getCategoriesDAO().getDescription());
+        }
+        request.setAttribute("categories", cats);
+
+        // Create collection of OMIM ids.
+        List<Strains_OmimDAO> strainsOmimList = strainsOmimManager.findById_Strains(strainID);
+        List omims = new ArrayList();
+        for (Strains_OmimDAO strains_omimDAO : strainsOmimList) {
+            omims.add(strains_omimDAO.getOmimDAO().getOmim());
+        }
+        request.setAttribute("omims", omims);
+
 //RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
-  String submissionID = sd.getSub_id_sub();
-  System.out.println("SUBMISSION ID IS::" + submissionID);
-        request.setAttribute("associatedFiles", null);
-        DirFileList files = new DirFileList();
-        String fileList[];
-        fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
-        System.out.println("filelist size IS::" + fileList.length);
+        final String submissionID = sd.getSub_id_sub();
+        System.out.println("SUBMISSION ID IS::" + submissionID);
+        /*     request.setAttribute("associatedFiles", null);
+         DirFileList filesx = new DirFileList();
+         String fileList[];
+         fileList = filesx.filteredFileList(SUBFORMUPLOAD, "pdf");
+         System.out.println("filelist size IS::" + fileList.length);
          assocFiles = new ArrayList();
-        if (fileList != null && submissionID != null) {
-            for (int i = 0; i < fileList.length; i++) {
-                System.out.println("FILELIST VALUE " + i + "==" + fileList[i]);
-                if (fileList[i].startsWith(submissionID)) {
-                    assocFiles.add(fileList[i]);
+         if (fileList != null && submissionID != null) {
+         for (int i = 0; i < fileList.length; i++) {
+         System.out.println("FILELIST VALUE " + i + "==" + fileList[i]);
+         if (fileList[i].startsWith(submissionID)) {
+         assocFiles.add(fileList[i]);
+         }
+         }
+         }*/
+
+        request.setAttribute("associatedFiles", null);
+        assocFiles = new ArrayList();
+        File dir = new File(SUBFORMUPLOAD);
+        File[] files;
+        files = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                //only add to list if submission id is conatined within file name (which includes path and file name)
+                if (submissionID != null && name.contains(submissionID)) {
+                    return name.toLowerCase().endsWith(".pdf");
+                }
+                return false;
+            }
+        });
+        System.out.println("Files size is::" + files.length);
+        if (files != null && submissionID != null) {
+            for (int i = 0; i < files.length; i++) {
+                System.out.println("FILEname VALUE " + i + "==" + files[i].getName());
+                String file = files[i].getName();
+                if (file.startsWith(submissionID)) {
+                    assocFiles.add(file);
                 }
             }
         }
+
         request.setAttribute("associatedFiles", assocFiles);
 
         // SET IN SESSION THE MTAPATH
@@ -137,11 +164,12 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         //session.setAttribute("mtaPath", this.getMtaPath());
         System.out.println("here follows different accessors to peopleDAOs:-");
         System.out.println(sd.getPeopleDAOCon().getLabsDAO().getDept());
-    //    System.out.println(sd.getSubPeopleDAO().getFirstname());
-  //      System.out.println(sd.getConPeopleDAO().getSurname());
+        //    System.out.println(sd.getSubPeopleDAO().getFirstname());
+        //      System.out.println(sd.getConPeopleDAO().getSurname());
         return sd;
     }
     // SAVE
+
     @Override
     protected ModelAndView onSubmit(
             HttpServletRequest request,
@@ -156,10 +184,10 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         if (sDAO.getMgi_ref().equals("")) {
             sDAO.setMgi_ref(null);
         }
-           System.out.println("before Residues char genotype is " +  sDAO.getResiduesDAO().getChar_genotyping());
-          // sDAO.setBackgroundDAO(bDAO);
+        System.out.println("before Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
+        // sDAO.setBackgroundDAO(bDAO);
         sm.save(sDAO);
-        System.out.println("after Residues char genotype is " +  sDAO.getResiduesDAO().getChar_genotyping());
+        System.out.println("after Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
         System.out.println("saved");
         request.getSession().setAttribute(
                 "message",
@@ -167,8 +195,8 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
                 "Your update submitted successfully"));
 
         return new ModelAndView(getSuccessView() + "?EditStrain=" + strainID);
-   // ModelAndView mav = showForm(request, response, errors);
-    // return mav;//
+        // ModelAndView mav = showForm(request, response, errors);
+        // return mav;//
 
     }
 
