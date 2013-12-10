@@ -114,6 +114,8 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
        request.setAttribute("omims", omims);
        
 //RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
+  String submissionID = sd.getSub_id_sub();
+  System.out.println("SUBMISSION ID IS::" + submissionID);
         request.setAttribute("associatedFiles", null);
         DirFileList files = new DirFileList();
         String fileList[];
