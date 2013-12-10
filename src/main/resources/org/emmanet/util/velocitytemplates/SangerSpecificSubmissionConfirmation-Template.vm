@@ -1,0 +1,25 @@
+## Include header template common to all messages 
+#parse( "org/emmanet/util/velocitytemplates/header.vm" )
+#set ($string= 'Request ID:[####]')
+Dear EMMA customer,
+
+We would like to confirm receipt of the order form that you submitted to EMMA for ${strainname} (${emmaid}). Your request ID is: ${requestID}
+
+You'll be contacted within two weeks by the EMMA partner responsible for distributing the strain you have requested. 
+
+The strain you are interested in has been produced by the Sanger Institute Mouse Genetics Project (Sanger MGP).
+
+Without exception, shipment will not proceed without a completed Material Transfer Agreement (MTA). In our experience, this can be a lengthy procedure. If a partially executed document has not already been submitted we recommend starting this process immediately. 
+
+Please find attached the MTA template for your convenience. To expedite processing of the MTA, please follow these guidelines: 
+    Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
+    The MTA is non-negotiable.
+    For the section "Description of Materials", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
+            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. ${string}"
+
+Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <https://www.infrafrontier.eu/resources-and-services/access-emma-mouse-resources/strain-ordering>.
+
+Should you have any questions, please do not hesitate to contact the Wellcome Trust Sanger Institute Mouse Genetics Project (mouseinterest@sanger.ac.uk )
+
+## Include footer template common to all messages
+#parse( "org/emmanet/util/velocitytemplates/SangerSpecificFooter.vm" )
