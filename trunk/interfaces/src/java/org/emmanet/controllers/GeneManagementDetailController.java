@@ -16,6 +16,8 @@
 
 package org.emmanet.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +33,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * @author mrelac
  */
 public class GeneManagementDetailController extends SimpleFormController {
-    private GenesDAO genesDAO = new GenesDAO();
+    private GenesDAO gene = new GenesDAO();
     private final GenesManager genesManager;
     
     public GeneManagementDetailController() {
@@ -47,15 +49,15 @@ public class GeneManagementDetailController extends SimpleFormController {
             logger.debug("formBackingObject: action = " + action);
             Integer id = Utils.tryParseInt(request.getParameter("id"));
             if (action.compareToIgnoreCase("editGene") ==  0) {
-                genesDAO = genesManager.getGene(id.intValue());
+                gene = genesManager.getGene(id.intValue());
             } else if (action.compareToIgnoreCase("newGene") ==  0) {
-                genesDAO = new GenesDAO();
+                gene = new GenesDAO();
             } else if (action.compareToIgnoreCase("deleteSynonym") == 0) {
-                genesManager.deleteSynonym(genesDAO, id);
+                genesManager.deleteSynonym(gene, id);
             } 
         }
         
-        return genesDAO;
+        return gene;
     }
     
     @Override
@@ -73,18 +75,19 @@ public class GeneManagementDetailController extends SimpleFormController {
             logger.debug("onSubmit: action = " + action);
             
             if (action.compareToIgnoreCase("newSynonym") == 0) {
-                genesDAO = (GenesDAO)command;
-                genesManager.addSynonym(genesDAO);
-                genesManager.save(genesDAO); 
+                gene = (GenesDAO)command;
+                genesManager.addSynonym(gene);
+                genesManager.save(gene); 
             } else if (action.compareToIgnoreCase("save") == 0) {
-                genesDAO = (GenesDAO)command;
-                genesManager.save(genesDAO);                                    // Save the GenesDAO.
+                gene = (GenesDAO)command;
+                genesManager.save(gene);                                        // Save the GenesDAO.
+                List<GenesDAO> filteredGenesList = new ArrayList();
+                return new ModelAndView("/interfaces/geneManagementList", "command", filteredGenesList);
             }
         }
         
-        genesDAO = (GenesDAO)command;
-
-        return new ModelAndView(getSuccessView(), "command", genesDAO);
+        gene = (GenesDAO)command;
+        return new ModelAndView(getSuccessView(), "command", gene);
     }
     
     
@@ -94,12 +97,12 @@ public class GeneManagementDetailController extends SimpleFormController {
     // GETTERS AND SETTERS
     
     
-    public GenesDAO getGenesDAO() {
-        return genesDAO;
+    public GenesDAO getGene() {
+        return gene;
     }
 
-    public void setGenesDAO(GenesDAO genesDAO) {
-        this.genesDAO = genesDAO;
+    public void setGene(GenesDAO gene) {
+        this.gene = gene;
     }
 
 

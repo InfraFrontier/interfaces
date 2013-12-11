@@ -5,7 +5,7 @@
     <id column="id_gene" name="id_gene">
       <generator class="native"/>
     </id>
-    <set name="synonyms" table="syn_genes" lazy="false" cascade="all">
+    <set name="synonyms" table="syn_genes" lazy="false" cascade="all" order-by="id_syn">
         <key>
             <column name="gen_id_gene" />
         </key>
