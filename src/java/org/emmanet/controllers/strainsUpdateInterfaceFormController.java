@@ -184,14 +184,39 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         if (sDAO.getMgi_ref().equals("")) {
             sDAO.setMgi_ref(null);
         }
-        if(sDAO.getGeneration().equals("")){
+        if (sDAO.getGeneration().equals("")) {
             sDAO.setGeneration(null);
         }
-        System.out.println("before Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
+        if (sDAO.getResiduesDAO().getReproductive_maturity_age().equals("")) {
+            sDAO.getResiduesDAO().setReproductive_maturity_age(null);
+        }
+        if (sDAO.getResiduesDAO().getReproductive_decline_age().equals("")) {
+            sDAO.getResiduesDAO().setReproductive_decline_age(null);
+        }
+        if (sDAO.getResiduesDAO().getGestation_length().equals("")) {
+            sDAO.getResiduesDAO().setGestation_length(null);
+        }
+        if (sDAO.getResiduesDAO().getPups_at_birth().equals("")) {
+            sDAO.getResiduesDAO().setPups_at_birth(null);
+        }
+        if (sDAO.getResiduesDAO().getPups_at_weaning().equals("")) {
+            sDAO.getResiduesDAO().setPups_at_weaning(null);
+        }
+        if (sDAO.getResiduesDAO().getWeaning_age().equals("")) {
+            sDAO.getResiduesDAO().setWeaning_age(null);
+        }
+
+        if (sDAO.getResiduesDAO().getLitters_in_lifetime().equals("")) {
+            sDAO.getResiduesDAO().setLitters_in_lifetime(null);
+        }
+
+
+
+       // System.out.println("before Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
         // sDAO.setBackgroundDAO(bDAO);
         sm.save(sDAO);
-        System.out.println("after Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
-        System.out.println("saved");
+      //  System.out.println("after Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
+       // System.out.println("saved");
         request.getSession().setAttribute(
                 "message",
                 getMessageSourceAccessor().getMessage("Message",
