@@ -61,7 +61,7 @@
         <title>EMMA Strain Update Interface</title>
     </head>
     <body>
-        <span id="loginHeader">Strains Update Interface for strain ${keyRef["id_str"]} - Logged in as user <c:out value="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME)}"/> ${( sessionScope.UPLOADEDFILEURL)}</span>
+        <span id="loginHeader">Strains Update Interface for strain ${keyRef["id_str"]} - Logged in as user <c:out value="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME)}"/></span>
 
         <br/><br/>
         <%-- include consistent navigation --%>
@@ -851,8 +851,8 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href='${( sessionScope.SUBFORMUPLOAD)}${file}'>
-                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.SUBFORMUPLOAD)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                            <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
+                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
                         <td>&nbsp;</td>
@@ -921,8 +921,8 @@ END OF CRYOPRESERVATION HISTORY --%>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href='${( sessionScope.SUBFORMUPLOAD)}${file}'>
-                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.SUBFORMUPLOAD)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                            <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
+                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
                         <td>&nbsp;</td>
@@ -1167,8 +1167,8 @@ END OF CRYOPRESERVATION HISTORY --%>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href='${( sessionScope.SUBFORMUPLOAD)}${file}'>
-                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download submission supporting file ${( sessionScope.SUBFORMUPLOAD)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                            <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
+                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download submission supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
                         <td>&nbsp;</td>
