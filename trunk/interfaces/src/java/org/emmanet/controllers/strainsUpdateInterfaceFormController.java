@@ -184,6 +184,9 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         if (sDAO.getMgi_ref().equals("")) {
             sDAO.setMgi_ref(null);
         }
+        if(sDAO.getGeneration().equals("")){
+            sDAO.setGeneration(null);
+        }
         System.out.println("before Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
         // sDAO.setBackgroundDAO(bDAO);
         sm.save(sDAO);
