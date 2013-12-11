@@ -61,7 +61,7 @@
         <title>EMMA Strain Update Interface</title>
     </head>
     <body>
-        <span id="loginHeader">Strains Update Interface for strain ${keyRef["id_str"]} - Logged in as user <c:out value="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME)}"/> ${( sessionScope.SUBFORMUPLOAD)}</span>
+        <span id="loginHeader">Strains Update Interface for strain ${keyRef["id_str"]} - Logged in as user <c:out value="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME)}"/> ${( sessionScope.UPLOADEDFILEURL)}</span>
 
         <br/><br/>
         <%-- include consistent navigation --%>
