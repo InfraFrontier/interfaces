@@ -52,6 +52,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
     private String tmpDir;
     private List assocFiles;
     final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
+    final static String UPLOADEDFILEURL = Configuration.get("UPLOADEDFILEURL");
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -98,7 +99,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         //NOW SET NUMBER OF RTOOLS REFS
         session.setAttribute("rtCount", sm.getRToolsCount(strainID));
         
-        session.setAttribute("SUBFORMUPLOAD", SUBFORMUPLOAD);
+        session.setAttribute("UPLOADEDFILEURL", UPLOADEDFILEURL);
         
         Set csd = sd.getCategoriesStrainsDAO();
         List cats = new ArrayList();
