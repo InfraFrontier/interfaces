@@ -34,7 +34,7 @@
             $(document).ready(function() {
 
             });
-            
+
         </script>
         <title>Gene Management - add/edit</title>
     </head>
@@ -79,19 +79,27 @@
                                     <th>Name</th>
                                     <th>Symbol</th>
                                 </tr>       
-                                <c:forEach var="synonyms" items="${command.synonyms}" varStatus="status">
+                                <c:forEach var="synonym" items="${command.synonyms}" varStatus="status">
                                     <tr>
                                         <td style="border: 1px solid black">
                                             <table>
                                                 <tr>
-                                                    <td><a href="geneManagementDetail.emma?id=${synonyms.id_syn}&action=editSynonym">Edit</a></td>
-                                                    <td><a href="geneManagementDetail.emma?id=${synonyms.id_syn}&action=deleteSynonym">Delete</a></td>
+                                                    <td><a href="geneManagementDetail.emma?id=${synonym.id_syn}&action=deleteSynonym">Delete</a></td>
                                                 </tr>
                                             </table>
                                         </td>
-                                        <td style="border: 1px solid black" valign="top">${synonyms.id_syn}</td>
-                                        <td style="border: 1px solid black" valign="top">${synonyms.name}</td>
-                                        <td style="border: 1px solid black" valign="top">${synonyms.symbol}</td>
+                                        <td style="border: 1px solid black" valign="top">${synonym.id_syn}</td>
+                                        <td>
+                                            <c:set var="nameIndex" value="${status.index + 12}" />
+                                            <spring:bind path="command.synonyms[${status.index}].name">
+                                                <form:input id="${status.expression}" tabindex="${nameIndex}" path="${status.expression}" />
+                                            </spring:bind>
+                                        </td>
+                                        <td>
+                                            <spring:bind path="command.synonyms[${status.index}].symbol">
+                                                <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
+                                            </spring:bind>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </table>
