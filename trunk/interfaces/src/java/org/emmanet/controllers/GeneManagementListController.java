@@ -108,7 +108,7 @@ public class GeneManagementListController extends SimpleFormController {
         options.put("chromosomes", genesManager.getChromosomes());
         options.put("mgiReferences", genesManager.getMGIReferences());
     }
-    
+
     
     // GETTERS AND SETTERS
 

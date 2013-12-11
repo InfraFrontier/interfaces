@@ -29,6 +29,20 @@
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/json2.js" charset="UTF-8"></script>
         <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+        <style>
+            .error {
+                    color: #ff0000;
+            }
+
+            .errorblock {
+                    color: #000;
+                    background-color: #ffEEEE;
+                    border: 3px solid #ff0000;
+                    padding: 8px;
+                    margin: 16px;
+            }
+        </style>
+        
         <script>
             
             $(document).ready(function() {
@@ -135,6 +149,9 @@
                         <td><form:label for="cytoband" path="cytoband">Cytoband:</form:label></td>
                         <td colspan="2"><form:input id="cytoband" tabindex="11" path="cytoband" /></td>
                     </tr >
+                    <tr>
+                        <td colspan="2"><form:errors path="centimorgan" cssClass="error" /></td>
+                    </tr>
                     <tr>
                         <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma" /></td>
                         <td colspan="2" align="center"><input type="submit" value="Cancel" formaction="geneManagementList.emma" /></td>
