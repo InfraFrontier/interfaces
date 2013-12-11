@@ -482,6 +482,7 @@ public class GenesManager {
                 gene.setSynonyms(syn_genesDAOSet);
             }
             Syn_GenesDAO syn_genesDAO = new Syn_GenesDAO();
+            syn_genesDAO.setLast_change(new Date());
             syn_genesDAO.setUsername("EMMA");
             syn_genesDAO.setGenes(gene);
             gene.getSynonyms().add(syn_genesDAO);
