@@ -615,6 +615,9 @@
         <property name="successView">
             <value>/interfaces/geneManagementDetail</value>
         </property>
+        <property name="validator">
+		<bean class="org.emmanet.controllers.GeneManagementDetailController" />
+	</property>
     </bean>
 
 </beans>

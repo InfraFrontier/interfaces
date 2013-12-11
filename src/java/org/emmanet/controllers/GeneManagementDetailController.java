@@ -25,6 +25,8 @@ import org.emmanet.model.GenesDAO;
 import org.emmanet.model.GenesManager;
 import org.emmanet.util.Utils;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -32,7 +34,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  *
  * @author mrelac
  */
-public class GeneManagementDetailController extends SimpleFormController {
+public class GeneManagementDetailController extends SimpleFormController implements Validator {
     private GenesDAO gene = new GenesDAO();
     private final GenesManager genesManager;
     
@@ -89,7 +91,36 @@ public class GeneManagementDetailController extends SimpleFormController {
         gene = (GenesDAO)command;
         return new ModelAndView(getSuccessView(), "command", gene);
     }
+
     
+    /**
+     * Required for Validator implementation.
+     * @param clazz caller's class
+     * @return true if caller's class is supported; false otherwise.
+     */
+    @Override
+    public boolean supports(Class clazz) {
+            //just validate the Customer instances
+            return GenesDAO.class.isAssignableFrom(clazz);
+    }
+
+    /**
+     * Required for Validator implmentation.
+     * @param target target object to be validated
+     * @param errors errors object
+     */
+    @Override
+    public void validate(Object target, Errors errors) {
+        GenesDAO gene = (GenesDAO)target;
+        
+        // Centimorgan, if supplied, must be an integer.
+        if ((gene.getCentimorgan() != null) && ( ! gene.getCentimorgan().isEmpty())) {
+            Integer centimorgan = Utils.tryParseInt(gene.getCentimorgan());
+            if (centimorgan == null) {
+                errors.rejectValue("centimorgan", null, "Please enter an integer.");
+            }
+        }
+    }
     
     // PRIVATE METHODS
     
