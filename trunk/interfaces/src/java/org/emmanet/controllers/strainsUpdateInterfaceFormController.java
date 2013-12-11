@@ -209,14 +209,18 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         if (sDAO.getResiduesDAO().getLitters_in_lifetime().equals("")) {
             sDAO.getResiduesDAO().setLitters_in_lifetime(null);
         }
+        if (sDAO.getResiduesDAO().getBreeding_performance().equals("")) {
+            sDAO.getResiduesDAO().setBreeding_performance(null);
+        }
 
 
 
-       // System.out.println("before Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
+
+        // System.out.println("before Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
         // sDAO.setBackgroundDAO(bDAO);
         sm.save(sDAO);
-      //  System.out.println("after Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
-       // System.out.println("saved");
+        //  System.out.println("after Residues char genotype is " + sDAO.getResiduesDAO().getChar_genotyping());
+        // System.out.println("saved");
         request.getSession().setAttribute(
                 "message",
                 getMessageSourceAccessor().getMessage("Message",
