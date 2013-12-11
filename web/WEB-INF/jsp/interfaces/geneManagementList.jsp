@@ -27,11 +27,47 @@
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script type="text/javascript" src="../js/json2.js" charset="UTF-8"></script>
         <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+
+        <style type="text/css">
+            .error {
+                font-family: Arial; font-size: 14px; margin-left: 30px; color: red;
+            }
+        </style>
+
         <script>
+            var defaultBorderColor = new Array();   // left, top, right, bottom
             
             $(document).ready(function() {
                 populateFilterAutocompletes();
+                $('#applyFilter').click( function() {
+                    return validate();
+                });
+                
+                // Reset validation indicators.
+                
+                defaultBorderColor[0] = $('#filterGeneName').css('border-left-color');
+                defaultBorderColor[1] = $('#filterGeneName').css('border-top-color');
+                defaultBorderColor[2] = $('#filterGeneName').css('border-right-color');
+                defaultBorderColor[3] = $('#filterGeneName').css('border-bottom-color');
+                $('#trFilterGeneIdError').css('display', 'none');
+                setBorderDefault($('#filterGeneId'));
             });
+            
+            function setBorderError(obj) {
+                $(obj)
+                    .css('border-left-color', 'red')
+                    .css('border-top-color', 'red')
+                    .css('border-right-color', 'red')
+                    .css('border-bottom-color', 'red')
+            }
+            
+            function setBorderDefault(obj) {
+                $(obj)
+                    .css('border-left-color', defaultBorderColor[0])
+                    .css('border-top-color', defaultBorderColor[1])
+                    .css('border-right-color', defaultBorderColor[2])
+                    .css('border-bottom-color', defaultBorderColor[3]);
+            }
 
             function populateFilterAutocompletes() {
                 var geneIds = new Array();
@@ -62,6 +98,24 @@
                 $("#filterGeneName").autocomplete({ source: geneNames, mustMatch:1, max:100});
                 $("#filterMgiReference").autocomplete({ source: mgiReferences, mustMatch:1, max:100});
                 $("#filterGeneSymbol").autocomplete({ source: geneSymbols, mustMatch:1, max:100});
+            }
+            
+            function validate() {
+                var filterGeneIdValue = $('#filterGeneId').val();
+                if ((filterGeneIdValue === '') || (isInteger(filterGeneIdValue))) {
+                    $('#trFilterGeneIdError').css('display', 'none');
+                    setBorderDefault($('#filterGeneId'));
+                    return true;
+                } else {
+                    $('#trFilterGeneIdError').css('display', 'block');
+                    setBorderError($('#filterGeneId'));
+                    return false;
+                }
+            }
+            
+            function isInteger(number) {
+                var intRegex = /^\d+$/;
+                return intRegex.test(number);
             }
             
         </script>
@@ -100,6 +154,9 @@
                     <td><input type="text" id="filterGeneId" name="filterGeneId" /></td>
                     <td><label for="filterChromosome">Chromosome:</label></td>
                     <td><input type="text" id="filterChromosome" name="filterChromosome" /></td>
+                </tr>
+                <tr id="trFilterGeneIdError">
+                    <td colspan="4" style="color: red">Please enter an integer.</td>
                 </tr>
                 <tr>
                     <td><label for="filterGeneName">Gene name:</label></td>
