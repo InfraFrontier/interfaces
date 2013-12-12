@@ -17,12 +17,15 @@
 package org.emmanet.controllers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.emmanet.model.GenesDAO;
 import org.emmanet.model.GenesManager;
+import org.emmanet.model.Syn_GenesDAO;
 import org.emmanet.util.Utils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -36,7 +39,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class GeneManagementDetailController extends SimpleFormController implements Validator {
     private GenesDAO gene = new GenesDAO();
-    private final GenesManager genesManager;
+private final GenesManager genesManager;
     
     public GeneManagementDetailController() {
         genesManager = new GenesManager();
@@ -118,6 +121,25 @@ public class GeneManagementDetailController extends SimpleFormController impleme
             Integer centimorgan = Utils.tryParseInt(gene.getCentimorgan());
             if (centimorgan == null) {
                 errors.rejectValue("centimorgan", null, "Please enter an integer.");
+            }
+        }
+        if ((gene.getName() != null) && (gene.getName().trim().length() == 0)) {
+            errors.rejectValue("name", null, "Please provide a name for the gene.");
+        }
+        
+        Utils.validateMaxFieldLengths(gene, "genes", errors);                   // Validate 'gene' max String lengths
+        
+        // Validate that Syn_GenesDAO String data doesn't exceed maximum varchar lengths.
+        if (gene.getSynonyms() != null) {                                       // Validate each 'synGenes' instance's max String lengths
+            Set<Syn_GenesDAO> geneSynonyms = gene.getSynonyms();
+            Iterator<Syn_GenesDAO> synGenesIterator = geneSynonyms.iterator();
+            int i = 0;
+            while (synGenesIterator.hasNext()) {
+                Syn_GenesDAO geneSynonym = (Syn_GenesDAO)synGenesIterator.next();
+                errors.pushNestedPath("synonyms[" + Integer.toString(i) + "]");
+                Utils.validateMaxFieldLengths(geneSynonym, "syn_genes", errors);
+                errors.popNestedPath();
+                i++;
             }
         }
     }
