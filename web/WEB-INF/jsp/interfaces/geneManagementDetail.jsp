@@ -80,8 +80,12 @@
                         <td><label id="labGeneId">Gene ID:</label></td>
                         <td style="border: 0"><form:input id="geneId" tabindex="0" path="id_gene" readonly="true"></form:input></td>
                         <td><form:label for="mgiReference" path="mgi_ref">MGI reference:</form:label></td>
-                        <td><form:input id="mgiReference" tabindex="6" path="mgi_ref" /></td>
-                        <td rowspan="6">
+                        <td>
+                            <form:input id="mgiReference" tabindex="6" path="mgi_ref" />
+                            <br />
+                            <form:errors path="mgi_ref" cssClass="error" />
+                        </td>
+                        <td rowspan="5">
                             <table style="border: 1px solid black">
                                 <tr style="border: 1px solid black">
                                     <td>Synonyms:</td>
@@ -92,7 +96,7 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Symbol</th>
-                                </tr>       
+                                </tr>
                                 <c:forEach var="synonym" items="${command.synonyms}" varStatus="status">
                                     <tr>
                                         <td style="border: 1px solid black">
@@ -105,13 +109,15 @@
                                         <td style="border: 1px solid black" valign="top">${synonym.id_syn}</td>
                                         <td>
                                             <c:set var="nameIndex" value="${status.index + 12}" />
-                                            <spring:bind path="command.synonyms[${status.index}].name">
-                                                <form:input id="${status.expression}" tabindex="${nameIndex}" path="${status.expression}" />
+                                            <spring:bind path="command.synonyms[${status.index}].name" >
+                                                <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                             </spring:bind>
                                         </td>
                                         <td>
-                                            <spring:bind path="command.synonyms[${status.index}].symbol">
+                                            <spring:bind path="command.synonyms[${status.index}].symbol" >
                                                 <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
+                                                <form:errors path="${status.expression}" cssClass="error" />
                                             </spring:bind>
                                         </td>
                                     </tr>
@@ -123,13 +129,21 @@
                         <td><form:label for="geneName" path="name">Gene Name:</form:label></td>
                         <td><form:input id="geneName" tabindex="1" path="name" /></td>
                         <td><form:label for="ensemblReference" path="ensembl_ref">Ensembl reference:</form:label></td>
-                        <td colspan="2"><form:input id="ensemblReference" tabindex="7" path="ensembl_ref" /></td>
+                        <td><form:input id="ensemblReference" tabindex="7" path="ensembl_ref" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><form:errors path="name" cssClass="error" /></td>
+                        <td colspan="2"><form:errors path="ensembl_ref" cssClass="error" /></td>
                     </tr>
                     <tr>
                         <td><form:label for="geneSymbol" path="symbol">Gene Symbol:</form:label></td>
                         <td><form:input id="geneSymbol" tabindex="2" path="symbol" /></td>
                         <td><form:label for="promoter" path="promoter">Promoter:</form:label></td>
-                        <td colspan="2"><form:input id="promoter" tabindex="8" path="promoter" /></td>
+                        <td><form:input id="promoter" tabindex="8" path="promoter" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><form:errors path="symbol" cssClass="error" /></td>
+                        <td colspan="3"><form:errors path="promoter" cssClass="error" /></td>
                     </tr>
                     <tr>
                         <td><form:label for="chromosome" path="chromosome">Chromosome:</form:label></td>
@@ -138,10 +152,18 @@
                         <td colspan="2"><form:input id="founderLineNumber" tabindex="9" path="founder_line_number" /></td>
                     </tr>
                     <tr>
+                        <td colspan="2"><form:errors path="chromosome" cssClass="error" /></td>
+                        <td colspan="3"><form:errors path="founder_line_number" cssClass="error" /></td>
+                    </tr>
+                    <tr>
                         <td><form:label for="species" path="species">Species:</form:label></td>
                         <td><form:input id="species" tabindex="4" path="species" /></td>
                         <td><form:label for="plasmidConstruct" path="plasmid_construct">Plasmid Construct:</form:label></td>
                         <td colspan="2"><form:input id="plasmidConstruct" tabindex="10" path="plasmid_construct" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><form:errors path="species" cssClass="error" /></td>
+                        <td colspan="3"><form:errors path="plasmid_construct" cssClass="error" /></td>
                     </tr>
                     <tr>
                         <td><form:label for="centimorgan" path="centimorgan">Centimorgan:</form:label></td>
@@ -151,6 +173,7 @@
                     </tr >
                     <tr>
                         <td colspan="2"><form:errors path="centimorgan" cssClass="error" /></td>
+                        <td colspan="3"><form:errors path="cytoband" cssClass="error" /></td>
                     </tr>
                     <tr>
                         <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma" /></td>

@@ -7,22 +7,28 @@ package org.emmanet.util;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import org.apache.log4j.Logger;
+import org.emmanet.model.UtilsDAO;
+import org.springframework.validation.Errors;
 
 /**
  *
  * @author mrelac
  */
 public class Utils {
+    protected static Logger logger = Logger.getLogger(Utils.class);
 
     /**
      * Given a property filename and a property name, this method returns the
@@ -31,7 +37,7 @@ public class Utils {
      * directory and typically is not an absolute path (e.g. no leading slash).
      * 
      * @param propertiesFile the name of the properties file
-     * @param propertyName name of desired property value
+     * @param property name of desired property value
      * @return the property value, if found; null otherwise
      */
     public static String getProperty(String propertiesFile, String property) {
@@ -66,8 +72,7 @@ public class Utils {
      * line. If the delimiter is null or is an empty string, then this function
      * returns the rvalue in its entirety, in an array of exactly one element.
      * @param propertiesFile the name of the properties file
-     * @param propertyName name of desired property value
-     * @return the property value, if found; null otherwise
+     * @param property name of desired property value
      * @param delimiter The delimiter used to separate input property values
      * @return An array of <code>String</code> containing the property values
      */
@@ -218,7 +223,6 @@ public class Utils {
             retVal = Double.parseDouble(o.toString().trim());
         }
         catch (NumberFormatException nfe ) { }
-        catch (Exception e) { }
         
         return retVal;
     }
@@ -240,7 +244,6 @@ public class Utils {
             retVal = Integer.parseInt(o.toString().trim());
         }
         catch (NumberFormatException nfe ) { }
-        catch (Exception e) { }
         
         return retVal;
     }
@@ -278,4 +281,46 @@ public class Utils {
         return wrapper + s + wrapper;
     }
     
+    public static HashMap<String, Integer> getMaxColumnLengths(String table) {
+        return new UtilsDAO().getMaxColumnLengths(table);
+    }
+    
+    /**
+     * Given an object instance, a tablename to which the fields in the object are bound,
+     * and a <code>org.springframework.validation.Errors.Errors</code> object,
+     * this method performs maximum column width validation to insure the strings
+     * in <code>object</code> do not exceed their maximum length as defined in
+     * the database.
+     * @param instance the instance whose String components are to be validated
+     * @param tablename the table containing the columns to which <code>
+     * instance</code> String fields are bound
+     * @param errors a Spring validation Errors object updated with any validation
+     * errors .
+     */
+    public static void validateMaxFieldLengths(Object instance, String tablename, Errors errors) {
+        HashMap columnLengthsHash = getMaxColumnLengths(tablename);
+        Field[] fields = instance.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getType().equals(String.class)) {
+                try {
+                    field.setAccessible(true);
+                    String value = (String)field.get(instance);
+                    if (value != null) {
+                        logger.debug("validate: field: " + field.getName() + " in columnLengthsHash? " + (columnLengthsHash.containsKey(field.getName()) ? "true" : "false"));
+                        if (columnLengthsHash.containsKey(field.getName())) {
+                            int maxColumnLength = (int)columnLengthsHash.get(field.getName());
+                            if (value.length() > maxColumnLength) {
+                                String errMsg = "Expected at most " + maxColumnLength + " characters but found " + value.length() + " characters.";
+                                errors.rejectValue(field.getName(), null, errMsg);
+                                String logMsg = tablename + "." + field.getName() + ": expected at most " + maxColumnLength + " characters but found " + value.length() + " characters.";
+                                logger.warn(logMsg);
+                            }
+                        }
+                    }
+                } catch (IllegalAccessException iae) {
+                    logger.warn(iae.getMessage());
+                }
+            }
+        }
+    }
 }
