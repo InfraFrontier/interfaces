@@ -21,13 +21,12 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-        <script type="text/javascript" src="../js/json2.js" charset="UTF-8"></script>
-        <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="../css/jquery-ui-1.10.3.min.css" />
+        <script src="../js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="../js/jquery-ui-1.10.3.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="../js/json2.js" type="text/javascript" charset="UTF-8"></script>
+  
         <style type="text/css">
             .error {
                 font-family: Arial; font-size: 14px; margin-left: 30px; color: red;
@@ -127,21 +126,6 @@
         
         <br />
 
-        <!-- Placeholders for error messages. -->
-        <center>
-            <c:if test="${not empty status.errorMessages}">
-                <c:forEach var="error" items="${status.errorMessages}">
-                    <font color="red"><c:out value="${error}" escapeXml="false" /> </font>
-                    <br />
-                </c:forEach>
-            </c:if>
-
-            <c:if test="${not empty message}">
-                <font color="green"><c:out value="${message}" /></font>
-                <c:set var="message" value="" scope="session" />
-            </c:if>
-        </center>
-
         <form:form commandName="command">
             <input type="submit" value="New" style="margin-left: 470px; margin-bottom: 5px" formaction="geneManagementDetail.emma?id=0&action=newGene" />
             
@@ -156,7 +140,7 @@
                     <td><input type="text" id="filterChromosome" name="filterChromosome" /></td>
                 </tr>
                 <tr id="trFilterGeneIdError">
-                    <td colspan="4" style="color: red">Please enter an integer.</td>
+                    <td colspan="2" style="color: red">Please enter an integer.</td>
                 </tr>
                 <tr>
                     <td><label for="filterGeneName">Gene name:</label></td>
