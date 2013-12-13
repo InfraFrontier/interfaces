@@ -96,12 +96,14 @@
                                             <c:set var="nameIndex" value="${status.index + 12}" />
                                             <spring:bind path="command.synonyms[${status.index}].name" >
                                                 <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
+                                                <br />
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </spring:bind>
                                         </td>
                                         <td>
                                             <spring:bind path="command.synonyms[${status.index}].symbol" >
                                                 <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
+                                                <br />
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </spring:bind>
                                         </td>
@@ -112,54 +114,74 @@
                     </tr>
                     <tr>
                         <td><form:label for="geneName" path="name">Gene Name:</form:label></td>
-                        <td><form:input id="geneName" tabindex="1" path="name" /></td>
+                        <td>
+                            <form:input id="geneName" tabindex="1" path="name" />
+                            <br />
+                            <form:errors path="name" cssClass="error" />
+                        </td>
                         <td><form:label for="ensemblReference" path="ensembl_ref">Ensembl reference:</form:label></td>
-                        <td><form:input id="ensemblReference" tabindex="7" path="ensembl_ref" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><form:errors path="name" cssClass="error" /></td>
-                        <td colspan="2"><form:errors path="ensembl_ref" cssClass="error" /></td>
+                        <td>
+                            <form:input id="ensemblReference" tabindex="7" path="ensembl_ref" />
+                            <br />
+                            <form:errors path="ensembl_ref" cssClass="error" />
+                        </td>
                     </tr>
                     <tr>
                         <td><form:label for="geneSymbol" path="symbol">Gene Symbol:</form:label></td>
-                        <td><form:input id="geneSymbol" tabindex="2" path="symbol" /></td>
+                        <td>
+                            <form:input id="geneSymbol" tabindex="2" path="symbol" />
+                            <br />
+                            <form:errors path="symbol" cssClass="error" />
+                        </td>
                         <td><form:label for="promoter" path="promoter">Promoter:</form:label></td>
-                        <td><form:input id="promoter" tabindex="8" path="promoter" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><form:errors path="symbol" cssClass="error" /></td>
-                        <td colspan="3"><form:errors path="promoter" cssClass="error" /></td>
+                        <td>
+                            <form:input id="promoter" tabindex="8" path="promoter" />
+                            <br />
+                            <form:errors path="promoter" cssClass="error" />
+                        </td>
                     </tr>
                     <tr>
                         <td><form:label for="chromosome" path="chromosome">Chromosome:</form:label></td>
-                        <td><form:input id="chromosome" tabindex="3" path="chromosome" /></td>
+                        <td>
+                            <form:input id="chromosome" tabindex="3" path="chromosome" />
+                            <br />
+                            <form:errors path="chromosome" cssClass="error" />
+                        </td>
                         <td><form:label for="founderLineNumber" path="founder_line_number">Founder line number:</form:label></td>
-                        <td colspan="2"><form:input id="founderLineNumber" tabindex="9" path="founder_line_number" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><form:errors path="chromosome" cssClass="error" /></td>
-                        <td colspan="3"><form:errors path="founder_line_number" cssClass="error" /></td>
+                        <td colspan="2">
+                            <form:input id="founderLineNumber" tabindex="9" path="founder_line_number" />
+                            <br />
+                            <form:errors path="founder_line_number" cssClass="error" />
+                        </td>
                     </tr>
                     <tr>
                         <td><form:label for="species" path="species">Species:</form:label></td>
-                        <td><form:input id="species" tabindex="4" path="species" /></td>
+                        <td>
+                            <form:input id="species" tabindex="4" path="species" />
+                            <br />
+                            <form:errors path="species" cssClass="error" />
+                        </td>
                         <td><form:label for="plasmidConstruct" path="plasmid_construct">Plasmid Construct:</form:label></td>
-                        <td colspan="2"><form:input id="plasmidConstruct" tabindex="10" path="plasmid_construct" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><form:errors path="species" cssClass="error" /></td>
-                        <td colspan="3"><form:errors path="plasmid_construct" cssClass="error" /></td>
+                        <td colspan="2">
+                            <form:input id="plasmidConstruct" tabindex="10" path="plasmid_construct" />
+                            <br />
+                            <form:errors path="plasmid_construct" cssClass="error" />
+                        </td>
                     </tr>
                     <tr>
                         <td><form:label for="centimorgan" path="centimorgan">Centimorgan:</form:label></td>
-                        <td><form:input id="centimorgan" tabindex="5" path="centimorgan" /></td>
+                        <td>
+                            <form:input id="centimorgan" tabindex="5" path="centimorgan" />
+                            <br />
+                            <form:errors path="centimorgan" cssClass="error" />
+                        </td>
                         <td><form:label for="cytoband" path="cytoband">Cytoband:</form:label></td>
-                        <td colspan="2"><form:input id="cytoband" tabindex="11" path="cytoband" /></td>
+                        <td colspan="2">
+                            <form:input id="cytoband" tabindex="11" path="cytoband" />
+                            <br />
+                            <form:errors path="cytoband" cssClass="error" />
+                        </td>
                     </tr >
-                    <tr>
-                        <td colspan="2"><form:errors path="centimorgan" cssClass="error" /></td>
-                        <td colspan="3"><form:errors path="cytoband" cssClass="error" /></td>
-                    </tr>
                     <tr>
                         <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma" /></td>
                         <td colspan="2" align="center"><input type="submit" value="Cancel" formaction="geneManagementList.emma" /></td>
