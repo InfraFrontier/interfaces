@@ -40,6 +40,7 @@ import org.emmanet.model.ProjectsStrainsDAO;
 import org.emmanet.model.Sources_StrainsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -89,6 +90,8 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
     private String fileLocation;
     private BackgroundManager bm = new BackgroundManager();
     private String testMailRecipient;
+    
+    private static String BASEURL = Configuration.get("BASEURL");
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -258,6 +261,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 model.put("strainid", element[8]);
                 model.put("title", element[11]);
                 model.put("surname", element[9]);
+                model.put("BASEURL", BASEURL);
             }
 
             String MSGcontentArrv = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
@@ -330,6 +334,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                     model.put("strainid", element[8]);
                     model.put("title", element[11]);
                     model.put("surname", element[9]);
+                    model.put("BASEURL", BASEURL);
                     if (toAddress == null) {
                         System.out.println("toAddress value is null and will be reset to an empty string:: " + toAddress);
                         toAddress = "";
