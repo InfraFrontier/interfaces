@@ -60,7 +60,7 @@
         <security:intercept-url pattern="/newsitems.emma" access="ROLE_SUPER" />
         <!--<security:intercept-url pattern="/**" access="ROLE_USER" />-->
         <security:intercept-url pattern="/interfaces/**" access="ROLE_USER,ROLE_SUPER,ROLE_CURATION" />
-        <security:intercept-url pattern="/filestore/**" access="ROLE_USER,ROLE_SUPER,ROLE_CURATION" />
+        <security:intercept-url pattern="/filestore/**/*" access="ROLE_USER,ROLE_SUPER,ROLE_CURATION" />
     </security:http>
     <security:authentication-provider>
         <security:user-service>
