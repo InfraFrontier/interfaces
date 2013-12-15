@@ -185,35 +185,35 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         //BackgroundDAO bDAO=(BackgroundDAO) sDAO.getBackgroundDAO();
 //line below prevents java.sql.SQLException: Incorrect integer value: '' for column 'mgi_ref' at row 1
 //errors caused by an empty string value
-        if (sDAO.getMgi_ref().equals("")) {
+        if (sDAO.getMgi_ref() != null && sDAO.getMgi_ref().equals("")) {
             sDAO.setMgi_ref(null);
         }
-        if (sDAO.getGeneration().equals("")) {
+        if (sDAO.getGeneration() != null && sDAO.getGeneration().equals("")) {
             sDAO.setGeneration(null);
         }
-        if (sDAO.getResiduesDAO().getReproductive_maturity_age().equals("")) {
+        if (sDAO.getResiduesDAO().getReproductive_maturity_age() != null && sDAO.getResiduesDAO().getReproductive_maturity_age().equals("")) {
             sDAO.getResiduesDAO().setReproductive_maturity_age(null);
         }
-        if (sDAO.getResiduesDAO().getReproductive_decline_age().equals("")) {
+        if (sDAO.getResiduesDAO().getReproductive_decline_age() != null && sDAO.getResiduesDAO().getReproductive_decline_age().equals("")) {
             sDAO.getResiduesDAO().setReproductive_decline_age(null);
         }
-        if (sDAO.getResiduesDAO().getGestation_length().equals("")) {
+        if (sDAO.getResiduesDAO().getGestation_length() != null && sDAO.getResiduesDAO().getGestation_length().equals("")) {
             sDAO.getResiduesDAO().setGestation_length(null);
         }
-        if (sDAO.getResiduesDAO().getPups_at_birth().equals("")) {
+        if (sDAO.getResiduesDAO().getPups_at_birth() != null && sDAO.getResiduesDAO().getPups_at_birth().equals("")) {
             sDAO.getResiduesDAO().setPups_at_birth(null);
         }
-        if (sDAO.getResiduesDAO().getPups_at_weaning().equals("")) {
+        if (sDAO.getResiduesDAO().getPups_at_weaning() != null && sDAO.getResiduesDAO().getPups_at_weaning().equals("")) {
             sDAO.getResiduesDAO().setPups_at_weaning(null);
         }
-        if (sDAO.getResiduesDAO().getWeaning_age().equals("")) {
+        if (sDAO.getResiduesDAO().getWeaning_age() != null && sDAO.getResiduesDAO().getWeaning_age().equals("")) {
             sDAO.getResiduesDAO().setWeaning_age(null);
         }
 
-        if (sDAO.getResiduesDAO().getLitters_in_lifetime().equals("")) {
+        if (sDAO.getResiduesDAO().getLitters_in_lifetime() !=null && sDAO.getResiduesDAO().getLitters_in_lifetime().equals("")) {
             sDAO.getResiduesDAO().setLitters_in_lifetime(null);
         }
-        if (sDAO.getResiduesDAO().getBreeding_performance().equals("")) {
+        if (sDAO.getResiduesDAO().getBreeding_performance() != null && sDAO.getResiduesDAO().getBreeding_performance().equals("")) {
             sDAO.getResiduesDAO().setBreeding_performance(null);
         }
 
