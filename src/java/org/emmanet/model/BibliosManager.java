@@ -59,7 +59,7 @@ public class BibliosManager implements BibliosManagerIO {
      * @deprecated This method has been replaced by getBibliosByPubmed_id(), which
      *             allows the caller to pass in any pmid, including null, and which
      *             returns a list of matches. Remember, biblios.pubmed_id is defined
-     *             in the database as a varchar, with no unique constraint, and may
+     *             in the database as a varchar, with no unique constraint, and
      *             thus may return multiple BibliosDAO records.
      */
     @Deprecated

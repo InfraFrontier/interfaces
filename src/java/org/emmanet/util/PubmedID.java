@@ -7,7 +7,9 @@ package org.emmanet.util;
 /**
  *
  * @author mrelac
+ * @deprecated PubmedID has been replaced by the more powerful PubMed class.
  */
+@Deprecated
 public class PubmedID {
     String pubmed_id;
     
