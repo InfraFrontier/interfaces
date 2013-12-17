@@ -122,7 +122,7 @@
     </head>
     <body>
         <h2>Gene Management - list</h2>
-        <span id="loginHeader">Allele Update Interface - Logged in as user "<sec:authentication property='principal.username'/>"</span>
+        <span id="loginHeader">Logged in as user "<sec:authentication property='principal.username'/>"</span>
         
         <br />
 
