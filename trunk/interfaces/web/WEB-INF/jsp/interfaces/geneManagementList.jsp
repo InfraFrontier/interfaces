@@ -50,6 +50,9 @@
                 defaultBorderColor[3] = $('#filterGeneName').css('border-bottom-color');
                 $('#trFilterGeneIdError').css('display', 'none');
                 setBorderDefault($('#filterGeneId'));
+                
+                // Hide filter validation message (jira bug EMMA-545)
+                $('#trFilterGeneIdError').css('display', 'none');
             });
             
             function setBorderError(obj) {
