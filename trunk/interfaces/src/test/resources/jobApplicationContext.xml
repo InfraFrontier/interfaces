@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	">
+
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jobConfig.properties</value>
+                <!--  <value>classpath:config.properties</value>-->
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
+      
+    <!-- If you add or remove definitions here, please remember to update jobConfig.properties, where these actual values are defined. -->  
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://${db.hostname}:${db.port}/${db.name}?autoReconnect=true&amp;useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterEncoding=utf8&amp;characterSetResults=utf8" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testOnBorrow" value="true" />
+        <property name="defaultAutoCommit" value="false" />
+        <property name="maxWait" value="5000" />
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="emmaJobProperties" class="org.springframework.beans.factory.config.MapFactoryBean">
+        <property name="targetMapClass">
+            <value>java.util.HashMap</value> 
+        </property>
+        
+        <property name="sourceMap">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="mail.server" value="${mail.server}" />
+                <entry key="mail.from" value="${mail.from}" />
+                <entry key="mail.to" value="${mail.to}" />
+                <entry key="mail.cc" value="${mail.cc}" />
+                <entry key="mail.bcc" value="${mail.bcc}" />
+            </map>
+        </property>
+    </bean>
+    
+    <!-- ReloadableResourceBundleMessageSource supports UTF-8. The default ResourceBundleMessageSource does not.
+         See http://stackoverflow.com/questions/3064644/character-encoding-problem-spring.
+    -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+    
+    <bean id="dataBinder" class="org.springframework.validation.DataBinder">
+        <constructor-arg ref="emmaJobProperties" />
+    </bean>
+
+</beans>

@@ -4,11 +4,6 @@
  */
 package org.emmanet.jobs;
 
-import ebi.ws.client.Authors;
-import ebi.ws.client.ResponseWrapper;
-import ebi.ws.client.Result;
-import ebi.ws.client.WSCitationImpl;
-import ebi.ws.client.WSCitationImplService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.emmanet.healthcheck.EmmaBiblioValidator;
 import org.emmanet.model.BibliosDAO;
 import org.emmanet.model.BibliosManagerIO;
+import org.emmanet.util.PubMed;
 import org.emmanet.util.Utils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -137,62 +133,21 @@ public class EmmaBiblioJOB {
      */
     public FetchBiblio fetchPaper(int pubmed_id) {
         FetchBiblio paper = new FetchBiblio();
-        WSCitationImplService service = new WSCitationImplService();
         
-        WSCitationImpl port = service.getWSCitationImplPort();
-        String queryString = "EXT_ID:" + pubmed_id;
-        String dataSet = "metadata";
-        String resultType = "core";
-        int offset = 0;
-        boolean synonym = false;
-        String email = "";
-
-        logger.debug("Querying pubmed web service for pubmed_id " + pubmed_id + ": port.searchPublications(\"" + queryString + "\", \"" + dataSet + "\", \"" + resultType + "\", " + offset + ", " + synonym + ", \"" + email + "\")");
-        ResponseWrapper resultsBean;
-        try {
-            resultsBean = port.searchPublications(queryString, dataSet, resultType, offset, synonym, email); 
-        }
-        catch (Exception e) {
-            logger.error("Query to pubmed web service failed: " + e.getLocalizedMessage());
-            paper.status = FAIL;
-            paper.errorMessage = e.getLocalizedMessage();
-            return paper;
-        }
-        
-        List<Result> resultBeanCollection = null;
-        if ((resultsBean != null) && (resultsBean.getResultList() != null) && (resultsBean.getResultList().getResult() != null) && ( ! resultsBean.getResultList().getResult().isEmpty())) {
-            resultBeanCollection = resultsBean.getResultList().getResult().subList(0, 1);
-            for (Result citation : resultBeanCollection) {
-                int size = citation.getAuthorList().getAuthor().size();
-                int counter = -1;
-                StringBuilder otherAuthors = new StringBuilder();
-                //authors could be zero
-
-                for (Authors author : citation.getAuthorList().getAuthor()) {
-                    counter++;
-                    if ((author.getFullName() != null) && ( ! author.getFullName().isEmpty())) {
-                        String fullname = author.getFullName();
-
-                        if (counter == 0) {
-                            paper.author1 = fullname;
-                        } else if (counter + 1 < size) {
-                            otherAuthors.append(fullname).append(", ");
-                        } else {
-                            otherAuthors.append(fullname);
-                        }
-                    }
-                }
-                paper.paperid = "" + pubmed_id;
-                paper.title = (citation.getTitle() == null ? "" : citation.getTitle());
-                paper.year = citationGetYear(citation);
-                paper.journal = citationGetJournalTitle(citation);
-                paper.volume = citationGetVolume(citation);
-                paper.issue = citationGetIssue(citation);
-                paper.pages = citationGetPages(citation);
-                paper.author2 = otherAuthors.toString();
-                paper.status = OK;
-                paper.errorMessage = "";
-            }
+        PubMed pubmed = new PubMed(pubmed_id);
+        if (pubmed.isValid()) {
+            paper.paperid = pubmed.getPubmedId();
+            paper.title = (pubmed.getTitle());
+            paper.year = pubmed.getYear();
+            paper.journal = pubmed.getJournal();
+            paper.volume = pubmed.getVolume();
+            paper.issue = pubmed.getIssue();
+            paper.pages = pubmed.getPages();
+            paper.author1 = pubmed.getAuthor1();
+            paper.author2 = pubmed.getOtherAuthors();
+            paper.authors = pubmed.getAuthorsString();
+            paper.status = OK;
+            paper.errorMessage = "";
         } else {            
             logger.info("No pubmed_id found for value " + pubmed_id + ".");
             paper.status = NOT_FOUND;
@@ -327,47 +282,7 @@ public class EmmaBiblioJOB {
         maxWidths[10] = Math.max(Math.max(Math.max(oldBiblio.getAuthor1().length() + 2, newBiblio.getAuthor1().length()), heading1[10].length() + 2), maxWidths[10]);
         maxWidths[11] = Math.max(Math.max(Math.max(oldBiblio.getAuthor2().length() + 2, newBiblio.getAuthor2().length()), heading1[11].length() + 2), maxWidths[11]);
     }
-    
-    private String citationGetDateOfPublication(Result citation) {
-        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getDateOfPublication() != null))
-            return citation.getJournalInfo().getDateOfPublication();
-        else
-            return "";
-    }
-    private String citationGetJournalTitle(Result citation) {
-        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getJournal() != null) && (citation.getJournalInfo().getJournal().getTitle() != null))
-            return citation.getJournalInfo().getJournal().getTitle();
-        else
-            return "";
-    }
-    private Short citationGetYear(Result citation) {
-        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getYearOfPublication() != null))
-            return citation.getJournalInfo().getYearOfPublication();
-        else
-            return 0;
-    }
-    private String citationGetVolume(Result citation) {
-        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getVolume() != null))
-            return citation.getJournalInfo().getVolume();
-        else
-            return "";
-    }
-    private String citationGetIssue(Result citation) {
-        if ((citation != null) && (citation.getJournalInfo() != null) && (citation.getJournalInfo().getIssue() != null))
-            return citation.getJournalInfo().getIssue();
-        else
-            return "";
-    }
-    private String citationGetPages(Result citation) {
-        if ((citation != null) && (citation.getPageInfo() != null))
-            return citation.getPageInfo();
-        else
-            return "";
-    }
-    private String citationGetOtherAuthors(String otherAuthors) {
-        return (otherAuthors == null ? "" : otherAuthors);
-    }
-    
+
     /**
      * Given a <code>List&lt;BibliosDAO&gt;</code>, this method returns a new
      * list, which is a copy of the original list, with updates applied from the
@@ -733,6 +648,7 @@ public class EmmaBiblioJOB {
         public String title;
         public String author1;
         public String author2;
+        public String authors;              // A concatenation of author1 and author2 [e.g. all other authors].
         public String journal;
         public String volume;
         public String issue;
