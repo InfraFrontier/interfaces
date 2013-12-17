@@ -197,7 +197,7 @@ public class GenesManager {
         List sourceList = null;
         try {
             session.beginTransaction();
-            sourceList = session.createSQLQuery("SELECT DISTINCT chromosome FROM genes").list();
+            sourceList = session.createSQLQuery("SELECT DISTINCT chromosome FROM genes ORDER BY CAST(chromosome AS unsigned) ASC").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -227,7 +227,7 @@ public class GenesManager {
         List sourceList = null;
         try {
             session.beginTransaction();
-            sourceList = session.createSQLQuery("SELECT DISTINCT mgi_ref FROM genes").list();
+            sourceList = session.createSQLQuery("SELECT DISTINCT mgi_ref FROM genes ORDER BY CAST(mgi_ref AS unsigned) ASC").list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
@@ -255,7 +255,7 @@ public class GenesManager {
         Session session = factory.getCurrentSession();
         try {
             session.beginTransaction();
-            genesDAO = (GenesDAO)session.createQuery("FROM GenesDAO WHERE id_gene = ?")
+            genesDAO = (GenesDAO)session.createQuery("FROM GenesDAO g WHERE id_gene = ? ORDER BY g.id_gene")
                     .setParameter(0, id_gene)
                     .uniqueResult();
             session.getTransaction().commit();
@@ -343,6 +343,7 @@ public class GenesManager {
             mgiReferenceWhere = "  AND (mgi_ref LIKE :mgi_ref)\n";
             queryString += mgiReferenceWhere;
         }
+        queryString += "ORDER BY name\n";
         
         Session session = factory.getCurrentSession();
         try {
