@@ -17,13 +17,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <spring:bind path="command.*"></spring:bind>
-<c:set var="keyRef" value='${command}'></c:set>
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="../css/jquery-ui.1.10.3.min.css" />
-        <script src="../js/jquery.1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="../js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="../js/jquery-ui.1.10.3.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="../js/json2.js" type="text/javascript" charset="UTF-8"></script>
   
@@ -48,19 +47,40 @@
                 defaultBorderColor[1] = $('#filterGeneName').css('border-top-color');
                 defaultBorderColor[2] = $('#filterGeneName').css('border-right-color');
                 defaultBorderColor[3] = $('#filterGeneName').css('border-bottom-color');
-                $('#trFilterGeneIdError').css('display', 'none');
-                setBorderDefault($('#filterGeneId'));
-                
-                // Hide filter validation message (jira bug EMMA-545)
-                $('#trFilterGeneIdError').css('display', 'none');
+
+                // Remove filter validation message (jira bug EMMA-545)
+                hideGeneIdValidationError();
             });
             
+            function clearResults() {
+                $('#tabResults').remove('tr:gt(0)');
+                $('#divResults').css('display', 'none');
+                $('#labResultsCount').css('display', 'none');
+            }
+            
+            function showGeneIdValidationError() {
+                var trFilterGeneIdError = $('#trFilterGeneIdError');
+                if (trFilterGeneIdError !== null)
+                    $(trFilterGeneIdError).remove();
+                
+                $('#tabFilter tbody tr:eq(0)').after('<tr id="trFilterGeneIdError"><td colspan="4" style="color: red">Please enter an integer.</td></tr>');
+                setBorderError($('#filterGeneId'));
+            }
+            
+            function hideGeneIdValidationError() {
+                var trFilterGeneIdError = $('#trFilterGeneIdError');
+                if (trFilterGeneIdError !== null)
+                    trFilterGeneIdError.remove();
+                
+                setBorderDefault($('#filterGeneId'));
+            }
+    
             function setBorderError(obj) {
                 $(obj)
                     .css('border-left-color', 'red')
                     .css('border-top-color', 'red')
                     .css('border-right-color', 'red')
-                    .css('border-bottom-color', 'red')
+                    .css('border-bottom-color', 'red');
             }
             
             function setBorderDefault(obj) {
@@ -70,7 +90,24 @@
                     .css('border-right-color', defaultBorderColor[2])
                     .css('border-bottom-color', defaultBorderColor[3]);
             }
+            
+            function validate() {
+                var filterGeneIdValue = $('#filterGeneId').val();
+                if ((filterGeneIdValue === '') || (isInteger(filterGeneIdValue))) {
+                    hideGeneIdValidationError();
+                    return true;
+                } else {
+                    showGeneIdValidationError();
+                    return false;
+                }
+            }
+            
+            function isInteger(number) {
+                var intRegex = /^\d+$/;
+                return intRegex.test(number);
+            }
 
+            // This function generates thousands of rows. Keep it at the bottom of the function list for easier debugging.
             function populateFilterAutocompletes() {
                 var geneIds = new Array();
                 var geneNames = new Array();
@@ -102,24 +139,6 @@
                 $("#filterGeneSymbol").autocomplete({ source: geneSymbols, mustMatch:1, max:100});
             }
             
-            function validate() {
-                var filterGeneIdValue = $('#filterGeneId').val();
-                if ((filterGeneIdValue === '') || (isInteger(filterGeneIdValue))) {
-                    $('#trFilterGeneIdError').css('display', 'none');
-                    setBorderDefault($('#filterGeneId'));
-                    return true;
-                } else {
-                    $('#trFilterGeneIdError').css('display', 'block');
-                    setBorderError($('#filterGeneId'));
-                    return false;
-                }
-            }
-            
-            function isInteger(number) {
-                var intRegex = /^\d+$/;
-                return intRegex.test(number);
-            }
-            
         </script>
         <title>Gene Management - list</title>
     </head>
@@ -130,39 +149,40 @@
         <br />
 
         <form:form commandName="command">
-            <input type="submit" value="New" style="margin-left: 470px; margin-bottom: 5px" formaction="geneManagementDetail.emma?id=0&action=newGene" />
+            <input type="submit" value="New" style="margin-left: 470px; margin-bottom: 5px" formaction="geneManagementDetail.emma?id=0&amp;action=newGene" />
             
             <br />
             
-            <table style="border: 1px solid black">
-                <tr><th colspan="4" style="text-align: left">Filter</th></tr>
-                <tr>
-                    <td><label for="filterGeneId">Gene Id:</label></td>
-                    <td><input type="text" id="filterGeneId" name="filterGeneId" /></td>
-                    <td><label for="filterChromosome">Chromosome:</label></td>
-                    <td><input type="text" id="filterChromosome" name="filterChromosome" /></td>
-                </tr>
-                <tr id="trFilterGeneIdError">
-                    <td colspan="2" style="color: red">Please enter an integer.</td>
-                </tr>
-                <tr>
-                    <td><label for="filterGeneName">Gene name:</label></td>
-                    <td><input type="text" id="filterGeneName" name="filterGeneName" /></td>
-                    <td><label for="filterMgiReference">MGI reference:</label></td>
-                    <td><input type="text" id="filterMgiReference" name="filterMgiReference" /></td>
-                </tr>
-                <tr>
-                    <td><label for="filterGeneSymbol">Gene symbol:</label></td>
-                    <td><input type="text" id="filterGeneSymbol" name="filterGeneSymbol" /></td>
-                    <td colspan="2">&nbsp;</td>
-                </tr>
+            <table id="tabFilter" style="border: 1px solid black">
+                <thead>
+                    <tr><th colspan="4" style="text-align: left">Filter</th></tr>
+                </thead>
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma?action=applyFilter" />
+                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma?action=applyFilter" onclick="return validate();" />
                         </td>
                     </tr>
                 </tfoot>
+                <tbody>
+                    <tr>
+                        <td><label for="filterGeneId">Gene Id:</label></td>
+                        <td><input type="text" id="filterGeneId" name="filterGeneId" /></td>
+                        <td><label for="filterChromosome">Chromosome:</label></td>
+                        <td><input type="text" id="filterChromosome" name="filterChromosome" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="filterGeneName">Gene name:</label></td>
+                        <td><input type="text" id="filterGeneName" name="filterGeneName" /></td>
+                        <td><label for="filterMgiReference">MGI reference:</label></td>
+                        <td><input type="text" id="filterMgiReference" name="filterMgiReference" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="filterGeneSymbol">Gene symbol:</label></td>
+                        <td><input type="text" id="filterGeneSymbol" name="filterGeneSymbol" /></td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                </tbody>
             </table>
         </form:form>
         <br />
@@ -217,7 +237,7 @@
                             
                             <table>
                                 <tr>
-                                    <td><a href="geneManagementDetail.emma?id=${genes.id_gene}&action=editGene">Edit</a></td>
+                                    <td><a onclick="clearResults();" href="geneManagementDetail.emma?id=${genes.id_gene}&amp;action=editGene">Edit</a></td>
                                     <c:set var="boundAlleles" value="${genes.boundAlleles}" />
                                     <c:set var="boundAllelesCount" value="${fn:length(boundAlleles)}" />
                                     <c:set var="boundAlleleIds" value="" />
@@ -237,7 +257,7 @@
                                             <td><label title="Cannot delete gene as it is bound to allele IDs ${boundAlleleIds}.">Delete</label></td>
                                         </c:when>
                                         <c:otherwise>
-                                            <td><a href="geneManagementList.emma?id=${genes.id_gene}&action=deleteGene">Delete</a></td>
+                                            <td><a href="geneManagementList.emma?id=${genes.id_gene}&amp;action=deleteGene">Delete</a></td>
                                         </c:otherwise>
                                     </c:choose>
                           <%--          <td><input alt="Delete Gene" id="inpDelete" type="image" src="../images/delete.jpg" formaction="geneManagementList.emma?id=${genes.id_gene}&action=deleteGene" /></td> --%>

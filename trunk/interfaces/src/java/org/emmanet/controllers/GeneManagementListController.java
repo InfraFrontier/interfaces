@@ -40,6 +40,7 @@ public class GeneManagementListController extends SimpleFormController {
     private GenesDAO genesDAO;
     private final GenesManager genesManager = new GenesManager();
     private final Filter filter = new Filter();
+    private boolean initialLoad;
     
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -50,10 +51,15 @@ public class GeneManagementListController extends SimpleFormController {
         String action = request.getParameter("action");
         if (action == null) {
             logger.debug("formBackingObject: action is null.");
+            if (isInitialLoad()) {
+                filteredGenesDAOList.clear();
+            }
         } else {
             logger.debug("formBackingObject: action: " + action);
             if (action.compareToIgnoreCase("applyFilter") == 0) {
                 ;   // Nothing to do.
+            } else if (action.compareToIgnoreCase("initialize") == 0) {
+                filteredGenesDAOList.clear();
             } else if (action.compareToIgnoreCase("deleteGene") == 0) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 genesManager.delete(genesManager.getGene(id));
@@ -119,6 +125,14 @@ public class GeneManagementListController extends SimpleFormController {
 
     public GenesDAO getGenesDAO() {
         return genesDAO;
+    }
+
+    public boolean isInitialLoad() {
+        return initialLoad;
+    }
+
+    public void setInitialLoad(boolean initialLoad) {
+        this.initialLoad = initialLoad;
     }
 
 
