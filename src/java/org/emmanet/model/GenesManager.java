@@ -322,7 +322,7 @@ public class GenesManager {
         
         String queryString = "SELECT * FROM genes\nWHERE (1 = 1)";
         if ((filter.getChromosome() != null) && ( ! filter.getChromosome().isEmpty())) {
-            chromosomeWhere = "  AND (chromosome LIKE :chromosome)\n";
+            chromosomeWhere = "  AND (chromosome = :chromosome)\n";
             queryString += chromosomeWhere;
         }
         Integer iGeneId = Utils.tryParseInt(filter.getGeneId());
@@ -350,7 +350,7 @@ public class GenesManager {
             session.beginTransaction();
             SQLQuery query = session.createSQLQuery(queryString);
             if ( ! chromosomeWhere.isEmpty())
-                query.setParameter("chromosome", "%" + filter.getChromosome() + "%");
+                query.setParameter("chromosome", filter.getChromosome());
             if ( ! geneIdWhere.isEmpty())
                 query.setParameter("id_gene", geneId);
             if ( ! geneNameWhere.isEmpty())

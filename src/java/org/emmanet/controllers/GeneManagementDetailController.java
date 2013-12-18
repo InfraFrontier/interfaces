@@ -39,7 +39,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class GeneManagementDetailController extends SimpleFormController implements Validator {
     private GenesDAO gene = new GenesDAO();
-private final GenesManager genesManager;
+    private final GenesManager genesManager;
     
     public GeneManagementDetailController() {
         genesManager = new GenesManager();

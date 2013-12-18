@@ -25,7 +25,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/jquery-ui.1.10.3.min.css" />
-        <script src="../js/jquery.1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="../js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="../js/jquery-ui.1.10.3.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="../js/json2.js" type="text/javascript" charset="UTF-8"></script>
         
@@ -183,9 +183,9 @@
                         </td>
                     </tr >
                     <tr>
-                        <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma" /></td>
-                        <td colspan="2" align="center"><input type="submit" value="Cancel" formaction="geneManagementList.emma" /></td>
-                        <td colspan="2" align="right"><input type="submit" value="Save" formaction="geneManagementDetail.emma?id=${synonyms.id_syn}&action=save" /></td>
+                        <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma?action=initialize" /></td>
+                   <%--     <td colspan="2" align="center"><input type="submit" value="Cancel" formaction="geneManagementList.emma" /></td> --%>
+                        <td colspan="4" align="right"><input type="submit" value="Save" formaction="geneManagementDetail.emma?id=${synonyms.id_syn}&amp;action=save" /></td>
                     </tr>
                 </table>
         </form:form>
