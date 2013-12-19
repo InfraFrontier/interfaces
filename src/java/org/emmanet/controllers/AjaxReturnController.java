@@ -270,7 +270,7 @@ public class AjaxReturnController extends SimpleFormController {
 
                 //   if (fileList != null) {
                 for (int i = 0; i < fileList.length; i++) {
-                    if (fileList[i].startsWith(searchString)) {
+                    if ((fileList[i] != null) && (fileList[i].startsWith(searchString))) {
                         // String file = fileList[i].replace( subID + "_" + request.getParameter('submissionFileType') + "_", ''"");
                         String file = fileList[i].replaceAll(searchString, "");
                         file = file.replace("_", "");
