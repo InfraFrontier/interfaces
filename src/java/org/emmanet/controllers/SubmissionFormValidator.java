@@ -171,7 +171,7 @@ public class SubmissionFormValidator implements
         }
 
         //can be empty but if not then must be numeric
-        if (!sd.getBackcrosses().isEmpty()) {
+        if (sd.getBackcrosses() != null && !sd.getBackcrosses().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getBackcrosses())) {
                 errors.rejectValue("backcrosses", "incorrect.backcrosses",
                         "Please enter a valid number (no leading 0).");
@@ -179,7 +179,7 @@ public class SubmissionFormValidator implements
         }
 
         //can be empty but if not then must be numeric
-        if (!sd.getSibmatings().isEmpty()) {
+        if (sd.getSibmatings() != null && !sd.getSibmatings().isEmpty()) {
             if (!patternMatch(DIGITSONLY_PATTERN, sd.getSibmatings())) {
                 errors.rejectValue("sibmatings", "incorrect.sibmatings",
                         "Please enter a valid number (no leading 0).");
