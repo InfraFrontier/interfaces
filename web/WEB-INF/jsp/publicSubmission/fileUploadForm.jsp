@@ -3,11 +3,19 @@
     Created on : Sep 13, 2012, 2:27:20 PM
     Author     : phil
 --%>
+<!DOCTYPE html>
+
+<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn"     uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="dt"     uri="http://jakarta.apache.org/taglibs/datetime-1.0" %>
+<%@ taglib prefix="req"    uri="http://jakarta.apache.org/taglibs/request-1.0" %>
+<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <c:set var="baseurl" value="${param.BASEURL}" scope="session" />
 
 <html>
@@ -17,11 +25,16 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-
+        
+        <title>Upload supporting file(s)</title>
+    </head>
 
     <body>
         <br/>
-        <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
+        <p>
+            <img alt="spacer" src="" height="1" width="145"/>
+            <a href="${BASEURL}"><img alt="Infrafrontier logo" src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a>
+        </p>
         <br/>
         <div id="wrapper">
             <div id="container">
@@ -31,17 +44,19 @@
                             <div class="boxcontainer">
                                 <h4>Submission supporting file upload</h4>
                                 <c:if test="${not empty message}">
-                                    <font color="green"><c:out value="${message}" /></font>
+                                    <c:out value="${message}" />
                                     <c:set var="message" value="" scope="session" />
                                 </c:if>
 
                                 <form:form method="POST" commandName="fileUploadForm" enctype="multipart/form-data">
                                     <br/><br/>
-                                    <div id="errors" name="errors" align="center"><form:errors path="*" cssClass="errorblock" /></div>
+                                    <div id="errors">
+                                        <form:errors path="*" cssClass="errorblock" />
+                                    </div>
                                     <br/>
-                                    <input type="hidden" value="${sessionScope.getprev}" name="submissionID" id="submissionID">
+                                    <input type="hidden" value="${sessionScope.getprev}" name="submissionID" id="submissionID" />
                                     <input type="hidden" value="${param.submissionFileType}" name="submissionFileType" id="submissionFileType">
-                                    Please select a PDF file, with a maximum size, not exceeding 2MB to upload : <input type="file"  name="file" id="file"></input>
+                                        Please select a PDF file, with a maximum size, not exceeding 2MB to upload : <input type="file" name="file" id="file" />
                                     <input type="submit" id="upload" class="btn big" name="upload" value="upload" />
                                     <span>
                                         <form:errors path="file" cssClass="error" />
@@ -53,6 +68,6 @@
                 </div>
             </div>
         </div>
-                                    <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+        <jsp:include flush="true" page="submissionFormFooter_inc.jsp" />
     </body>
 </html>
