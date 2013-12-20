@@ -757,16 +757,18 @@ public class SubmissionFormController extends AbstractWizardFormController {
         if (rToolsToParse != null) {
             String[] parsedRtools = rToolsToParse.split(":");
             for (String s : parsedRtools) {
-                RToolsDAO rtd = new RToolsDAO();
-                System.out.println("parsed value==" + s);
-                rtd.setRtls_id(Integer.parseInt(s));
-                rtd.setStr_id_str(nsd.getId_str());
-                System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
+            	if (s != null && !s.isEmpty()) {
+            		RToolsDAO rtd = new RToolsDAO();
+            		System.out.println("parsed value==" + s);
+            		rtd.setRtls_id(Integer.parseInt(s));
+            		rtd.setStr_id_str(nsd.getId_str());
+            		System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
 
-                rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s), nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
+            		rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s), nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
 //rtm.saveOnly(rtd);
                 //set add dao here
-                setRtools.add(rtd);
+            		setRtools.add(rtd);
+            	}
             }
         }
 
