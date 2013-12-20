@@ -847,18 +847,20 @@ public class SubmissionFormController extends AbstractWizardFormController {
             if (catsToParse != null) {
                 String[] parsedCats = catsToParse.split(":");
                 for (String s : parsedCats) {
-                    CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
-                    System.out.println("parsed value==" + s);
-                    System.out.println("Unparsed string is " + sd.getResearch_areas().toString());
-                    csd.setStr_id_str(nsd.getId_str());
-                    csd.setCat_id_cat(Integer.parseInt(s));
-                    //sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
-                    //OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
-                    rtm.saveCategoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
-                    //sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
-                    //set add dao here
-                    setCategories.add(csd);
-                    //nsd.setCategoriesStrainsDAO(setCategories);
+                	if (s != null && !s.isEmpty()) {
+                		CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
+                		System.out.println("parsed value==" + s);
+                		System.out.println("Unparsed string is " + sd.getResearch_areas().toString());
+                		csd.setStr_id_str(nsd.getId_str());
+                		csd.setCat_id_cat(Integer.parseInt(s));
+                		//sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
+                		//OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
+                		rtm.saveCategoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
+                		//sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
+                		//set add dao here
+                		setCategories.add(csd);
+                		//nsd.setCategoriesStrainsDAO(setCategories);
+                	}
                 }
                 //~~~~~~~~~nsd.setCategoriesStrainsDAO(setCategories);
             }
