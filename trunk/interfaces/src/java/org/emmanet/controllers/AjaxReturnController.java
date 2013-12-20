@@ -4,7 +4,10 @@
  */
 package org.emmanet.controllers;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -252,37 +255,106 @@ public class AjaxReturnController extends SimpleFormController {
         
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
-            // $('#fileList').load('ajaxFileListing.emma',{encID:"${param.getprev}", submissionFileType: "SANITARYSTATUS",funct: "fileList"});
             returnedOut = new HashMap();
-            System.out.println("F I L E  L I S T I N G  R E A C H E D ! !");
-            Encrypter enc = new Encrypter();
-            String subID = enc.decrypt(request.getParameter("encID"));
+//            List<String> filenameList = buildFilenameListOLD(request);
+            List<String> filenameList = buildFilenameList(request);
 
-            String fileType = request.getParameter("submissionFileType");
-            String searchString = subID + "_" + fileType;
-            System.out.println("subID value is  _  " + subID);
-            List assocFiles = new ArrayList();
-            if (!subID.isEmpty()) {
-                DirFileList files = new DirFileList();
-                String fileList[];
-                fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
-                System.out.println("number of files found = " + fileList.length);
+            returnedOut.put("fileListing", filenameList);
+        }
+        
+        return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
+    }
+    
+    @Deprecated
+    public List<String> buildFilenameListOLD(HttpServletRequest request) {
+        List<String> filenameList = new ArrayList();
+        
+        logger.debug("F I L E  L I S T I N G  R E A C H E D ! !");
+        Encrypter enc = new Encrypter();
+        String subID = enc.decrypt(request.getParameter("encID"));
+        logger.debug("subID = " + subID);
+        
+        String fileType = request.getParameter("submissionFileType");
+        logger.debug("fileType = " + fileType);
+        
+        String searchString = subID + "_" + fileType;
+        logger.debug("searchString = " + searchString);
+        
+        if ( ! subID.isEmpty()) {
+            DirFileList files = new DirFileList();
+            String fileList[];
+            logger.debug("calling DirFileList.filteredFileList(" + SUBFORMUPLOAD + ")");
+            fileList = files.filteredFileList(SUBFORMUPLOAD, "pdf");
+            logger.info("number of files found = " + fileList.length);
 
-                //   if (fileList != null) {
-                for (int i = 0; i < fileList.length; i++) {
-                    if ((fileList[i] != null) && (fileList[i].startsWith(searchString))) {
-                        // String file = fileList[i].replace( subID + "_" + request.getParameter('submissionFileType') + "_", ''"");
-                        String file = fileList[i].replaceAll(searchString, "");
-                        file = file.replace("_", "");
-                        assocFiles.add(file);
-                        System.out.println("FILE MATCH = " + fileList[i]);
-                    }
+            for (int i = 0; i < fileList.length; i++) {
+                logger.debug("fileList[" + i + "] = " + fileList[i]);
+                if ((fileList[i] != null) && (fileList[i].startsWith(searchString))) {
+                    String file = fileList[i].replaceAll(searchString, "");
+                    file = file.replace("_", "");
+                    logger.info("FILE MATCH. Adding file \"" + file + "\" (fileList[" + i + "])");
+                    filenameList.add(file);
                 }
             }
-            //    }
-            returnedOut.put("fileListing", assocFiles);
         }
-        return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
-        //  return returnedResults;
+        
+        return filenameList;
     }
+    
+    /**
+     * Builds a list of filenames found that match the pattern of submitted
+     * attachments. The pattern is in the format: <i>xxx_yyy_</i>
+     * where <i>xxx</i> is the submissions table's id_sub primary key and <i>yyy</i>
+     * is the submission file type.
+     * 
+     * @param request <code>HttpServletRequest</code> request object
+     * @return a list of filenames that match the pattern of submitted attachments.
+     */
+    public List<String> buildFilenameList(HttpServletRequest request) {
+        String[] filenames;
+        logger.debug("submissions: processing uploaded attachments.");
+        Encrypter enc = new Encrypter();
+        String idSub = enc.decrypt(request.getParameter("encID"));              // Get this submission's submissions.id_sub primary key value.
+        
+        String filetype = request.getParameter("submissionFileType");           // Get the file type.
+        logger.debug("filetype = " + filetype);
+        
+        String filenamePattern = idSub + "_" + filetype + "_";
+        logger.debug("filenamePattern = " + filenamePattern);
+        
+        logger.debug("Uploading files from '" + SUBFORMUPLOAD + "'.");
+        File directory = new File(SUBFORMUPLOAD);
+        filenames = directory.list(new FilenameFilterImpl(filenamePattern));
+
+        return Arrays.asList(filenames);
+    }
+    
+    public class FilenameFilterImpl implements FilenameFilter
+    {
+        public String filenamePattern;
+        
+        public FilenameFilterImpl(String filenamePattern) {
+            this.filenamePattern = filenamePattern;
+        }
+        
+        /**
+         * This method tests if a specified file should be included in a file list.
+         * It is the implementation of the <code>FilenameFilter</code> interface for
+         * the 'Additional Files' functionality. <code>filenamePattern</code> is in
+         * the format: <i>xxx</i>_ADDITIONAL_<i>yyy</i> where <i>xxx</i> is the
+         * submissions table's id_sub primary key, and <i>yyy</i> is the remainder
+         * of the filename, including any extension.
+         * 
+         * @param dir the directory in which the file was found
+         * @param name the name of the file
+         * @return <code>true</code> if and only if the name should be included in
+         *         the file list; <code>false</code> otherwise.
+         */
+        @Override
+        public boolean accept(File dir, String name) {
+            return (name.startsWith(filenamePattern));
+        }
+    }
+    
+    
 }

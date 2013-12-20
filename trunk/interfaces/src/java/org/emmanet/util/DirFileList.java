@@ -3,9 +3,17 @@ package org.emmanet.util;
 import java.io.File;
 import java.io.FilenameFilter;
 
+@Deprecated
+/**
+ * @Deprecated stuff
+ */
 public class DirFileList
 {
 
+    /**
+     * @deprecated AjaxReturnController.FilenameFilterImpl replaces the functionality of the DirFileList class
+     *             by returning only the qualifying files matching the filename pattern.
+     */
     public DirFileList()
     {
         super();

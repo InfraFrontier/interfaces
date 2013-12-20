@@ -1096,6 +1096,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
             getJavaMailSender().send(message);
         } catch (MessagingException ex) {
             ex.printStackTrace();
+        } catch (Exception ce) {
+            logger.warn("Unable to send submission e-mail: " + ce.getLocalizedMessage());
         }
         //ok submission pretty much complete, let's now set the step to the last position for user details
         //sd.setStep("-1");
