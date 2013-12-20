@@ -847,7 +847,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             if (catsToParse != null) {
                 String[] parsedCats = catsToParse.split(":");
                 for (String s : parsedCats) {
-                	if (s != null && !s.isEmpty()) {
+                	if (s != null && !s.isEmpty() && !s.equals("0")) {
                 		CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
                 		System.out.println("parsed value==" + s);
                 		System.out.println("Unparsed string is " + sd.getResearch_areas().toString());
