@@ -36,6 +36,7 @@ import org.emmanet.model.CategoriesDAO;
 import org.emmanet.model.CategoriesManager;
 import org.emmanet.model.CategoriesStrainsDAO;
 import org.emmanet.model.GenesDAO;
+import org.emmanet.model.GenesManager;
 import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.LabsDAO;
 import org.emmanet.model.MutationsDAO;
@@ -893,24 +894,35 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
             smdao = (SubmissionMutationsDAO) it.next();
 
-            //Oh crap genes needs an entry now :(
-            GenesDAO gd = new GenesDAO();
-            gd.setUsername("EMMA");
-            gd.setLast_change(currentDate);
-            gd.setName("Unknown at present");
-            gd.setChromosome(smdao.getMutation_chrom());
-            gd.setMgi_ref(smdao.getMutation_gene_mgi_symbol());
-            mm.save(gd);
+            GenesManager genesManager = new GenesManager();
+            String transgeneName = smdao.getMutation_transgene_mgi_symbol().trim();
+            GenesDAO genesDAO = genesManager.getGene(transgeneName);
+            
+            if (genesDAO == null) {
+                genesDAO = new GenesDAO();                                      // The transgene does not yet exist in the genes table. Create a new instance.
+                genesDAO.setName(transgeneName.isEmpty() ? "Unknown at present" : smdao.getMutation_transgene_mgi_symbol());
+                genesDAO.setSymbol(genesDAO.getName());
+                genesDAO.setChromosome(smdao.getMutation_chrom());
+                genesDAO.setMgi_ref(smdao.getMutation_gene_mgi_symbol());
+                genesDAO.setPromoter(smdao.getMutation_promoter());
+                genesDAO.setFounder_line_number(smdao.getMutation_founder_line_number());
+                genesDAO.setPlasmid_construct(smdao.getMutation_plasmid());
+                genesDAO.setCentimorgan(null);
+            }
+
+            genesDAO.setLast_change(currentDate);
+            genesDAO.setUsername("EMMA");
+            mm.save(genesDAO);
 
             //Oh crap alleles needs an entry now :(
             AllelesDAO ald = new AllelesDAO();
             ald.setUsername("EMMA");
             ald.setLast_change(currentDate);
-            ald.setName(sd.getStrain_name());
+            ald.setName("Unknown at present");
             ald.setAlls_form("Unknown at present");
-            ald.setGen_id_gene("" + gd.getId_gene());
+            ald.setGen_id_gene("" + genesDAO.getId_gene());
             ald.setMgi_ref(smdao.getMutation_allele_mgi_symbol());
-            ald.setGenesDAO(gd);
+            ald.setGenesDAO(genesDAO);
             mm.save(ald);
 
             MutationsDAO mud = new MutationsDAO();

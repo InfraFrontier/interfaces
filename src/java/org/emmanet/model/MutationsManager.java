@@ -10,11 +10,16 @@ package org.emmanet.model;
  */
 import java.math.BigInteger;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.emmanet.jobs.EmmaBiblioJOB;
 import org.emmanet.util.HibernateUtil;
+import org.emmanet.util.Utils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 public class MutationsManager {
+    
+    protected static Logger logger = Logger.getLogger(EmmaBiblioJOB.class);
 
     public MutationsDAO getMutByID(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -224,6 +229,15 @@ System.out.println("SAVED MUTATION STRAIN");
         session.beginTransaction();
 
         try {
+            // Centimorgan is defined as String in the DAO and integer in the database.
+            // Empty centimorgan string values throw an exception, so re-map any
+            // non-integer values to null and log them.
+            String centimorganDisplay = (gDAO.getCentimorgan() == null ? "<null>" : gDAO.getCentimorgan());
+            Integer centimorgan = Utils.tryParseInt(gDAO.getCentimorgan());
+            if (centimorgan == null) {
+                logger.warn("id_gene: " + gDAO.getId_gene() + " (" + gDAO.getName() + "): centimorgan value '" + centimorganDisplay + ". centimorgan remapped to null.");
+                gDAO.setCentimorgan(null);
+            }
             session.saveOrUpdate(gDAO);
             session.getTransaction().commit();
 

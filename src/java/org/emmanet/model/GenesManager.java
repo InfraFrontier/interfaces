@@ -255,7 +255,7 @@ public class GenesManager {
         Session session = factory.getCurrentSession();
         try {
             session.beginTransaction();
-            genesDAO = (GenesDAO)session.createQuery("FROM GenesDAO g WHERE id_gene = ? ORDER BY g.id_gene")
+            genesDAO = (GenesDAO)session.createQuery("FROM GenesDAO g WHERE id_gene = ?")
                     .setParameter(0, id_gene)
                     .uniqueResult();
             session.getTransaction().commit();
@@ -263,35 +263,37 @@ public class GenesManager {
             session.getTransaction().rollback();
         }
         
-        // Re-map null fields to empty strings.
-        if (genesDAO != null) {
-            if (genesDAO.getCentimorgan() == null)
-                genesDAO.setCentimorgan("");
-            if (genesDAO.getChromosome()== null)
-                genesDAO.setChromosome("");
-            if (genesDAO.getCytoband()== null)
-                genesDAO.setCytoband("");
-            if (genesDAO.getEnsembl_ref()== null)
-                genesDAO.setEnsembl_ref("");
-            if (genesDAO.getFounder_line_number()== null)
-                genesDAO.setFounder_line_number("");
-            if (genesDAO.getLast_change()== null)
-                genesDAO.setLast_change("");
-            if (genesDAO.getMgi_ref()== null)
-                genesDAO.setMgi_ref("");
-            if (genesDAO.getName() == null)
-                genesDAO.setName("");
-            if (genesDAO.getPlasmid_construct()== null)
-                genesDAO.setPlasmid_construct("");
-            if (genesDAO.getPromoter()== null)
-                genesDAO.setPromoter("");
-            if (genesDAO.getSpecies()== null)
-                genesDAO.setSpecies("");
-            if (genesDAO.getSymbol() == null)
-                genesDAO.setSymbol("");
-            if (genesDAO.getUsername()== null)
-                genesDAO.setUsername("");
+        return remapNulls(genesDAO);
+    }
+    
+    /**
+     * Returns the first <code>GenesDAO</code> object matching <code>name</code>
+     * @param name the gene name to match
+     * @return the first <code>GenesDAO</code> object matching <code>id_gene</code>,
+     * if found; null otherwise.
+     */
+    public GenesDAO getGene(String name) {
+        List<GenesDAO> genesDAOList = null;
+        GenesDAO genesDAO = null;
+        
+        if ((name == null) || (name.trim().isEmpty()))
+            return genesDAO;
+        
+        Session session = factory.getCurrentSession();
+        try {
+            session.beginTransaction();
+            genesDAOList = session.createQuery("FROM GenesDAO g WHERE name = ?")
+                    .setParameter(0, name)
+                    .list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
         }
+        
+        if ((genesDAOList != null) && ( ! genesDAOList.isEmpty())) {
+            genesDAO = remapNulls(genesDAOList.get(0));
+        }
+        
         return genesDAO;
     }
     
@@ -524,4 +526,44 @@ public class GenesManager {
     // PRIVATE METHODS
 
 
+    /**
+     * Remaps null fields to empty strings suitable for use in the client.
+     * @param genesDAO the instance to remap
+     * @return the same instance, with nulls remapped to empty strings.
+     */
+    private GenesDAO remapNulls(GenesDAO genesDAO) {
+        // Re-map null fields to empty strings.
+        if (genesDAO != null) {
+            if (genesDAO.getCentimorgan() == null)
+                genesDAO.setCentimorgan("");
+            if (genesDAO.getChromosome()== null)
+                genesDAO.setChromosome("");
+            if (genesDAO.getCytoband()== null)
+                genesDAO.setCytoband("");
+            if (genesDAO.getEnsembl_ref()== null)
+                genesDAO.setEnsembl_ref("");
+            if (genesDAO.getFounder_line_number()== null)
+                genesDAO.setFounder_line_number("");
+            if (genesDAO.getLast_change()== null)
+                genesDAO.setLast_change("");
+            if (genesDAO.getMgi_ref()== null)
+                genesDAO.setMgi_ref("");
+            if (genesDAO.getName() == null)
+                genesDAO.setName("");
+            if (genesDAO.getPlasmid_construct()== null)
+                genesDAO.setPlasmid_construct("");
+            if (genesDAO.getPromoter()== null)
+                genesDAO.setPromoter("");
+            if (genesDAO.getSpecies()== null)
+                genesDAO.setSpecies("");
+            if (genesDAO.getSymbol() == null)
+                genesDAO.setSymbol("");
+            if (genesDAO.getUsername()== null)
+                genesDAO.setUsername("");
+        }
+        
+        return genesDAO;
+    }
+    
+    
 }
