@@ -92,9 +92,8 @@ public class PdfView extends AbstractPdfView {
             // Set table cell widths equiv. to 25% and 75%
             float[] widths = {0.25f, 0.75f};
             PdfPTable table = new PdfPTable(widths);
-
             table.setWidthPercentage(100);
-
+            
             PdfPCell cell = new PdfPCell(new Paragraph("Scientist\n\n", font));
             cell.setColspan(2);
             cell.setBorder(0);
@@ -315,9 +314,9 @@ public class PdfView extends AbstractPdfView {
         }
 
         if (map.get("StrainsDAO") != null && request.getParameter("type").equals("sub")) {
-            StrainsDAO sd = new StrainsDAO();
+            StrainsDAO sd;
             StrainsManager sm = new StrainsManager();
-            PeopleDAO pd = new PeopleDAO();
+            PeopleDAO pd;
             PeopleDAO subPDAO = new PeopleDAO();
             PeopleManager pm = new PeopleManager();
             BibliosManager bm = new BibliosManager();
@@ -328,7 +327,7 @@ public class PdfView extends AbstractPdfView {
             if (sd.getPer_id_per_sub() != null) {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
-            
+
             ServletContext servletContext = request.getSession().getServletContext();
             URL infrafrontierIconURL = servletContext.getResource("/images/infrafrontier/icon/footerlogo.jpg");
             logger.debug("infrafrontierIconURL = " + infrafrontierIconURL);
@@ -366,12 +365,25 @@ public class PdfView extends AbstractPdfView {
             Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 11);
             table = new PdfPTable(widths);
             table.setWidthPercentage(100);
+
+            // Genotype preparation - strain name [actually, synonym] and description
+            Set sSynonym = sd.getSyn_strainsDAO();
+            StringBuilder strainSynonyms = new StringBuilder();
+            for (Iterator iterator = sSynonym.iterator(); iterator.hasNext(); ) {
+                Syn_StrainsDAO syn_strainsDAO = (Syn_StrainsDAO)iterator.next();
+                if (syn_strainsDAO.getName() != null) {
+                    if (strainSynonyms.length() > 0)
+                        strainSynonyms.append(", ");
+                    strainSynonyms.append(syn_strainsDAO.getName());
+                }
+            }
+
             pSubHead = new Paragraph(
-                    "The terms and conditions have been accepted.\n\n", FontFactory.getFont(
-                    FontFactory.HELVETICA, 11));
+                    strainSynonyms + " / " + sd.getEmma_id() + "\n\n", FontFactory.getFont(
+                    FontFactory.HELVETICA_BOLD, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
             doc.add(pSubHead);
-            
+
             // Submitter
             cell = new PdfPCell(new Paragraph("\nSubmitter (Steps 1 and 2 of 11)\n\n", font));
             cell.setColspan(2);
@@ -505,17 +517,6 @@ public class PdfView extends AbstractPdfView {
             table = new PdfPTable(widths);
             table.setWidthPercentage(100);
 
-            // Genotype preparation - strain name [actually, synonym] and description
-            Set sSynonym = sd.getSyn_strainsDAO();
-            StringBuffer strainSynonyms = new StringBuffer();
-            for (Iterator iterator = sSynonym.iterator(); iterator.hasNext(); ) {
-                Syn_StrainsDAO syn_strainsDAO = (Syn_StrainsDAO)iterator.next();
-                if (syn_strainsDAO.getName() != null) {
-                    if (strainSynonyms.length() > 0)
-                        strainSynonyms.append(", ");
-                    strainSynonyms.append(syn_strainsDAO.getName());
-                }
-            }
             String origBgName = sd.getBackgroundDAO().getName();
             
             // Genotype
@@ -1235,6 +1236,20 @@ public class PdfView extends AbstractPdfView {
 
             /* END OF ADDITIONAL INFORMATION */
             doc.add(table);
+            
+            doc.add(Chunk.NEWLINE);
+            // Space padding underline
+            underlined = new Chunk(
+                    "                                                                                     " + "                                                                       ");
+                    underlined.setUnderline(new Color(0x00, 0x00, 0x00), 0.0f, 0.2f,
+                            16.0f, 0.0f, PdfContentByte.LINE_CAP_BUTT);//Black line
+            doc.add(underlined);
+            
+            pSubHead = new Paragraph(
+                    "The terms and conditions have been accepted.\n\n", FontFactory.getFont(
+                    FontFactory.HELVETICA, 11));
+            pSubHead.setAlignment(Element.ALIGN_CENTER);
+            doc.add(pSubHead);
         }
     }
 
