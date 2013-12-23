@@ -50,7 +50,7 @@ function mutFieldDisplay() {
         $("#field\\ mutation_transgene_mgi_symbol\\ conditional\\ TG").show("slow");
         $("#field\\ mutation_promoter\\ conditional\\ TG").show("slow");
         $("#field\\ mutation_founder_line_number\\ conditional\\ TG").show("slow");
-        $("#field\\ mutation_plasmid conditional\\ TG").show("slow");
+        $("#field\\ mutation_plasmid\\ conditional\\ TG").show("slow");
     }else if(value=="TM"){
         $("#field\\ mutation_subtype\\ conditional\\ TM").show("slow");
         $("#field\\ mutation_gene_mgi_symbol\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
@@ -60,7 +60,7 @@ function mutFieldDisplay() {
     }else if(value=="XX"){
         $("#field\\ mutation_gene_mgi_symbol\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
         $("#field\\ mutation_allele_mgi_symbol\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
-        $("#field\\ mutation_chrom conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
+        $("#field\\ mutation_chrom\\ conditional\\ CH\\ GT\\ IN\\ SP\\ TM\\ XX").show("slow");
     }
 }
 //clear text areas and form elements
