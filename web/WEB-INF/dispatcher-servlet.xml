@@ -602,10 +602,6 @@
     </bean>
     
     <bean name="geneManagementListController" class="org.emmanet.controllers.GeneManagementListController">
-        <property name="initialLoad">
-            <value>true</value>
-        </property>
-       
         <property name="successView">
             <value>/interfaces/geneManagementList</value>
         </property>

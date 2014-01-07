@@ -16,11 +16,8 @@
 
 package org.emmanet.controllers;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.emmanet.model.GenesDAO;
@@ -32,67 +29,76 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
  * @author mrelac
  */
 public class GeneManagementDetailController extends SimpleFormController implements Validator {
-    private GenesDAO gene = new GenesDAO();
-    private final GenesManager genesManager;
+    private final GenesManager genesManager = new GenesManager();
     
     public GeneManagementDetailController() {
-        genesManager = new GenesManager();
+		setCommandClass(GenesDAO.class);
+		setCommandName("gene");
     }
     
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
+        GenesDAO gene = null;
         String action = request.getParameter("action");
         if (action == null) {
             logger.debug("formBackingObject: action is null.");
         } else {
             logger.debug("formBackingObject: action = " + action);
+            
             Integer id = Utils.tryParseInt(request.getParameter("id"));
-            if (action.compareToIgnoreCase("editGene") ==  0) {
+            if (id != null) {
                 gene = genesManager.getGene(id.intValue());
-            } else if (action.compareToIgnoreCase("newGene") ==  0) {
-                gene = new GenesDAO();
-            } else if (action.compareToIgnoreCase("deleteSynonym") == 0) {
-                genesManager.deleteSynonym(gene, id);
-            } 
+            }
         }
-        
-        return gene;
+        return (gene == null ? new GenesDAO() : gene);
     }
-    
+
+    /**
+     * Process the form submission (GET or POST).
+     * 
+     * @param request the <code>HttpServletRequest</code> instance
+     * @param response the <code>HttpServletResponse</code> instance
+     * @param command the form's fields (model) to be operated upon
+     * @param errors the <code>BindException</code> errors instance
+     * @return the <code>ModelAndView</code> instance to invoke
+     * @throws Exception upon error
+     */
     @Override
-    protected ModelAndView onSubmit(
+      protected ModelAndView onSubmit(
             HttpServletRequest request,
             HttpServletResponse response,
             Object command,
             BindException errors)
-            throws ServletException, Exception {
+            throws Exception {
         
+        GenesDAO gene = (GenesDAO)command;
+//        ModelAndView modelAndView = new ModelAndView(getSuccessView(), "gene", gene);
+        ModelAndView modelAndView = new ModelAndView(new RedirectView("geneManagementDetail.emma?id=" + gene.getId_gene() + "&action=editGene"), "gene", gene);
         String action = request.getParameter("action");
         if (action == null) {
-            logger.debug("onSubmit: action is null.");
+            logger.debug("processFormSubmission: action is null.");
         } else {
-            logger.debug("onSubmit: action = " + action);
-            
+            logger.debug("processFormSubmission: action = " + action);
             if (action.compareToIgnoreCase("newSynonym") == 0) {
-                gene = (GenesDAO)command;
                 genesManager.addSynonym(gene);
-                genesManager.save(gene); 
+                modelAndView = new ModelAndView(new RedirectView("geneManagementDetail.emma?id=" + gene.getId_gene() + "&action=editGene"), "gene", gene);
+            } else if (action.compareToIgnoreCase("deleteSynonym") == 0) {
+                int id_syn = Utils.tryParseInt(request.getParameter("id_syn"));
+                genesManager.deleteSynonym(gene, id_syn);
             } else if (action.compareToIgnoreCase("save") == 0) {
-                gene = (GenesDAO)command;
-                genesManager.save(gene);                                        // Save the GenesDAO.
-                List<GenesDAO> filteredGenesList = new ArrayList();
-                return new ModelAndView("/interfaces/geneManagementList", "command", filteredGenesList);
+                genesManager.save(gene);
+                modelAndView = new ModelAndView(new RedirectView("geneManagementList.emma"));
             }
         }
         
-        gene = (GenesDAO)command;
-        return new ModelAndView(getSuccessView(), "command", gene);
+        return modelAndView;
     }
 
     
@@ -108,7 +114,7 @@ public class GeneManagementDetailController extends SimpleFormController impleme
     }
 
     /**
-     * Required for Validator implmentation.
+     * Required for Validator implementation.
      * @param target target object to be validated
      * @param errors errors object
      */
@@ -149,15 +155,6 @@ public class GeneManagementDetailController extends SimpleFormController impleme
     
     // GETTERS AND SETTERS
     
-    
-    public GenesDAO getGene() {
-        return gene;
-    }
-
-    public void setGene(GenesDAO gene) {
-        this.gene = gene;
-    }
-
 
 }
 

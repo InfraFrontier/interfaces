@@ -37,26 +37,23 @@
             
             $(document).ready(function() {
                 populateFilterAutocompletes();
-                $('#applyFilter').click( function() {
+                $('#applyFilter').click(function() {
                     return validate();
                 });
                 
-                // Reset validation indicators.
+                var showResultsForm = ${hidShowResultsForm};
+                var divResultsDisplayAttribute = (showResultsForm === 0 ? 'none' : 'block');
+                $('#divResults').css('display', divResultsDisplayAttribute);
                 
-                defaultBorderColor[0] = $('#filterGeneName').css('border-left-color');
-                defaultBorderColor[1] = $('#filterGeneName').css('border-top-color');
-                defaultBorderColor[2] = $('#filterGeneName').css('border-right-color');
-                defaultBorderColor[3] = $('#filterGeneName').css('border-bottom-color');
+                // Reset validation indicators.
+                defaultBorderColor[0] = $('#geneName').css('border-left-color');
+                defaultBorderColor[1] = $('#geneName').css('border-top-color');
+                defaultBorderColor[2] = $('#geneName').css('border-right-color');
+                defaultBorderColor[3] = $('#geneName').css('border-bottom-color');
 
                 // Remove filter validation message (jira bug EMMA-545)
                 hideGeneIdValidationError();
             });
-            
-            function clearResults() {
-                $('#tabResults').remove('tr:gt(0)');
-                $('#divResults').css('display', 'none');
-                $('#labResultsCount').css('display', 'none');
-            }
             
             function showGeneIdValidationError() {
                 var trFilterGeneIdError = $('#trFilterGeneIdError');
@@ -64,7 +61,7 @@
                     $(trFilterGeneIdError).remove();
                 
                 $('#tabFilter tbody tr:eq(0)').after('<tr id="trFilterGeneIdError"><td colspan="4" style="color: red">Please enter an integer.</td></tr>');
-                setBorderError($('#filterGeneId'));
+                setBorderError($('#geneId'));
             }
             
             function hideGeneIdValidationError() {
@@ -72,7 +69,7 @@
                 if (trFilterGeneIdError !== null)
                     trFilterGeneIdError.remove();
                 
-                setBorderDefault($('#filterGeneId'));
+                setBorderDefault($('#geneId'));
             }
     
             function setBorderError(obj) {
@@ -92,7 +89,7 @@
             }
             
             function validate() {
-                var filterGeneIdValue = $('#filterGeneId').val();
+                var filterGeneIdValue = $('#geneId').val();
                 if ((filterGeneIdValue === '') || (isInteger(filterGeneIdValue))) {
                     hideGeneIdValidationError();
                     return true;
@@ -131,12 +128,12 @@
                     mgiReferences[${status.index}] = ${mgiReference};
                 </c:forEach>
                 
-                $("#filterGeneId").autocomplete({ source: geneIds, mustMatch:1,max:100});
-                $("#filterGeneId").autocomplete({ source: geneIds, mustMatch:1,max:100});
-                $("#filterChromosome").autocomplete({ source: chromosomes, mustMatch:1, max:100});
-                $("#filterGeneName").autocomplete({ source: geneNames, mustMatch:1, max:100});
-                $("#filterMgiReference").autocomplete({ source: mgiReferences, mustMatch:1, max:100});
-                $("#filterGeneSymbol").autocomplete({ source: geneSymbols, mustMatch:1, max:100});
+                $("#geneId").autocomplete({ source: geneIds, mustMatch:1,max:100});
+                $("#geneId").autocomplete({ source: geneIds, mustMatch:1,max:100});
+                $("#chromosome").autocomplete({ source: chromosomes, mustMatch:1, max:100});
+                $("#geneName").autocomplete({ source: geneNames, mustMatch:1, max:100});
+                $("#mgiReference").autocomplete({ source: mgiReferences, mustMatch:1, max:100});
+                $("#geneSymbol").autocomplete({ source: geneSymbols, mustMatch:1, max:100});
             }
             
         </script>
@@ -148,8 +145,12 @@
         
         <br />
 
-        <form:form commandName="command">
-            <input type="submit" value="New" style="margin-left: 470px; margin-bottom: 5px" formaction="geneManagementDetail.emma?id=0&amp;action=newGene" />
+        <form action="geneManagementDetail.emma">
+            <input type="hidden" name="action" value="newGene" />
+            <input type="submit" value="New" style="margin-left: 430px; margin-bottom: 5px" formaction="geneManagementDetail.emma" />
+        </form>
+                                                    
+        <form:form commandName="command" method="get">
             
             <br />
             
@@ -160,31 +161,34 @@
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma?action=applyFilter" onclick="return validate();" />
+                            <input type="hidden" name="action" value="applyFilter" />
+                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma" onclick="return validate();" />
                         </td>
                     </tr>
                 </tfoot>
                 <tbody>
                     <tr>
-                        <td><label for="filterGeneId">Gene Id:</label></td>
-                        <td><input type="text" id="filterGeneId" name="filterGeneId" /></td>
-                        <td><label for="filterChromosome">Chromosome:</label></td>
-                        <td><input type="text" id="filterChromosome" name="filterChromosome" /></td>
+                        <td><form:label path="geneId">Gene Id:</form:label></td>
+                        <td><form:input path="geneId" /></td>
+                        <td><form:label path="chromosome">Chromosome:</form:label></td>
+                        <td><form:input path="chromosome" /></td>
                     </tr>
                     <tr>
-                        <td><label for="filterGeneName">Gene name:</label></td>
-                        <td><input type="text" id="filterGeneName" name="filterGeneName" /></td>
-                        <td><label for="filterMgiReference">MGI reference:</label></td>
-                        <td><input type="text" id="filterMgiReference" name="filterMgiReference" /></td>
+                        <td><form:label path="geneName">Gene name:</form:label></td>
+                        <td><form:input path="geneName" /></td>
+                        <td><form:label path="mgiReference">MGI reference:</form:label></td>
+                        <td><form:input path="mgiReference" /></td>
                     </tr>
                     <tr>
-                        <td><label for="filterGeneSymbol">Gene symbol:</label></td>
-                        <td><input type="text" id="filterGeneSymbol" name="filterGeneSymbol" /></td>
+                        <td><form:label path="geneSymbol">Gene symbol:</form:label></td>
+                        <td><form:input path="geneSymbol" /></td>
                         <td colspan="2">&nbsp;</td>
                     </tr>
                 </tbody>
             </table>
         </form:form>
+            
+        <div id="divResults">
         <br />
         
         <hr />
@@ -206,13 +210,12 @@
             </c:choose>
         </label>
         
-        <div id="divResults">
             <br />
             <br />
 
             <table id="tabResults" style="border: 1px solid black">
                 <c:choose>
-                    <c:when test="${fn:length(command) > 0}">
+                    <c:when test="${fn:length(filteredGenesDAOList) > 0}">
                         <tr style="border: 1px solid black">
                             <th>Actions</th>
                             <th>Gene ID</th>
@@ -230,15 +233,27 @@
                         </tr>
                     </c:when>
                 </c:choose>
-                <c:forEach var="genes" items="${command}" varStatus="status">
+                <c:forEach var="gene" items="${filteredGenesDAOList}" varStatus="status">
                     <tr>
                         <td style="border: 1px solid black">
                             <input type="hidden" id="alleleCount" name="alleleCount" />
                             
                             <table>
                                 <tr>
-                                    <td><a onclick="clearResults();" href="geneManagementDetail.emma?id=${genes.id_gene}&amp;action=editGene">Edit</a></td>
-                                    <c:set var="boundAlleles" value="${genes.boundAlleles}" />
+                                    <td>
+                                        <form:form commandName="command" method="post">
+                                            <form:hidden path="geneName" />
+                                            <form:hidden path="geneId" />
+                                            <form:hidden path="chromosome" />
+                                            <form:hidden path="geneSymbol" />
+                                            <form:hidden path="mgiReference" />
+                                            <input type="hidden" name="id" value="${gene.id_gene}" />
+                                            <input type="hidden" name="action" value="editGene" />
+                                            <input alt="Edit Gene" type="image" height="15" width="15" title="Edit gene ${gene.id_gene}"
+                                               src="../images/edit.jpg" formaction="geneManagementDetail.emma" />
+                                        </form:form>
+                                    </td>
+                                    <c:set var="boundAlleles" value="${gene.boundAlleles}" />
                                     <c:set var="boundAllelesCount" value="${fn:length(boundAlleles)}" />
                                     <c:set var="boundAlleleIds" value="" />
                                     <c:forEach var="allele" items="${boundAlleles}" varStatus="status">
@@ -251,31 +266,52 @@
                                     </c:forEach>
                                     <c:choose>
                                         <c:when test="${boundAllelesCount == 1}">
-                                            <td><label title="Cannot delete gene as it is bound to allele ID ${boundAlleleIds}.">Delete</label></td>
+                                            <td>
+                                                <input alt="Delete Gene" type="image" height="15" width="15" disabled="disabled"
+                                                       src="../images/delete.jpg" formaction="geneManagementList.emma?id=${gene.id_gene}&action=deleteGene"
+                                                       title="Cannot delete gene ${gene.id_gene} as it is bound to allele ID ${boundAlleleIds}."
+                                                       class="ui-state-disabled" />
+                                            </td>
                                         </c:when>
                                         <c:when test="${boundAllelesCount > 0}">
-                                            <td><label title="Cannot delete gene as it is bound to allele IDs ${boundAlleleIds}.">Delete</label></td>
+                                            <td>
+                                                <input alt="Delete Gene" type="image" height="15" width="15" disabled="disabled"
+                                                       src="../images/delete.jpg" formaction="geneManagementList.emma?id=${gene.id_gene}&action=deleteGene"
+                                                       title="Cannot delete gene ${gene.id_gene} as it is bound to allele IDs ${boundAlleleIds}."
+                                                       class="ui-state-disabled" />
+                                            </td>
                                         </c:when>
                                         <c:otherwise>
-                                            <td><a href="geneManagementList.emma?id=${genes.id_gene}&amp;action=deleteGene">Delete</a></td>
+                                            <td>
+                                                <form:form commandName="command" method="post">
+                                                    <form:hidden path="geneName" />
+                                                    <form:hidden path="geneId" />
+                                                    <form:hidden path="chromosome" />
+                                                    <form:hidden path="geneSymbol" />
+                                                    <form:hidden path="mgiReference" />
+                                                    <input type="hidden" name="id" value="${gene.id_gene}" />
+                                                    <input type="hidden" name="action" value="deleteGene" />
+                                                    <input alt="Delete Gene" type="image" height="15" width="15" title="Delete gene ${gene.id_gene}"
+                                                           src="../images/delete.jpg" formaction="geneManagementList.emma" />
+                                                </form:form>
+                                            </td>
                                         </c:otherwise>
                                     </c:choose>
-                          <%--          <td><input alt="Delete Gene" id="inpDelete" type="image" src="../images/delete.jpg" formaction="geneManagementList.emma?id=${genes.id_gene}&action=deleteGene" /></td> --%>
                                 </tr>
                             </table>
                         </td>
-                        <td style="border: 1px solid black" valign="top">${genes.id_gene}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.name}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.symbol}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.chromosome}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.species}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.centimorgan}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.mgi_ref}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.ensembl_ref}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.promoter}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.founder_line_number}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.plasmid_construct}</td>
-                        <td style="border: 1px solid black" valign="top">${genes.cytoband}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.id_gene}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.name}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.symbol}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.chromosome}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.species}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.centimorgan}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.mgi_ref}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.ensembl_ref}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.promoter}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.founder_line_number}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.plasmid_construct}</td>
+                        <td style="border: 1px solid black" valign="top">${gene.cytoband}</td>
                     </tr>
                 </c:forEach>
             </table>

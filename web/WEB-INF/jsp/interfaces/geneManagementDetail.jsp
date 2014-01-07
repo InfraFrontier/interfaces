@@ -16,8 +16,6 @@
 <%@page import="org.emmanet.util.Configuration" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<spring:bind path="command.*"></spring:bind>
-<c:set var="keyRef" value='${command}'></c:set>
 <c:set var="filteredGenesDAOList" value='${filteredGenesDAOList}'></c:set>
 <c:set var="filteredGenesDAOListSize" value = '${filteredGenesDAOListSize}'></c:set>
 
@@ -46,7 +44,6 @@
         <script>
             
             $(document).ready(function() {
-
             });
 
         </script>
@@ -59,7 +56,7 @@
         <br />
         <br />
 
-        <form:form commandName="command">
+        <form:form commandName="gene" method="post">
                 <table style="border: 1px solid black">
                     <tr>
                         <td><label id="labGeneId">Gene ID:</label></td>
@@ -74,7 +71,7 @@
                             <table style="border: 1px solid black">
                                 <tr style="border: 1px solid black">
                                     <td>Synonyms:</td>
-                                    <td colspan="3" align="right"><input type="submit" value="New" formaction="geneManagementDetail.emma?id=${synonyms.id_syn}&action=newSynonym" /></td>
+                                    <td colspan="3" align="right"><input type="submit" value="New" formaction="geneManagementDetail.emma?id=${gene.id_gene}&amp;action=newSynonym" /></td>
                                 </tr>
                                 <tr>
                                     <th>Actions</th>
@@ -82,26 +79,35 @@
                                     <th>Name</th>
                                     <th>Symbol</th>
                                 </tr>
-                                <c:forEach var="synonym" items="${command.synonyms}" varStatus="status">
+                                <c:forEach var="synonym" items="${gene.synonyms}" varStatus="status">
                                     <tr>
-                                        <td style="border: 1px solid black">
-                                            <table>
-                                                <tr>
-                                                    <td><a href="geneManagementDetail.emma?id=${synonym.id_syn}&action=deleteSynonym">Delete</a></td>
-                                                </tr>
-                                            </table>
+                                        <td>
+                                            <form:form commandName="command" method="post">
+                                                <input type="hidden" name="id" value="${gene.id_gene}" />
+                                                <input type="hidden" name="id_syn" value="${synonym.id_syn}" />
+                                                <input type="hidden" name="action" value="deleteSynonym" />
+                                                <input alt="Delete Synonym" type="image" height="15" width="15" title="Delete Synonym ${synonym.id_syn}"
+                                                       src="../images/delete.jpg" formaction="geneManagementDetail.emma" />
+                                            </form:form>
                                         </td>
-                                        <td style="border: 1px solid black" valign="top">${synonym.id_syn}</td>
                                         <td>
                                             <c:set var="nameIndex" value="${status.index + 12}" />
-                                            <spring:bind path="command.synonyms[${status.index}].name" >
+                                            <spring:bind path="gene.synonyms[${status.index}].id_syn" >
+                                                <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" readonly="true" />
+                                                <br />
+                                                <form:errors path="${status.expression}" cssClass="error" />
+                                            </spring:bind>
+                                        </td>
+                                        <td>
+                                            <c:set var="nameIndex" value="${status.index + 12}" />
+                                            <spring:bind path="gene.synonyms[${status.index}].name" >
                                                 <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
                                                 <br />
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                             </spring:bind>
                                         </td>
                                         <td>
-                                            <spring:bind path="command.synonyms[${status.index}].symbol" >
+                                            <spring:bind path="gene.synonyms[${status.index}].symbol" >
                                                 <form:input id="${status.expression}" tabindex="${nameIndex + 1}" path="${status.expression}" />
                                                 <br />
                                                 <form:errors path="${status.expression}" cssClass="error" />
@@ -183,9 +189,7 @@
                         </td>
                     </tr >
                     <tr>
-                        <td align="left"><input type="submit" value="Back" formaction="geneManagementList.emma?action=initialize" /></td>
-                   <%--     <td colspan="2" align="center"><input type="submit" value="Cancel" formaction="geneManagementList.emma" /></td> --%>
-                        <td colspan="4" align="right"><input type="submit" value="Save" formaction="geneManagementDetail.emma?id=${synonyms.id_syn}&amp;action=save" /></td>
+                        <td colspan="4" align="right"><input type="submit" value="Save" formaction="geneManagementDetail.emma?id=${gene.id_gene}&amp;action=save" /></td>
                     </tr>
                 </table>
         </form:form>
