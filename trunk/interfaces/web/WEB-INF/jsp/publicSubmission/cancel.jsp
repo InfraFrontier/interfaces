@@ -41,7 +41,7 @@
                             <div class="boxcontainer">
                                 <h4>EMMA Submission Form Cancelled</h4>
                                 Your submission to EMMA has been cancelled. you can now:-<br/><br/>
-                                <a href="submissionForm.emma">Create another submission</a> or return to the <a href="http://www.emmanet.org/">Infrafrontier homepage</a>
+                                <a href="submissionForm.emma">Create another submission</a> or return to the <a href="https://www.infrafrontier.eu/">Infrafrontier homepage</a>
                             </div>
                         </div>
                     </div>
