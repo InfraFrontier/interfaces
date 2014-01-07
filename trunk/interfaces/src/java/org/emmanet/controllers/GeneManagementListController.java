@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.emmanet.model.GenesDAO;
@@ -35,71 +34,78 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * @author mrelac
  */
 public class GeneManagementListController extends SimpleFormController {
-    private List<GenesDAO> filteredGenesDAOList = new ArrayList();
     private Map<String, List<String>> options = null;
-    private GenesDAO genesDAO;
     private final GenesManager genesManager = new GenesManager();
-    private final Filter filter = new Filter();
-    private boolean initialLoad;
     
+	public GeneManagementListController(){
+            setCommandClass(Filter.class);
+            setCommandName("command");
+	}
+    
+    /**
+     * Initialize the form backing object.
+     * 
+     * @param request the <code>HttpServletRequest</code> instance
+     * @return a new <code>Filter</code> instance
+     */
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
-        if (options == null) {
-            initialize();
-        }
-        request.setAttribute("options", options);
         String action = request.getParameter("action");
-        if (action == null) {
-            logger.debug("formBackingObject: action is null.");
-            if (isInitialLoad()) {
-                filteredGenesDAOList.clear();
-            }
+        initialize();
+        request.setAttribute("options", options);
+        request.setAttribute("filteredGenesDAOList", new ArrayList());
+        Filter filter = new Filter(request);
+        
+        if (request.getParameter("action") == null) {
+            logger.debug("formBackingObject: hiding divResults.");
+            request.setAttribute("hidShowResultsForm", 0);                      // Hide results div on iinitial entry to form.
         } else {
-            logger.debug("formBackingObject: action: " + action);
+            List<GenesDAO> filteredGenesDAOList = genesManager.getFilteredGenesList(filter);
             if (action.compareToIgnoreCase("applyFilter") == 0) {
-                ;   // Nothing to do.
-            } else if (action.compareToIgnoreCase("initialize") == 0) {
-                filteredGenesDAOList.clear();
-            } else if (action.compareToIgnoreCase("deleteGene") == 0) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                genesManager.delete(genesManager.getGene(id));
-                filteredGenesDAOList = genesManager.getFilteredGenesList(filter);
-                request.setAttribute("filteredGenesDAOList", filteredGenesDAOList);
-                request.setAttribute("resultsCount", filteredGenesDAOList.size());
+                request.setAttribute("hidShowResultsForm", 1);                  // Show results div now.
             }
+            request.setAttribute("filteredGenesDAOList", filteredGenesDAOList);
+            request.setAttribute("resultsCount", filteredGenesDAOList.size());
         }
-
-        return filteredGenesDAOList;
+        
+        return filter;
     }
     
+    /**
+     * Process the form submission (GET or POST).
+     * 
+     * @param request the <code>HttpServletRequest</code> instance
+     * @param response the <code>HttpServletResponse</code> instance
+     * @param command the form's fields (model) to be operated upon
+     * @param errors the <code>BindException</code> errors instance
+     * @return the <code>ModelAndView</code> instance to invoke
+     * @throws Exception upon error
+     */
     @Override
-    protected ModelAndView onSubmit(
+    protected ModelAndView processFormSubmission(
             HttpServletRequest request,
             HttpServletResponse response,
             Object command,
             BindException errors)
-            throws ServletException, Exception {
+            throws Exception {
+        
+        Filter filter = (Filter)command;
         
         String action = request.getParameter("action");
         if (action == null) {
-            logger.debug("onSubmit: action is null.");
+            logger.debug("processFormSubmission: action is null.");
         } else {
-            logger.debug("onSubmit: action = " + action);
-            if (action.compareToIgnoreCase("applyFilter") == 0) {
-                filter.setGeneId(request.getParameter("filterGeneId"));
-                filter.setChromosome(request.getParameter("filterChromosome"));
-                filter.setGeneName(request.getParameter("filterGeneName"));
-                filter.setMgiReference(request.getParameter("filterMgiReference"));
-                filter.setGeneSymbol(request.getParameter("filterGeneSymbol"));
-                filteredGenesDAOList = genesManager.getFilteredGenesList(filter);
-                request.setAttribute("filteredGenesDAOList", filteredGenesDAOList);
-                request.setAttribute("resultsCount", filteredGenesDAOList.size());
-            } else if (action.compareToIgnoreCase("deleteGene") == 0) {
-                genesManager.delete(genesDAO);
+            logger.debug("processFormSubmission: action = " + action);
+            if (action.compareToIgnoreCase("deleteGene") == 0) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                genesManager.delete(genesManager.getGene(id));
             }
+            List<GenesDAO> filteredGenesDAOList = genesManager.getFilteredGenesList(filter);
+            request.setAttribute("filteredGenesDAOList", filteredGenesDAOList);
+            request.setAttribute("resultsCount", filteredGenesDAOList.size());
         }
 
-        return new ModelAndView(getSuccessView(), "command", filteredGenesDAOList);
+        return new ModelAndView(getSuccessView(), "command", filter);
     }
     
     
@@ -121,18 +127,6 @@ public class GeneManagementListController extends SimpleFormController {
     
     public Map getOptions() {
         return options;
-    }
-
-    public GenesDAO getGenesDAO() {
-        return genesDAO;
-    }
-
-    public boolean isInitialLoad() {
-        return initialLoad;
-    }
-
-    public void setInitialLoad(boolean initialLoad) {
-        this.initialLoad = initialLoad;
     }
 
 
