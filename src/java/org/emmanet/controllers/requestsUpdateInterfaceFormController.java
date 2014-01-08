@@ -47,19 +47,6 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class requestsUpdateInterfaceFormController extends SimpleFormController {
 
-    /**
-     * @return the BASEURL
-     */
-    public static String getBASEURL() {
-        return BASEURL;
-    }
-
-    /**
-     * @param aBASEURL the BASEURL to set
-     */
-    public static void setBASEURL(String aBASEURL) {
-        BASEURL = aBASEURL;
-    }
 
     WebRequests wr = new WebRequests();
     WebRequestsDAO wrd = new WebRequestsDAO();
@@ -268,7 +255,7 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
             Object command,
             BindException errors)
             throws ServletException, Exception {
-model.put("BASEURL", getBASEURL());
+model.put("BASEURL", BASEURL);
 System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
 
