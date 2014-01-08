@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.velocity.app.VelocityEngine;
 import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.WebRequestsDAO;
+import org.emmanet.util.Configuration;
 import org.emmanet.util.Encrypter;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
@@ -43,9 +44,12 @@ public class reqFulfillmentController implements Controller {
     private VelocityEngine velocityEngine;
     private Map Cc = new HashMap();
     private Encrypter enc=new Encrypter();
+    final static String BASEURL = Configuration.get("BASEURL");
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+Map model = new HashMap();
+model.put("BASEURL", BASEURL);
+System.out.println("baseurl is " + model.get("BASEURL"));
         if (!request.getParameter("reqID").isEmpty() && !request.getParameter("fulfill").isEmpty());
         WebRequestsDAO wrd = new WebRequestsDAO();
         WebRequests wr = new WebRequests();
@@ -55,7 +59,7 @@ public class reqFulfillmentController implements Controller {
         //DONE REMOVE RESTRICTION ON EMAIL EMMA-158
         if (wrd.getRegister_interest() != null || !wrd.getRegister_interest().equals("0")) {
             ///OK to send mail
-            Map model = new HashMap();
+            
 String encryptedID = enc.encrypt(wrd.getId_req());
 encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
             model.put("name", wrd.getSci_firstname() + " " + wrd.getSci_surname());
