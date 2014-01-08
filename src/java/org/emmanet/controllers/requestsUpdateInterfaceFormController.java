@@ -254,10 +254,9 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
             Object command,
             BindException errors)
             throws ServletException, Exception {
-
+model.put("BASEURL",BASEURL);
+System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
-
-
 
         if (!request.getParameter("noTAinfo").equals("true")) {
             String panelDecision = webRequest.getTa_panel_decision();
@@ -315,7 +314,6 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
                     String dd = date.substring(8, 10);
 
                     date = dd + "-" + MM + "-" + yyyy;
-model.put("BASEURL",BASEURL);
                     model.put("name", webRequest.getSci_firstname() + " " + webRequest.getSci_surname());
                     model.put("emmaid", webRequest.getStrain_id().toString());
                     model.put("strainname", webRequest.getStrain_name());
@@ -574,6 +572,7 @@ model.put("BASEURL",BASEURL);
                 }
             }
         }
+        System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
         return new ModelAndView("redirect:requestsUpdateInterface.emma?Edit=" + request.getParameter("Edit").toString() + "&strainID=" + request.getParameter("strainID").toString() + "&archID=" + request.getParameter("archID").toString());
     }
 
