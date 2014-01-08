@@ -256,7 +256,7 @@
                                         </script>
                                         <spring:bind path="command.delayed_release">
                                             <div class="field">
-                                                <p><strong>Do you require <a target="PDF" href="/delayed-release.php">delayed release</a> for this strain?<sup><font color="red">*</font></sup></strong></p>
+                                                <p><strong>Do you require <a target="_blank" href="https://www.infrafrontier.eu/delayed-release">delayed release</a> for this strain?<sup><font color="red">*</font></sup></strong></p>
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes (please explain below)<br />
