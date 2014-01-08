@@ -12,6 +12,8 @@
         <property name="timestamp" column="timestamp"/>
         <property name="userstamp" column="userstamp"/>
         <property name="roi_date" column="roi_date"/>
+        <property name="mta_arrived_date" column="mta_arrived_date"/>
+        <property name="all_paperwork_date" column="all_paperwork_date"/>
         <property name="strain_id" column="strain_id"/>
         <property name="strain_name" column="strain_name"/>
         <property name="common_name_s" column="common_name_s"/>
