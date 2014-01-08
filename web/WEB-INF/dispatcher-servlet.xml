@@ -371,9 +371,7 @@
         <property name="bcc" value="philw@ebi.ac.uk" />
         <property name="sangerLineDistEmail" value="philw@ebi.ac.uk" />
         <property name="fromAddress" value="emma@emmanet.org"/>
-                          <property name="BASEURL" >
-             <value>${BASEURL}</value>
-         </property>
+
     </bean>
     <bean name="archiveUpdateInterfaceFormController" class="org.emmanet.controllers.archiveUpdateInterfaceFormController">
         <property name="successView">
