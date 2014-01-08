@@ -119,7 +119,10 @@ public class RegInterestJOB extends QuartzJobBean {
 
     public void RegInterest() {
         webmasterMsg = (new StringBuilder()).append(webmasterMsg).append("Starting RegisterInterest Job\n\n").toString();
-
+                Map model = new HashMap();
+                model.put("BASEURL",BASEURL);
+                System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
+                webmasterMsg = (new StringBuilder()).append(webmasterMsg).append("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL") + "\n\n").toString();
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setReplyTo("emma@emmanet.org");
         msg.setFrom("emma@emmanet.org");
@@ -170,7 +173,7 @@ public class RegInterestJOB extends QuartzJobBean {
                 System.out.println("Result size = " + result.size());
                 // SEND EMAIL
                 // Create hashmap for velocity templates
-                Map model = new HashMap();
+
                 for (int ii = 0; ii < result.size(); ii++) {
                     webReq = (WebRequestsDAO) result.get(ii);
                     System.out.println(webReq.getSci_firstname() + " " + webReq.getSci_surname() + " " + webReq.getSci_e_mail() + " " + webReq.getStrain_name() + " " + webReq.getStr_id_str() + "  " + webReq.getStrain_id());
@@ -201,7 +204,7 @@ public class RegInterestJOB extends QuartzJobBean {
                     model.put("rtoolsID", rtoolsID);
 
                     model.put("labID", webReq.getLab_id_labo());
-                    model.put("BASEURL", BASEURL);
+                    
                     /* END */
 
                     // TODO: my email for testing - pull from database/hibernate
@@ -250,7 +253,7 @@ public class RegInterestJOB extends QuartzJobBean {
                     msg.setText(content);
                     try {
                         webmasterMsg = (new StringBuilder()).append(webmasterMsg).append("Sending mail message to " + webReq.getSci_e_mail() + " for request ID " + webReq.getId_req() + " ...\n\n").toString();
-                        getMailSender().send(msg);
+                        //getMailSender().send(msg);
                     } catch (MailException ex) {
                         webmasterMsg = (new StringBuilder()).append(webmasterMsg).append(ex.getMessage() + "\n\n").toString();
                         webmasterJobMessage();
