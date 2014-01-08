@@ -46,7 +46,7 @@
         <property name="shipped" column="shipped"/>
         <property name="notes" column="notes"/>
         <property name="req_status" column="req_status"/>
-        <!--<property name="date_processed" column="date_processed"/>-->
+        <property name="date_processed" column="date_processed"/>
         <property name="register_interest" column="register_interest"/>
         
        <!-- <property name="europhenome" column="europhenome"/>
