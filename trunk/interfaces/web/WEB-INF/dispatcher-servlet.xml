@@ -537,7 +537,7 @@
         <property name="template" value="regInt-Template.vm" />
                   <property name="BASEURL" >
              <value>${BASEURL}</value>
-         </pro
+                  </property>
         <!--<property name="msgSubject" value="Your application for free of charge Transnational Access to the EMMA strain " /> -->
         <property name="cc" value="info@emmanet.org" />
         <property name="bcc" value="philw@ebi.ac.uk" />
