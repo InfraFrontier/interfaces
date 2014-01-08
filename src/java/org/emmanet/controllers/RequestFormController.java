@@ -202,6 +202,7 @@ public class RequestFormController extends SimpleFormController {
                 }
                 wrd.setEncryptedId_req(ID);
                 Map model = new HashMap();
+                model.put("BASEURL", BASEURL);
                 model.put("id", wrd.getEncryptedId_req());
                 model.put("strainname", wrd.getStrain_name());
                 model.put("emmaid", wrd.getStrain_id());
