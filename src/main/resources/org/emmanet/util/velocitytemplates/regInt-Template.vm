@@ -14,7 +14,7 @@ The mice offered for this Registration of Interest (RoI) will be available to or
 
 To place your order please go to:
 
-< $BASEURLemma/RegisterInterest/requestFormView.emma?ID=$id > 
+< ${BASEURL}emma/RegisterInterest/requestFormView.emma?ID=$id > 
 
 or copy and paste the link between the <> characters into the address bar of your browser and complete the EMMA Mutant Request Form. 
 
