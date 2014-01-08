@@ -1625,7 +1625,12 @@ public class WebRequests {
             throw e;
         }
         String s = maxLength.toString();
-        int i = Integer.parseInt(s);
+        System.out.println("String s value is:" + s);
+         System.out.println("field is:" + field);
+          System.out.println("table is:" + table);
+                
+        int i = Integer.parseInt(s);//maxLength.intValue();
+        
         return i;
     }
 
