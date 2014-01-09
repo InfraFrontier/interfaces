@@ -25,6 +25,7 @@
         <script src="../js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="../js/jquery-ui.1.10.3.min.js" type="text/javascript" charset="UTF-8"></script>
         <script src="../js/json2.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="../js/utils.js" type="text/javascript" charset="UTF-8"></script>
   
         <style type="text/css">
             .error {
@@ -97,11 +98,6 @@
                     showGeneIdValidationError();
                     return false;
                 }
-            }
-            
-            function isInteger(number) {
-                var intRegex = /^\d+$/;
-                return intRegex.test(number);
             }
 
             // This function generates thousands of rows. Keep it at the bottom of the function list for easier debugging.
