@@ -20,6 +20,9 @@ public class Filter {
     private String geneSymbol;
     private String chromosome;
     private String mgiReference;
+    private String alleleId;
+    private String alleleName;
+    private String alleleSymbol;
     
     public Filter() {
         this.geneId = "";
@@ -27,6 +30,9 @@ public class Filter {
         this.geneSymbol = "";
         this.chromosome = "";
         this.mgiReference = "";
+        this.alleleId = "";
+        this.alleleName = "";
+        this.alleleSymbol = "";
     }
     
     /**
@@ -40,6 +46,9 @@ public class Filter {
         this.geneSymbol = request.getParameter("geneSymbol") == null ? "" : request.getParameter("geneSymbol");
         this.geneId = request.getParameter("geneId") == null ? "" : request.getParameter("geneId");
         this.mgiReference = request.getParameter("mgiReference") == null ? "" : request.getParameter("mgiReference");
+        this.alleleName = request.getParameter("alleleName") == null ? "" : request.getParameter("alleleName");
+        this.alleleSymbol = request.getParameter("alleleSymbol") == null ? "" : request.getParameter("alleleSymbol");
+        this.alleleId = request.getParameter("alleleId") == null ? "" : request.getParameter("alleleId");
     }
 
     public String getGeneId() {
@@ -81,6 +90,30 @@ public class Filter {
     public void setMgiReference(String mgiReference) {
         this.mgiReference = mgiReference;
     }
+
+    public String getAlleleId() {
+        return alleleId;
+    }
+
+    public void setAlleleId(String alleleId) {
+        this.alleleId = alleleId;
+    }
+
+    public String getAlleleName() {
+        return alleleName;
+    }
+
+    public void setAlleleName(String alleleName) {
+        this.alleleName = alleleName;
+    }
+
+    public String getAlleleSymbol() {
+        return alleleSymbol;
+    }
+
+    public void setAlleleSymbol(String alleleSymbol) {
+        this.alleleSymbol = alleleSymbol;
+    }
     
     /**
      * Generates a query string for use in an HTTP GET request from this <code>Filter
@@ -101,6 +134,12 @@ public class Filter {
             builder.addParameter("chromosome", chromosome);
         if ( ! mgiReference.isEmpty())
             builder.addParameter("mgiReference", mgiReference);
+        if ( ! alleleId.isEmpty())
+            builder.addParameter("alleleId", alleleId);
+        if ( ! alleleName.isEmpty())
+            builder.addParameter("alleleName", alleleName);
+        if ( ! alleleSymbol.isEmpty())
+            builder.addParameter("alleleSymbol", alleleSymbol);
         
         String query = "";
         try {

@@ -127,6 +127,8 @@
                 </prop>
                 <prop key="/interfaces/geneManagementList.emma">geneManagementListController</prop>
                 <prop key="/interfaces/geneManagementDetail.emma">geneManagementDetailController</prop>
+                <prop key="/interfaces/alleleManagementList.emma">alleleManagementListController</prop>
+                <prop key="/interfaces/alleleManagementDetail.emma">alleleManagementDetailController</prop>
             </props>
 
             
@@ -615,6 +617,21 @@
         </property>
         <property name="validator">
 		<bean class="org.emmanet.controllers.GeneManagementDetailController" />
+	</property>
+    </bean>
+    
+    <bean name="alleleManagementListController" class="org.emmanet.controllers.AlleleManagementListController">
+        <property name="successView">
+            <value>/interfaces/alleleManagementList</value>
+        </property>
+    </bean>
+    
+    <bean name="alleleManagementDetailController" class="org.emmanet.controllers.AlleleManagementDetailController">
+        <property name="successView">
+            <value>/interfaces/alleleManagementDetail</value>
+        </property>
+        <property name="validator">
+		<bean class="org.emmanet.controllers.AlleleManagementDetailController" />
 	</property>
     </bean>
 
