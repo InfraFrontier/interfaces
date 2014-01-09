@@ -1,8 +1,9 @@
 <%-- 
-    Document   : geneManagementList
-    Created on : Nov 18, 2013, 6:19:43 PM
+    Document   : alleleManagementList
+    Created on : Jan 8, 2014, 3:36:49 PM
     Author     : mrelac
 --%>
+
 <!DOCTYPE html>
 <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -51,27 +52,27 @@
                 defaultBorderColor[2] = $('#geneName').css('border-right-color');
                 defaultBorderColor[3] = $('#geneName').css('border-bottom-color');
 
-                // Remove filter validation message (jira bug EMMA-545)
-                hideGeneIdValidationError();
+                // Remove filter validation messages
+                clearFilterErrorTr();
             });
-            
-            function showGeneIdValidationError() {
-                var trFilterGeneIdError = $('#trFilterGeneIdError');
-                if (trFilterGeneIdError !== null)
-                    $(trFilterGeneIdError).remove();
+
+            function createFilterErrorTr0IfNecessary() {
+                var created = false;
+                var errorTr = $('.filterErrorTr0');
+                if (errorTr.length === 0) {
+                    $('#tabFilter tbody tr:eq(0)').after('<tr class="filterErrorTr0">');
+                    created = true;
+                }
                 
-                $('#tabFilter tbody tr:eq(0)').after('<tr id="trFilterGeneIdError"><td colspan="4" style="color: red">Please enter an integer.</td></tr>');
-                setBorderError($('#geneId'));
+                return created;
             }
             
-            function hideGeneIdValidationError() {
-                var trFilterGeneIdError = $('#trFilterGeneIdError');
-                if (trFilterGeneIdError !== null)
-                    trFilterGeneIdError.remove();
-                
-                setBorderDefault($('#geneId'));
+            function clearFilterErrorTr() {
+                $('#tabFilter tbody .filterErrorTr0').remove();
+                setBorderDefault('#geneId');
+                setBorderDefault('#alleleId');
             }
-    
+            
             function setBorderError(obj) {
                 $(obj)
                     .css('border-left-color', 'red')
@@ -89,14 +90,31 @@
             }
             
             function validate() {
-                var filterGeneIdValue = $('#geneId').val();
-                if ((filterGeneIdValue === '') || (isInteger(filterGeneIdValue))) {
-                    hideGeneIdValidationError();
-                    return true;
-                } else {
-                    showGeneIdValidationError();
+                // Remove filter validation messages
+                clearFilterErrorTr();
+                
+                var errorMarkup = '';
+                var filterIdValue = $('#alleleId').val();
+                var alleleError = ((filterIdValue !== '') && ( ! isInteger(filterIdValue)));
+                filterIdValue = $('#geneId').val();
+                var geneError = ((filterIdValue !== '') && ( ! isInteger(filterIdValue)));
+                if (alleleError || geneError) {
+                    errorMarkup = '<tr class="filterErrorTr0">';
+                    if (alleleError) {
+                        errorMarkup += '<td colspan="2" style="color: red">Please enter an integer.</td>';
+                    } else {
+                        errorMarkup += '<td colspan="2">&nbsp;</td>';
+                    }
+                    if (geneError) {
+                        errorMarkup += '<td colspan="2" style="color: red">Please enter an integer.</td>';
+                    }
+                    errorMarkup += '</tr>';
+                    $('#tabFilter tbody tr:eq(0)').after(errorMarkup);
+                    
                     return false;
                 }
+                
+                return true;
             }
             
             function isInteger(number) {
@@ -136,17 +154,17 @@
             }
             
         </script>
-        <title>Gene Management - list</title>
+        <title>Allele Management - list</title>
     </head>
     <body>
-        <h2>Gene Management - list</h2>
+        <h2>Allele Management - list</h2>
         <span id="loginHeader">Logged in as user "<sec:authentication property='principal.username'/>"</span>
         
         <br />
 
-        <form action="geneManagementDetail.emma">
+        <form action="alleleManagementDetail.emma">
             <input type="hidden" name="action" value="newGene" />
-            <input type="submit" value="New" style="margin-left: 430px; margin-bottom: 5px" formaction="geneManagementDetail.emma" />
+            <input type="submit" value="New" style="margin-left: 430px; margin-bottom: 5px" formaction="alleleManagementDetail.emma" />
         </form>
                                                     
         <form:form commandName="command" method="get">
@@ -161,27 +179,33 @@
                     <tr>
                         <td colspan="4">
                             <input type="hidden" name="action" value="applyFilter" />
-                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma" onclick="return validate();" />
+                            <input type="submit" id="applyFilter" value="Go" formaction="alleleManagementList.emma" />
                         </td>
                     </tr>
                 </tfoot>
                 <tbody>
                     <tr>
+                        <td><form:label path="alleleId">Allele Id:</form:label></td>
+                        <td><form:input path="alleleId" /></td>
                         <td><form:label path="geneId">Gene Id:</form:label></td>
                         <td><form:input path="geneId" /></td>
-                        <td><form:label path="chromosome">Chromosome:</form:label></td>
-                        <td><form:input path="chromosome" /></td>
                     </tr>
                     <tr>
+                        <td><form:label path="alleleName">Allele name:</form:label></td>
+                        <td><form:input path="alleleName" /></td>
                         <td><form:label path="geneName">Gene name:</form:label></td>
                         <td><form:input path="geneName" /></td>
-                        <td><form:label path="mgiReference">MGI reference:</form:label></td>
-                        <td><form:input path="mgiReference" /></td>
                     </tr>
                     <tr>
+                        <td><form:label path="alleleSymbol">Allele symbol:</form:label></td>
+                        <td><form:input path="alleleSymbol" /></td>
                         <td><form:label path="geneSymbol">Gene symbol:</form:label></td>
                         <td><form:input path="geneSymbol" /></td>
+                    </tr>
+                    <tr>
                         <td colspan="2">&nbsp;</td>
+                        <td><form:label path="mgiReference">MGI reference:</form:label></td>
+                        <td><form:input path="mgiReference" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -214,7 +238,7 @@
 
             <table id="tabResults" style="border: 1px solid black">
                 <c:choose>
-                    <c:when test="${fn:length(filteredGenesDAOList) > 0}">
+                    <c:when test="${fn:length(filteredAllelesDAOList) > 0}">
                         <tr style="border: 1px solid black">
                             <th>Actions</th>
                             <th>Gene ID</th>
@@ -232,7 +256,7 @@
                         </tr>
                     </c:when>
                 </c:choose>
-                <c:forEach var="gene" items="${filteredGenesDAOList}" varStatus="status">
+                <c:forEach var="gene" items="${filteredAllelesDAOList}" varStatus="status">
                     <tr>
                         <td style="border: 1px solid black">
                             <input type="hidden" id="alleleCount" name="alleleCount" />
@@ -248,8 +272,8 @@
                                             <form:hidden path="mgiReference" />
                                             <input type="hidden" name="id" value="${gene.id_gene}" />
                                             <input type="hidden" name="action" value="editGene" />
-                                            <input alt="Edit Gene" type="image" height="15" width="15" title="Edit gene ${gene.id_gene}"
-                                               src="../images/edit.jpg" formaction="geneManagementDetail.emma" />
+                                            <input alt="Edit Allele" type="image" height="15" width="15" title="Edit Allele ${gene.id_gene}"
+                                               src="../images/edit.jpg" formaction="alleleManagementDetail.emma" />
                                         </form:form>
                                     </td>
                                     <c:set var="boundAlleles" value="${gene.boundAlleles}" />
@@ -266,17 +290,17 @@
                                     <c:choose>
                                         <c:when test="${boundAllelesCount == 1}">
                                             <td>
-                                                <input alt="Delete Gene" type="image" height="15" width="15" disabled="disabled"
-                                                       src="../images/delete.jpg" formaction="geneManagementList.emma?id=${gene.id_gene}&action=deleteGene"
-                                                       title="Cannot delete gene ${gene.id_gene} as it is bound to allele ID ${boundAlleleIds}."
+                                                <input alt="Delete Allele" type="image" height="15" width="15" disabled="disabled"
+                                                       src="../images/delete.jpg" formaction="alleleManagementList.emma?id=${gene.id_gene}&action=deleteGene"
+                                                       title="Cannot delete allele ${gene.id_gene} as it is bound to allele ID ${boundAlleleIds}."
                                                        class="ui-state-disabled" />
                                             </td>
                                         </c:when>
                                         <c:when test="${boundAllelesCount > 0}">
                                             <td>
-                                                <input alt="Delete Gene" type="image" height="15" width="15" disabled="disabled"
-                                                       src="../images/delete.jpg" formaction="geneManagementList.emma?id=${gene.id_gene}&action=deleteGene"
-                                                       title="Cannot delete gene ${gene.id_gene} as it is bound to allele IDs ${boundAlleleIds}."
+                                                <input alt="Delete Allele" type="image" height="15" width="15" disabled="disabled"
+                                                       src="../images/delete.jpg" formaction="alleleManagementList.emma?id=${gene.id_gene}&action=deleteGene"
+                                                       title="Cannot delete allele ${gene.id_gene} as it is bound to allele IDs ${boundAlleleIds}."
                                                        class="ui-state-disabled" />
                                             </td>
                                         </c:when>
@@ -290,8 +314,8 @@
                                                     <form:hidden path="mgiReference" />
                                                     <input type="hidden" name="id" value="${gene.id_gene}" />
                                                     <input type="hidden" name="action" value="deleteGene" />
-                                                    <input alt="Delete Gene" type="image" height="15" width="15" title="Delete gene ${gene.id_gene}"
-                                                           src="../images/delete.jpg" formaction="geneManagementList.emma" />
+                                                    <input alt="Delete Allele" type="image" height="15" width="15" title="Delete allele ${gene.id_gene}"
+                                                           src="../images/delete.jpg" formaction="alleleManagementList.emma" />
                                                 </form:form>
                                             </td>
                                         </c:otherwise>
