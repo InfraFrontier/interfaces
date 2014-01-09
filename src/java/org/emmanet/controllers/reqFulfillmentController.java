@@ -67,6 +67,7 @@ encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
             model.put("emmaid", wrd.getStrain_id());
             model.put("strainname", wrd.getStrain_name());
             model.put("id", encryptedID);//new Integer(wrd.getId_req()));
+            model.put("labID", wrd.getLab_id_labo());
             model.put("labid", wrd.getLab_id_labo());
             model.put("pid", wrd.getProjectID());
           
