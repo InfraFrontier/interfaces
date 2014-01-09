@@ -39,7 +39,7 @@ public class GeneManagementListController extends SimpleFormController {
     
 	public GeneManagementListController(){
             setCommandClass(Filter.class);
-            setCommandName("command");
+            setCommandName("filter");
 	}
     
     /**
@@ -105,7 +105,7 @@ public class GeneManagementListController extends SimpleFormController {
             request.setAttribute("resultsCount", filteredGenesDAOList.size());
         }
 
-        return new ModelAndView(getSuccessView(), "command", filter);
+        return new ModelAndView(getSuccessView(), "filter", filter);
     }
     
     

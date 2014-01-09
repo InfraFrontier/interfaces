@@ -39,7 +39,7 @@ public class AlleleManagementListController extends SimpleFormController {
     
 	public AlleleManagementListController(){
             setCommandClass(Filter.class);
-            setCommandName("command");
+            setCommandName("filter");
 	}
     
     /**
@@ -105,7 +105,7 @@ public class AlleleManagementListController extends SimpleFormController {
             request.setAttribute("resultsCount", filteredAllelesDAOList.size());
         }
 
-        return new ModelAndView(getSuccessView(), "command", filter);
+        return new ModelAndView(getSuccessView(), "filter", filter);
     }
     
     

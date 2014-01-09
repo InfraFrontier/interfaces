@@ -17,8 +17,6 @@
 <%@page import="org.emmanet.util.Configuration" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<spring:bind path="command.*"></spring:bind>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,11 +30,14 @@
             .error {
                 font-family: Arial; font-size: 14px; margin-left: 30px; color: red;
             }
+            .errorBorder {
+                border-collapse: separate;
+                border-spacing: 2px;
+                border-color: red;
+            }
         </style>
 
         <script>
-            var defaultBorderColor = new Array();   // left, top, right, bottom
-            
             $(document).ready(function() {
                 populateFilterAutocompletes();
                 $('#applyFilter').click(function() {
@@ -46,53 +47,20 @@
                 var showResultsForm = ${hidShowResultsForm};
                 var divResultsDisplayAttribute = (showResultsForm === 0 ? 'none' : 'block');
                 $('#divResults').css('display', divResultsDisplayAttribute);
-                
-                // Reset validation indicators.
-                defaultBorderColor[0] = $('#geneName').css('border-left-color');
-                defaultBorderColor[1] = $('#geneName').css('border-top-color');
-                defaultBorderColor[2] = $('#geneName').css('border-right-color');
-                defaultBorderColor[3] = $('#geneName').css('border-bottom-color');
 
                 // Remove filter validation messages
-                clearFilterErrorTr();
+                clearFilterErrors();
             });
 
-            function createFilterErrorTr0IfNecessary() {
-                var created = false;
-                var errorTr = $('.filterErrorTr0');
-                if (errorTr.length === 0) {
-                    $('#tabFilter tbody tr:eq(0)').after('<tr class="filterErrorTr0">');
-                    created = true;
-                }
-                
-                return created;
-            }
-            
-            function clearFilterErrorTr() {
+            function clearFilterErrors() {
                 $('#tabFilter tbody .filterErrorTr0').remove();
-                setBorderDefault('#geneId');
-                setBorderDefault('#alleleId');
+                $('#geneId').removeClass('errorBorder');
+                $('#alleleId').removeClass('errorBorder');
             }
-            
-            function setBorderError(obj) {
-                $(obj)
-                    .css('border-left-color', 'red')
-                    .css('border-top-color', 'red')
-                    .css('border-right-color', 'red')
-                    .css('border-bottom-color', 'red');
-            }
-            
-            function setBorderDefault(obj) {
-                $(obj)
-                    .css('border-left-color', defaultBorderColor[0])
-                    .css('border-top-color', defaultBorderColor[1])
-                    .css('border-right-color', defaultBorderColor[2])
-                    .css('border-bottom-color', defaultBorderColor[3]);
-            }
-            
+
             function validate() {
-                // Remove filter validation messages
-                clearFilterErrorTr();
+                // Remove any filter validation messages.
+                clearFilterErrors();
                 
                 var errorMarkup = '';
                 var filterIdValue = $('#alleleId').val();
@@ -103,11 +71,16 @@
                     errorMarkup = '<tr class="filterErrorTr0">';
                     if (alleleError) {
                         errorMarkup += '<td colspan="2" style="color: red">Please enter an integer.</td>';
+                        $('#alleleId').addClass('errorBorder');
                     } else {
                         errorMarkup += '<td colspan="2">&nbsp;</td>';
+                        $('#alleleId').removeClass('errorBorder');
                     }
                     if (geneError) {
                         errorMarkup += '<td colspan="2" style="color: red">Please enter an integer.</td>';
+                        $('#geneId').addClass('errorBorder');
+                    } else {
+                        $('#geneId').removeClass('errorBorder');
                     }
                     errorMarkup += '</tr>';
                     $('#tabFilter tbody tr:eq(0)').after(errorMarkup);
@@ -163,7 +136,7 @@
             <input type="submit" value="New" style="margin-left: 430px; margin-bottom: 5px" formaction="alleleManagementDetail.emma" />
         </form>
                                                     
-        <form:form commandName="command" method="get">
+        <form:form commandName="filter" method="get">
             
             <br />
             
@@ -260,7 +233,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <form:form commandName="command" method="post">
+                                        <form:form commandName="filter" method="post">
                                             <form:hidden path="geneName" />
                                             <form:hidden path="geneId" />
                                             <form:hidden path="chromosome" />
@@ -302,7 +275,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <td>
-                                                <form:form commandName="command" method="post">
+                                                <form:form commandName="filter" method="post">
                                                     <form:hidden path="geneName" />
                                                     <form:hidden path="geneId" />
                                                     <form:hidden path="chromosome" />
