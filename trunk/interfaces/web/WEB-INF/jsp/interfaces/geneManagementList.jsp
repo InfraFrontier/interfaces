@@ -16,8 +16,6 @@
 <%@page import="org.emmanet.util.Configuration" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<spring:bind path="command.*"></spring:bind>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -31,11 +29,14 @@
             .error {
                 font-family: Arial; font-size: 14px; margin-left: 30px; color: red;
             }
+            .errorBorder {
+                border-collapse: separate;
+                border-spacing: 2px;
+                border-color: red;
+            }
         </style>
 
         <script>
-            var defaultBorderColor = new Array();   // left, top, right, bottom
-            
             $(document).ready(function() {
                 populateFilterAutocompletes();
                 $('#applyFilter').click(function() {
@@ -45,61 +46,31 @@
                 var showResultsForm = ${hidShowResultsForm};
                 var divResultsDisplayAttribute = (showResultsForm === 0 ? 'none' : 'block');
                 $('#divResults').css('display', divResultsDisplayAttribute);
-                
-                // Reset validation indicators.
-                defaultBorderColor[0] = $('#geneName').css('border-left-color');
-                defaultBorderColor[1] = $('#geneName').css('border-top-color');
-                defaultBorderColor[2] = $('#geneName').css('border-right-color');
-                defaultBorderColor[3] = $('#geneName').css('border-bottom-color');
 
                 // Remove filter validation message (jira bug EMMA-545)
-                hideGeneIdValidationError();
+                clearFilterErrors();
             });
-            
-            function showGeneIdValidationError() {
-                var trFilterGeneIdError = $('#trFilterGeneIdError');
-                if (trFilterGeneIdError !== null)
-                    $(trFilterGeneIdError).remove();
-                
-                $('#tabFilter tbody tr:eq(0)').after('<tr id="trFilterGeneIdError"><td colspan="4" style="color: red">Please enter an integer.</td></tr>');
-                setBorderError($('#geneId'));
-            }
-            
-            function hideGeneIdValidationError() {
-                var trFilterGeneIdError = $('#trFilterGeneIdError');
-                if (trFilterGeneIdError !== null)
-                    trFilterGeneIdError.remove();
-                
-                setBorderDefault($('#geneId'));
-            }
-    
-            function setBorderError(obj) {
-                $(obj)
-                    .css('border-left-color', 'red')
-                    .css('border-top-color', 'red')
-                    .css('border-right-color', 'red')
-                    .css('border-bottom-color', 'red');
-            }
-            
-            function setBorderDefault(obj) {
-                $(obj)
-                    .css('border-left-color', defaultBorderColor[0])
-                    .css('border-top-color', defaultBorderColor[1])
-                    .css('border-right-color', defaultBorderColor[2])
-                    .css('border-bottom-color', defaultBorderColor[3]);
-            }
-            
-            function validate() {
-                var filterGeneIdValue = $('#geneId').val();
-                if ((filterGeneIdValue === '') || (isInteger(filterGeneIdValue))) {
-                    hideGeneIdValidationError();
-                    return true;
-                } else {
-                    showGeneIdValidationError();
-                    return false;
-                }
+
+            function clearFilterErrors() {
+                $('#tabFilter tbody .filterErrorTr0').remove();
+                $('#geneId').removeClass('errorBorder');
             }
 
+            function validate() {
+                // Remove any filter validation messages.
+                clearFilterErrors();
+                
+                var filterIdValue = $('#geneId').val();
+                var geneError = ((filterIdValue !== '') && ( ! isInteger(filterIdValue)));
+                if (geneError) {
+                    $('#tabFilter tbody tr:eq(0)').after('<tr class="filterErrorTr0"><td colspan="4" style="color: red">Please enter an integer.</td></tr>');
+                    $('#geneId').addClass('errorBorder');
+                    return false;
+                }
+                
+                return true;
+            }
+            
             // This function generates thousands of rows. Keep it at the bottom of the function list for easier debugging.
             function populateFilterAutocompletes() {
                 var geneIds = new Array();
@@ -145,7 +116,7 @@
             <input type="submit" value="New" style="margin-left: 430px; margin-bottom: 5px" formaction="geneManagementDetail.emma" />
         </form>
                                                     
-        <form:form commandName="command" method="get">
+        <form:form commandName="filter" method="get">
             
             <br />
             
@@ -157,7 +128,7 @@
                     <tr>
                         <td colspan="4">
                             <input type="hidden" name="action" value="applyFilter" />
-                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma" onclick="return validate();" />
+                            <input type="submit" id="applyFilter" value="Go" formaction="geneManagementList.emma" />
                         </td>
                     </tr>
                 </tfoot>
@@ -236,7 +207,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <form:form commandName="command" method="post">
+                                        <form:form commandName="filter" method="post">
                                             <form:hidden path="geneName" />
                                             <form:hidden path="geneId" />
                                             <form:hidden path="chromosome" />
@@ -278,7 +249,7 @@
                                         </c:when>
                                         <c:otherwise>
                                             <td>
-                                                <form:form commandName="command" method="post">
+                                                <form:form commandName="filter" method="post">
                                                     <form:hidden path="geneName" />
                                                     <form:hidden path="geneId" />
                                                     <form:hidden path="chromosome" />
