@@ -126,14 +126,14 @@ public class PubMedTest {
         assertEquals("Decker T", authorsList.get(8).getFullName());
         assertEquals("Wienerroither S, Rauch I, Rosebrock F, Jamieson AM, Bradner J, Muhar M, Zuber J, Müller M, Decker T", instance.getAuthorsString());
         assertEquals("Rauch I, Rosebrock F, Jamieson AM, Bradner J, Muhar M, Zuber J, Müller M, Decker T", instance.getOtherAuthors());
-        assertEquals("", instance.getIssue());
+        assertEquals("3", instance.getIssue());
         assertEquals("Molecular and cellular biology", instance.getJournal());
-        assertEquals("", instance.getPages());
+        assertEquals("415-427", instance.getPages());
         assertEquals("", instance.getPaperid());
         assertEquals("24248598", instance.getPubmedId());
-        assertEquals("Regulation of NO synthesis, local inflammation and innate immunity to pathogens by BET family proteins.", instance.getTitle());
-        assertEquals("", instance.getVolume());
-        assertEquals(2013, instance.getYear());
+        assertEquals("Regulation of NO Synthesis, Local Inflammation, and Innate Immunity to Pathogens by BET Family Proteins.", instance.getTitle());
+        assertEquals("34", instance.getVolume());
+        assertEquals(2014, instance.getYear());
     }
 
     /**
@@ -215,7 +215,7 @@ public class PubMedTest {
         PubMed instance = new PubMed(24248598);
         assertEquals(true, instance.isValid());
         assertEquals(pubmedId, instance.getPubmedId());
-        assertEquals("Regulation of NO synthesis, local inflammation and innate immunity to pathogens by BET family proteins.", instance.getTitle());
+        assertEquals("Regulation of NO Synthesis, Local Inflammation, and Innate Immunity to Pathogens by BET Family Proteins.", instance.getTitle());
         assertEquals("Wienerroither S, Rauch I, Rosebrock F, Jamieson AM, Bradner J, Muhar M, Zuber J, Müller M, Decker T", instance.getAuthorsString());
     }
     
