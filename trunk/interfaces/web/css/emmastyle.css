@@ -205,7 +205,7 @@ select   { font-size: 1em; color: #333; border:1px solid #0090d2; }
 /* division containing navigation */
 #nav-container {width:200px; float:left; left:10px;}
 
-#nav-container ul {voice-family: "\"}\""; voice-family:inherit; margin-top:3px;}
+#nav-container ul {voice-family: "\"}
 #nav-container ul li {list-style-type:square; color:#0090d2; padding:2px; margin-top:2px; margin-bottom:2px; font-weight:bold;}
 #nav-container ul li a:link {color:#666; text-decoration:none; font-weight:bold;}
 #nav-container ul li a:visited {color:#666; text-decoration:none; font-weight:bold;} 
@@ -216,7 +216,7 @@ select   { font-size: 1em; color: #333; border:1px solid #0090d2; }
 #nav-container ul li.active a:visited {color:#0090d2; text-decoration:none; font-weight:bold;} 
 #nav-container ul li.active a:hover{font-weight:bold; color:#0090d2;}
 
-#nav-container ul ul {font-weight:normal; padding-left:0; voice-family: "\"}\""; voice-family:inherit; margin-left:15px; margin-top:3px;}
+#nav-container ul ul {font-weight:normal; padding-left:0; voice-family: "\"}
 #nav-container ul ul li.sub a:link {color:#666; text-decoration:none; font-weight:normal;}
 #nav-container ul ul li.sub a:visited {color:#666; text-decoration:none; font-weight:normal;}
 #nav-container ul ul li.sub a:hover{color:#0090d2; font-weight:normal;}
