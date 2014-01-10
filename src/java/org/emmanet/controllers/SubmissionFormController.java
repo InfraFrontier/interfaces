@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -125,10 +127,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                                 newSub.setStep("4");
                                 sda=newSub; 
                             }
-                
-                
-                
-          
                 System.out.println("NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                 System.out.println("g e t p r e v::" + idDecrypt);
                 System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
@@ -1085,6 +1083,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         System.out.println("F I N A L  S A V E  :: -- " + nsd.getId_str() + " EMMA ID ++ " + nsd.getEmma_id());
         stm.save(nsd);
         //MAIL OUT AND PDF ATTACHMENT + PDF LINK
+        System.out.println("STARTING MAILOUT");
         Map model = new HashMap();
         model.put("emailsubmitter", sd.getSubmitter_email());
         model.put("strainname", nsd.getName());
@@ -1105,6 +1104,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             helper.setTo(model.get("emailsubmitter").toString().trim());
             helper.setSubject("Your submission to EMMA of strain " + model.get("strainname").toString());
             helper.setText(content);
+            System.out.println(message.getContent().toString());
             getJavaMailSender().send(message);
         } catch (MessagingException ex) {
             ex.printStackTrace();
@@ -1113,10 +1113,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
         }
         //ok submission pretty much complete, let's now set the step to the last position for user details
         //sd.setStep("-1");
-        System.out.println("Step is::-" + sd.getStep());
-        System.out.println("Starting to save submissionsDAO at line 1024");
+        //System.out.println("Step is::-" + sd.getStep());
         sm.save(sd);
-        System.out.println("Saved submissionsDAO at line 1025");
         return new ModelAndView("/publicSubmission/success");
     }
 
@@ -1148,7 +1146,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 validator.validateSubmissionForm1(sd, errors, "submitter");
                 break;
             case 3:
-                //uses validator 2 to redice code duplication
                 validator.validateSubmissionForm1(sd, errors, "producer");
                 break;
             case 4:
@@ -1165,7 +1162,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 validator.validateSubmissionForm6(sd, errors);
                 break;
             case 8:
-                //validator.validateSubmissionForm8(sd, errors);
+                validator.validateSubmissionForm7(sd, errors);
                 break;
             case 9:
                 validator.validateSubmissionForm8(sd, errors);
