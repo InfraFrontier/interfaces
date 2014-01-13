@@ -1679,15 +1679,14 @@ public class WebRequests {
 
         }
 
-        if (saveWebReq.getAll_paperwork_date() != null || saveWebReq.getMta_arrived_date() != null) {
-            // System.out.println("AT LEAST ONE DATE IS NULL");
+        if (saveWebReq.getAll_paperwork_date() != null) {
             if (saveWebReq.getAll_paperwork_date().length() == 0) {
                 saveWebReq.setAll_paperwork_date(null);
-                // System.out.println("All_paperwork_date DATE IS NULL -- " + saveWebReq.getAll_paperwork_date());
             }
+        }
+         if (saveWebReq.getMta_arrived_date() != null) {
             if (saveWebReq.getMta_arrived_date().length() == 0) {
                 saveWebReq.setMta_arrived_date(null);
-                //System.out.println("mta arrived_date IS NULL -- " + saveWebReq.getMta_arrived_date());
             }
         }
 
