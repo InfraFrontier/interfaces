@@ -312,7 +312,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
             String content = "";
             String toAddress = "";
             ////::  SimpleMailMessage msg = getSimpleMailMessage();
-            FileSystemResource file = new FileSystemResource(new File(fileLocation + "EMMAImportReportForm.doc"));
+            FileSystemResource file = new FileSystemResource(new File(fileLocation + "EMMA_INFRAFRONTIER_import_report_form.doc"));
             try {
                 MimeMessage message = getJavaMailSender().createMimeMessage();
                 MimeMessageHelper msg = new MimeMessageHelper(message, true, "UTF-8");
