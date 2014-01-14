@@ -72,7 +72,7 @@
                     We strongly recommend that you carefully read the <a target="PDF" href="/procedures/costs.php">EMMA Procedures</a> on this website. These documents describe the responsibilities EMMA has in maintaining and distributing the submitted strains as well as the responsibilities assumed by the submitter.
                 </p>
                 <p>
-                    If your browser does not support forms you can <a href="mailto:info@emmanet.org">e-mail</a> all the complete strain information to EMMA.
+                    If your browser does not support forms you can <a href="mailto:emma@infrafrontier.eu">e-mail</a> all the complete strain information to EMMA.
                 </p>
                 <p>
                     Within 60 days you will be notified by e-mail of the result of the evaluation of your submission request.
