@@ -131,22 +131,6 @@
             </map>
         </property>
     </bean>
-    
-    
-    <bean name="updateBibliosJob"
-          class="org.springframework.scheduling.quartz.JobDetailBean">
-        <property name="jobClass" value="org.emmanet.jobs.EmmaBiblioJOB"/>
-        <property name="jobDataAsMap">
-            <map>
-                <entry key="wsdlLocation">
-                    <value>http://www.ebi.ac.uk/webservices/citexplore/v3.0.1/service?wsdl</value>
-                </entry>
-                <entry key="mailSender">
-                    <ref bean="mailSender"/>
-                </entry>
-            </map>
-        </property>
-    </bean>
 
     <bean name="mailJob"
           class="org.springframework.scheduling.quartz.JobDetailBean">
@@ -176,22 +160,11 @@
         <property name="cronExpression" value="0 57 23 * * ?"/><!---    0 57 23 * * ?   -->
     </bean>
     
-    <!--  TRIGGER -->
-
-    <!--  <bean id="updateBibliosTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="updateBibliosJob"/>
-        <property name="cronExpression" value="10 30 5 * * ?"/>0 30 5 * * ?
-    </bean>
-    -->
-    
     <!-- SCHEDULER -->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
                 <ref bean="bglistTrigger"/>
-                <!--     <ref bean="updateBibliosTrigger"/
-                <ref bean="updateBibliosTrigger"/>
-                <ref bean="smailerTrigger"/> -->
                  <ref bean="mailTrigger"/>
             </list>
         </property>

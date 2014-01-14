@@ -381,8 +381,8 @@ public class RequestFormController extends SimpleFormController {
         Cc = new HashMap();
 
         // Late stage addition for multiple cc addresses TODO MAKE BETTER
-        Cc.put("1", new String("info@emmanet.org"));
-        Cc.put("2", new String("emma@emmanet.org"));
+        Cc.put("1", new String("emma@infrafrontier.eu"));
+        Cc.put("2", new String("emma@infrafrontier.eu"));
         Cc.put("3", new String(webRequest.getCon_e_mail()));
         // Get responsible centre mail address(es) and add to map
         List ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());

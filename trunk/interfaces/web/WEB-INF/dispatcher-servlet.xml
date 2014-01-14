@@ -369,7 +369,7 @@
         <property name="taOrRequestNoTemplate" value="taOrRequestNO-Template.vm" />
         <property name="taOnlyNoTemplate" value="taOnlyNO-Template.vm" />
         <property name="msgSubject" value="Your application for free of charge Transnational Access to the EMMA strain " /> <!-- Strain name and EMMA ID apended to subject line in controller -->
-        <property name="cc" value="info@emmanet.org" />
+        <property name="cc" value="emma@infrafrontier.eu" />
         <property name="bcc" value="philw@ebi.ac.uk" />
         <property name="sangerLineDistEmail" value="philw@ebi.ac.uk" />
         <property name="fromAddress" value="emma@emmanet.org"/>
@@ -407,7 +407,7 @@
         <property name="archCompTemplate" value="archiveComplete-Template.vm" />
         <property name="archCompCTemplate" value="archiveCompleteC-Template.vm" />
         <property name="msgSubject" value="Your submission to EMMA" />
-        <property name="cc" value="info@emmanet.org,webmaster@emmanet.org" />
+        <property name="cc" value="emma@infrafrontier.eu,webmaster@infrafrontier.eu" />
         <!-- replaced ,sabine.fessele@helmholtz-muenchen.de,Michael.hagn@helmholtz-muenchen.de with info@emmanet.org<property name="cc" value="phil.j.wilkinson@gmail.com,webmaster@emmanet.org" />-->
         <property name="fileLocation">
             <value>${DATAFILES}/tmp/</value>
@@ -535,7 +535,7 @@
         <property name="template" value="regInt-Template.vm" />
                  
         <!--<property name="msgSubject" value="Your application for free of charge Transnational Access to the EMMA strain " /> -->
-        <property name="cc" value="info@emmanet.org" />
+        <property name="cc" value="emma@infrafrontier.eu" />
         <property name="bcc" value="philw@ebi.ac.uk" />
         <property name="fromAddress" value="emma@emmanet.org"/> 
          
