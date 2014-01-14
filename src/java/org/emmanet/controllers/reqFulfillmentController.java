@@ -100,7 +100,7 @@ encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
                     
                     String shipperMail=wrd.getCon_e_mail();
             Cc.clear();
-            Cc.put("1", new String("info@emmanet.org"));
+            Cc.put("1", new String("emma@infrafrontier.eu"));
             Cc.put("2", shipperMail);//EMMA-273 above
             // Get responsible centre mail address(es) and add to map
             List ccCentre = wr.ccArchiveMailAddresses(wrd.getStr_id_str());

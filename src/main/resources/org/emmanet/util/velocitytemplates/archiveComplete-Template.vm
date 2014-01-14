@@ -2,7 +2,7 @@
 #parse( "org/emmanet/util/velocitytemplates/messageHeader.vm" )
 We are pleased to inform you that the recovery test we performed on your strain (${strainname}) was successful. The strain is now safely archived and is currently listed on the EMMA website ${BASEURL}search?keyword=${emmaid}.
 
-EMMA is continuously working to improve our services, to better meet your needs. We would therefore appreciate some feedback based on your experience. A short Report Form is attached. We would be grateful if you could complete and return it to info@emmanet.org.
+EMMA is continuously working to improve our services, to better meet your needs. We would therefore appreciate some feedback based on your experience. A short Report Form is attached. We would be grateful if you could complete and return it to emma@infrafrontier.eu.
 
 Thank you for supporting EMMA.
 ## Include footer template common to all messages

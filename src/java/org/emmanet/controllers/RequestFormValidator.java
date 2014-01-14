@@ -85,12 +85,12 @@ public class RequestFormValidator implements
                     if (!o[1].toString().equals("1")) {
                         //we have a request already for this strain and email
                         errors.reject("Message", "A request for this strain is already registered to the scientists e-mail address " + webReq.getSci_e_mail() + " therefore this request cannot be submitted at this time."
-                                + "<br/>Please contact the EMMA Project Office at <a href='mailto:info@emmanet.org'>info@emmanet.org</a> for more information if needed.");
+                                + "<br/>Please contact the EMMA Project Office at <a href='mailto:emma@infrafrontier.eu'>emma@infrafrontier.eu</a> for more information if needed.");
                         break outerDuplicatesLoop;
                     } else {
                         System.out.println("There is a ROI");
                         errors.reject("Message", "A registration of interest has already been submitted for this strain with this scientists e-mail address " + webReq.getSci_e_mail() + " therefore this request cannot be submitted at this time."
-                                + "<br/>Please contact the EMMA Project Office at <a href='mailto:info@emmanet.org'>info@emmanet.org</a> for more information if needed.");
+                                + "<br/>Please contact the EMMA Project Office at <a href='mailto:emma@infrafrontier.eu'>emma@infrafrontier.eu</a> for more information if needed.");
                         break outerDuplicatesLoop;
                     }
                 }

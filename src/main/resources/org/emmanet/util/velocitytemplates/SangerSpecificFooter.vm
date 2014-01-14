@@ -4,7 +4,7 @@ Kind regards,
 
 The Sanger Mouse Genetics Project
 EMMA - European Mouse Mutant Archive
-<$BASEURL>
+<${BASEURL}>
 
 Disclaimer
 The current level of quality control (QC) performed before the mice are shipped is to:

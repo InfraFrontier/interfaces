@@ -218,7 +218,7 @@ public class RegInterestJOB extends QuartzJobBean {
                     String shipperMail = webReq.getCon_e_mail();
                     msg.setBcc("philw@ebi.ac.uk");
                     Cc.clear();
-                    Cc.put("1", new String("info@emmanet.org"));
+                    Cc.put("1", new String("emma@infrafrontier.eu"));
                     Cc.put("2", shipperMail);//EMMA-273 above
                     // Get responsible centre mail address(es) and add to map
                     List ccCentre = r.ccArchiveMailAddresses(webReq.getStr_id_str());
