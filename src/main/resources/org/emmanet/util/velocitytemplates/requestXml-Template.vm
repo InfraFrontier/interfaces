@@ -22,6 +22,7 @@
     <con_town>${con_town}</con_town>
     <con_postcode>${con_postcode}</con_postcode>
     <con_country>${con_country}</con_country>
+    <con_country_code_iso>${con_country_code_iso}</con_country_code_iso>
     <po_ref>${PO_ref}</po_ref>
     <bil_title>${bil_title}</bil_title>
     <bil_firstname>${bil_firstname}</bil_firstname>

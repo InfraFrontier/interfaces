@@ -133,7 +133,6 @@ public class WebRequests {
             throw e;
         }
 
-
         return strainList;
     }
 
@@ -423,7 +422,7 @@ public class WebRequests {
         try {
 
             requestsFrozen = session.createQuery(query /*"from WebRequestsDAO " +
-                     "where req_material like '%frozen%'"?*/).list();
+             "where req_material like '%frozen%'"?*/).list();
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
@@ -610,7 +609,6 @@ public class WebRequests {
              " FROM web_requests")
              .list();
              session.getTransaction().commit();*/
-
             reqStatus = session.createQuery("SELECT DISTINCT req_status"
                     + " FROM WebRequestsDAO").list();
             session.getTransaction().commit();
@@ -635,7 +633,6 @@ public class WebRequests {
              " FROM web_requests")
              .list();
              session.getTransaction().commit();*/
-
             conCountry = session.createQuery("SELECT DISTINCT con_country"
                     + " FROM WebRequestsDAO ORDER BY  con_country").list();
             session.getTransaction().commit();
@@ -664,6 +661,24 @@ public class WebRequests {
             throw e;
         }
         return isoCountries;
+    }
+
+    public String isoCountryCode(String countryName) {
+
+        String iso = null;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            iso = session.createSQLQuery("SELECT iso3 "
+                    + "FROM cv_countries "
+                    + "WHERE printable_name=?").setString(0, countryName).uniqueResult().toString();
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return iso;
     }
 
     public List emmaStrains() {
@@ -1051,7 +1066,6 @@ public class WebRequests {
              *SELECT con_country, count( id_req ) FROM web_requests r, strains s, rtools_strains ps WHERE EXISTS (  SELECT 1 FROM web_requests WHERE sci_e_mail = r.sci_e_mail AND str_id_str = r.str_id_str HAVING COUNT( 1 ) = 1 ) AND s.id_str = r.str_id_str AND s.id_str = ps.str_id_str AND rtls_id =9 AND con_country IS NOT NULL GROUP BY con_country ORDER BY con_country;
              
              */
-
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
@@ -1148,7 +1162,6 @@ public class WebRequests {
              "AND YEAR( timestamp ) = ? " +
              "GROUP BY date_format( timestamp, '%b' ) , year(timestamp), lab_id_labo " +
              "ORDER BY timestamp, code").setString(1, month).setString(2, year).setParameter(0, projectID).list();*/
-
             queryResults = session.createSQLQuery("SELECT l.code, l.name, date_format( timestamp, '%b' ) , year( timestamp ) , count( id_req ) "
                     + "FROM laboratories l, web_requests r, strains s, rtools_strains ps "
                     + "WHERE "/*id_req IN (SELECT MIN(id_req) FROM web_requests w, rtools_strains rs WHERE w.str_id_str=rs.str_id_str AND rtls_id=9 GROUP BY w.str_id_str, sci_e_mail) " +
@@ -1160,7 +1173,6 @@ public class WebRequests {
                     + "AND YEAR( timestamp ) = ? "
                     + "GROUP BY date_format( timestamp, '%b' ) , year(timestamp), lab_id_labo "
                     + "ORDER BY timestamp, code").setString(1, month).setString(2, year).setParameter(0, projectID).list();
-
 
             session.getTransaction().commit();
 
@@ -1207,7 +1219,6 @@ public class WebRequests {
         session.beginTransaction();
         try {
 
-
             queryResults = session.createSQLQuery(" SELECT l.code, l.name, month( date_processed ) , year( date_processed ),count( id_req ) "
                     + "FROM laboratories l, web_requests r, strains s, rtools_strains ps "
                     + "WHERE r.lab_id_labo = l.id_labo "
@@ -1238,7 +1249,6 @@ public class WebRequests {
         session.beginTransaction();
         try {
 
-
             queryResults = session.createSQLQuery("SELECT date_format( timestamp, '%b' ) , year( timestamp ) "
                     + "FROM laboratories l, web_requests r, strains s, rtools_strains ps "
                     + "WHERE r.lab_id_labo = l.id_labo "
@@ -1267,7 +1277,6 @@ public class WebRequests {
         session.beginTransaction();
         try {
 
-
             BigInteger bi = (BigInteger) session.createSQLQuery("SELECT count( * ) "
                     + "FROM laboratories l, web_requests r, strains s, rtools_strains ps "
                     + "WHERE r.lab_id_labo = l.id_labo "
@@ -1276,8 +1285,8 @@ public class WebRequests {
                     + andClause
                     + " AND date_format( " + dateField + ", '%b' ) = ? "
                     + "AND YEAR( " + dateField + " ) = ? "/* +
-                     " " +
-                     "GROUP BY r.sci_e_mail,r.str_id_str "*/).setString(0, month).setString(1, year).uniqueResult();//AND req_status='SHIP'
+             " " +
+             "GROUP BY r.sci_e_mail,r.str_id_str "*/).setString(0, month).setString(1, year).uniqueResult();//AND req_status='SHIP'
 
             session.getTransaction().commit();
             queryResults = Integer.parseInt(bi.toString());
@@ -1326,7 +1335,6 @@ public class WebRequests {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
-
 
             Results = session.createSQLQuery("SELECT l.code, s.emma_id,year(timestamp), datediff(date_processed,timestamp) AS Days "
                     + "FROM web_requests r, strains s, rtools_strains ps,laboratories l "
@@ -1408,7 +1416,6 @@ public class WebRequests {
                     + "AND l.code=? "
                     + "AND timestamp IS NOT NULL"
                     + sqlClause /*" GROUP BY r.sci_e_mail,r.str_id_str "*/).setInteger(0, projectID).setString(1, LabCode).uniqueResult();
-
 
             session.getTransaction().commit();
             queryResults = Integer.parseInt(bi.toString());
@@ -1626,11 +1633,11 @@ public class WebRequests {
         }
         String s = maxLength.toString();
         System.out.println("String s value is:" + s);
-         System.out.println("field is:" + field);
-          System.out.println("table is:" + table);
-                
+        System.out.println("field is:" + field);
+        System.out.println("table is:" + table);
+
         int i = Integer.parseInt(s);//maxLength.intValue();
-        
+
         return i;
     }
 
@@ -1661,7 +1668,6 @@ public class WebRequests {
         }
 
         //TA date null fixes
-
         if (saveWebReq.getTa_panel_decision_date() != null) {
 
             System.out.println(saveWebReq.getTa_panel_decision_date());
@@ -1684,7 +1690,7 @@ public class WebRequests {
                 saveWebReq.setAll_paperwork_date(null);
             }
         }
-         if (saveWebReq.getMta_arrived_date() != null) {
+        if (saveWebReq.getMta_arrived_date() != null) {
             if (saveWebReq.getMta_arrived_date().length() == 0) {
                 saveWebReq.setMta_arrived_date(null);
             }

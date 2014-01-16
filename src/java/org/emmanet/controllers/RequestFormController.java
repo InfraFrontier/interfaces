@@ -50,6 +50,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -88,6 +90,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
 import org.emmanet.util.Configuration;
+import org.emmanet.util.ReadFileFromURL;
+import org.springframework.core.io.InputStreamSource;
 
 /**
  *
@@ -119,6 +123,7 @@ public class RequestFormController extends SimpleFormController {
     private boolean pdfConditions;
     private String Bcc;
     private String tetCc;
+    private String[] xmlMailTo;
     private Map Cc;
     private Iterator it;
     private boolean mailSend;
@@ -143,7 +148,6 @@ public class RequestFormController extends SimpleFormController {
 
         session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
 
-
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
             String ID = request.getParameter("ID");
@@ -153,7 +157,6 @@ public class RequestFormController extends SimpleFormController {
              Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
              }*/
             String decryptedID = encrypter.decrypt(ID);
-
 
             //System.out.println("REQFORMDECRYPTED==" + decryptedID);
             if (decryptedID == null) {
@@ -282,7 +285,6 @@ public class RequestFormController extends SimpleFormController {
             }
 
             //MOUSEBOOK UPDATES
-
             if (request.getParameter("source") != null) {
                 //coming from an external source so check for parameters to pre-fill form
 
@@ -299,7 +301,6 @@ public class RequestFormController extends SimpleFormController {
             }
 
             //END MOUSEBOOK UPDATES
-
             if (request.getParameter("status") != null) {
                 //this is an insert by an archiving centre and now mist have a site id
                 String username = (request.getParameter("user"));
@@ -315,8 +316,6 @@ public class RequestFormController extends SimpleFormController {
                 return new ModelAndView("../ajaxReturn.emma", MAP_KEY, returnedOut);
                 //  return "ajaxReturn.emma";
             }
-
-
 
             if (request.getParameter("str_id_str") == null || request.getParameter("str_id_str").equals("0") && request.getParameter("status") != null) {
                 if (request.getParameter("status") != null) {
@@ -382,12 +381,12 @@ public class RequestFormController extends SimpleFormController {
 
         // Late stage addition for multiple cc addresses TODO MAKE BETTER
         Cc.put("1", new String("emma@infrafrontier.eu"));
-        Cc.put("2", new String("emma@infrafrontier.eu"));
-        Cc.put("3", new String(webRequest.getCon_e_mail()));
+        //Cc.put("2", new String(""));
+        Cc.put("2", new String(webRequest.getCon_e_mail()));
         // Get responsible centre mail address(es) and add to map
         List ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());
         //map key + 1
-        int im = 4;
+        int im = 3;
         Object[] o = null;
         it = ccCentre.iterator();
         while (it.hasNext()) {
@@ -415,8 +414,8 @@ public class RequestFormController extends SimpleFormController {
             request.getSession().setAttribute(
                     "message",
                     getMessageSourceAccessor().getMessage("Message",
-                    webRequest.getSci_firstname() + " " + webRequest.getSci_surname() + ", Your request submitted successfully, you will receive "
-                    + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail()));
+                            webRequest.getSci_firstname() + " " + webRequest.getSci_surname() + ", Your request submitted successfully, you will receive "
+                            + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail()));
         }
         String rtoolsID = "";
         List rtools = wr.strainRToolID(webRequest.getStr_id_str());
@@ -459,7 +458,6 @@ public class RequestFormController extends SimpleFormController {
         model.put("con_country", webRequest.getCon_country());
 
         //billing details
-
         if (!webRequest.getRegister_interest().equals("1")) {
             model.put("bil_vat", webRequest.getBil_vat());
             model.put("PO_ref", webRequest.getPO_ref());
@@ -519,7 +517,6 @@ public class RequestFormController extends SimpleFormController {
              */
 
             //uncomment here to release new mail templates for sanger awaiting go ahead from jo bottomley
-
             if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
                 /*##NEW TEMPLATE FOR SANGER */
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template.vm";
@@ -559,7 +556,6 @@ public class RequestFormController extends SimpleFormController {
                 velocTemplate = "org/emmanet/util/velocitytemplates/interestSubmission-Template.vm";
             }
 
-
             pdfTitle = "EMMA Strain Interest Registration Form";
             xmlFileprefix = "roi_";
             mailSubjectText = "Your EMMA Strain Interest Registration Form - confirmation of receipt: ";
@@ -569,44 +565,67 @@ public class RequestFormController extends SimpleFormController {
         System.out.println("Templ8 to be used is : " + velocTemplate);//"org/emmanet/util/velocitytemplates/interestSubmission-Template.vm"
         String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                 velocTemplate, model);
-        // XML file content Template created by Velocity
-        String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
-                "org/emmanet/util/velocitytemplates/requestXml-Template.vm", model);
-        //System.out.print(xmlFileContent);
+
         // Format strain id to correct 0 padding TODO MAY NEED TO GO NOT NECESSARY HERE AS DONE ABOVE
         NumberFormat formatter = new DecimalFormat("00000");
         String formattedID = formatter.format(webRequest.getStr_id_str());
-        // try { REMOVED AS XML NO LONGER REQUIRED
-            /* Create request XML file from velocity template
-         * named to format req_TIMESTAMP_FIRSTNAME_SURNAME_STRAINID.xml
-         */
         // NB USED AS PDF FILENAME AS WELL
         xmlFileName = xmlFileprefix + webRequest.getTimestamp() + "_" + webRequest.getSci_firstname() + "_" + webRequest.getSci_surname() + "_" + formattedID;
-        // file = new File(pathToXml + xmlFileName + xmlExt); REMOVED AS XML NO LONGER REQUIRED
-        // Create pdf from model
-        pdfFile =
-                createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
-        // REMOVED AS XML NO LONGER REQUIRED
-            /*boolean success = file.createNewFile(); REMOVED AS XML NO LONGER REQUIRED
-         if (success) { REMOVED AS XML NO LONGER REQUIRED
-         // File did not exist and was created REMOVED AS XML NO LONGER REQUIRED
-         Writer out = new BufferedWriter(new OutputStreamWriter( REMOVED AS XML NO LONGER REQUIRED
-         new FileOutputStream(file), "UTF8")); REMOVED AS XML NO LONGER REQUIRED
-         out.write(xmlFileContent); REMOVED AS XML NO LONGER REQUIRED
-         out.close(); REMOVED AS XML NO LONGER REQUIRED
-            
-         } else {REMOVED AS XML NO LONGER REQUIRED
-         // File already exists REMOVED AS XML NO LONGER REQUIRED
-         // Do nothing REMOVED AS XML NO LONGER REQUIRED
-         } REMOVED AS XML NO LONGER REQUIRED
-         } catch (IOException e) { REMOVED AS XML NO LONGER REQUIRED
-         //TODO HANDLE REMOVED AS XML NO LONGER REQUIRED
-         }  REMOVED AS XML NO LONGER REQUIRED */
+
+        if (webRequest.getLab_id_labo() != null && webRequest.getLab_id_labo().equals("3")) {
+            //a Hemholtz request so need to create xml file and mail to Susan EMMA-539
+            //better check to make sure it isn't a ROI
+            if (!webRequest.getRegister_interest().equals("1")) {
+
+                model.put("con_country_code_iso", wr.isoCountryCode(webRequest.getCon_country()));//Added EMMA-539 
+                // XML file content Template created by Velocity
+                String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
+                        "org/emmanet/util/velocitytemplates/requestXml-Template.vm", model);
+                try {
+                    /* Create request XML file from velocity template
+                     * named to format req_TIMESTAMP_FIRSTNAME_SURNAME_STRAINID.xml
+                     */
+
+                    File fileXML = new File(pathToXml + xmlFileName + xmlExt);
+                    // Create pdf from model
+                    pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
+
+                    // REMOVED AS XML NO LONGER REQUIRED
+                    //boolean success = file.createNewFile();
+                    boolean success = fileXML.createNewFile();
+                    if (success) {
+                        // File did not exist and was created
+                        Writer out = new BufferedWriter(new OutputStreamWriter(
+                                new FileOutputStream(fileXML), "UTF8"));
+                        out.write(xmlFileContent);
+                        out.close();
+//NOW MAIL HELMHOLTZ/SUSAN EMMA-539
+                        MimeMessage xmlMessage = getJavaMailSender().createMimeMessage();
+                        try {
+                            MimeMessageHelper helper = new MimeMessageHelper(xmlMessage, true, "UTF-8");
+                            helper.setReplyTo("emma@infrafrontier.eu");
+                            helper.setFrom("emma@infrafrontier.eu");
+                            helper.setTo(xmlMailTo);
+                            helper.setSubject("XML request file for request id " + model.get("requestID") + " (" + model.get("emmaid") + "). ");
+                            helper.addAttachment(xmlFileName + xmlExt, fileXML);
+                            getJavaMailSender().send(xmlMessage);
+                        } catch (MessagingException ex) {
+
+                        }
+                    } else {
+                        // File already exists 
+                        // Do nothing
+                    }
+                } catch (IOException e) {
+
+                }
+            }
+        }
         MimeMessage message = getJavaMailSender().createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setReplyTo("emma@emmanet.org");
-            helper.setFrom("emma@emmanet.org");
+            helper.setReplyTo("emma@infrafrontier.eu");
+            helper.setFrom("emma@infrafrontier.eu");
             helper.setBcc(Bcc);
             System.out.println("bccADDRESS===== " + Bcc);
             Iterator i = Cc.values().iterator();
@@ -638,9 +657,14 @@ public class RequestFormController extends SimpleFormController {
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-
-            System.out.println("app type is " + model.get("application_type"));
-            System.out.println("model mta is " + model.get("mtaFile"));
+            ReadFileFromURL MTAFILE = new ReadFileFromURL();
+            URL mtaURL = null;
+            try {
+                mtaURL = new URL(pathToMTA + model.get("mtaFile").toString());
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            File mtaFromURL = MTAFILE.ReadFileURL(mtaURL, model.get("mtaFile").toString());
             if (!model.get("application_type").equals("ta_only")) {
                 //add mta file if associated with strain id
                 String mtaFile = sd.getMta_file();
@@ -655,11 +679,14 @@ public class RequestFormController extends SimpleFormController {
                     if (!fileMTA.exists()) {
                         System.out.println("MTA file " + mtaFile + " cannot be accessed");
                     }
-                    if (fileMTA.exists() && fileMTA.toString().contains(".")) {
-                        // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
-                        if (!webRequest.getLab_id_labo().equals("4")) {
-                            helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
-                        }
+                    //if (fileMTA.exists() && fileMTA.toString().contains(".")) {
+                    // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
+                    // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
+                    if (!webRequest.getLab_id_labo().equals("4")) {
+                        //helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
+                        helper.addAttachment(model.get("mtaFile").toString(), mtaFromURL);
+                        // }
+
                     }
                 }
             }
@@ -683,12 +710,15 @@ public class RequestFormController extends SimpleFormController {
                 getJavaMailSender().send(message);
                 System.out.println("Mail sent ");
             }
+            boolean deleted = mtaFromURL.delete();
+            if (!deleted) {
+                Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
+            }
             Cc = null;
 
         } catch (MessagingException ex) {
             ex.printStackTrace();
         }
-
 
         if (request.getParameter(
                 "status") != null) {
@@ -714,14 +744,14 @@ public class RequestFormController extends SimpleFormController {
             doc.open();
             Paragraph pHead = new Paragraph(
                     pdfTitle + "\n\n", FontFactory.getFont(
-                    FontFactory.HELVETICA, 11));
+                            FontFactory.HELVETICA, 11));
             pHead.setAlignment(Element.ALIGN_CENTER);
             doc.add(pHead);
             doc.add(new Paragraph(pdfTitle + "\nRequest ID:" + model.get("requestID") + "\n\n",
                     FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20)));
             Paragraph pSubHead = new Paragraph(
                     "Following data have been submitted to EMMA on " + model.get("ftimestamp"), FontFactory.getFont(
-                    FontFactory.HELVETICA, 11));
+                            FontFactory.HELVETICA, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
 
             doc.add(pSubHead);
@@ -880,40 +910,40 @@ public class RequestFormController extends SimpleFormController {
                 String header1 = "";
                 String header2 = "";
                 if (model.get("application_type").equals("request_only")) {
-                    text =
-                            new StringBuilder().append(text).append(
-                            "\nYou have indicated that you have read the conditions and agree to pay the transmittal fee " + "plus shipping costs.").toString();
+                    text
+                            = new StringBuilder().append(text).append(
+                                    "\nYou have indicated that you have read the conditions and agree to pay the transmittal fee " + "plus shipping costs.").toString();
 
-                    header =
-                            new StringBuilder().append(header).append("\nStandard request\n").toString();
+                    header
+                            = new StringBuilder().append(header).append("\nStandard request\n").toString();
 
                 } else if (!model.get("application_type").equals("request_only")) {
-                    header1 =
-                            new StringBuilder().append(header1).append("\nApplication for Transnational Access Activity").toString();
+                    header1
+                            = new StringBuilder().append(header1).append("\nApplication for Transnational Access Activity").toString();
                     if (model.get("application_type").equals("ta_only")) {
-                        text1 =
-                                new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA only. "
-                                + "In the case of the TA application being rejected the request process will be terminated.").toString();
-                        header1 =
-                                new StringBuilder().append(header1).append(" (TA Option B)\n").toString();
+                        text1
+                                = new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA only. "
+                                        + "In the case of the TA application being rejected the request process will be terminated.").toString();
+                        header1
+                                = new StringBuilder().append(header1).append(" (TA Option B)\n").toString();
                     } else {
-                        text1 =
-                                new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA "
-                                + "and have agreed to pay the service charge plus shipping cost if the TA application is rejected.").toString();
-                        header1 =
-                                new StringBuilder().append(header1).append(" (TA Option A)\n").toString();
+                        text1
+                                = new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA "
+                                        + "and have agreed to pay the service charge plus shipping cost if the TA application is rejected.").toString();
+                        header1
+                                = new StringBuilder().append(header1).append(" (TA Option A)\n").toString();
                     }
 
-                    header2 =
-                            new StringBuilder().append(header2).append("\n\nDescription of project (1/2 page) involving requested EMMA mouse mutant resource. "
-                            + "The project description will be used by the Evaluation Committee for selection of applicants:").toString();
+                    header2
+                            = new StringBuilder().append(header2).append("\n\nDescription of project (1/2 page) involving requested EMMA mouse mutant resource. "
+                                    + "The project description will be used by the Evaluation Committee for selection of applicants:").toString();
                 }
 
                 if (!model.get("application_type").equals("request_only")) {
                     //  table.addCell("" + model.get("ta_proj_desc"));
-                    text2 =
-                            new StringBuilder().append(text2).append("\n\n "
-                            + model.get("ta_proj_desc")).toString();
+                    text2
+                            = new StringBuilder().append(text2).append("\n\n "
+                                    + model.get("ta_proj_desc")).toString();
                 }
 
                 if (!model.get("application_type").equals("request_only")) {
@@ -1074,5 +1104,19 @@ public class RequestFormController extends SimpleFormController {
      */
     public void setGOOGLEANAL(String GOOGLEANAL) {
         this.GOOGLEANAL = GOOGLEANAL;
+    }
+
+    /**
+     * @return the xmlMailTo
+     */
+    public String[] getXmlMailTo() {
+        return xmlMailTo;
+    }
+
+    /**
+     * @param xmlMailTo the xmlMailTo to set
+     */
+    public void setXmlMailTo(String[] xmlMailTo) {
+        this.xmlMailTo = xmlMailTo;
     }
 }
