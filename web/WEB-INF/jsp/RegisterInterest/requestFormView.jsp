@@ -13,6 +13,7 @@
 <c:if test="${requestScope.UNENCRYPTEDID == 'TRUE'}"><c:redirect url="secure.emma"/></c:if>
 
 <spring:bind path="command.*" />
+<c:set var="eligibleCountryValue" value="${command.eligible_country}"/>
 <%
     String newReq = request.getParameter("new");
     response.setHeader("Cache-Control", "max-age=0");
@@ -92,7 +93,7 @@
                 }
     
                 function show(layer) {
-                    // alert("show layer :- " + layer);
+                     //alert("show layer :- " + layer);
                    var myLayer=document.getElementById(layer).style.display;
                       document.getElementById(layer).style.display="";
                          
@@ -143,8 +144,6 @@
                         document.forms[0].str_id_str.value = id; 
                     }
                 });
-     
-            });
         </script>
 
     </head>
@@ -234,7 +233,7 @@
 
                                 <%-- <form  class="form" method="post" commandName="command">--%>
                                 <form:form method="POST" commandName="command">
-                                    <spring:bind path="command.eligible_country"><input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"</spring:bind>
+                                    <%--spring:bind path="command.eligible_country">--%><input type="hidden" name="eligible_country" id="eligible_country" value="<c:out value='${command.eligible_country}'/>"/><%--</spring:bind>--%>
 
                                            <c:if test="${(empty param.status)}">
                                                <input type="hidden" id="projectID" name="projectID" value="<c:out value="${param.pid}"/>"/>
@@ -477,12 +476,13 @@
                                         <%--<c:if test="${command.register_interest == '1' && command.id_req == null}" > --%>
                                         <%--<table width="100% ">--%>
                                         <br/> <h5>Billing address.Please provide a billing address<%-- and/or a purchase order number--%>.</h5>
-                                        <%-- </table>   --%>               
-                                        <div id="vat" style="display: none;">
+                                        <%-- </table>  style="display: none;" <div title="vat" id="vat" ></div>--%>               
+                                        
                                             <p><strong>VAT Reference <font color="red">*</font></strong></p>
                                             <spring:bind path="command.bil_vat">
                                                 <input type="text" id="<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="50" />
-                                            </spring:bind> </div>
+                                            </spring:bind>
+                                      
 
 
                                         <p><strong>Purchase Order Reference</strong></p>
@@ -846,7 +846,7 @@
                                 </form:form>
                                 <%-- </form>--%>
                                 <c:choose><c:when test="${command.register_interest == '1' and command.id_req == null}" ><br/>
-                                        ${command.id_req}</br></c:when><c:otherwise><script type="text/javascript">chkCountry("${command.con_country}");</script></c:otherwise></c:choose>
+                                        ${command.id_req}</br></c:when><c:otherwise></c:otherwise></c:choose>
                             </div></div></div></div></div></div>
 
     <footer id="footer">

@@ -34,6 +34,7 @@ function searchArray(){
     //SEARCH OVER ALL ELEMENTS
     var id;
     var index;// = euCountriesList.indexOf(selectedElement)
+    
     for (id in euCountriesList) {
         
         if (euCountriesList[id] == selectedElement) {
@@ -43,6 +44,7 @@ function searchArray(){
             index=-1;
         }
     }
+   // alert("index values is :: " + index);
     if (index == -1) {
         //index = assocCountriesList.indexOf(selectedElement)
         var id;
@@ -59,20 +61,23 @@ function searchArray(){
     {
         //allow display
         // show('taOptions');
-        show('vat');
+        //$( "#vat" ).show();
+        //show('vat');
+        //alert("one::-" + document.forms[0].eligible_country.value);
         document.forms[0].eligible_country.value="yes";
-        
+        //alert("two::-" + document.forms[0].eligible_country.value);
         //call ajax function
-        ajaxDisplay("enabled");
+       // ajaxDisplay("enabled");
         
     } else if (index == -1) {
         //    hide('taOptions');
-        hide('vat');
+        $( "#vat" ).hide();
+        //hide('vat');
        // hide('taProjDesc');
         document.forms[0].eligible_country.value="no";
         
         //call ajax function
-        ajaxDisplay("disabled");
+       // ajaxDisplay("disabled");
     }
 }
 
