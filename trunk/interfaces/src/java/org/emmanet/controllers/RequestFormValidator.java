@@ -12,6 +12,7 @@
  */
 package org.emmanet.controllers;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,12 +29,15 @@ import org.springframework.validation.FieldError;
 public class RequestFormValidator implements
         org.springframework.validation.Validator {
 
-    private static final String EMAIL_PATTERN =
-            "^([a-zA-Z0-9\\'_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
+    private static final String EMAIL_PATTERN
+            = "^([a-zA-Z0-9\\'_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
             + "|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
     private WebRequests wr = new WebRequests();
     private WebRequests wrDupCheck = new WebRequests();
     private String table;
+
+    private String[] euCountriesList = {"Austria", "Belgium", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"};
+    private String[] assocCountriesList = {"Albania", "Croatia", "Iceland", "Israel", "Liechtenstein", "Macedonia", "Montenegro", "Norway", "Serbia", "Switzerland", "Turkey"};
 
     @Override
     public boolean supports(Class aClass) {
@@ -49,7 +53,6 @@ public class RequestFormValidator implements
         }
 
         // System.out.println("VALIDATOR LAB ID " + webReq.getLab_id_labo());
-
         // System.out.println("TERMS READ -    " + webReq.getApplication_type()/*.getTerms_read()*/);
         if (webReq.getApplication_type() == null || webReq.getApplication_type().isEmpty()) {
 
@@ -65,9 +68,9 @@ public class RequestFormValidator implements
                     errors.reject("Message", "Please add a project description. Applications for Transnational Access must be accompanied by a project description to be considered.");
                 }
             }
-            if (webReq.getApplication_type().equals("request_only") ) {
-                if(webReq.getTerms_read() == null || !webReq.getTerms_read().equals("on")){
-                errors.reject("Message", "Please read the conditions and check the box to confirm acceptance");
+            if (webReq.getApplication_type().equals("request_only")) {
+                if (webReq.getTerms_read() == null || !webReq.getTerms_read().equals("on")) {
+                    errors.reject("Message", "Please read the conditions and check the box to confirm acceptance");
                 }
             }
         }
@@ -165,25 +168,22 @@ public class RequestFormValidator implements
         if (!webReq.getRegister_interest().equals("1")) {
 
             //   if (webReq.getPO_ref() == null || webReq.getPO_ref().trim().length() < 1) {
-
             // Now need to check billing compulsory fields
-
-
-            if (webReq.getEligible_country().equals("yesbeingignoredatpresent philw 25nov2013")) {
-
+            if (Arrays.asList(euCountriesList).contains(webReq.getCon_country()) || Arrays.asList(assocCountriesList).contains(webReq.getCon_country())) {
                 //make sure vat is filled in
                 if (webReq.getBil_vat() == null || webReq.getBil_vat().trim().length() < 1) {
+
                     errors.reject("Message", "The VAT number field appears to have no value. "
                             + "Please ensure all the required billing fields are filled in.");
                 } else if (webReq.getBil_vat().length() >= 1 && webReq.getBil_vat().length() > wr.fieldMaxLength("bil_vat", table)) {
                     errors.reject("Message", "The VAT number field input appears to be too long for the database");
                 }
             }
-if(webReq.getPO_ref() != null){
-            if (webReq.getPO_ref().length() >= 1 && webReq.getPO_ref().length() > wr.fieldMaxLength("PO_ref", table)) {
-                errors.reject("Message", "The purchase order reference field input appears to be too long for the database");
+            if (webReq.getPO_ref() != null) {
+                if (webReq.getPO_ref().length() >= 1 && webReq.getPO_ref().length() > wr.fieldMaxLength("PO_ref", table)) {
+                    errors.reject("Message", "The purchase order reference field input appears to be too long for the database");
+                }
             }
-}
 
             if (webReq.getBil_firstname() == null || webReq.getBil_firstname().trim().length() < 1) {
                 errors.reject("Message", "The billing contacts firstname field appears to have no value. "
@@ -226,7 +226,6 @@ if(webReq.getPO_ref() != null){
                 errors.reject("Message", "The billing contacts address field input appears to be too long for the database");
             }
 
-
             if (webReq.getBil_town() == null || webReq.getBil_town().trim().length() < 1) {
                 errors.reject("Message", "The billing contacts town field appears to have no value. "
                         + "Please ensure all the required billing contact fields are filled in.");
@@ -246,14 +245,12 @@ if(webReq.getPO_ref() != null){
             // }
         }
 
-        
         if (webReq.getStrain_id() == null || webReq.getStrain_id().trim().length() < 1) {
             //the strain_id field is blank only way this can happen is if an internal insert is occurring and user hasn't selected the id from dropdown list
             errors.reject("Message", "The strain id field appears to have no value. "
                     + "Please ensure you select an ID from the highlighted autocomplete droplist, when inserting an internal request.");
         }
-        
-        
+
         if (webReq.getStrain_name().contains("Wtsi")/*.getProjectID().equals("5")*/) {
             if (webReq.getWtsi_mouse_portal() == null || webReq.getWtsi_mouse_portal().equals("no")) {
                 //europhenome must be checked then
@@ -284,8 +281,6 @@ if(webReq.getPO_ref() != null){
                 }
 
             }
-
-
 
         }
         //    }

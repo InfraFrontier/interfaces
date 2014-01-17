@@ -221,8 +221,7 @@
         <property name="tetCc">
             <value>freundlieb@tet-systems.com</value>
         </property>
-       <!-- <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de"/> -->
-        <property name="xmlMailTo" value="phil.j.wilkinson@gmail.com,philw@ebi.ac.uk"/>
+       <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de"/>
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
             <value>redirect:../success.emma</value>
