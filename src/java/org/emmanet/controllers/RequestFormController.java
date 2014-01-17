@@ -710,7 +710,7 @@ public class RequestFormController extends SimpleFormController {
                 getJavaMailSender().send(message);
                 System.out.println("Mail sent ");
             }
-            boolean deleted = mtaFromURL.delete();
+            boolean deleted = false;// = mtaFromURL.delete();
             if (!deleted) {
                 Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
             }
