@@ -28,7 +28,7 @@ public class ReadFileFromURL {
     public File ReadFileURL(URL fileurl, String filename) {
 
         String fileName = filename;
-        File file = new File(fileName);
+        File file = new File(TMPFILES + fileName);
         try {
             byte[] buffer = new byte[8 * 1024];
             // get URL content
