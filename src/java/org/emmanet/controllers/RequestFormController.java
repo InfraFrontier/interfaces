@@ -571,7 +571,7 @@ public class RequestFormController extends SimpleFormController {
         String formattedID = formatter.format(webRequest.getStr_id_str());
         // NB USED AS PDF FILENAME AS WELL
         xmlFileName = xmlFileprefix + webRequest.getTimestamp() + "_" + webRequest.getSci_firstname() + "_" + webRequest.getSci_surname() + "_" + formattedID;
-
+pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);
         if (webRequest.getLab_id_labo() != null && webRequest.getLab_id_labo().equals("3")) {
             //a Hemholtz request so need to create xml file and mail to Susan EMMA-539
             //better check to make sure it isn't a ROI
@@ -588,7 +588,7 @@ public class RequestFormController extends SimpleFormController {
 
                     File fileXML = new File(pathToXml + xmlFileName + xmlExt);
                     // Create pdf from model
-                    pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
+                   // pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
 
                     // REMOVED AS XML NO LONGER REQUIRED
                     //boolean success = file.createNewFile();
@@ -650,7 +650,7 @@ public class RequestFormController extends SimpleFormController {
              * Removed by philw@ebi.ac.uk 14-02-2008
              */
             //helper.addAttachment(xmlFileName + xmlExt,file);
-            FileSystemResource file = new FileSystemResource(new File(pdfFile));
+           FileSystemResource file = new FileSystemResource(new File(pdfFile));
 
             helper.addAttachment(xmlFileName + pdfExt, file);
             /*
