@@ -478,7 +478,7 @@
                                         <br/> <h5>Billing address.Please provide a billing address<%-- and/or a purchase order number--%>.</h5>
                                         <%-- </table>  style="display: none;" <div title="vat" id="vat" ></div>--%>               
                                         
-                                            <p><strong>VAT Reference <font color="red">*</font></strong></p>
+                                            <p><strong>VAT Reference <font color="red">*</font></strong> Only mandatory for orders from EU Countries.</p>
                                             <spring:bind path="command.bil_vat">
                                                 <input type="text" id="<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="50" />
                                             </spring:bind>
