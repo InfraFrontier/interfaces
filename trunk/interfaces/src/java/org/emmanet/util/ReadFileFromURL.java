@@ -47,9 +47,9 @@ public class ReadFileFromURL {
             os.close();
             input.close();
         } catch (MalformedURLException e) {
-            Logger.getLogger(Encrypter.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Encrypter.class.getName()).log(Level.INFO, null, e);
         } catch (IOException e) {
-            Logger.getLogger(Encrypter.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Encrypter.class.getName()).log(Level.INFO, null, e);
         }
         return file;
     }
