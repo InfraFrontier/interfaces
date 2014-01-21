@@ -109,6 +109,7 @@ public class RequestFormController extends SimpleFormController {
     private String pathToXml;//TODO USE ACCESSOR METHOD TO SET FROM
     private String pathToMTA;
     private File file;
+    private File mtaFromURL;
     private String xmlFileName;
     private String xmlFileprefix;
     private String pdfFile;
@@ -571,7 +572,7 @@ public class RequestFormController extends SimpleFormController {
         String formattedID = formatter.format(webRequest.getStr_id_str());
         // NB USED AS PDF FILENAME AS WELL
         xmlFileName = xmlFileprefix + webRequest.getTimestamp() + "_" + webRequest.getSci_firstname() + "_" + webRequest.getSci_surname() + "_" + formattedID;
-pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);
+        pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);
         if (webRequest.getLab_id_labo() != null && webRequest.getLab_id_labo().equals("3")) {
             //a Hemholtz request so need to create xml file and mail to Susan EMMA-539
             //better check to make sure it isn't a ROI
@@ -588,7 +589,7 @@ pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);
 
                     File fileXML = new File(pathToXml + xmlFileName + xmlExt);
                     // Create pdf from model
-                   // pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
+                    // pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);    // Create file if it does not exist
 
                     // REMOVED AS XML NO LONGER REQUIRED
                     //boolean success = file.createNewFile();
@@ -650,47 +651,50 @@ pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);
              * Removed by philw@ebi.ac.uk 14-02-2008
              */
             //helper.addAttachment(xmlFileName + xmlExt,file);
-           FileSystemResource file = new FileSystemResource(new File(pdfFile));
+            FileSystemResource file = new FileSystemResource(new File(pdfFile));
 
             helper.addAttachment(xmlFileName + pdfExt, file);
             /*
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-            ReadFileFromURL MTAFILE = new ReadFileFromURL();
-            URL mtaURL = null;
-            try {
-                mtaURL = new URL(pathToMTA + model.get("mtaFile").toString());
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(RequestFormController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            File mtaFromURL = MTAFILE.ReadFileURL(mtaURL, model.get("mtaFile").toString());
-            if (!model.get("application_type").equals("ta_only")) {
-                //add mta file if associated with strain id
-                String mtaFile = sd.getMta_file();
-                // mtaFile="this is a test.pdf";
-                System.out.println("mta file value is::" + mtaFile);
-                //  System.out.println( " OK now mta file from model value is " + model.get("mtaFile").toString());
-                // || model.get("mtaFile").toString().equals("")
-                if (mtaFile != null || model.get("mtaFile") != null) {
-                    FileSystemResource fileMTA = new FileSystemResource(new File(getPathToMTA() + mtaFile));
-                    //System.out.println("file mta is-> " + fileMTA + " and to string is " + fileMTA.toString());
-                    //need to check for a valid mta filename use period extension separator, all mtas are either .doc or .pdf
-                    if (!fileMTA.exists()) {
-                        System.out.println("MTA file " + mtaFile + " cannot be accessed");
-                    }
-                    //if (fileMTA.exists() && fileMTA.toString().contains(".")) {
-                    // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
-                    // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
-                    if (!webRequest.getLab_id_labo().equals("4")) {
-                        //helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
-                        helper.addAttachment(model.get("mtaFile").toString(), mtaFromURL);
-                        // }
+            
+            if (sd.getMta_file() != null && !sd.getMta_file().equals("")) {
 
+                ReadFileFromURL MTAFILE = new ReadFileFromURL();
+                URL mtaURL = null;
+                try {
+                    mtaURL = new URL(pathToMTA + model.get("mtaFile").toString());
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, ex);
+                }
+                mtaFromURL = MTAFILE.ReadFileURL(mtaURL, model.get("mtaFile").toString());
+                if (!model.get("application_type").equals("ta_only")) {
+                    //add mta file if associated with strain id
+                    String mtaFile = sd.getMta_file();
+                    // mtaFile="this is a test.pdf";
+                    System.out.println("mta file value is::" + mtaFile);
+                //  System.out.println( " OK now mta file from model value is " + model.get("mtaFile").toString());
+                    // || model.get("mtaFile").toString().equals("")
+                    if (mtaFile != null || model.get("mtaFile") != null) {
+                        FileSystemResource fileMTA = new FileSystemResource(new File(getPathToMTA() + mtaFile));
+                    //System.out.println("file mta is-> " + fileMTA + " and to string is " + fileMTA.toString());
+                        //need to check for a valid mta filename use period extension separator, all mtas are either .doc or .pdf
+                        if (!fileMTA.exists()) {
+                            System.out.println("MTA file " + mtaFile + " cannot be accessed");
+                        }
+                    //if (fileMTA.exists() && fileMTA.toString().contains(".")) {
+                        // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
+                        // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
+                        if (!webRequest.getLab_id_labo().equals("4")) {
+                            //helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
+                            helper.addAttachment(model.get("mtaFile").toString(), mtaFromURL);
+                            // }
+
+                        }
                     }
                 }
             }
-
             if (request.getParameter("triggerMails") != null) {
                 if (request.getParameter("triggerMails").equals("no")) {
                     //user has specified no mails to be sent from insert interface
@@ -710,10 +714,13 @@ pdfFile = createPDF(model, pathToXml + xmlFileName + pdfExt);
                 getJavaMailSender().send(message);
                 System.out.println("Mail sent ");
             }
+            
+            if(mtaFromURL != null){
             boolean deleted = mtaFromURL.delete();
             if (!deleted) {
                 Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
             }
+        }
             Cc = null;
 
         } catch (MessagingException ex) {
