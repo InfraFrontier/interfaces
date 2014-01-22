@@ -124,8 +124,8 @@ public class RegInterestJOB extends QuartzJobBean {
                 System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
                 webmasterMsg = (new StringBuilder()).append(webmasterMsg).append("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL") + "\n\n").toString();
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setReplyTo("emma@emmanet.org");
-        msg.setFrom("emma@emmanet.org");
+        msg.setReplyTo("emma@infrafrontier.eu");
+        msg.setFrom("emma@infrafrontier.eu");
         Format formatter;
         // The four digit year
         formatter = new SimpleDateFormat("yyyy");
@@ -293,7 +293,7 @@ public class RegInterestJOB extends QuartzJobBean {
 
     public void webmasterJobMessage() {
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("webmaster@emmanet.org");
+        msg.setTo("webmaster@infrafrontier.eu");
         msg.setSubject("Cron - Register Interest Job Report");
         msg.setText(webmasterMsg);
         try {

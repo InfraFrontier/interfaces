@@ -561,8 +561,8 @@ System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
 
                 try {
                     MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-                    helper.setReplyTo("emma@emmanet.org");
-                    helper.setFrom("emma@emmanet.org");
+                    helper.setReplyTo("emma@infrafrontier.eu");
+                    helper.setFrom("emma@infrafrontier.eu");
                     helper.setBcc(bcc);
                     helper.setTo(sangerLineDistEmail);
                     helper.setSubject("Sanger Line Distribution " + webRequest.getStrain_id());

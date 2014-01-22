@@ -172,8 +172,8 @@ public class RequestFormController extends SimpleFormController {
                     request.setAttribute(
                             "ERROR", "TRUE");
                     SimpleMailMessage webmasterMsg = new SimpleMailMessage();
-                    webmasterMsg.setTo("webmaster@emmanet.org");
-                    webmasterMsg.setFrom("emma@emmanet.org");
+                    webmasterMsg.setTo("webmaster@infrafrontier.eu");
+                    webmasterMsg.setFrom("emma@infrafrontier.eu");
                     webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
                     webmasterMsg.setText("This error has occurred, check server");
                     mailSender.send(webmasterMsg);
@@ -189,8 +189,8 @@ public class RequestFormController extends SimpleFormController {
                                 "ERROR", "TRUE");
                         System.out.println("NO MATCHES");
                         SimpleMailMessage webmasterMsg = new SimpleMailMessage();
-                        webmasterMsg.setTo("webmaster@emmanet.org");
-                        webmasterMsg.setFrom("emma@emmanet.org");
+                        webmasterMsg.setTo("webmaster@infrafrontier.eu");
+                        webmasterMsg.setFrom("emma@infrafrontier.eu");
                         webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
                         webmasterMsg.setText("This error has occurred, check server for unencryptedID:-" + unencryptedID);
                         mailSender.send(webmasterMsg);
@@ -232,12 +232,12 @@ public class RequestFormController extends SimpleFormController {
 
                 ///now mail
                 SimpleMailMessage msg = new SimpleMailMessage();
-                msg.setReplyTo("emma@emmanet.org");
-                msg.setFrom("emma@emmanet.org");
+                msg.setReplyTo("emma@infrafrontier.eu");
+                msg.setFrom("emma@infrafrontier.eu");
                 msg.setBcc("philw@ebi.ac.uk");
                 msg.setTo(wrd.getSci_e_mail());
                 if (wrd.getSci_e_mail() == null) {
-                    msg.setTo("webmaster@emmanet.org");
+                    msg.setTo("webmaster@infrafrontier.eu");
                 }
                 msg.setSubject("Your EMMA Strain Interest Registration Form - "
                         + "strain can now be ordered: " + model.get("emmaid") + " (" + model.get("strainname") + ")");

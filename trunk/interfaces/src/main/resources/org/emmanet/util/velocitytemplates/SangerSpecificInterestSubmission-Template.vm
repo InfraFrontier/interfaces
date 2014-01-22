@@ -22,7 +22,7 @@ Please be aware that the shipping costs will be covered by your Institution. In 
 The standard quantity supplied is 2 breeding pairs.
 To potentially accelerate availability please indicate if you would consider receiving 2 males only. Standard Service Fee applies (${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering).
 
-Should you have any general questions, please do not hesitate to contact the EMMA Project Coordination Office (emma@infrafrontier.eu). For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
+Should you have any general questions, please do not hesitate to contact EMMA (emma@infrafrontier.eu). For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
 
 ## Include footer template common to all Sanger messages
 #parse( "org/emmanet/util/velocitytemplates/SangerSpecificFooter.vm" )
