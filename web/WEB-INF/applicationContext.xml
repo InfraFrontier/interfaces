@@ -105,7 +105,7 @@
     </bean>
     <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
         <property name="from">
-            <value>emma@emmanet.org</value>
+            <value>emma@infrafrontier.eu</value>
         </property>
     </bean>
 

@@ -1098,9 +1098,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
         MimeMessage message = getJavaMailSender().createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setReplyTo("emma@emmanet.org");//TODO SET REPLY TO EMMA@EMMANET.ORG
-            helper.setFrom("emma@emmanet.org");
-            helper.setBcc("webmaster@ebi.ac.uk");
+            helper.setReplyTo("emma@infrafrontier.eu");
+            helper.setFrom("emma@infrafrontier.eu");
+            helper.setBcc("webmaster@infrafrontier.eu");
             helper.setTo(model.get("emailsubmitter").toString().trim());
             helper.setSubject("Your submission to EMMA of strain " + model.get("strainname").toString());
             helper.setText(content);

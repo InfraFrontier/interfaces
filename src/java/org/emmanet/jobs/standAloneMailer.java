@@ -75,8 +75,8 @@ public class standAloneMailer extends QuartzJobBean {
 
         //iterate over database email results adding to bcc use map keys ae address to prevent dups
         setCc(new HashMap());
-        //getCc().put(new String("info@emmanet.org"), "");
-        //getCc().put(new String("emma@emmanet.org"), "");
+        //getCc().put(new String("emma@infrafrontier.eu"), "");
+        //getCc().put(new String("emma@infrafrontier.eu"), "");
         // getCc().put(new String("sabine.fessele@helmholtz-muenchen.de"), "");
         getCc().put(new String("michael.hagn@helmholtz-muenchen.de"), "");
         getCc().put(new String("philw@ebi.ac.uk"), "");
@@ -119,8 +119,8 @@ public class standAloneMailer extends QuartzJobBean {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             //helper.setValidateAddresses(false);
-            helper.setReplyTo("info@emmanet.org");
-            helper.setFrom("info@emmanet.org");
+            helper.setReplyTo("emma@infrafrontier.eu");
+            helper.setFrom("emma@infrafrontier.eu");
             System.out.println("BCC SIZE -- " + Bcc.size());
             Iterator it1 = Bcc.keySet().iterator();
 
@@ -143,7 +143,7 @@ public class standAloneMailer extends QuartzJobBean {
                 helper.addCc(CcAddress);
             }
 
-            helper.setTo("info@emmanet.org");//info@emmanet.org
+            helper.setTo("emma@infrafrontier.eu");//info@emmanet.org
             //helper.setCc("webmaster.emmanet.org");
             //helper.setBcc("philw@ebi.ac.uk");
             helper.setText(content, true);
