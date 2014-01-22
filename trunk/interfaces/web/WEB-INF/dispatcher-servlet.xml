@@ -372,7 +372,7 @@
         <property name="cc" value="emma@infrafrontier.eu" />
         <property name="bcc" value="philw@ebi.ac.uk" />
         <property name="sangerLineDistEmail" value="philw@ebi.ac.uk" />
-        <property name="fromAddress" value="emma@infrafrontier.eu/>
+        <property name="fromAddress" value="emma@infrafrontier.eu"/>
 
     </bean>
     <bean name="archiveUpdateInterfaceFormController" class="org.emmanet.controllers.archiveUpdateInterfaceFormController">
