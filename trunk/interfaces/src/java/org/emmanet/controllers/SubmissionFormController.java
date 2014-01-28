@@ -115,25 +115,24 @@ public class SubmissionFormController extends AbstractWizardFormController {
             idDecrypt = encrypter.decrypt(request.getParameter("getprev"));
             if (request.getParameter("recall_window").equals("Yes") && action) {
                 sda = sm.getSubByID(Integer.parseInt(idDecrypt));
-                
-                                            if(sda.getStep().equals("-2")){
-                                System.out.println("ok prevsub is -1");
-                                  //lets give them their user details only
-                                SubmissionsDAO newSub = new SubmissionsDAO();
-                                newSub.setPer_id_per(sda.getPer_id_per());
-                                newSub.setPer_id_per_contact(sda.getPer_id_per_contact());
-                                newSub.setPer_id_per_sub(sda.getPer_id_per_sub());
-                                // request.setAttribute("previousSub", newSub);
-                                newSub.setStep("4");
-                                sda=newSub; 
-                            }
+
+                if (sda.getStep().equals("-2")) {
+                    System.out.println("ok prevsub is -1");
+                    //lets give them their user details only
+                    SubmissionsDAO newSub = new SubmissionsDAO();
+                    newSub.setPer_id_per(sda.getPer_id_per());
+                    newSub.setPer_id_per_contact(sda.getPer_id_per_contact());
+                    newSub.setPer_id_per_sub(sda.getPer_id_per_sub());
+                    // request.setAttribute("previousSub", newSub);
+                    newSub.setStep("4");
+                    sda = newSub;
+                }
                 System.out.println("NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                 System.out.println("g e t p r e v::" + idDecrypt);
                 System.out.println("PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
                 System.out.println("PREVIOUS STEP IS :: " + sda.getStep());
             }
         }
-
 
         BackgroundManager bm = new BackgroundManager();
         String getprev = "";
@@ -180,7 +179,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         if (request.getParameter("getprev") != null) {
 
             if (request.getParameter("recall_window").equals("Yes") && action) {
-                       
+
                 System.out.println("REF DATA NEW RECALLED SUBMISSIONS DAO ID IS:: " + sda.getId_sub());
                 System.out.println("REF DATA PREVIOUS STRAIN NAME IS :: " + sda.getStrain_name());
                 System.out.println("REF DATAPREVIOUS STEP IS :: " + sda.getStep());
@@ -222,35 +221,28 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             prevSub = (SubmissionsDAO) it.next();
                             System.out.println("TIMESTAMP :: " + prevSub.getTimestamp() + " step is ::- " + prevSub.getStep());
 
-     
                             encrypter = new Encrypter();
 
                             // Encrypt
                             String encrypted = encrypter.encrypt(prevSub.getId_sub());
-                                if (encrypted.isEmpty() || encrypted != null) {
-                                    session.setAttribute("getprev", encrypted);
-                                } else {
-                                    //do nothing
-                                }
-                                           
-                            
-                              
-                                            if(prevSub.getStep().equals("-1")){
+                            if (encrypted.isEmpty() || encrypted != null) {
+                                session.setAttribute("getprev", encrypted);
+                            } else {
+                                //do nothing
+                            }
+
+                            if (prevSub.getStep().equals("-1")) {
                                 System.out.println("ok prevsub is -1");
-                                  //lets give them their user details only
+                                //lets give them their user details only
                                 SubmissionsDAO newSub = new SubmissionsDAO();
                                 newSub.setPer_id_per(prevSub.getPer_id_per());
                                 newSub.setPer_id_per_contact(prevSub.getPer_id_per_contact());
                                 newSub.setPer_id_per_sub(prevSub.getPer_id_per_sub());
                                 // request.setAttribute("previousSub", newSub);
                                 newSub.setStep("5");
-                                prevSub=newSub; 
+                                prevSub = newSub;
                             }
-          
-                            
-                            
-                            
-                            
+
                             prevSub.setEncryptedId_sub(encrypted);
                             prevSub.setCvDAO(wr.isoCountries());
                             request.setAttribute("previousSub", prevSub);
@@ -296,11 +288,13 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
                 System.out.println("STEP==" + sda.getStep());
                 sda.setStep("2");
-                //sm.save(sda);
+                if (!errors.hasErrors()) {
+                   // sm.save(sda);
+                }
                 break;
             case 3:
 
-
+                org.emmanet.controllers.SubmissionFormValidator sfv = new SubmissionFormValidator();
                 if (sda.getProducer_email()/*.getPeopleDAO().getEmail()*/ != null) {
                     //LOOK TO PULL USER/LAB DATA TO POPULATE STRAINS
                     pd = new PeopleDAO();
@@ -330,7 +324,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     }
                 }
                 sda.setStep("3");
-                sm.save(sda);
+                //sfv.validateSubmissionForm2(sda, errors, BASEURL);
+                System.out.println("ABOUT TO SAVE AT STEP 3");
+                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
+
                 break;
 
             case 4:
@@ -364,7 +363,10 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     }
                 }
                 sda.setStep("4");
-                sm.save(sda);
+                System.out.println("ABOUT TO SAVE AT STEP 4");
+                                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
                 break;
 
             case 5:
@@ -376,12 +378,16 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 session.setAttribute("getprev", encrypted);
 
                 sda.setStep("5");
-                sm.save(sda);
+                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
                 break;
 
             case 6:
                 sda.setStep("6");
-                sm.save(sda);
+                if (!errors.hasErrors()) {
+                        sm.save(sda);
+                    }
                 break;
             case 7:
                 System.out.println("DAO ref==" + sda.hashCode());
@@ -396,19 +402,25 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     //sm.save(sda);
                 } else {
                     sda.setStep("7");
-                    sm.save(sda);
+                    if (!errors.hasErrors()) {
+                        sm.save(sda);
+                    }
                 }
                 break;
 
             case 8:
                 sda.setStep("8");
-                sm.save(sda);
+                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
                 break;
 
             case 9:
 
                 sda.setStep("9");
-                sm.save(sda);
+                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
                 break;
 
             case 10:
@@ -426,13 +438,12 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     }
                 }
 
-
                 session.setAttribute("CVRToolsDAO", CVRtoolsDAO);
 
-
-
                 sda.setStep("10");
-                sm.save(sda);
+                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
                 break;
             case 11:
                 DateFormat dateFormat = new SimpleDateFormat("yyyy");
@@ -459,7 +470,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     sda.setResearch_tools(RTools);
                 }
 
-
                 if (request.getParameterValues("research_areas") != null) {
                     String[] categories = request.getParameterValues("research_areas");
                     String cats = "";
@@ -479,7 +489,9 @@ public class SubmissionFormController extends AbstractWizardFormController {
                     sda.setResearch_areas(cats);
                 }
                 sda.setStep("11");
-                sm.save(sda);
+                if (!errors.hasErrors()) {
+                    sm.save(sda);
+                }
                 break;
 
         }
@@ -493,7 +505,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Object command, org.springframework.validation.BindException be) throws Exception {
         RToolsManager rtm = new RToolsManager();
         SubmissionsDAO sd = (SubmissionsDAO) command;
-        
+
         StrainsManager stm = new StrainsManager();
         System.out.println("CHECKING RECALLED SUBMISSIONDAO :-");
         System.out.println(sd.getId_sub());
@@ -538,14 +550,13 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         //  stm.save(nsd);//need to save to get ID but this causes stalobject error when updating 
         Date dt = new Date();
-        SimpleDateFormat sdf =
-                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf
+                = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String currentDate = sdf.format(dt);
         nsd.setAdditional_owner(sd.getExclusive_owner_text());//TODO not exclusive owner!!!!
 
         //ARCHIVE OBJECT
-
         ArchiveDAO ad = new ArchiveDAO();
         ad.setArchived(null);
         ad.setArchiving_method_id(null);
@@ -574,7 +585,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setArchive_id(ad.getId());
 
         //nsd.setAvailDAO(new AvailabilitiesStrainsDAO());
-
         nsd.setAvailable_to_order("no");
         nsd.setBg_id_bg(sd.getCurrent_backg() + "");
         //nsd.setBackgroundDAO(new BackgroundDAO());
@@ -600,8 +610,8 @@ public class SubmissionFormController extends AbstractWizardFormController {
             //current date + 2 years
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.YEAR, 2);
-            sdf =
-                    new SimpleDateFormat("yyyy-MM-dd");
+            sdf
+                    = new SimpleDateFormat("yyyy-MM-dd");
 
             // String releaseDate = sdf.format(sdf.format(cal.getTime()));
             String releaseDate = sdf.format(cal.getTime());
@@ -677,7 +687,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setRequire_homozygous(sd.getHomozygous_matings_required());
 
         //RESIDUES OBJECT
-
         ResiduesDAO rd = new ResiduesDAO();
         rd.setAccepted(null);
         rd.setAccepted_date(null);
@@ -741,7 +750,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         rd.setRemedial_actions(sd.getRemedial_actions());
 
         //END RESIDUES OBJECT
-        
 //SAVE RESIDUES
         ResiduesManager rm = new ResiduesManager();
         rm.save(rd);
@@ -749,25 +757,24 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setRes_id("" + rd.getId());//RESIDUES ID
         nsd.setResiduesDAO(rd);
 
-
         Set setRtools = new LinkedHashSet();
         String rToolsToParse = sd.getResearch_tools();
         rtm = new RToolsManager();
         if (rToolsToParse != null) {
             String[] parsedRtools = rToolsToParse.split(":");
             for (String s : parsedRtools) {
-            	if (s != null && !s.isEmpty()) {
-            		RToolsDAO rtd = new RToolsDAO();
-            		System.out.println("parsed value==" + s);
-            		rtd.setRtls_id(Integer.parseInt(s));
-            		rtd.setStr_id_str(nsd.getId_str());
-            		System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
+                if (s != null && !s.isEmpty()) {
+                    RToolsDAO rtd = new RToolsDAO();
+                    System.out.println("parsed value==" + s);
+                    rtd.setRtls_id(Integer.parseInt(s));
+                    rtd.setStr_id_str(nsd.getId_str());
+                    System.out.println("RTOOLS STRAINS VALUES == STR_ID_STR==" + rtd.getStr_id_str() + "    RTOOLS ID==" + rtd.getRtls_id());
 
-            		rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s), nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
+                    rtm.saveUsingJDBCSQL/*saveSQL*/(Integer.parseInt(s), nsd.getId_str());//(rtd.getRtls_id(), rtd.getStr_id_str());
 //rtm.saveOnly(rtd);
-                //set add dao here
-            		setRtools.add(rtd);
-            	}
+                    //set add dao here
+                    setRtools.add(rtd);
+                }
             }
         }
 
@@ -790,7 +797,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
                 strains_OmimManager.save(strainsOmniDAO);                       // Add the strain/omim combination to the Strains_Omim lookup table.
             }
         }
-        
+
         // OMIM and STRAINS_OMIM
         String s1 = sd.getHuman_condition();
         String s2 = sd.getHuman_conditionNo();
@@ -798,13 +805,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         String s4 = sd.getHuman_condition_more();
         String s5 = sd.getHuman_condition_omim();
         String s6 = sd.getHuman_condition_text();
-        
-        
-        
-        
-        
-        
-        
+
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             nsd.setStr_access("C");
         } else {
@@ -846,25 +847,25 @@ public class SubmissionFormController extends AbstractWizardFormController {
             if (catsToParse != null) {
                 String[] parsedCats = catsToParse.split(":");
                 for (String s : parsedCats) {
-                	if (s != null && !s.isEmpty() && !s.equals("0")) {
-                		CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
-                		System.out.println("parsed value==" + s);
-                		System.out.println("Unparsed string is " + sd.getResearch_areas().toString());
-                		csd.setStr_id_str(nsd.getId_str());
-                		csd.setCat_id_cat(Integer.parseInt(s));
+                    if (s != null && !s.isEmpty() && !s.equals("0")) {
+                        CategoriesStrainsDAO csd = new CategoriesStrainsDAO();
+                        System.out.println("parsed value==" + s);
+                        System.out.println("Unparsed string is " + sd.getResearch_areas().toString());
+                        csd.setStr_id_str(nsd.getId_str());
+                        csd.setCat_id_cat(Integer.parseInt(s));
                 		//sbm.save(csd);//ONLY TRIES TO UPDATE THEN FAILS BECAUSE OF UNIQUE KEY CONSTRAINT USE SQL INSERT INSTEAD
-                		//OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
-                		rtm.saveCategoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
+                        //OK sql insert isn't working either, same issue as rtools need to completely bypass hibernate!!
+                        rtm.saveCategoriesUsingJDBCSQL(csd.getCat_id_cat(), csd.getStr_id_str());
                 		//sbm.saveSQL(csd.getCat_id_cat(), csd.getStr_id_str());
-                		//set add dao here
-                		setCategories.add(csd);
-                		//nsd.setCategoriesStrainsDAO(setCategories);
-                	}
+                        //set add dao here
+                        setCategories.add(csd);
+                        //nsd.setCategoriesStrainsDAO(setCategories);
+                    }
                 }
                 //~~~~~~~~~nsd.setCategoriesStrainsDAO(setCategories);
             }
         }
-        
+
         // If 'Other research areas' was specified, query the Categories table. If it doesn't exist, add it to the Categories
         // table (making sure the 'curated' flag is set to 'N') and return the pk. If it already exists, save the pk.
         // The pk is then used to add the category to the categories_strains table.
@@ -895,7 +896,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             GenesManager genesManager = new GenesManager();
             String transgeneName = smdao.getMutation_transgene_mgi_symbol().trim();
             GenesDAO genesDAO = genesManager.getGene(transgeneName);
-            
+
             if (genesDAO == null) {
                 genesDAO = new GenesDAO();                                      // The transgene does not yet exist in the genes table. Create a new instance.
                 genesDAO.setName(transgeneName.isEmpty() ? "Unknown at present" : smdao.getMutation_transgene_mgi_symbol());
@@ -953,21 +954,22 @@ public class SubmissionFormController extends AbstractWizardFormController {
             rtm.saveMutsStrainsUsingJDBCSQL(mud.getId(), nsd.getId_str());
             setMutationsStrainsDAO.add(msd);
         }
-        
+
         /**
-         * Loop through all of the bibliographic records in this strain submission,
-         * adding each reference to the biblios table. Before updating the pubmed_id,
-         * check first to make sure it's valid. If it is not valid, store the
-         * biblio record but leave the pubmed_id NULL.
+         * Loop through all of the bibliographic records in this strain
+         * submission, adding each reference to the biblios table. Before
+         * updating the pubmed_id, check first to make sure it's valid. If it is
+         * not valid, store the biblio record but leave the pubmed_id NULL.
          */
-        for (Iterator it = sbd.listIterator(); it.hasNext(); ) {
+        for (Iterator it = sbd.listIterator(); it.hasNext();) {
             BibliosManager bibliosManager = new BibliosManager();
-            
-            SubmissionBibliosDAO submissionBiblioDAO = (SubmissionBibliosDAO)it.next();
+
+            SubmissionBibliosDAO submissionBiblioDAO = (SubmissionBibliosDAO) it.next();
             PubmedID pubmedID = new PubmedID(submissionBiblioDAO.getPubmed_id());
-            if ( ! pubmedID.isValid())
+            if (!pubmedID.isValid()) {
                 submissionBiblioDAO.setPubmed_id(null);
-            
+            }
+
             BibliosDAO bibliosDAO = new BibliosDAO();
 
             bibliosDAO.setAuthor1(submissionBiblioDAO.getAuthor1());
@@ -986,7 +988,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             bibliosDAO.setYear(submissionBiblioDAO.getYear());
 
             bibliosManager.save(bibliosDAO);
-            
+
             BibliosStrainsDAO biblioStrainsDAO = new BibliosStrainsDAO();
             biblioStrainsDAO.setBib_id_biblio(bibliosDAO.getId_biblio());
             biblioStrainsDAO.setStr_id_str(nsd.getId_str());
@@ -1127,7 +1129,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
     protected void validatePage(Object command, Errors errors, int page) {
 
         SubmissionFormValidator validator = (SubmissionFormValidator) getValidator();
-        //StrainsDAO sd = (StrainsDAO) command;
         SubmissionsDAO sd = (SubmissionsDAO) command;
 
         //page is 0-indexed
@@ -1284,7 +1285,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //List checkPerson = pm.getPeopleByEMail(sda.getSubmitter_email());
         //Removed after discussion with PO (Sabine) as we may aswell add all users to database rather than re-use old
         //when user accounts are implemented we then have nice new people data
-
         List checkPerson = new ArrayList();;//now always going to be empty so line 1309 always adds to database
 
         if (type.equals("submitter")) {
@@ -1330,7 +1330,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
             //need to take ilar code and get id
             //pm = new PeopleManager();
             //make sure ilar isn't null which will cause a null pointer exception
-
             String ilarToCheck = sda.getProducer_ilar();
             System.out.println("PRODUCER ILAR FOR NEW USER == " + ilarToCheck.length());
             if (ilarToCheck.length() > 0) {
@@ -1416,7 +1415,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         }
 
         //return person id?
-
         System.out.println("Type and returning " + type + " - " + per_id_per);
         return per_id_per;
     }
