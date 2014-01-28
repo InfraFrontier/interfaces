@@ -72,7 +72,6 @@
                                         <spring:bind path="command.human_condition">
                                             <div class="field">
                                                 <strong>Does this strain model a human condition or disease?<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>For OMIM IDs please search OMIM a database of human genes and genetic disorders using the link supplied. Insert the numeric ID and divide by semicolon if more than one.</p>">? Help</span></p>
-                                                        <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" title="" />Yes (please explain below)<br/>
                                                         <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No<br/>

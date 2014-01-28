@@ -6,11 +6,10 @@ package org.emmanet.controllers;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.emmanet.jobs.WebRequests;
@@ -29,10 +28,9 @@ public class SubmissionFormValidator implements
     // REGEX PATTERNS
 
     private WebRequests wr = new WebRequests();
-    private static final String EMAIL_PATTERN =
-            /* "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
-             + "|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";*/
-            "^((([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+"
+    private static final String EMAIL_PATTERN
+            = /* "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
+             + "|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";*/ "^((([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+"
             + "(\\.([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+"
             + ")*)|((\\x22)((((\\x20|\\x09)*(\\x0d\\x0a))?(\\x20|\\x09)+)?(([\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]|\\x21|[\\x23"
             + "-\\x5b]|[\\x5d-\\x7e]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(\\\\([\\x01-\\x09\\x0b\\x0c\\x0d-\\"
@@ -58,7 +56,6 @@ public class SubmissionFormValidator implements
         } else {
             validateSubmissionForm0(sd, errors);
             validateSubmissionForm1(sd, errors, "");
-            //validateSubmissionForm2(sd, errors,"");
 
         }
     }
@@ -72,7 +69,7 @@ public class SubmissionFormValidator implements
 
     public void validateSubmissionForm0(SubmissionsDAO sd, Errors errors) {
         System.out.println("STEP0 EMAIL IS " + sd.getSubmitter_email());
-        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
+        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email())) {
             errors.rejectValue("submitter_email", "incorrect.email",
                     "The submitted Email address field appears to be incorrect.");
         }
@@ -82,15 +79,13 @@ public class SubmissionFormValidator implements
 
     public void validateSubmissionFormx(SubmissionsDAO sd, Errors errors) {
 
-        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
+        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email())) {
             errors.rejectValue("submitter_email", "incorrect.email",
                     "The submitted Email address field appears to be incorrect");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitter_email",
                 "required.email", "Email is a required field.");
-
-
     }
 
     public void validateSubmissionForm1(SubmissionsDAO sd, Errors errors, String fieldSet) {
@@ -107,7 +102,6 @@ public class SubmissionFormValidator implements
         String city = "";
         String county = "";
         String postcode = "";
-
 
         String field = "";
 
@@ -151,7 +145,7 @@ public class SubmissionFormValidator implements
             postcode = sd.getShipper_postcode();
         }
 
-        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email()/*.getPeopleDAO().getEmail()*/)) {
+        if (!patternMatch(EMAIL_PATTERN, sd.getSubmitter_email())) {
             errors.rejectValue(fieldSet + "_email", "incorrect.email",
                     "The submitted Email address field appears to be incorrect.");
         }
@@ -161,41 +155,35 @@ public class SubmissionFormValidator implements
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_firstname",
                 "required.firstname", "The " + fieldSet + " firstname is a required field");
         field = firstname;
-        System.out.println("field is ::" + fieldSet + "_firstname");
-        System.out.println("field i ::val is " + field.length());
-        System.out.println("field size from db is :: " + wr.fieldMaxLength(fieldSet + "_firstname", "submissions"));
-
         if (field.length() > wr.fieldMaxLength(fieldSet + "_firstname", "submissions")) {
-
-          //  errors.rejectValue(fieldSet + "_firstname", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_firstname", "submissions") + " characters.");
-           // errors.reject(fieldSet + "_firstname", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_firstname", "submissions") + " characters.");
-           // errors.reject("", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_firstname", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_firstname", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_firstname", "submissions") + " characters.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_lastname", "required.lastname",
                 "The " + fieldSet + " family name is a required field");
         field = lastname;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_lastname", "submissions")) {
-           // errors.rejectValue(fieldSet + "_lastname", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_lastname", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_lastname", "" + fieldSet + "_lastname", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_lastname", "submissions") + " characters.");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_tel", "required.tel",
                 "The telephone number is a required field");
 
         field = tel;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_tel", "submissions")) {
-           // errors.rejectValue(fieldSet + "_tel", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_tel", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_tel", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_tel", "submissions") + " characters.");
         }
 
         if (ilar.length() > 5) {
-
-            //System.out.println("this stage has been reached and the value is " + ilar + " - " + ilar.length());
-       errors.rejectValue("producer_ilar", "incorrect.producer_ilar",
+            errors.rejectValue("producer_ilar", "incorrect.producer_ilar",
                     "Your submitted ILAR code exceeds the number of characters permitted (greater than 5 characters).");
         }
 
         if (tel != null && !patternMatch(FAXTEL_PATTERN, tel)) {
-            //  errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
-            //         "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
+           // errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
+            //    "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
         }
 
         if (!patternMatch(FAXTEL_PATTERN, fax)) {
@@ -206,18 +194,21 @@ public class SubmissionFormValidator implements
                 "The fax number is a required field");
         field = fax;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_fax", "submissions")) {
-         //   errors.rejectValue(fieldSet + "_fax", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_fax", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_fax", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_fax", "submissions") + " characters.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_inst", "required.inst",
                 "The institution is a required field");
         field = institute;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_inst", "submissions")) {
-       //     errors.rejectValue(fieldSet + "_inst", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_inst", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_inst", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_inst", "submissions") + " characters.");
         }
         field = dept;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_dept", "submissions")) {
-        //    errors.rejectValue(fieldSet + "_dept", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_dept", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_dept", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_dept", "submissions") + " characters.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_addr_1", "required.submitter_addr_1",
@@ -225,37 +216,44 @@ public class SubmissionFormValidator implements
 
         field = address1;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_addr_1", "submissions")) {
-          //  errors.rejectValue(fieldSet + "_addr_1", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_addr_1", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_addr_1", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_addr_1", "submissions") + " characters.");
         }
         field = address2;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_addr_2", "submissions")) {
-         //   errors.rejectValue(fieldSet + "_addr_2", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_addr_2", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_addr_2", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_addr_2", "submissions") + " characters.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_city", "required.city",
                 "The city is a required field");
         field = city;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_city", "submissions")) {
-        //    errors.rejectValue(fieldSet + "_city", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_city", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_city", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_city", "submissions") + " characters.");
         }
-
-        /*  ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_county", "required.county",
-         "The county/province/state field is required");*/
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_country", "required.country",
                 "Please select a Country from the list");
         field = county;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_county", "submissions")) {
-          //  errors.rejectValue(fieldSet + "_county", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_county", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_county", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_county", "submissions") + " characters.");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_postcode", "required.postcode",
                 "Postal code/Zip code is a required field");
 
         field = postcode;
         if (field.length() > wr.fieldMaxLength(fieldSet + "_postcode", "submissions")) {
-           // errors.rejectValue(fieldSet + "_postcode", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength(fieldSet + "_postcode", "submissions") + " characters.");
+            errors.rejectValue(fieldSet + "_postcode", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength(fieldSet + "_postcode", "submissions") + " characters.");
         }
-
+        List err = new ArrayList();
+        err = errors.getAllErrors();
+        for (Iterator i = err.listIterator(); i.hasNext();) {
+            Object o = i.next().toString();
+            System.out.println("FINAL ERRORS OBJECT = " + o);
+        }
     }
 
     public void validateSubmissionForm4(SubmissionsDAO sd, Errors errors) {
@@ -272,16 +270,16 @@ public class SubmissionFormValidator implements
 
         if (sd.getStrain_name().length() > wr.fieldMaxLength("strain_name", "submissions")) {
             System.out.println("STRAIN NAME IS TOO LONG");
-            errors.rejectValue("strain_name", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("strain_name","submissions") + " characters.");
+            errors.rejectValue("strain_name", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("strain_name", "submissions") + " characters.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "genetic_descr", "required.genetic_descr",
                 "The genetic description is a required field");
 
-      /*  if (sd.getGenetic_descr().length() > wr.fieldMaxLength("genetic_descr", "submissions")) {
-            errors.rejectValue("genetic_descr", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("genetic_descr", "submissions") + " characters.");
-        }*/
-
+        /*  if (sd.getGenetic_descr().length() > wr.fieldMaxLength("genetic_descr", "submissions")) {
+         errors.rejectValue("genetic_descr", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("genetic_descr", "submissions") + " characters.");
+         }*/
         if (sd.getCurrent_backg() == 0) {
             errors.rejectValue("current_backg", "current_backg",
                     "A current genetic backround must be selected");
@@ -302,28 +300,28 @@ public class SubmissionFormValidator implements
                         "Please enter a valid number (no leading 0).");
             }
         }
-    /*    if (sd.getBreeding_history().length() > wr.fieldMaxLength("breeding_history", "submissions")) {
-            errors.rejectValue("breeding_history", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("breeding_history", "submissions") + " characters.");
-        */
-List errorList =errors.getAllErrors();
-for(Iterator it = errorList.listIterator(); it.hasNext();){
-    Object o = it.next();
-    System.out.println("Error is:: " + o);
-}
-//errors.reject("too many errors");
+        /*    if (sd.getBreeding_history().length() > wr.fieldMaxLength("breeding_history", "submissions")) {
+         errors.rejectValue("breeding_history", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("breeding_history", "submissions") + " characters.");
+         */
+        List errorList = errors.getAllErrors();
+        for (Iterator it = errorList.listIterator(); it.hasNext();) {
+            Object o = it.next();
+            System.out.println("Error is:: " + o);
+        }
+
     } //end of step 4
 
     public void validateSubmissionForm5(SubmissionsDAO sd, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_phenotypic_descr",
                 "required.homozygous_phenotypic_descr", "The Phenotypic description of homozygous mice is a required field");
-    /*    if (sd.getHomozygous_phenotypic_descr().length() > wr.fieldMaxLength("homozygous_phenotypic_descr", "submissions")) {
-            errors.rejectValue("homozygous_phenotypic_descr", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("homozygous_phenotypic_descr", "submissions") + " characters.");
-        }*/
+        /*    if (sd.getHomozygous_phenotypic_descr().length() > wr.fieldMaxLength("homozygous_phenotypic_descr", "submissions")) {
+         errors.rejectValue("homozygous_phenotypic_descr", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("homozygous_phenotypic_descr", "submissions") + " characters.");
+         }*/
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "heterozygous_phenotypic_descr", "required.heterozygous_phenotypic_descr",
                 "The Phenotypic description of heterozygous mice is a required field");
-       /* if (sd.getHeterozygous_phenotypic_descr().length() > wr.fieldMaxLength("heterozygous_phenotypic_descr", "submissions")) {
-            errors.rejectValue("heterozygous_phenotypic_descr", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("heterozygous_phenotypic_descr", "submissions") + " characters.");
-        }*/
+        /* if (sd.getHeterozygous_phenotypic_descr().length() > wr.fieldMaxLength("heterozygous_phenotypic_descr", "submissions")) {
+         errors.rejectValue("heterozygous_phenotypic_descr", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("heterozygous_phenotypic_descr", "submissions") + " characters.");
+         }*/
     }
 
     public void validateSubmissionForm6(SubmissionsDAO sd, Errors errors) {
@@ -342,20 +340,20 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
                         "The page reference is a required field");
             }
         }
-
-        //      validation_options['rules']['reference_descr_' + index.toString()] = 'required';
-        //  validation_options['rules']['reference_pages_' + index.toString()] = 'required';
     }
 
     public void validateSubmissionForm7(SubmissionsDAO sd, Errors errors) {
         if (sd.getGenotyping().length() > wr.fieldMaxLength("genotyping", "submissions")) {
-            errors.rejectValue("Message", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("genotyping", "submissions") + " characters.");
+            errors.rejectValue("genotyping", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("genotyping", "submissions") + " characters.");
         }
         if (sd.getPhenotyping().length() > wr.fieldMaxLength("phenotyping", "submissions")) {
-            errors.rejectValue("genotyping", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("phenotyping", "submissions") + " characters.");
+            errors.rejectValue("phenotyping", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("phenotyping", "submissions") + " characters.");
         }
         if (sd.getOthertyping().length() > wr.fieldMaxLength("othertyping", "submissions")) {
-            errors.rejectValue("othertyping", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("othertyping", "submissions") + " characters.");
+            errors.rejectValue("othertyping", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("othertyping", "submissions") + " characters.");
         }
     }
 
@@ -375,7 +373,8 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "homozygous_matings_required_text", "required.heterozygous_matings_required_text",
                     "An explanation is required for the homozygous matings required response.");
             if (sd.getHomozygous_matings_required_text().length() > wr.fieldMaxLength("homozygous_matings_required_text", "submissions")) {
-                errors.rejectValue("homozygous_matings_required_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("homozygous_matings_required_text", "submissions") + " characters.");
+                errors.rejectValue("homozygous_matings_required_text", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                        + wr.fieldMaxLength("homozygous_matings_required_text", "submissions") + " characters.");
             }
         }
 
@@ -387,19 +386,23 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
         }
 
         if (sd.getHusbandry_requirements().length() > wr.fieldMaxLength("husbandry_requirements", "submissions")) {
-            errors.rejectValue("husbandry_requirements", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("husbandry_requirements", "submissions") + " characters.");
+            errors.rejectValue("husbandry_requirements", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("husbandry_requirements", "submissions") + " characters.");
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "immunocompromised", "required.immunocompromised",
                 "Are mice immunocompromised is a required field");
 
         if (sd.getSanitary_status().length() > wr.fieldMaxLength("sanitary_status", "submissions")) {
-            errors.rejectValue("sanitary_status", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("sanitary_status", "submissions") + " characters.");
+            errors.rejectValue("sanitary_status", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("sanitary_status", "submissions") + " characters.");
         }
         if (sd.getWelfare().length() > wr.fieldMaxLength("welfare", "submissions")) {
-            errors.rejectValue("welfare", "", "The field input appe,ars to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("welfare", "submissions") + " characters.");
+            errors.rejectValue("welfare", "", "The field input appe,ars to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("welfare", "submissions") + " characters.");
         }
         if (sd.getRemedial_actions().length() > wr.fieldMaxLength("remedial_actions", "submissions")) {
-            errors.rejectValue("remedial_actions", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("remedial_actions", "submissions") + " characters.");
+            errors.rejectValue("remedial_actions", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("remedial_actions", "submissions") + " characters.");
         }
     }
 
@@ -418,19 +421,21 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
                         "Either an entry in the OMIM identifiers field or description of the human disease or condition field is required.");
             }
             if (sd.getHuman_condition_more().length() > wr.fieldMaxLength("human_condition_more", "submissions")) {
-                errors.rejectValue("human_condition_more", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("human_condition_more", "submissions") + " characters.");
+                errors.rejectValue("human_condition_more", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                        + wr.fieldMaxLength("human_condition_more", "submissions") + " characters.");
             }
             if (sd.getHuman_condition_text().isEmpty()) {
                 System.out.println("human condition text==" + sd.getHuman_condition_text());
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "human_condition_more", "required.human_condition_more",
                         "Either an entry in the description of the human disease or condition field or the OMIM identifiers field is required.");
             }
-         /*   if (sd.getHuman_condition_text().length() > wr.fieldMaxLength("human_condition_text", "submissions")) {
-                errors.rejectValue("human_condition_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("human_condition_text", "submissions") + " characters.");
-            }*/
+            /*   if (sd.getHuman_condition_text().length() > wr.fieldMaxLength("human_condition_text", "submissions")) {
+             errors.rejectValue("human_condition_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("human_condition_text", "submissions") + " characters.");
+             }*/
         }
         if (sd.getResearch_areas_other_text().length() > wr.fieldMaxLength("research_areas_other_text", "submissions")) {
-            errors.rejectValue("research_areas_other_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("research_areas_other_text", "submissions") + " characters.");
+            errors.rejectValue("research_areas_other_text", "", "The field input appears to be too long for the database. Maximum length of input is " 
+                    + wr.fieldMaxLength("research_areas_other_text", "submissions") + " characters.");
         }
     }
 
@@ -446,9 +451,9 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
         if (sd.getDeposited_elsewhere() != null && sd.getDeposited_elsewhere().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "deposited_elsewhere_text", "deposited_elsewhere_text",
                     "An explanation for your response is required");
-        /*    if (sd.getDeposited_elsewhere_text().length() > wr.fieldMaxLength("deposited_elsewhere_text", "submissions")) {
-                errors.rejectValue("deposited_elsewhere_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("deposited_elsewhere_text", "submissions") + " characters.");
-            }*/
+            /*    if (sd.getDeposited_elsewhere_text().length() > wr.fieldMaxLength("deposited_elsewhere_text", "submissions")) {
+             errors.rejectValue("deposited_elsewhere_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("deposited_elsewhere_text", "submissions") + " characters.");
+             }*/
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "similar_strains", "similar_strains",
@@ -458,38 +463,37 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
         if (sd.getIp_rights() != null && sd.getIp_rights().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip_rights_text", "ip_rights_text",
                     "An explanation for your response is required");
-         /*   if (sd.getIp_rights_text().length() > wr.fieldMaxLength("ip_rights_text", "submissions")) {
-                errors.rejectValue("ip_rights_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("ip_rights_text", "submissions") + " characters.");
-            }*/
+            /*   if (sd.getIp_rights_text().length() > wr.fieldMaxLength("ip_rights_text", "submissions")) {
+             errors.rejectValue("ip_rights_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("ip_rights_text", "submissions") + " characters.");
+             }*/
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exclusive_owner", "exclusive_owner",
                 "A response to this question is required");
         if (sd.getExclusive_owner() != null && sd.getExclusive_owner().equals("no")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "exclusive_owner_text", "exclusive_owner_text",
                     "Names of additional owners with affiliation and e-mail addresses are required.");
-          /*  if (sd.getExclusive_owner_text().length() > wr.fieldMaxLength("exclusive_owner_text", "submissions")) {
-                errors.rejectValue("exclusive_owner_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("exclusive_owner_text", "submissions") + " characters.");
-            }*/
+            /*  if (sd.getExclusive_owner_text().length() > wr.fieldMaxLength("exclusive_owner_text", "submissions")) {
+             errors.rejectValue("exclusive_owner_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("exclusive_owner_text", "submissions") + " characters.");
+             }*/
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permission", "owner_permission",
                 "A response to this question is required");
         if (sd.getOwner_permission() != null && sd.getOwner_permission().equals("no")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "owner_permission_text", "owner_permission_text",
                     "An explanation for your response is required.");
-          /*  if (sd.getOwner_permission_text().length() > wr.fieldMaxLength("owner_permission_text", "submissions")) {
-                errors.rejectValue("owner_permission_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("owner_permission_text", "submissions") + " characters.");
-            }*/
+            /*  if (sd.getOwner_permission_text().length() > wr.fieldMaxLength("owner_permission_text", "submissions")) {
+             errors.rejectValue("owner_permission_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("owner_permission_text", "submissions") + " characters.");
+             }*/
         }
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release", "delayed_release",
                 "A response to this question is required");
         if (sd.getDelayed_release() != null && sd.getDelayed_release().equals("yes")) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "delayed_release_text", "delayed_release_text",
                     "An explanation for the delayed release is required.");
-         /*   if (sd.getDelayed_release_text().length() > wr.fieldMaxLength("delayed_release_text", "submissions")) {
-                errors.rejectValue("delayed_release_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("delayed_release_text", "submissions") + " characters.");
-            }*/
+            /*   if (sd.getDelayed_release_text().length() > wr.fieldMaxLength("delayed_release_text", "submissions")) {
+             errors.rejectValue("delayed_release_text", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("delayed_release_text", "submissions") + " characters.");
+             }*/
         }
-
 
         //dates of mouse availability
         Date today = new Date();
@@ -532,4 +536,5 @@ for(Iterator it = errorList.listIterator(); it.hasNext();){
         System.out.println(input + " validator reports " + matchFound);
         return matchFound;
     }
+
 }
