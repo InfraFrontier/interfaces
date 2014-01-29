@@ -3,11 +3,10 @@
     Created on : 30-Jan-2012, 14:48:00
     Author     : phil
 --%>
-<%
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", -1);
-        response.setHeader("Cache-Control", "no-store");
+<%    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", -1);
+    response.setHeader("Cache-Control", "no-store");
 %>
 
 <%@page import="java.io.BufferedReader"%>
@@ -27,52 +26,52 @@
 
 
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>EMMA Mutant Mouse Strain Submission Wizard - Step ${stepCurrent} of ${stepTotal}</title>
         <style type="text/css">@import url(../css/default.css);</style>
         <link rel="stylesheet" type="text/css" media="screen" href="../css/redmond/jquery-ui-1.8.4.custom.css"/>
-           <style type="text/css" media="all">@import url("https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
-       
+        <style type="text/css" media="all">@import url("https://dev.infrafrontier.eu/sites/infrafrontier.eu/themes/custom/infrafrontier/css/ebi.css");</style>
+
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
- <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+        <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/submission.js"></script>
         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <script type="text/javascript" src="../js/mutData.js?<%= new java.util.Date()%>"></script>
-        
-         <script type="text/javascript" src="../js/tooltip.js"></script>
+
+        <script type="text/javascript" src="../js/tooltip.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
-     
+
         <script type="text/javascript">
-            $(document).ready(function(){
-                $("#mutation_es_cell_line").autocomplete("../ajaxReturn.emma?funct=esCellLineCall&query=es",{ mustMatch:1,max:100});
+            $(document).ready(function() {
+                $("#mutation_es_cell_line").autocomplete("../ajaxReturn.emma?funct=esCellLineCall&query=es", {mustMatch: 1, max: 100});
                 $('#mutation_es_cell_line').result(function(event, data, formatted) {
                     if (data) {
                         var name = data[1];
-                        $('#mutation_es_cell_line').text(name);  
+                        $('#mutation_es_cell_line').text(name);
                     }
                 });
             });
 
         </script>
         <SCRIPT>
-            (function(i,s,o,g,r,a,m){
-                i['GoogleAnalyticsObject']=r;
-                i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)
-                },i[r].l=1*new Date();
-                a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];
-                a.async=1;
-                a.src=g;
-                m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', '${GOOGLEANAL}', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
@@ -81,8 +80,8 @@
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
-            <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
-            <form:form method="POST" commandName="command"> 
+                <jsp:include flush="true" page="submissionFormHeader_inc.jsp"/>
+                <form:form method="POST" commandName="command"> 
             <div id="wrapper">
                 <div id="container">
                     <div class="region region-content">
@@ -109,12 +108,12 @@
                                                                    title=""></form:textarea>
                                                     </div>
                                                 </div>
-                                            
+
 
                                         </spring:bind>
                                     </div>
-                                    </div>
-                                     <div class="boxcontainer">
+                                </div>
+                                <div class="boxcontainer">
                                     <div class="clear"></div>
                                     <div >
                                         <spring:bind path="command.genetic_descr">
@@ -126,8 +125,8 @@
                                                     <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" 
                                                                    title=""></form:textarea>
                                                     </div>
-                                                
-                                            </div>
+
+                                                </div>
                                         </spring:bind>
                                     </div>
                                     <div class="clear"></div>
@@ -136,7 +135,7 @@
                                             <div class="field">
 
                                                 <p><strong>Current genetic background<sup><font color="red">*</font></sup></strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please specify the current genetic background of the strain that is being submitted.</p>">? Help</span></p>
-                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                            <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="">
@@ -148,46 +147,46 @@
                                                         </c:forEach>               
                                                     </form:select>&nbsp;
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>   
                                         <div id="currentBGText"  style="display: none">
                                             <p>
-                                                
-                                         <spring:bind path="command.current_backg">
-                                             <form:errors path="${status.expression}" cssClass="error" />
-                                            <input type="text" name="command.current_backg" id="current_backg_text" />
-                                        </spring:bind>
+
+                                                <spring:bind path="command.current_backg">
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                    <input type="text" name="command.current_backg" id="current_backg_text" />
+                                                </spring:bind>
                                             </p>
                                         </div>
                                     </div>
-                                     <script>
-                                            $("#current_backg").click(function () {
-                                               // var optionValue = $("#list option[value='2']").text();
-                                               var optionValue = $("select#current_backg").val();
-                                                if(optionValue == '3284'){
-                                                    //ID for Other (please specify below)
-                                                    $("#currentBGText").show("slow");
-                                                } else {
-                                                    $("#currentBGText").hide("slow");
-                                                }
-                                            });        
-                                        </script>
+                                    <script>
+                                        $("#current_backg").click(function() {
+                                            // var optionValue = $("#list option[value='2']").text();
+                                            var optionValue = $("select#current_backg").val();
+                                            if (optionValue == '3284') {
+                                                //ID for Other (please specify below)
+                                                $("#currentBGText").show("slow");
+                                            } else {
+                                                $("#currentBGText").hide("slow");
+                                            }
+                                        });
+                                    </script>
 
-                                <div>
+                                    <div>
                                         <spring:bind path="command.backcrosses">         
-                                           
+
                                             <div class="field">
                                                 <p><strong>Number of generations backcrossed</strong>&nbsp;<span class="tooltip" data-tooltip="<p>Please enter the number of generations backcrossed to background strain (if applicable and known).</p>">? Help</span></p>
-                                                 <form:errors path="${status.expression}" cssClass="error" />
-                                                 <div class="input">
+                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                <div class="input">
                                                     <form:input maxlength="3"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
                                     </div>    
-                                        
+
                                     <div >
                                         <spring:bind path="command.sibmatings"><%-- TODO DISCOVER FIELD --%>
                                             <form:errors path="${status.expression}" cssClass="error" />
@@ -196,7 +195,7 @@
                                                 <div class="input">
                                                     <form:input maxlength="3" id="${status.expression}" path="${status.expression}"  title=""/>
                                                 </div>
-                                                
+
                                             </div>
                                         </spring:bind>
                                     </div>
@@ -207,10 +206,10 @@
                                             <div class="input">
                                                 <form:textarea id="${status.expression}" path="${status.expression}"  cols="50" rows="5" title=""></form:textarea>
                                                 </div>
-                                            
-                                        </div>
+
+                                            </div>
                                     </spring:bind>
-                                     </div>
+                                </div>
                                 <div class="boxcontainer">
                                     <div class="clear"></div>
                                     <fieldset class="mutation" id="mutation">
@@ -345,7 +344,7 @@
                                             <label class="label" for="mutation_transgene_mgi_symbol"><strong>Transgene</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_transgene_mgi_symbol" value="" id="mutation_transgene_mgi_symbol" />
+                                                <input type="text" name="mutation_transgene_mgi_symbol" maxlength="100" value="" id="mutation_transgene_mgi_symbol" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -354,7 +353,7 @@
                                         <div style="display: none" class="field mutation_gene_mgi_symbol conditional CH GT IN SP TM XX" id="field mutation_gene_mgi_symbol conditional CH GT IN SP TM XX">
                                             <label class="label" for="mutation_gene_mgi_symbol"><strong>Affected gene</strong></label>
                                             <div class="input">
-                                                <input type="text" name="mutation_gene_mgi_symbol" value="" id="mutation_gene_mgi_symbol" />
+                                                <input type="text" name="mutation_gene_mgi_symbol" maxlength="100" value="" id="mutation_gene_mgi_symbol" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -364,7 +363,7 @@
                                             <label class="label" for="mutation_allele_mgi_symbol"><strong>Affected allele</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_allele_mgi_symbol" value="" id="mutation_allele_mgi_symbol" />
+                                                <input type="text" name="mutation_allele_mgi_symbol" maxlength="20" value="" id="mutation_allele_mgi_symbol" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -460,7 +459,6 @@
                                                 <select name="mutation_dominance_pattern" id="mutation_dominance_pattern">
                                                     <option value="">
                                                         &nbsp;
-
                                                     </option>
                                                     <option value="recessive">
                                                         recessive
@@ -471,7 +469,6 @@
                                                     <option value="codominant">
                                                         codominant
                                                     </option>
-
                                                     <option value="semidominant">
                                                         semidominant
                                                     </option>
@@ -508,28 +505,28 @@
                                             <p>
                                                 <spring:bind path="command.current_backg_text">
                                                     <form:errors path="${status.expression}" cssClass="error" />
-                                                    <input type="text" name="command.current_backg_text" id="mutation_original_backg_text" />
-                                                    
+                                                    <input type="text" name="command.current_backg_text" maxlength="200" id="mutation_original_backg_text" />
+
                                                 </spring:bind>
                                             </p>
                                         </div>
                                         <script>
-                                            $("#mutation_original_backg").click(function () {
+                                            $("#mutation_original_backg").click(function() {
                                                 // var optionValue = $("#list option[value='2']").text();
                                                 var optionValue = $("select#mutation_original_backg").val();
-                                                if(optionValue == '3284'){
+                                                if (optionValue == '3284') {
                                                     //ID for Other (please specify below)
                                                     $("#mutOriginalBGText").show("slow");
                                                 } else {
                                                     $("#mutOriginalBGText").hide("slow");
                                                 }
-                                            });        
+                                            });
                                         </script>
 
                                         <div style="display: none" class="field mutation_chrom_anomaly_name conditional CH" id="field mutation_chrom_anomaly_name conditional CH">
                                             <label class="label" for="mutation_chrom_anomaly_name"><strong>Chromosomal anomaly name</strong></label>
                                             <div class="input">
-                                                <input type="text" name="mutation_chrom_anomaly_name" value="" id="mutation_chrom_anomaly_name" />
+                                                <input type="text" name="mutation_chrom_anomaly_name" maxlength=""100 value="" id="mutation_chrom_anomaly_name" />
 
                                             </div>
                                             <div class="validation_error_message">
@@ -540,7 +537,7 @@
                                             <label class="label" for="mutation_chrom_anomaly_descr"><strong>Chromosomal anomaly description</strong></label>
                                             <div class="input">
 
-                                                <input type="text" name="mutation_chrom_anomaly_descr" value="" id="mutation_chrom_anomaly_descr" />
+                                                <input type="text" name="mutation_chrom_anomaly_descr" maxlength="100" value="" id="mutation_chrom_anomaly_descr" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -550,7 +547,7 @@
                                             <label class="label" for="mutation_es_cell_line"><strong>ES cell line used</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_es_cell_line" value="" id="mutation_es_cell_line" />
+                                                <input type="text" name="mutation_es_cell_line" maxlength="255" value="" id="mutation_es_cell_line" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -569,7 +566,7 @@
                                             <label class="label" for="mutation_promoter"><strong>Promoter</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_promoter" value="" id="mutation_promoter" />
+                                                <input type="text" name="mutation_promoter" maxlength="150" value="" id="mutation_promoter" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -579,7 +576,7 @@
                                             <label class="label" for="mutation_founder_line_number"><strong>Founder line number</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_founder_line_number" value="" id="mutation_founder_line_number" />
+                                                <input type="text" name="mutation_founder_line_number" maxlength="150" value="" id="mutation_founder_line_number" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -589,14 +586,14 @@
                                             <label class="label" for="mutation_plasmid"><strong>Plasmid/construct name or symbol</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_plasmid" value="" id="mutation_plasmid" onKeyPress="return disableEnterKey(event)"/>
+                                                <input type="text" name="mutation_plasmid" maxlength="150" value="" id="mutation_plasmid" onKeyPress="return disableEnterKey(event)"/>
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
                                         </div>
                                         <br/>
-<input type="hidden" name="id_mut" id="id_mut"  value=""/>
+                                        <input type="hidden" name="id_mut" id="id_mut"  value=""/>
                                     </fieldset>
                                     <div class="box half first">&nbsp;</div>
                                     <div class="box half last">
@@ -606,10 +603,10 @@
 
                                 <c:choose><c:when test="${empty param.getprev}"><c:set var="action" value="get"/></c:when><c:otherwise><c:set var="action" value="get"/></c:otherwise></c:choose>
                                         <div id="subMutations" name="subMutations">
-                                            <script type="text/javascript" > 
-                                                $('#subMutations').load('ajaxMutations.emma',{
+                                            <script type="text/javascript" >
+                                                $('#subMutations').load('ajaxMutations.emma', {
                                                     action: "${action}",
-                                                    Id_sub:$('#encID').val(),
+                                                    Id_sub: $('#encID').val(),
                                                     IDFromSession: $('#sessencID').val()
                                                 });
                                     </script>
@@ -629,9 +626,9 @@
                         </div>
                     </div>
                 </div>
-          
-        </form:form>  
 
-        <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
+            </form:form>  
+
+            <jsp:include flush="true" page="submissionFormFooter_inc.jsp"/>
     </body>
 </html>
