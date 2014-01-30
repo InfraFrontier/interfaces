@@ -317,8 +317,8 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 MimeMessage message = getJavaMailSender().createMimeMessage();
                 MimeMessageHelper msg = new MimeMessageHelper(message, true, "UTF-8");
                 msg.setSubject(getMsgSubject());
-                msg.setReplyTo("emma@emmanet.org");
-                msg.setFrom("emma@emmanet.org");
+                msg.setReplyTo("emma@infrafrontier.eu");
+                msg.setFrom("emma@infrafrontier.eu");
 
                 //  int strainID = aDAO.getStr_id_str();
                 //changes here to resolve subversion/damaian change

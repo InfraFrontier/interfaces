@@ -16,6 +16,7 @@ package org.emmanet.jobs;
 
 import java.math.BigInteger;
 import java.util.List;
+import org.emmanet.model.NkiEsCellsDAO;
 import org.emmanet.model.Sources_RequestsDAO;
 import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.WebRequestsDAO;
@@ -1624,7 +1625,8 @@ public class WebRequests {
             maxLength = (BigInteger) session.createSQLQuery("SELECT CHARACTER_MAXIMUM_LENGTH "
                     + "FROM information_schema.COLUMNS "
                     + "WHERE TABLE_NAME=? "
-                    + "AND COLUMN_NAME=? LIMIT 1").setString(0, table).setString(1, field).uniqueResult();
+                    + "AND COLUMN_NAME=? "
+                    + "AND TABLE_SCHEMA = DATABASE()").setString(0, table).setString(1, field).uniqueResult();
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
@@ -1755,5 +1757,21 @@ public class WebRequests {
             throw e;
         }
         return sd;
+    }
+    
+    public NkiEsCellsDAO getESCellsByID(String id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        NkiEsCellsDAO esd = null;
+
+        try {
+            esd = (NkiEsCellsDAO) session.get(NkiEsCellsDAO.class,
+                    id);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return esd;
     }
 }
