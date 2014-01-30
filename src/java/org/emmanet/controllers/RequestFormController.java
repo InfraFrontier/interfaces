@@ -54,6 +54,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -89,6 +91,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
+import org.emmanet.model.NkiEsCellsDAO;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.ReadFileFromURL;
 import org.springframework.core.io.InputStreamSource;
@@ -102,6 +105,7 @@ public class RequestFormController extends SimpleFormController {
     private JavaMailSender javaMailSender;
     private WebRequests webRequest;
     private StrainsDAO sd;
+    private NkiEsCellsDAO esd;
     public static final String ID = "1";
     private List requestByID;
     private MailSender mailSender;
@@ -124,6 +128,7 @@ public class RequestFormController extends SimpleFormController {
     private boolean pdfConditions;
     private String Bcc;
     private String tetCc;
+    private String[] nkiescellCc;
     private String[] xmlMailTo;
     private Map Cc;
     private Iterator it;
@@ -376,7 +381,12 @@ public class RequestFormController extends SimpleFormController {
         }
 
         String strainID = "" + webRequest.getStr_id_str() + "";
-        sd = (wr.getStrainByID(webRequest.getStr_id_str()));
+
+        if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+            esd = (NkiEsCellsDAO) (wr.getESCellsByID("" + webRequest.getStrain_id()));
+        } else {
+            sd = (wr.getStrainByID(webRequest.getStr_id_str()));
+        }
         mailSend = true;
         Cc = new HashMap();
 
@@ -385,7 +395,12 @@ public class RequestFormController extends SimpleFormController {
         //Cc.put("2", new String(""));
         Cc.put("2", new String(webRequest.getCon_e_mail()));
         // Get responsible centre mail address(es) and add to map
-        List ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());
+        List ccCentre = new ArrayList();
+        if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+            ccCentre = Arrays.asList(nkiescellCc);
+        } else {
+        ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());
+        }
         //map key + 1
         int im = 3;
         Object[] o = null;
@@ -434,7 +449,7 @@ public class RequestFormController extends SimpleFormController {
         Map model = new HashMap();
         model.put("name", webRequest.getSci_firstname() + " " + webRequest.getSci_surname());
         model.put("emmaid", webRequest.getStrain_id().toString());
-        model.put("strainname", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+
         model.put("timestamp", webRequest.getTimestamp());
         model.put("ftimestamp", webRequest.getFtimestamp());
         model.put("sci_title", webRequest.getSci_title());
@@ -480,7 +495,14 @@ public class RequestFormController extends SimpleFormController {
         //end biling details
 
         model.put("strain_id", webRequest.getStrain_id());
-        model.put("strain_name", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+        if (sd != null) {
+            model.put("strain_name", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+            model.put("strainname", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+        } else if (esd != null) {
+            model.put("strain_name", esd.getStrain_name());
+            model.put("strainname", esd.getStrain_name());
+        }
+
         model.put("common_name_s", webRequest.getCommon_name_s());//TODO need to take from backgrounds.name when all model files are incorporated
         model.put("req_material", webRequest.getReq_material());
         model.put("live_animals", webRequest.getLive_animals());
@@ -502,7 +524,12 @@ public class RequestFormController extends SimpleFormController {
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-            model.put("mtaFile", sd.getMta_file());
+            if (sd != null) {
+                model.put("mtaFile", sd.getMta_file());
+            } else if (esd != null) {
+                model.put("mtaFile", esd.getMta_file());
+            }
+
         }
         //// end new e-mail message requirements for eucomm
         // E-mail content
@@ -658,39 +685,47 @@ public class RequestFormController extends SimpleFormController {
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-            
-            if (sd.getMta_file() != null && !sd.getMta_file().equals("")) {
-
-                ReadFileFromURL MTAFILE = new ReadFileFromURL();
-                URL mtaURL = null;
-                try {
-                    mtaURL = new URL(pathToMTA + model.get("mtaFile").toString());
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, ex);
+            if (!webRequest.getLab_id_labo().equals("4")) {
+                String mtaFile = "";
+                if (sd != null) {
+                    mtaFile = sd.getMta_file();
+                } else if (esd != null) {
+                    mtaFile = esd.getMta_file();
                 }
-                mtaFromURL = MTAFILE.ReadFileURL(mtaURL, model.get("mtaFile").toString());
-                if (!model.get("application_type").equals("ta_only")) {
+           // if (sd.getMta_file() != null && !sd.getMta_file().equals("")) {
+                if (!mtaFile.isEmpty()) {
+
+                    ReadFileFromURL MTAFILE = new ReadFileFromURL();
+                    URL mtaURL = null;
+                    try {
+                        mtaURL = new URL(pathToMTA + model.get("mtaFile").toString());
+                    } catch (MalformedURLException ex) {
+                        Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, ex);
+                    }
+                    mtaFromURL = MTAFILE.ReadFileURL(mtaURL, model.get("mtaFile").toString());
+                    if (!model.get("application_type").equals("ta_only")) {
                     //add mta file if associated with strain id
-                    String mtaFile = sd.getMta_file();
-                    // mtaFile="this is a test.pdf";
-                    System.out.println("mta file value is::" + mtaFile);
+                        //String mtaFile = sd.getMta_file();
+                        // mtaFile="this is a test.pdf";
+                        System.out.println("mta file value is::" + mtaFile);
                 //  System.out.println( " OK now mta file from model value is " + model.get("mtaFile").toString());
-                    // || model.get("mtaFile").toString().equals("")
-                    if (mtaFile != null || model.get("mtaFile") != null) {
-                        FileSystemResource fileMTA = new FileSystemResource(new File(getPathToMTA() + mtaFile));
+                        // || model.get("mtaFile").toString().equals("")
+                        if (mtaFile != null || model.get("mtaFile") != null) {
+                            FileSystemResource fileMTA = new FileSystemResource(new File(getPathToMTA() + mtaFile));
                     //System.out.println("file mta is-> " + fileMTA + " and to string is " + fileMTA.toString());
-                        //need to check for a valid mta filename use period extension separator, all mtas are either .doc or .pdf
-                        if (!fileMTA.exists()) {
-                            System.out.println("MTA file " + mtaFile + " cannot be accessed");
-                        }
+                            //need to check for a valid mta filename use period extension separator, all mtas are either .doc or .pdf
+                            if (!fileMTA.exists()) {
+                                System.out.println("MTA file " + mtaFile + " cannot be accessed");
+                            }
                     //if (fileMTA.exists() && fileMTA.toString().contains(".")) {
-                        // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
-                        // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
-                        if (!webRequest.getLab_id_labo().equals("4")) {
+                            // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
+                            // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
+                            //if (!webRequest.getLab_id_labo().equals("4")) {
                             //helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
                             helper.addAttachment(model.get("mtaFile").toString(), mtaFromURL);
                             // }
 
+                            //}
                         }
                     }
                 }
@@ -714,13 +749,13 @@ public class RequestFormController extends SimpleFormController {
                 getJavaMailSender().send(message);
                 System.out.println("Mail sent ");
             }
-            
-            if(mtaFromURL != null){
-            boolean deleted = mtaFromURL.delete();
-            if (!deleted) {
-                Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
+
+            if (mtaFromURL != null) {
+                boolean deleted = mtaFromURL.delete();
+                if (!deleted) {
+                    Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
+                }
             }
-        }
             Cc = null;
 
         } catch (MessagingException ex) {
@@ -1125,5 +1160,19 @@ public class RequestFormController extends SimpleFormController {
      */
     public void setXmlMailTo(String[] xmlMailTo) {
         this.xmlMailTo = xmlMailTo;
+    }
+
+    /**
+     * @return the nkiescellCc
+     */
+    public String[] getNkiescellCc() {
+        return nkiescellCc;
+    }
+
+    /**
+     * @param nkiescellCc the nkiescellCc to set
+     */
+    public void setNkiescellCc(String[] nkiescellCc) {
+        this.nkiescellCc = nkiescellCc;
     }
 }
