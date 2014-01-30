@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.emmanet.model.NkiEsCellsDAO" table="nki_es_cells">
+        <id column="clone_id" name="clone_id">
+            <generator class="native"/>
+        </id>
+        <property column="genotype_strain" name="genotype_strain"/>
+        <property column="strain_background" name="strain_background"/>
+        <property column="coat_color" name="coat_color"/>
+        <property column="es_cell_clone_number" name="es_cell_clone_number"/>
+        <property column="col1a1_locus" name="col1a1_locus"/>
+        <property column="mgi_allele_symbol" name="mgi_allele_symbol"/>
+        <property column="mgi_allele_id" name="mgi_allele_id"/>
+        <property column="strain_name" name="strain_name"/>
+        <property column="targeting_qc" name="targeting_qc"/>
+        <property column="embryo_stage" name="embryo_stage"/>
+        <property column="chimera_embryo_number" name="chimera_embryo_number"/>
+        <property column="germline_transmission" name="germline_transmission"/>
+        <property column="pmid" name="pmid"/>
+        <property column="principal_scientist" name="principal_scientist"/>
+        <property column="mta_file" name="mta_file"/>
+    </class>
+</hibernate-mapping>
