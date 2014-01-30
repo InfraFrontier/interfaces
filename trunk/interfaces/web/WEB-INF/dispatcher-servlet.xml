@@ -221,6 +221,9 @@
         <property name="tetCc">
             <value>freundlieb@tet-systems.com</value>
         </property>
+        <property name="nkiescellCc">
+            <value>i.huijbers@nki.nl</value>
+        </property>
        <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de"/>
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
@@ -568,6 +571,7 @@
                 <value>/publicSubmission/submissionForm11</value>
             </list>
         </property>
+        <property name="cc" value="emma@infrafrontier.eu" />
         <property name="validator">
             <!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
             <bean class="org.emmanet.controllers.SubmissionFormValidator" />

@@ -90,6 +90,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private boolean action;
     private static String BASEURL;// = Configuration.get("BASEURL");
     private static String GOOGLEANAL;// = Configuration.get("GOOGLEANAL");
+    private String[] Cc;
 
     public SubmissionFormController() {
         setCommandName("command");
@@ -505,6 +506,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             Object command, org.springframework.validation.BindException be) throws Exception {
         RToolsManager rtm = new RToolsManager();
         SubmissionsDAO sd = (SubmissionsDAO) command;
+       
 
         StrainsManager stm = new StrainsManager();
         System.out.println("CHECKING RECALLED SUBMISSIONDAO :-");
@@ -1103,6 +1105,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
             helper.setReplyTo("emma@infrafrontier.eu");
             helper.setFrom("emma@infrafrontier.eu");
             helper.setBcc("webmaster@infrafrontier.eu");
+            helper.setCc(Cc);
             helper.setTo(model.get("emailsubmitter").toString().trim());
             helper.setSubject("Your submission to EMMA of strain " + model.get("strainname").toString());
             helper.setText(content);
@@ -1236,8 +1239,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
     public SubmissionsDAO previousSubmission(SubmissionsDAO sd, String encryptedID) throws UnsupportedEncodingException {
         //String getprev = "";
         Encrypter encrypter = new Encrypter();
-//encrypter.decrypt(ID);
-//System.out.println("to decode==" + encryptedID );
+
         String getprev = encrypter.decrypt(encryptedID);
         //System.out.println(getprev);
         int idDecrypt = Integer.parseInt(getprev);
@@ -1487,5 +1489,19 @@ public class SubmissionFormController extends AbstractWizardFormController {
      */
     public void setGOOGLEANAL(String aGOOGLEANAL) {
         GOOGLEANAL = aGOOGLEANAL;
+    }
+
+    /**
+     * @return the Cc
+     */
+    public String[] getCc() {
+        return Cc;
+    }
+
+    /**
+     * @param Cc the Cc to set
+     */
+    public void setCc(String[] Cc) {
+        this.Cc = Cc;
     }
 }
