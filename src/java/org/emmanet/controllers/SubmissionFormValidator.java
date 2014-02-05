@@ -181,7 +181,7 @@ public class SubmissionFormValidator implements
                     "Your submitted ILAR code exceeds the number of characters permitted (greater than 5 characters).");
         }
 
-        if (tel != null && !patternMatch(FAXTEL_PATTERN, tel)) {
+     /*   if (tel != null && !patternMatch(FAXTEL_PATTERN, tel)) {
            // errors.rejectValue(fieldSet + "_tel", "incorrect.tel",
             //    "Please enter a valid phone number (it must begin with <b>+</b> followed by the country code).");
         }
@@ -190,6 +190,7 @@ public class SubmissionFormValidator implements
             //  errors.rejectValue(fieldSet + "_fax", "incorrect.fax",
             //    "Please enter a valid fax number (it must begin with <b>+</b> followed by the country code).");
         }
+        * */
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, fieldSet + "_fax", "required.fax",
                 "The fax number is a required field");
         field = fax;
