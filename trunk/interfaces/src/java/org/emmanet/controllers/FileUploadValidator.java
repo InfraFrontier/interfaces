@@ -47,7 +47,8 @@ public class FileUploadValidator implements Validator {
         if ( ! contentType.endsWith("pdf")) {
             // Bug EMMA-550: Firefox 25 has a bug: it reports pdf mime types as x-unknown/x-unknown.
             // https://bugzilla.mozilla.org/show_bug.cgi?id=891334 (NOTE: it claims to be fixed for windows but as of 2013-12-20, it's broken for mac).
-            if ( ! contentType.equals("x-unknown/x-unknown")) {
+            // application/x-download condition added by philw as another Firefox content type for pdf
+            if ( ! contentType.equals("x-unknown/x-unknown") && ! contentType.equals("application/x-download")) {
                 errors.reject("Message", "File '" + originalFilename + "': expected pdf contents but your browser says the content type is '" + contentType + "'.");
             }
         }
