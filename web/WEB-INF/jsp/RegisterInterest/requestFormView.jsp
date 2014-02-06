@@ -29,7 +29,7 @@
         <meta content="text/html; charset=UTF-8" http-equiv="content-type">
 
         <meta content="Phil Wilkinson" name="author">
-        <meta content="Submission form for registering an interest in strains that have recently arrived to the EMMA Centres and for requesting publicly available strains." name="description">
+        <meta content="Request form for registering an interest in strains that have recently arrived to the EMMA Centres and for requesting publicly available strains." name="description">
         <%--<link rel="stylesheet" type="text/css" href="css/emmastyle.css">--%>
         <style type="text/css" media="all">@import url("../css/default.css?mptxkh");</style>
         <script src="../js/ajax.js" type="text/javascript"></script>
@@ -190,7 +190,7 @@
                                                             indicate your interest in ordering EMMA strains which are currently under development and not yet available.
                                                         </c:when> 
                                                         <c:otherwise>
-                                                            request the mouse strains archived by EMMA.
+                                                            request the mouse <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cells</c:when><c:otherwise>strains</c:otherwise></c:choose> archived by EMMA.
                                                         </c:otherwise> 
                                                     </c:choose>
                                                     <br>
@@ -627,7 +627,7 @@
                                 <div class="boxcontainer">
                                     <h5>Requested strain:</h5>
                                     <br />
-                                    <p><strong>EMMA ID</strong></p><spring:bind path="command.strain_id">
+                                    <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
                                     </spring:bind>
                                     <p><strong>Strain name</strong></p><spring:bind path="command.strain_name">
@@ -638,7 +638,8 @@
                                     </spring:bind>
                                 </div>
                                 <div class="boxcontainer">
-                                    <p><br/><h5>
+                                    <p>
+                                    <h5>
                                         <c:choose>
                                                 <c:when test="${command.register_interest == '1' && command.id_req == null}" ><strong>Material you intend to request:</strong>
                                             </c:when>
@@ -648,9 +649,9 @@
                                         <font color="red">*</font>
                                     </h5>
                                     </p>
-                                    <br />
-                                    (please check current availabilities on strain description page)<br/>
-                                    <br/>
+                                    
+                                    <c:choose><c:when test="${param['type'] ne 'nkiescells'}"><br/>(please check current availabilities on strain description page)<br/><br/></c:when><c:otherwise></c:otherwise></c:choose>
+                                    
                                     <%-- TODO WORK OUT STRAIN AVAILABILITY + PERTINENT SELECTIONS IF FINAL FORM SUBMISSION         roi = ${command.register_interest}
                                 req mat = ${command.req_material}--%>
 
@@ -658,32 +659,23 @@
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
                                         <c:choose><c:when test="${command.req_material  == 'first available'}"> <br /><br />You indicated ${command.req_material} therefore, either frozen or live material, depending on current stock, will be supplied.<br /></c:when>
                                             <c:otherwise> 
-                                                <p>
+                                                
                                                     <spring:bind path="command.req_material">
                                                         <c:choose>
-                                                            <c:when test="${command.req_material  == 'live animals'}" >
-                                                                <input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio" checked />
+                                                            <c:when test="${param['type'] eq 'nkiescells'}">
+                                                            <form:radiobutton id="${status.expression}" path="${status.expression}" value="ES Cells" /><strong>ES Cells</strong>
+                                                                
                                                             </c:when>
-                                                            <c:otherwise> 
-                                                                <input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio" /> 
+                                                            <c:otherwise>
+                                                                <p><input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio"  /><strong>Live Animals</strong></p>
+                                                                <p><input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio"  /><strong>Frozen Material</strong></p>
                                                             </c:otherwise>
+                                                            
+                                                            
                                                         </c:choose>
-                                                        <strong>Live Animals</strong>
+                                                        
                                                     </spring:bind>
-                                                </p> 
-                                                <p>
-                                                    <spring:bind path="command.req_material">
-                                                        <c:choose>
-                                                            <c:when test="${command.req_material  == 'frozen material'}" >
-                                                                <input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio" checked />
-                                                            </c:when>
-                                                            <c:otherwise> 
-                                                                <input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio" /> 
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                        <strong>Frozen Material</strong>
-                                                    </spring:bind>
-                                                </p>
+                                                        
                                                 <c:if test="${command.register_interest == '1' && command.id_req == null}" >
 
                                                     <p><spring:bind path="command.req_material">
