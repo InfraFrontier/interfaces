@@ -177,7 +177,7 @@ public class RequestFormController extends SimpleFormController {
                     request.setAttribute(
                             "ERROR", "TRUE");
                     SimpleMailMessage webmasterMsg = new SimpleMailMessage();
-                    webmasterMsg.setTo("webmaster@infrafrontier.eu");
+                    webmasterMsg.setTo("philw@ebi.ac.uk");
                     webmasterMsg.setFrom("emma@infrafrontier.eu");
                     webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
                     webmasterMsg.setText("This error has occurred, check server");
@@ -194,7 +194,7 @@ public class RequestFormController extends SimpleFormController {
                                 "ERROR", "TRUE");
                         System.out.println("NO MATCHES");
                         SimpleMailMessage webmasterMsg = new SimpleMailMessage();
-                        webmasterMsg.setTo("webmaster@infrafrontier.eu");
+                        webmasterMsg.setTo("philw@ebi.ac.uk");
                         webmasterMsg.setFrom("emma@infrafrontier.eu");
                         webmasterMsg.setSubject("Encrypted and unencrypted IDs invalid");
                         webmasterMsg.setText("This error has occurred, check server for unencryptedID:-" + unencryptedID);
@@ -397,7 +397,7 @@ public class RequestFormController extends SimpleFormController {
         // Get responsible centre mail address(es) and add to map
         List ccCentre = new ArrayList();
         if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
-            ccCentre = Arrays.asList(nkiescellCc);
+            //do nothing
         } else {
         ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());
         }
@@ -413,9 +413,12 @@ public class RequestFormController extends SimpleFormController {
         }
         o = null;
         System.out.println("cccentre size=" + ccCentre.size());
-
-        o = (Object[]) ccCentre.get(0);
-        String ArchContactEmail = o[1].toString();
+        String ArchContactEmail="";
+if(ccCentre.size() > 0){
+     o = (Object[]) ccCentre.get(0);
+        ArchContactEmail = o[1].toString();
+}
+       
         /*     if (webRequest.getApplication_type().equals("ta_or_request")
          || webRequest.getApplication_type().equals("ta_only")) {
          //if one of these values then has passed the country eligibility controlled by javascript in requestFormView.emma/jsp
@@ -519,7 +522,7 @@ public class RequestFormController extends SimpleFormController {
         model.put("labID", webRequest.getLab_id_labo());
         model.put("rtoolsID", rtoolsID);
         model.put("BASEURL", BASEURL);
-        if (!webRequest.getLab_id_labo().equals("4")) {
+        if (webRequest.getLab_id_labo() != null && !webRequest.getLab_id_labo().equals("4")) {
             /*
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
@@ -667,7 +670,13 @@ public class RequestFormController extends SimpleFormController {
                 System.out.println("ccADDRESS===== " + ccAddress);
                 //helper.addCc(ccAddress);
             }
+            if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+                helper.setCc(nkiescellCc);
+            } else {
             helper.setCc(ccAddresses);//.addCc(ccAddresses);
+            }
+            
+            //ccCentre = Arrays.asList(nkiescellCc);
 
             helper.setTo(webRequest.getSci_e_mail().trim());
 
