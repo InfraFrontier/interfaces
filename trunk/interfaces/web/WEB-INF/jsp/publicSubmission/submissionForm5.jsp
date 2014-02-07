@@ -143,7 +143,7 @@
                                                         <form:option value='0'>Please select...</form:option>
                                                         <c:forEach var="background" items="${BGDAO}">
 
-                                                            <form:option value='${background[0]}'>${background[1]}</form:option>
+                                                            <form:option value='${background[0]}'>${fn:escapeXml(background[1])}</form:option>
                                                         </c:forEach>               
                                                     </form:select>&nbsp;
                                                 </div>
@@ -493,7 +493,7 @@
 
                                                         <form:option value='0'>Please select...</form:option>
                                                         <c:forEach var="background" items="${BGDAO}">
-                                                            <form:option value='${background[0]}'>${background[1]}</form:option>
+                                                            <form:option value='${background[0]}'>${fn:escapeXml(background[1])}</form:option>
                                                         </c:forEach>        
                                                     </form:select>
                                                 </div>
