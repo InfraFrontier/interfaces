@@ -737,16 +737,14 @@ if(sd != null) {
                             //need to check for a valid mta filename use period extension separator, all mtas are either .doc or .pdf
                             if (!fileMTA.exists()) {
                                 System.out.println("MTA file " + mtaFile + " cannot be accessed");
-                            }
+                            } else {
                     //if (fileMTA.exists() && fileMTA.toString().contains(".")) {
                             // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
                             // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
                             //if (!webRequest.getLab_id_labo().equals("4")) {
                             //helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
                             helper.addAttachment(model.get("mtaFile").toString(), mtaFromURL);
-                            // }
-
-                            //}
+                            }
                         }
                     }
                 }
