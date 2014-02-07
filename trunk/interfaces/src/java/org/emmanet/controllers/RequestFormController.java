@@ -706,7 +706,7 @@ if(sd != null) {
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-            if (!webRequest.getLab_id_labo().equals("4")) {
+            if (webRequest.getLab_id_labo() != null && !webRequest.getLab_id_labo().equals("4")) {
                 String mtaFile = "";
                 if (sd != null) {
                     mtaFile = sd.getMta_file();
