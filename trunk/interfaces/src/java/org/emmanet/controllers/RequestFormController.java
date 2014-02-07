@@ -141,6 +141,7 @@ public class RequestFormController extends SimpleFormController {
     private Map returnedOut = new HashMap();
     private Encrypter encrypter = new Encrypter();
     private HttpSession session;
+    private List ccCentre;
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -351,7 +352,13 @@ public class RequestFormController extends SimpleFormController {
              now need to grab site id using strain id
              */
             WebRequests wReq = new WebRequests();
-            List ccCentre = wReq.ccArchiveMailAddresses(wr.getStr_id_str());
+             if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+            ccCentre = wReq.ccArchiveMailAddresses(wr.getStrain_id(),"nki_es_cells");
+            wr.setReq_material("ES Cells");
+        } else {
+        ccCentre = wReq.ccArchiveMailAddresses("" + wr.getStr_id_str(),"strains");
+        }
+           // List ccCentre = wReq.ccArchiveMailAddresses(wr.getStr_id_str());
 
             Object[] o = null;
             it = ccCentre.iterator();
@@ -397,9 +404,9 @@ public class RequestFormController extends SimpleFormController {
         // Get responsible centre mail address(es) and add to map
         List ccCentre = new ArrayList();
         if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
-            //do nothing
+            ccCentre = wr.ccArchiveMailAddresses(webRequest.getStrain_id(),"nki_es_cells");
         } else {
-        ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());
+        ccCentre = wr.ccArchiveMailAddresses("" + webRequest.getStr_id_str(),"strains");
         }
         //map key + 1
         int im = 3;
@@ -679,8 +686,13 @@ if(ccCentre.size() > 0){
             //ccCentre = Arrays.asList(nkiescellCc);
 
             helper.setTo(webRequest.getSci_e_mail().trim());
-
-            helper.setSubject(mailSubjectText + webRequest.getStrain_id() + " (" + sd.getName() /*webRequest.getStrain_name()*/ + ") Your request ID: " + webRequest.getId_req());
+            String correctStrainname="";
+if(sd != null) {
+    correctStrainname=sd.getName();
+}else if (esd != null){
+    correctStrainname = esd.getStrain_name();
+}
+            helper.setSubject(mailSubjectText + webRequest.getStrain_id() + " (" + correctStrainname /*webRequest.getStrain_name()*/ + ") Your request ID: " + webRequest.getId_req());
             helper.setText(content);
             /* xml files no longer need to be sent with e-mail message
              * Removal requested by sabine.fessele@helmholtz-muenchen.de

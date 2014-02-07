@@ -286,7 +286,7 @@ System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
                         lCc.add(CcElement);
                     }
                     lCc.add(webRequest.getCon_e_mail());
-                    List ccCentre = wr.ccArchiveMailAddresses(webRequest.getStr_id_str());
+                    List ccCentre = wr.ccArchiveMailAddresses("" + webRequest.getStr_id_str(),"strains");
 
                     Object[] o = null;
                     Iterator it = ccCentre.iterator();

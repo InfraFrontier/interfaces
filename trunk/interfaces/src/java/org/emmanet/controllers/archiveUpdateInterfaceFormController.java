@@ -355,7 +355,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
                 }
                 //NOW get arch centre email address and add to list
                 WebRequests wr = new WebRequests();
-                List ccCentre = wr.ccArchiveMailAddresses(strainID);
+                List ccCentre = wr.ccArchiveMailAddresses("" + strainID,"strains");
                 Object[] o = null;
                 Iterator it = ccCentre.iterator();
                 while (it.hasNext()) {

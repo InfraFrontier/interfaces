@@ -103,7 +103,7 @@ encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
             Cc.put("1", new String("emma@infrafrontier.eu"));
             Cc.put("2", shipperMail);//EMMA-273 above
             // Get responsible centre mail address(es) and add to map
-            List ccCentre = wr.ccArchiveMailAddresses(wrd.getStr_id_str());
+            List ccCentre = wr.ccArchiveMailAddresses("" + wrd.getStr_id_str(),"strains");
             String[] ccAddress = null;
             //map key + 1
             int im = 3;

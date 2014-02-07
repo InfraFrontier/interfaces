@@ -175,7 +175,7 @@
                                         </table>
                                     </c:when> 
                                     <c:otherwise>
-                                        <h4>EMMA Mutant Request Form</h4> 
+                                        <h4>EMMA <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>Mutant</c:otherwise></c:choose> Request Form</h4> 
                                     </c:otherwise> 
                                 </c:choose>
                                 <c:if test="${(empty param.status)}">
@@ -625,7 +625,7 @@
 
 
                                 <div class="boxcontainer">
-                                    <h5>Requested strain:</h5>
+                                    <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
                                     <br />
                                     <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
