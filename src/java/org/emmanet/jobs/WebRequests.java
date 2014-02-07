@@ -72,20 +72,32 @@ public class WebRequests {
         return duplicatedList;
     }
 
-    public List ccArchiveMailAddresses(int str_id_str) {
+    public List ccArchiveMailAddresses(String str_id_str,String table) {
 
         List ccArchive = null;
+        String fromTables="";
+        String andTables="";
+        String whereClause="";
+        if(!table.equals("nki_es_cells")) {
+            fromTables=" archive, strains, web_requests,";
+            andTables="AND people.lab_id_labo = archive.lab_id_labo AND archive.id = strains.archive_id ";
+            whereClause="strains.id_str";
+        } else {
+            whereClause="nki_es_cells.clone_id";
+            fromTables="nki_es_cells,";
+            andTables="AND people.lab_id_labo = nki_es_cells.lab_id_labo ";
+        }
+        System.out.println("value of clone id or strain id is :: " + str_id_str);
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
             ccArchive = session.createSQLQuery(
                     "SELECT DISTINCT people.lab_id_labo,people.e_mail "
-                    + "FROM people, archive, strains, web_requests, roles_people "
-                    + "WHERE strains.id_str = ? "
-                    + "AND people.lab_id_labo = archive.lab_id_labo "
-                    + "AND archive.id = strains.archive_id "
+                    + "FROM people," + fromTables + "roles_people "
+                    + "WHERE  " + whereClause + " = ? "
+                    + andTables
                     + "AND roles_people.per_id_per = people.id_per "
-                    + "AND roles_people.role_id = 3 ").setInteger(0, str_id_str).list();
+                    + "AND roles_people.role_id = 3 ").setParameter(0, str_id_str).list();
             session.getTransaction().commit();
 
         } catch (HibernateException e) {

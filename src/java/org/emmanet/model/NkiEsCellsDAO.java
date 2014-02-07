@@ -26,6 +26,7 @@ public class NkiEsCellsDAO {
     private String germline_transmission;
     private String pmid;
     private String principal_scientist;
+    private String lab_id_labo;
     private String mta_file;
 
     /**
@@ -250,6 +251,20 @@ public class NkiEsCellsDAO {
      */
     public void setMta_file(String mta_file) {
         this.mta_file = mta_file;
+    }
+
+    /**
+     * @return the lab_id_labo
+     */
+    public String getLab_id_labo() {
+        return lab_id_labo;
+    }
+
+    /**
+     * @param lab_id_labo the lab_id_labo to set
+     */
+    public void setLab_id_labo(String lab_id_labo) {
+        this.lab_id_labo = lab_id_labo;
     }
 
 }

@@ -221,7 +221,7 @@ public class RegInterestJOB extends QuartzJobBean {
                     Cc.put("1", new String("emma@infrafrontier.eu"));
                     Cc.put("2", shipperMail);//EMMA-273 above
                     // Get responsible centre mail address(es) and add to map
-                    List ccCentre = r.ccArchiveMailAddresses(webReq.getStr_id_str());
+                    List ccCentre = r.ccArchiveMailAddresses("" + webReq.getStr_id_str(),"strains");
                     String[] ccAddress = null;
                     //map key + 1
                     int im = 3;

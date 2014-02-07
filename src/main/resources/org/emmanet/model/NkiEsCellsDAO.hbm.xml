@@ -19,6 +19,7 @@
         <property column="germline_transmission" name="germline_transmission"/>
         <property column="pmid" name="pmid"/>
         <property column="principal_scientist" name="principal_scientist"/>
+        <property column="lab_id_labo" name="lab_id_labo"/>
         <property column="mta_file" name="mta_file"/>
     </class>
 </hibernate-mapping>
