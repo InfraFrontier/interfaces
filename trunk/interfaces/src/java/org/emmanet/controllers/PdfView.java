@@ -367,19 +367,10 @@ public class PdfView extends AbstractPdfView {
             table.setWidthPercentage(100);
 
             // Genotype preparation - strain name [actually, synonym] and description
-            Set sSynonym = sd.getSyn_strainsDAO();
-            StringBuilder strainSynonyms = new StringBuilder();
-            for (Iterator iterator = sSynonym.iterator(); iterator.hasNext(); ) {
-                Syn_StrainsDAO syn_strainsDAO = (Syn_StrainsDAO)iterator.next();
-                if (syn_strainsDAO.getName() != null) {
-                    if (strainSynonyms.length() > 0)
-                        strainSynonyms.append(", ");
-                    strainSynonyms.append(syn_strainsDAO.getName());
-                }
-            }
-
+            // Jira request EMMA-586 - use strain.name instead of synonym (requested by Sabine)
+            String strainName = sd.getName();
             pSubHead = new Paragraph(
-                    strainSynonyms + " / " + sd.getEmma_id() + "\n\n", FontFactory.getFont(
+                    strainName + " / " + sd.getEmma_id() + "\n\n", FontFactory.getFont(
                     FontFactory.HELVETICA_BOLD, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
             doc.add(pSubHead);
@@ -526,7 +517,7 @@ public class PdfView extends AbstractPdfView {
             table.addCell(cell);
 
             table.addCell("Strain Name");
-            table.addCell("" + strainSynonyms);
+            table.addCell("" + strainName);
             
             table.addCell("Genetic description");
             table.addCell("" + cleanNULLS(sd.getCharact_gen(), false));
