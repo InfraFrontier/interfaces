@@ -46,7 +46,7 @@
                     (i[r].q = i[r].q || []).push(arguments)
                 }, i[r].l = 1 * new Date();
                 a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
+                m = s.getElementsByTagName(o)[0];
                 a.async = 1;
                 a.src = g;
                 m.parentNode.insertBefore(a, m)
@@ -224,14 +224,14 @@
                                                 <p><form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
                                                     <form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />No (please explain below)<br />
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
-
-                                            </spring:bind>
-                                            <div id="ownerPermissionText"  style="display: none">
-                                                <spring:bind path="command.owner_permission_text">
-                                                    <form:errors path="${status.expression}" cssClass="error" />
-                                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
-                                                    </div>
+                                            </div>
+                                        </spring:bind>
+                                        <div id="ownerPermissionText"  style="display: none">
+                                            <spring:bind path="command.owner_permission_text">
+                                                <form:errors path="${status.expression}" cssClass="error" />
+                                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                                 </div>
+
 
                                             </div>
                                     </spring:bind>
@@ -263,14 +263,14 @@
                                                     <form:radiobutton id="${status.expression}-not_known" path="${status.expression}" value="not known" />Not known</p><br />
                                                 </spring:bind>
                                             <div id="delayedReleaseText"  style="display: none">
-                                                <form:errors path="${status.expression}" cssClass="error" />
-                                                <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                                 <spring:bind path="command.delayed_release_text">
+                                                    <form:errors path="${status.expression}" cssClass="error" />
+                                                    <form:textarea id="${status.expression}" path="${status.expression}" cols="50" rows="5"></form:textarea>
                                                 </div>
-                                            </div>
-
+                                            </spring:bind>
                                         </div>
-                                    </spring:bind>
+                                    </div>
+
                                     <script type="text/javascript" >
                                         jQuery(document).ready(function() {
                                             if ($('input[name=delayed_release]:checked').val() == "yes") {
@@ -348,8 +348,8 @@
                                     <div class="boxcontainer">
                                         <p><strong>Additional materials of interest (you can upload up to five attachments)</strong></p>
                                         <div class="input">
-                                            <a href='javascript:void(0)' onClick="javascript:gmyWin = openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL', gmyWin);
-                                                    return false;" title="Opens a new window">Upload attachment</a>
+                                           <a href='javascript:void(0)' onClick="javascript:gmyWin = openWindow('fileUploadForm.emma?submissionID=${sessionScope.getprev}&submissionFileType=ADDITIONAL', gmyWin);
+                                                return false;" title="Opens a new window">Upload attachment</a>
                                             <div id="fileList" name="fileList"></div>      
                                             <script type="text/javascript" >
                                                 $('#fileList').load('../ajaxReturn.emma', {encID: "${sessionScope.getprev}", submissionFileType: "ADDITIONAL", funct: "fileList"});
