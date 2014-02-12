@@ -221,9 +221,7 @@
         <property name="tetCc">
             <value>freundlieb@tet-systems.com</value>
         </property>
-        <property name="nkiescellCc">
-            <value>i.huijbers@nki.nl</value>
-        </property>
+        <property name="nkiescellCc" value="i.huijbers@nki.nl"/>
        <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de"/>
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
@@ -398,7 +396,7 @@
             <value>/Submissions/</value>
         </property>
         <property name="mtaPath">
-            <value>/nfs/web-hx/mouseinformatics/infrafrontier/mtas</value>
+            <value>https://www.infrafrontier.eu/sites/infrafrontier.eu/files/upload/public/pdf/mtas/</value><!-- /nfs/web-hx/mouseinformatics/infrafrontier/mtas -->
         </property>
         <property name="simpleMailMessage" ref="simpleMailMessage"/>
         <property name="mailSender" ref="mailSender"/>
