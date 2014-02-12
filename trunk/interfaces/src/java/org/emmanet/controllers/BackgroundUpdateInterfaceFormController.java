@@ -84,7 +84,7 @@ public class BackgroundUpdateInterfaceFormController extends SimpleFormControlle
 
         List bgs = bm.getBGSpecies();
         cryopreservationHistoryController chc = new cryopreservationHistoryController();
-        chc.setFileLocation(Configuration.get("chcFileList"));
+        chc.setFileLocation(Configuration.get("CHCFILELIST"));
         System.out.println("BGLIST FILE LOCATION IS:: " + chc.getFileLocation());
         chc.createList();
         session.setAttribute("species", bgs);
