@@ -1,0 +1,19 @@
+This is an automatically generated message sent in response to the interest you have shown in the ESC clone detailed below:
+ 
+ 
+Dear EMMA customer,
+ 
+We would like to confirm receipt of the request form that you submitted to EMMA for ${strainname}. Your request ID is: $requestID.
+ 
+You will be contacted within two weeks by the EMMA partner responsible for distributing the ESC clone you have requested.
+The NKI GEMM-ESC archive is housed at the Mouse Clinic for Cancer and Aging (MCCA) in Amsterdam, the Netherlands.
+ 
+Should you have any questions, please do not hesitate to contact EMMA (emma@infrafrontier.eu) or the MCCA (info@mccanet.nl).
+ 
+Guidelines to process MTAs
+- MTA documents must only be signed by authorized individuals
+- Provide the request ID as a reference when sending signed MTAs
+- Service requests will not be processed until a fully executed MTA has been received
+  
+## Include footer template common to all messages
+#parse( "org/emmanet/util/velocitytemplates/footer.vm" )

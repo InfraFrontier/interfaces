@@ -24,7 +24,7 @@ public class ReadFileFromURL {
 
     private URL url;
     final static String TMPFILES = Configuration.get("TMPFILES");
-
+    private String encodedurl="";
     public File ReadFileURL(URL fileurl, String filename) {
 
         String fileName = filename;
@@ -34,7 +34,7 @@ public class ReadFileFromURL {
             // get URL content
             url = new URL(fileurl.toString());
             URLConnection conn = url.openConnection();
-
+//System.out.println("content type is::- " + conn.);
             InputStream input = conn.getInputStream();
             if (!file.exists()) {
                 file.createNewFile();

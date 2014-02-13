@@ -247,7 +247,7 @@
                                             <tr><td class="boxoutB" align="right"><b>Select strain id</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="insertID" id="insertID" value="" size="10"  /></td></tr>
 
                                             <tr><td class="boxoutB" align="right"><b>Request date</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="reqDate" id="reqDate" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>" size="10"  />            
-                                                        <img src="images/cal.gif"  id="reqdate" border="0">
+                                                        <img src="../images/cal.gif"  id="reqdate" border="0">
                                                         <script type="text/javascript">
                                                             Calendar.setup(
                                                             {

@@ -31,6 +31,7 @@ import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
 import org.emmanet.model.WebRequestsDAO;
 import org.emmanet.util.Configuration;
+import org.hibernate.classic.Session;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -82,111 +83,19 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
+        
 
         if (request.getParameter("Edit") != null) {
+            
             subFile = "req_";
             setBaseURL((String) this.getBaseURL());
             wrd = wr.getReqByID(request.getParameter("Edit").toString());
             String date = wrd.getTimestamp();
 
             HttpSession session = request.getSession(true);
-            //added to assist file location as perl code doesn't add a full timestamp to database when request submitted
-            //   surname = wrd.getSci_surname().toLowerCase();
-         /*   surname = request.getParameter("strainID").toString();
-
-             if (date != null) {
-            
-             strippedDate = date.replace("-", "");
-             strippedDate = strippedDate.replace(":", "");
-             strippedDate = strippedDate.replace(".", "");
-             strippedDate = strippedDate.replace(" ", "");
-            
-             //get year to determine search directory
-             String pdfYearDir = "PDF-";
-             pdfYearDir = pdfYearDir + strippedDate.substring(0, 4);
-             //Take out leading 2 digits of year
-             strippedDate = strippedDate.substring(2, strippedDate.length() - 1);
-             //server location of pdf to search for
-             String locatePDF = getServerPDFLocation() + pdfYearDir + getServerPDFLocationTail();
-             String pdfsources[] = {locatePDF, getServerPDFRecentLocation() + getServerPDFLocationTail()};
-             Boolean fileFound = false;
-             String pdfUrl = "";
-            
-             subFile = subFile + strippedDate.substring(0, 6);
-             System.out.println("~~~surname is now strain id :) :: " + surname);
-             //ok lets search for...
-             for (int i = 0; i < pdfsources.length; i++) {
-             File dir = new File(pdfsources[i]);
-             locatePDF = pdfsources[i];
-             System.out.println("SEARCHING DIRECTORY " + locatePDF + " FOR FILE " + subFile);
-             if (i == 1) {
-             System.out.println("Setting base url to (i=1 then) :: " + getRecentBaseURL());
-             thisisthebase = getRecentBaseURL();
-             } else if (i == 0) {
-             System.out.println("Setting base url to (i=0 then):: " + getRecentBaseURL() + pdfYearDir);
-             thisisthebase = getBaseURL() + pdfYearDir + this.getServerPDFLocationTail();
-             }
-             String[] children = dir.list();
-             if (children == null) {
-             // Either dir does not exist or is not a directory
-             System.out.println("It appears that the directory " + locatePDF +
-             " doesn't exist.");
-             } else {
-             System.out.println("Directory exists::" + locatePDF);
-             for (int ii = 0; ii < children.length; ii++) {
-             // Get filename of file or directory
-             String filename = children[ii];
-             System.out.println(filename + " located");
-             System.out.println(subFile);
-            
-             if (filename.startsWith(subFile) && filename.indexOf(surname) != -1) {
-             subFile = filename;
-             fileFound = true;
-             //test
-             int iiii = filename.indexOf(surname);
-             System.out.println("THE INDEx OF THE SUBSTRING SURNAME IS: " + iiii);
-             } else {
-             System.out.println("No file with this name " + subFile + " here " + filename.indexOf(surname));
-             }
-            
-             if (fileFound) {
-             System.out.println("OK file found let's stop the search");
-             break;//stop searching now
-             }
-             }
-             }
-             if (fileFound) {
-             break;
-             }
-             }//end of pdfsources loop
-            
-             if (fileFound) {
-             //We have a pdf file located
-             pdfUrl = null;
-             pdfUrl = thisisthebase + subFile;
-             setPdfURL(pdfUrl);
-            
-             System.out.println("Accessor method value for getPDF == " + getPdfURL());
-             //  */
-
-            //  session.setAttribute("reqPDF", this.getPdfURL());
-
-            //  session.setAttribute("reqPDF", wrd.getId_req() + "_temp.pdf"/**/);
+            session.setAttribute("BASEURL", BASEURL);
+         
             session.setAttribute("reqID", wrd.getId_req());
-            //  System.out.println("URL as retrieved from the session object is:-- " + session.getAttribute("reqpdfUrl"));
-            //  if (request.getParameter("pdfView") != null) {
-            //String pdfLocation = pdf.createRequestPDF(wrd, serverPDFLocation);
-            // return new ModelAndView("redirect:"+ pdfLocation);
-
-
-            //     }
-
-
-            //      } else {
-            // System.out.println("No file can be found with the name " + subFile);
-            //  System.out.println("URL as retrieved from the session object on no location of file is:-- " + session.getAttribute("reqpdfUrl"));
-            //    }
-            //     }
 
             StrainsManager sm = new StrainsManager();
             int str_id_str = Integer.parseInt(request.getParameter("strainID").toString());
@@ -211,11 +120,6 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
                     // Object obj = (Object) it.next();
 
                     irtoolsID = returnRTD.getRtls_id();
-
-                    // irtoolsID = Integer.parseInt(obj.toString()) ;
-                    // rtd=sm.getRTOOLSByID(irtoolsID);
-
-                    // System.out.println("OBJECT2STRING IS :: " + rtd.getRtls_id());
                 }
 
 
@@ -223,8 +127,6 @@ public class requestsUpdateInterfaceFormController extends SimpleFormController 
 
             } else if (iRtools == 1) {
                 List rtool = sm.getRToolsByID(str_id_str);
-                // rtd = sm.getRtoolsByID(str_id_str);
-                //rtd = sm.getRToolsByID(str_id_str);
                 for (Iterator it = rtool.listIterator(); it.hasNext();) {
                     rtd = (RToolsDAO) it.next();
                 }
@@ -329,6 +231,7 @@ System.out.println("BASEURL VALUE FROM MODEL IS::" + model.get("BASEURL"));
                     model.put("req_material", webRequest.getReq_material());
                     //new mta file inclusion
                     model.put("requestID", webRequest.getId_req());
+                     model.put("BASEURL", BASEURL);
                     StrainsManager sm = new StrainsManager();
                     StrainsDAO sd = sm.getStrainByID(webRequest.getStr_id_str());
                     if (!webRequest.getLab_id_labo().equals("4")) {
