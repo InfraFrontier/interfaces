@@ -686,7 +686,8 @@ public class RequestFormController extends SimpleFormController {
                 //helper.addCc(ccAddress);
             }
             if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
-                helper.setCc(nkiescellCc);
+                //helper.setCc(nkiescellCc);
+                helper.setCc(ccAddresses);
             } else {
                 helper.setCc(ccAddresses);//.addCc(ccAddresses);
             }
@@ -764,12 +765,6 @@ public class RequestFormController extends SimpleFormController {
                 System.out.println("Mail sent ");
             }
 
-            if (mtaFromURL != null) {
-                boolean deleted = true;//mtaFromURL.delete();
-                if (!deleted) {
-                    Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
-                }
-            }
             Cc = null;
 
         } catch (MessagingException ex) {
