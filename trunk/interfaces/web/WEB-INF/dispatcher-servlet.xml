@@ -211,8 +211,9 @@
         </property><!-- /nfs/panda/emmaREMOVED AS PERMISSIONS ERROR cron_pdfs## /data/web/submissions/ removed from server move path changed -->
         
         <property name="pathToMTA">
-            <!--<value>/nfs/panda/emma/mtas/</value> NOW A LINK SINCE DRUPAL SITE CREATED -->
-            <value>https://www.infrafrontier.eu/sites/infrafrontier.eu/files/upload/public/pdf/mtas/</value>
+            <!--<value>/nfs/panda/emma/mtas/</value> NOW A LINK SINCE DRUPAL SITE CREATED
+            <value>https://www.infrafrontier.eu/sites/infrafrontier.eu/files/upload/public/pdf/mtas/</value> -->
+            <value>/nfs/web-hx/mouseinformatics/infrafrontier/mtas/</value>
         </property>
         
         <property name="bcc">

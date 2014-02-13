@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.emmanet.jobs.WebRequests;
+import org.emmanet.util.Configuration;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +26,7 @@ public class requestInterfaceFormController extends SimpleFormController {
     private Map returnedOut = new HashMap();
     public static final String MAP_KEY = "returnedOut";
     WebRequests wr = new WebRequests();
+    private String BASEURL = Configuration.get("BASEURL");
     // private boolean subPressed = false;
 
     @Override

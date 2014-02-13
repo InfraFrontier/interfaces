@@ -52,6 +52,7 @@ import java.io.Writer;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -352,13 +353,13 @@ public class RequestFormController extends SimpleFormController {
              now need to grab site id using strain id
              */
             WebRequests wReq = new WebRequests();
-             if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
-            ccCentre = wReq.ccArchiveMailAddresses(wr.getStrain_id(),"nki_es_cells");
-            wr.setReq_material("ES Cells");
-        } else {
-        ccCentre = wReq.ccArchiveMailAddresses("" + wr.getStr_id_str(),"strains");
-        }
-           // List ccCentre = wReq.ccArchiveMailAddresses(wr.getStr_id_str());
+            if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+                ccCentre = wReq.ccArchiveMailAddresses(wr.getStrain_id(), "nki_es_cells");
+                wr.setReq_material("ES Cells");
+            } else {
+                ccCentre = wReq.ccArchiveMailAddresses("" + wr.getStr_id_str(), "strains");
+            }
+            // List ccCentre = wReq.ccArchiveMailAddresses(wr.getStr_id_str());
 
             Object[] o = null;
             it = ccCentre.iterator();
@@ -404,9 +405,9 @@ public class RequestFormController extends SimpleFormController {
         // Get responsible centre mail address(es) and add to map
         List ccCentre = new ArrayList();
         if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
-            ccCentre = wr.ccArchiveMailAddresses(webRequest.getStrain_id(),"nki_es_cells");
+            ccCentre = wr.ccArchiveMailAddresses(webRequest.getStrain_id(), "nki_es_cells");
         } else {
-        ccCentre = wr.ccArchiveMailAddresses("" + webRequest.getStr_id_str(),"strains");
+            ccCentre = wr.ccArchiveMailAddresses("" + webRequest.getStr_id_str(), "strains");
         }
         //map key + 1
         int im = 3;
@@ -420,12 +421,12 @@ public class RequestFormController extends SimpleFormController {
         }
         o = null;
         System.out.println("cccentre size=" + ccCentre.size());
-        String ArchContactEmail="";
-if(ccCentre.size() > 0){
-     o = (Object[]) ccCentre.get(0);
-        ArchContactEmail = o[1].toString();
-}
-       
+        String ArchContactEmail = "";
+        if (ccCentre.size() > 0) {
+            o = (Object[]) ccCentre.get(0);
+            ArchContactEmail = o[1].toString();
+        }
+
         /*     if (webRequest.getApplication_type().equals("ta_or_request")
          || webRequest.getApplication_type().equals("ta_only")) {
          //if one of these values then has passed the country eligibility controlled by javascript in requestFormView.emma/jsp
@@ -440,8 +441,8 @@ if(ccCentre.size() > 0){
             request.getSession().setAttribute(
                     "message",
                     getMessageSourceAccessor().getMessage("Message",
-                            webRequest.getSci_firstname() + " " + webRequest.getSci_surname() + ", Your request submitted successfully, you will receive "
-                            + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail()));
+                    webRequest.getSci_firstname() + " " + webRequest.getSci_surname() + ", Your request submitted successfully, you will receive "
+                    + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail()));
         }
         String rtoolsID = "";
         List rtools = wr.strainRToolID(webRequest.getStr_id_str());
@@ -562,6 +563,8 @@ if(ccCentre.size() > 0){
                 velocTemplate = "org/emmanet/util/velocitytemplates/taonlyRequest-Template.vm";
             } else if (webRequest.getApplication_type().equals("ta_or_request")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/taorRequest-Template.vm";
+            } else if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+                velocTemplate = "org/emmanet/util/velocitytemplates/escellRequest-Template.vm";
             } else {
                 velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";
             }
@@ -572,7 +575,14 @@ if(ccCentre.size() > 0){
             pdfConditions = true;
             //cc for TET systems strain
 
-            List rtool = wr.strainRToolID(webRequest.getStr_id_str());
+            List rtool = new ArrayList();
+            //to avoid tet cc being used if str_id_str (numeric only) for nki es cells is the same as a tet strain id
+            if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+                //do nothing
+            } else {
+                rtool = wr.strainRToolID(webRequest.getStr_id_str());
+            }
+
             for (Iterator it = rtool.listIterator(); it.hasNext();) {
                 Integer I = (Integer) it.next();
                 if (I == 5) {
@@ -648,14 +658,12 @@ if(ccCentre.size() > 0){
                             helper.addAttachment(xmlFileName + xmlExt, fileXML);
                             getJavaMailSender().send(xmlMessage);
                         } catch (MessagingException ex) {
-
                         }
                     } else {
                         // File already exists 
                         // Do nothing
                     }
                 } catch (IOException e) {
-
                 }
             }
         }
@@ -680,18 +688,18 @@ if(ccCentre.size() > 0){
             if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
                 helper.setCc(nkiescellCc);
             } else {
-            helper.setCc(ccAddresses);//.addCc(ccAddresses);
+                helper.setCc(ccAddresses);//.addCc(ccAddresses);
             }
-            
+
             //ccCentre = Arrays.asList(nkiescellCc);
 
             helper.setTo(webRequest.getSci_e_mail().trim());
-            String correctStrainname="";
-if(sd != null) {
-    correctStrainname=sd.getName();
-}else if (esd != null){
-    correctStrainname = esd.getStrain_name();
-}
+            String correctStrainname = "";
+            if (sd != null) {
+                correctStrainname = sd.getName();
+            } else if (esd != null) {
+                correctStrainname = esd.getStrain_name();
+            }
             helper.setSubject(mailSubjectText + webRequest.getStrain_id() + " (" + correctStrainname /*webRequest.getStrain_name()*/ + ") Your request ID: " + webRequest.getId_req());
             helper.setText(content);
             /* xml files no longer need to be sent with e-mail message
@@ -713,37 +721,23 @@ if(sd != null) {
                 } else if (esd != null) {
                     mtaFile = esd.getMta_file();
                 }
-           // if (sd.getMta_file() != null && !sd.getMta_file().equals("")) {
+                // if (sd.getMta_file() != null && !sd.getMta_file().equals("")) {
                 if (!mtaFile.isEmpty()) {
-
-                    ReadFileFromURL MTAFILE = new ReadFileFromURL();
-                    URL mtaURL = null;
-                    try {
-                        mtaURL = new URL(pathToMTA + model.get("mtaFile").toString());
-                    } catch (MalformedURLException ex) {
-                        Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, ex);
-                    }
-                    mtaFromURL = MTAFILE.ReadFileURL(mtaURL, model.get("mtaFile").toString());
                     if (!model.get("application_type").equals("ta_only")) {
-                    //add mta file if associated with strain id
+                        //add mta file if associated with strain id
                         //String mtaFile = sd.getMta_file();
                         // mtaFile="this is a test.pdf";
                         System.out.println("mta file value is::" + mtaFile);
-                //  System.out.println( " OK now mta file from model value is " + model.get("mtaFile").toString());
+                        //  System.out.println( " OK now mta file from model value is " + model.get("mtaFile").toString());
                         // || model.get("mtaFile").toString().equals("")
                         if (mtaFile != null || model.get("mtaFile") != null) {
                             FileSystemResource fileMTA = new FileSystemResource(new File(getPathToMTA() + mtaFile));
-                    //System.out.println("file mta is-> " + fileMTA + " and to string is " + fileMTA.toString());
+                            System.out.println("file mta is-> " + fileMTA + " and to string is " + fileMTA.toString());
                             //need to check for a valid mta filename use period extension separator, all mtas are either .doc or .pdf
                             if (!fileMTA.exists()) {
                                 System.out.println("MTA file " + mtaFile + " cannot be accessed");
                             } else {
-                    //if (fileMTA.exists() && fileMTA.toString().contains(".")) {
-                            // if (MTAFILE..exists() && fileMTA.toString().contains(".")) {
-                            // System.out.println("NOW FILEmta EXISTS SO LETS ADD THE ATTACHMENT" + model.get("mtaFile").toString());//
-                            //if (!webRequest.getLab_id_labo().equals("4")) {
-                            //helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
-                            helper.addAttachment(model.get("mtaFile").toString(), mtaFromURL);
+                                helper.addAttachment(model.get("mtaFile").toString(), fileMTA);
                             }
                         }
                     }
@@ -770,7 +764,7 @@ if(sd != null) {
             }
 
             if (mtaFromURL != null) {
-                boolean deleted = mtaFromURL.delete();
+                boolean deleted = true;//mtaFromURL.delete();
                 if (!deleted) {
                     Logger.getLogger(RequestFormController.class.getName()).log(Level.INFO, null, "File " + mtaFromURL + " could not be deleted.");
                 }
@@ -805,14 +799,14 @@ if(sd != null) {
             doc.open();
             Paragraph pHead = new Paragraph(
                     pdfTitle + "\n\n", FontFactory.getFont(
-                            FontFactory.HELVETICA, 11));
+                    FontFactory.HELVETICA, 11));
             pHead.setAlignment(Element.ALIGN_CENTER);
             doc.add(pHead);
             doc.add(new Paragraph(pdfTitle + "\nRequest ID:" + model.get("requestID") + "\n\n",
                     FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20)));
             Paragraph pSubHead = new Paragraph(
                     "Following data have been submitted to EMMA on " + model.get("ftimestamp"), FontFactory.getFont(
-                            FontFactory.HELVETICA, 11));
+                    FontFactory.HELVETICA, 11));
             pSubHead.setAlignment(Element.ALIGN_CENTER);
 
             doc.add(pSubHead);
@@ -971,40 +965,31 @@ if(sd != null) {
                 String header1 = "";
                 String header2 = "";
                 if (model.get("application_type").equals("request_only")) {
-                    text
-                            = new StringBuilder().append(text).append(
-                                    "\nYou have indicated that you have read the conditions and agree to pay the transmittal fee " + "plus shipping costs.").toString();
+                    text = new StringBuilder().append(text).append(
+                            "\nYou have indicated that you have read the conditions and agree to pay the transmittal fee " + "plus shipping costs.").toString();
 
-                    header
-                            = new StringBuilder().append(header).append("\nStandard request\n").toString();
+                    header = new StringBuilder().append(header).append("\nStandard request\n").toString();
 
                 } else if (!model.get("application_type").equals("request_only")) {
-                    header1
-                            = new StringBuilder().append(header1).append("\nApplication for Transnational Access Activity").toString();
+                    header1 = new StringBuilder().append(header1).append("\nApplication for Transnational Access Activity").toString();
                     if (model.get("application_type").equals("ta_only")) {
-                        text1
-                                = new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA only. "
-                                        + "In the case of the TA application being rejected the request process will be terminated.").toString();
-                        header1
-                                = new StringBuilder().append(header1).append(" (TA Option B)\n").toString();
+                        text1 = new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA only. "
+                                + "In the case of the TA application being rejected the request process will be terminated.").toString();
+                        header1 = new StringBuilder().append(header1).append(" (TA Option B)\n").toString();
                     } else {
-                        text1
-                                = new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA "
-                                        + "and have agreed to pay the service charge plus shipping cost if the TA application is rejected.").toString();
-                        header1
-                                = new StringBuilder().append(header1).append(" (TA Option A)\n").toString();
+                        text1 = new StringBuilder().append(text1).append("\nYou have indicated that you have read the conditions and have applied for free of charge TA "
+                                + "and have agreed to pay the service charge plus shipping cost if the TA application is rejected.").toString();
+                        header1 = new StringBuilder().append(header1).append(" (TA Option A)\n").toString();
                     }
 
-                    header2
-                            = new StringBuilder().append(header2).append("\n\nDescription of project (1/2 page) involving requested EMMA mouse mutant resource. "
-                                    + "The project description will be used by the Evaluation Committee for selection of applicants:").toString();
+                    header2 = new StringBuilder().append(header2).append("\n\nDescription of project (1/2 page) involving requested EMMA mouse mutant resource. "
+                            + "The project description will be used by the Evaluation Committee for selection of applicants:").toString();
                 }
 
                 if (!model.get("application_type").equals("request_only")) {
                     //  table.addCell("" + model.get("ta_proj_desc"));
-                    text2
-                            = new StringBuilder().append(text2).append("\n\n "
-                                    + model.get("ta_proj_desc")).toString();
+                    text2 = new StringBuilder().append(text2).append("\n\n "
+                            + model.get("ta_proj_desc")).toString();
                 }
 
                 if (!model.get("application_type").equals("request_only")) {
