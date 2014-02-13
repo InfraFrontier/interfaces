@@ -93,15 +93,15 @@
                 }
     
                 function show(layer) {
-                     //alert("show layer :- " + layer);
-                   var myLayer=document.getElementById(layer).style.display;
-                      document.getElementById(layer).style.display="";
+                    //alert("show layer :- " + layer);
+                    var myLayer=document.getElementById(layer).style.display;
+                    document.getElementById(layer).style.display="";
                          
                 }
                 function hide(layer) {
                     // alert(layer);
-                     var myLayer=document.getElementById(layer).style.display;
-                       document.getElementById(layer).style.display="none";
+                    var myLayer=document.getElementById(layer).style.display;
+                    document.getElementById(layer).style.display="none";
                         
                 }
                      
@@ -235,10 +235,10 @@
                                 <form:form method="POST" commandName="command">
                                     <%--spring:bind path="command.eligible_country">--%><input type="hidden" name="eligible_country" id="eligible_country" value="<c:out value='${command.eligible_country}'/>"/><%--</spring:bind>--%>
 
-                                           <c:if test="${(empty param.status)}">
-                                               <input type="hidden" id="projectID" name="projectID" value="<c:out value="${param.pid}"/>"/>
+                                    <c:if test="${(empty param.status)}">
+                                        <input type="hidden" id="projectID" name="projectID" value="<c:out value="${param.pid}"/>"/>
 
-                                           <c:if test="${param.pid == '1' || param.pid == '2' || param.pid == '6'}"> <input type="hidden" id="europhenome" name="europhenome" value="no"/><input type="hidden" id="wtsi_mouse_portal" name="wtsi_mouse_portal" value="no"/></c:if>
+                                        <c:if test="${param.pid == '1' || param.pid == '2' || param.pid == '6'}"> <input type="hidden" id="europhenome" name="europhenome" value="no"/><input type="hidden" id="wtsi_mouse_portal" name="wtsi_mouse_portal" value="no"/></c:if>
                                     </c:if>
                                     <c:if test="${(not empty param.status)}">
                                         <input type="hidden" id="europhenome" name="europhenome" value="no"/>
@@ -249,15 +249,15 @@
                                             <tr><td class="boxoutB" align="right"><b>Request date</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="reqDate" id="reqDate" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>" size="10"  />            
                                                         <img src="../images/cal.gif"  id="reqdate" border="0">
                                                         <script type="text/javascript">
-                                                            Calendar.setup(
-                                                            {
-                                                                inputField  : "reqDate",
-                                                                ifFormat    : "%Y-%m-%d %H:%M:%S",
-                                                                button      : "reqdate",   
-                                                                onUpdate : calHiddenFields
-                                                            }
-                                                        );
-                                                            document.forms[0].elements['insertID'].focus();
+                                                                Calendar.setup(
+                                                                {
+                                                                    inputField  : "reqDate",
+                                                                    ifFormat    : "%Y-%m-%d %H:%M:%S",
+                                                                    button      : "reqdate",   
+                                                                    onUpdate : calHiddenFields
+                                                                }
+                                                            );
+                                                                document.forms[0].elements['insertID'].focus();
 
                                                         </script></td></tr>
                                                 <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
@@ -477,12 +477,12 @@
                                         <%--<table width="100% ">--%>
                                         <br/> <h5>Billing address.Please provide a billing address<%-- and/or a purchase order number--%>.</h5>
                                         <%-- </table>  style="display: none;" <div title="vat" id="vat" ></div>--%>               
-                                        
-                                            <p><strong>VAT Reference <font color="red">*</font></strong> Only mandatory for orders from EU Countries.</p>
-                                            <spring:bind path="command.bil_vat">
-                                                <input type="text" id="<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="50" />
-                                            </spring:bind>
-                                      
+
+                                        <p><strong>VAT Reference <font color="red">*</font></strong> Only mandatory for orders from EU Countries.</p>
+                                        <spring:bind path="command.bil_vat">
+                                            <input type="text" id="<c:out value="${status.expression}"/>" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="50" />
+                                        </spring:bind>
+
 
 
                                         <p><strong>Purchase Order Reference</strong></p>
@@ -624,10 +624,10 @@
 
 
 
-                                <div class="boxcontainer">
-                                    <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
-                                    <br />
-                                    <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
+                                        <div class="boxcontainer">
+                                                <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
+                                            <br />
+                                                <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
                                     </spring:bind>
                                     <p><strong>Strain name</strong></p><spring:bind path="command.strain_name">
@@ -641,7 +641,7 @@
                                     <p>
                                     <h5>
                                         <c:choose>
-                                                <c:when test="${command.register_interest == '1' && command.id_req == null}" ><strong>Material you intend to request:</strong>
+                                            <c:when test="${command.register_interest == '1' && command.id_req == null}" ><strong>Material you intend to request:</strong>
                                             </c:when>
                                             <c:otherwise><strong>Requested Material:</strong>
                                             </c:otherwise>
@@ -649,9 +649,9 @@
                                         <font color="red">*</font>
                                     </h5>
                                     </p>
-                                    
+
                                     <c:choose><c:when test="${param['type'] ne 'nkiescells'}"><br/>(please check current availabilities on strain description page)<br/><br/></c:when><c:otherwise></c:otherwise></c:choose>
-                                    
+
                                     <%-- TODO WORK OUT STRAIN AVAILABILITY + PERTINENT SELECTIONS IF FINAL FORM SUBMISSION         roi = ${command.register_interest}
                                 req mat = ${command.req_material}--%>
 
@@ -659,23 +659,23 @@
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
                                         <c:choose><c:when test="${command.req_material  == 'first available'}"> <br /><br />You indicated ${command.req_material} therefore, either frozen or live material, depending on current stock, will be supplied.<br /></c:when>
                                             <c:otherwise> 
-                                                
-                                                    <spring:bind path="command.req_material">
-                                                        <c:choose>
-                                                            <c:when test="${param['type'] eq 'nkiescells'}">
+
+                                                <spring:bind path="command.req_material">
+                                                    <c:choose>
+                                                        <c:when test="${param['type'] eq 'nkiescells'}">
                                                             <form:radiobutton id="${status.expression}" path="${status.expression}" value="ES Cells" /><strong>ES Cells</strong>
-                                                                
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <p><input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio"  /><strong>Live Animals</strong></p>
-                                                                <p><input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio"  /><strong>Frozen Material</strong></p>
+
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <p><input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio"  /><strong>Live Animals</strong></p>
+                                                            <p><input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio"  /><strong>Frozen Material</strong></p>
                                                             </c:otherwise>
-                                                            
-                                                            
-                                                        </c:choose>
-                                                        
-                                                    </spring:bind>
-                                                        
+
+
+                                                    </c:choose>
+
+                                                </spring:bind>
+
                                                 <c:if test="${command.register_interest == '1' && command.id_req == null}" >
 
                                                     <p><spring:bind path="command.req_material">
