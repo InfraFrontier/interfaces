@@ -564,6 +564,7 @@ public class RequestFormController extends SimpleFormController {
             } else if (webRequest.getApplication_type().equals("ta_or_request")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/taorRequest-Template.vm";
             } else if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+                session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/escellRequest-Template.vm";
             } else {
                 velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";

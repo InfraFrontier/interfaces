@@ -778,12 +778,18 @@
 
                                                 </c:when>
                                                 <c:otherwise>
+                                                    <c:if test="${param['type'] ne 'nkiescells'}">
                                                     <spring:bind path="command.terms_read">
                                                         <input type="checkbox"  name="<c:out value="${status.expression}"/>" value="on"<c:if test="${command.terms_read  != null}" >checked</c:if>/>
                                                     </spring:bind>
                                                     Please check this box to confirm you have read <a href="javascript:void(0)" onClick="javascript:openWindow('../conditions.html');" id="conditionsShow" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
                                                     <%-- to resolve issue with null application type for normal requests 07012013--%>
-
+</c:if>
+                                                    <c:if test="${param['type'] == 'nkiescells'}">
+                                                        <spring:bind path="command.terms_read">
+                                                        <input type="hidden"  name="<c:out value="${status.expression}"/>" value="on"/>
+                                                    </spring:bind>
+                                                    </c:if>
                                                     <spring:bind path="command.application_type">
                                                         <input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="request_only" />
                                                     </spring:bind>
