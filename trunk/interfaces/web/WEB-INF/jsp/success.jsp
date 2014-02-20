@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EMMA Form Submission - Success Page</title>
         <style type="text/css">@import url(css/default.css);</style>
-                <SCRIPT>
+        <SCRIPT>
             (function(i,s,o,g,r,a,m){
                 i['GoogleAnalyticsObject']=r;
                 i[r]=i[r]||function(){
@@ -22,13 +22,13 @@
                 a.async=1;
                 a.src=g;
                 m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             ga('create', '${GOOGLEANAL}', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
     </head>
     <body>
-                <p>&nbsp;</p>
+        <p>&nbsp;</p>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <p>&nbsp;</p>
         <div id="wrapper">
@@ -46,8 +46,12 @@
                                     </c:if>
                                     <br />
                                     <br />
-
-                                    Return to the EMMA Strain List <a href="${BASEURL}search">here</a>.
+                                    <c:choose><c:when test="${(sessionScope.req_material) eq 'ES Cells'}">
+                                            Return to the NKI GEMM-ESC archive <a href="${BASEURL}resources-and-services/access-emma-mouse-resources/nki-gemm-esc-archive">here</a>
+                                        </c:when>
+                                        <c:otherwise>Return to the EMMA Strain List <a href="${BASEURL}search">here</a>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </p>
                             </div>
                         </div>
