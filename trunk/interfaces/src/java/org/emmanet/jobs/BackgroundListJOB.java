@@ -16,6 +16,7 @@ import org.emmanet.util.Configuration;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  *
@@ -44,7 +45,8 @@ public class BackgroundListJOB extends QuartzJobBean {
             for (Iterator it = backGrounds.listIterator(); it.hasNext();) {
                 Object[] o = (Object[]) it.next();
                 out.write(o[0].toString() + "||");
-                out.write(o[1].toString());
+                String bgName = StringEscapeUtils.escapeHtml(o[1].toString());
+                out.write(bgName);
                 out.newLine();
             }
             out.close();
@@ -63,8 +65,8 @@ public class BackgroundListJOB extends QuartzJobBean {
             for (Iterator it = backGrounds.listIterator(); it.hasNext();) {
                 Object[] o = (Object[]) it.next();
                 String id = o[0].toString();
-                String code = o[1].toString();
-                String desc = o[2].toString();
+                String code = StringEscapeUtils.escapeHtml(o[1].toString());
+                String desc = StringEscapeUtils.escapeHtml(o[2].toString());
                 out.write("<option value=\"" + id + "\">(" + code + ") " + desc + "</option>\n");
             }
             out.close();
@@ -84,8 +86,8 @@ public class BackgroundListJOB extends QuartzJobBean {
             for (Iterator it = backGrounds.listIterator(); it.hasNext();) {
                 Object[] o = (Object[]) it.next();
                 String id = o[0].toString();
-                String code = o[1].toString();
-                String desc = o[2].toString();
+                String code = StringEscapeUtils.escapeHtml(o[1].toString());
+                String desc = StringEscapeUtils.escapeHtml(o[2].toString());
                 out.write("<option value=\"" + id + "\">(" + code + ") " + desc + "</option>\n");
             }
             out.close();
@@ -104,8 +106,8 @@ public class BackgroundListJOB extends QuartzJobBean {
             for (Iterator it = projects.listIterator(); it.hasNext();) {
                 Object[] o = (Object[]) it.next();
                 String id = o[0].toString();
-                String code = o[1].toString();
-                String desc = o[2].toString();
+                String code = StringEscapeUtils.escapeHtml(o[1].toString());
+                String desc = StringEscapeUtils.escapeHtml(o[2].toString());
                 out.write("<option value=\"" + id + "\">" + code + " (" + desc + ")</option>\n");
             }
             out.close();
@@ -123,7 +125,7 @@ public class BackgroundListJOB extends QuartzJobBean {
             out.write("<option value=\"\" selected>Please select...</option>\n");
             for (Iterator it = codeInt.listIterator(); it.hasNext();) {
                 Object o = it.next();
-                String code = o.toString();
+                String code = StringEscapeUtils.escapeHtml(o.toString());
                 out.write("<option value=\"" + code + "\">" + code + "</option>\n");
             }
             out.close();
@@ -141,7 +143,7 @@ public class BackgroundListJOB extends QuartzJobBean {
             out.write("<option value=\"\" selected>Please select...</option>\n");
             for (Iterator it = nameStatus.listIterator(); it.hasNext();) {
                 Object o = it.next();
-                String code = o.toString();
+                String code = StringEscapeUtils.escapeHtml(o.toString());
                 out.write("<option value=\"" + code + "\">" + code + "</option>\n");
             }
             out.close();
