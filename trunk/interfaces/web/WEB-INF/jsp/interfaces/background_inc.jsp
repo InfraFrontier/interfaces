@@ -20,6 +20,7 @@
 
 <%
 //OK resigned to creating a scriptlet to read in values from output file
+
  String bgname = request.getParameter("bgname");
             String selected = "";
             String optionDisplay="";
