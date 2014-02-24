@@ -41,6 +41,7 @@ optionDisplay ="<form:option value=\"";
                    int i = str.indexOf("||");
                    String id = str.substring(0, i);
                    str = str.replace(id + "||", "");
+                   str = org.apache.commons.lang.StringEscapeUtils.escapeHtml(str);
                    String param = request.getParameter("bgname");
                     if (id.equals(param)){
                         selected="selected";
