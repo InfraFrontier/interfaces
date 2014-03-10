@@ -685,7 +685,7 @@ public class RequestFormController extends SimpleFormController {
 
                 CharSequence csFE = "embryos";
                 CharSequence csFS = "sperm";
-                CharSequence csL = "Live";
+                CharSequence csL = "live";
                 CharSequence csR = "Rederived";
                 
                 if (model.get("req_material").toString().contains(csFE) || model.get("req_material").toString().contains(csFS)) {
