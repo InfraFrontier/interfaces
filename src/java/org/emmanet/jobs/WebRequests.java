@@ -682,7 +682,7 @@ public class WebRequests {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
-            iso = session.createSQLQuery("SELECT iso3 "
+            iso = session.createSQLQuery("SELECT iso "
                     + "FROM cv_countries "
                     + "WHERE printable_name=?").setString(0, countryName).uniqueResult().toString();
             session.getTransaction().commit();
@@ -1655,22 +1655,25 @@ public class WebRequests {
         return i;
     }
 
-    //Taken from current registerinterest app major differences so using current interfaces code 
-// public void saveRequest(WebRequestsDAO saveWebReq) {
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        session.beginTransaction();
-//
-//        try {
-//
-//            session.saveOrUpdate(saveWebReq);
-//            session.getTransaction().commit();
-//
-//        } catch (HibernateException e) {
-//            session.getTransaction().rollback();
-//            throw e;
-//        }
-//
-//    }
+    public List availabilitiesList(int id) {
+//to satisfy JIRA-219
+        List availList = null;
+
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            availList = session.createSQLQuery("SELECT description FROM cv_availabilities,availabilities_strains "
+                    + "WHERE str_id_str=? "
+                    + "AND avail_id=id").setInteger(0, id).list();
+            session.getTransaction().commit();
+
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return availList;
+    }
+    
     public void saveRequest(WebRequestsDAO saveWebReq) {
         // Fixes java.sql.BatchUpdateException: Data truncation: Incorrect datetime
         // value: '' for column 'date_processed' at row 1 when date field not updated
