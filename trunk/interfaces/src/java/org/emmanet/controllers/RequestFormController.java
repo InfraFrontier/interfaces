@@ -92,7 +92,9 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
+import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.NkiEsCellsDAO;
+import org.emmanet.model.StrainsManager;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.ReadFileFromURL;
 import org.springframework.core.io.InputStreamSource;
@@ -143,6 +145,13 @@ public class RequestFormController extends SimpleFormController {
     private Encrypter encrypter = new Encrypter();
     private HttpSession session;
     private List ccCentre;
+    private String frozenCost;
+    private String liveCost;
+    private String frozenDelivery;
+    private String liveDelivery;
+    private String liveShelfDelivery;
+    private String liveShelfCost;
+    private LaboratoriesManager lm = new LaboratoriesManager();;
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -150,6 +159,8 @@ public class RequestFormController extends SimpleFormController {
          * ADDED TO SOLVE ISSUE WHERE MISSING PARAM CAUSES  formBackingObject() must not be null ERROR
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
+           StrainsManager sm = new StrainsManager();
+           
         session = request.getSession(true);
         //System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
         session.setAttribute("BASEURL", getBASEURL());
@@ -222,6 +233,7 @@ public class RequestFormController extends SimpleFormController {
                 String rtoolsID = "";
                 WebRequests wreq = new WebRequests();
                 List rtools = wreq.strainRToolID(wrd.getStr_id_str());
+                 sd=sm.getStrainByID(wrd.getStr_id_str());
                 System.out.println("rtools size=" + rtools.size());
                 it = rtools.iterator();
 
@@ -290,6 +302,7 @@ public class RequestFormController extends SimpleFormController {
                 wr.setRegister_interest("0");
                 //wr.setEurophenome("no");
                 //wr.setWtsi_mouse_portal("no");
+                
             }
 
             //MOUSEBOOK UPDATES
@@ -329,6 +342,7 @@ public class RequestFormController extends SimpleFormController {
                 if (request.getParameter("status") != null) {
                     // this is an insert and therefore the id or str_id_str isnt yet known and will have to be pulled using ajax
                 } else if (!request.getParameter("id").isEmpty()) {
+              //  if (!request.getParameter("id").isEmpty()) {
                     String toFormat = request.getParameter("id");
                     int start = 3;
                     int end = toFormat.length();
@@ -337,6 +351,13 @@ public class RequestFormController extends SimpleFormController {
                     wr.setStr_id_str(i);
                 }
             }
+
+            if(wr.getStr_id_str() != 0){
+                wr.setAvailabilities(webRequest.availabilitiesList(wr.getStr_id_str()));//to satisfy JIRA-219
+            } else{
+                wr.setAvailabilities(webRequest.availabilitiesList(Integer.parseInt(request.getParameter("str_id_str"))));
+            }
+            
             wr.setCvDAO(webRequest.isoCountries());
 //added to rectify incorrect strain names appearing in 
          /*   int sID;
@@ -370,7 +391,26 @@ public class RequestFormController extends SimpleFormController {
                 //System.out.println("o[0].toString() == " + wr.getLab_id_labo());
             }
             System.out.println("id_lab0" + wr.getLab_id_labo());
-            return wr;
+           // StrainsManager sm = new StrainsManager();
+            System.out.println("VAL FOR STR ID STR IS: " + wr.getStr_id_str());
+            if(sd == null){
+            sd=sm.getStrainByID(wr.getStr_id_str());
+        }
+            //sd=sm.getStrainByID(wr.getStr_id_str());
+            System.out.println("STRAINSDAO value for name is" + sd.getName ());
+            //sd.getArchiveDAO().getLab_id_labo();
+             // System.out.println("lab id  is" + wr.getLab_id_labo() + " OR its taken from request " + request.getParameter("lab_id_labo"));
+              if(wr.getLab_id_labo() != null){
+                  wr.setDistributionCentre(lm.getLabByStrainID(wr.getLab_id_labo())); 
+              } else if (request.getParameter("lab_id_labo") != null){
+                  wr.setDistributionCentre(lm.getLabByStrainID(request.getParameter("lab_id_labo"))); 
+              }
+           
+           wr.setLiveCost(liveCost);
+           wr.setFrozenCost(frozenCost);
+           wr.setFrozenDelivery(frozenDelivery);
+           wr.setLiveDelivery(liveDelivery);
+           return wr;
         }
     }
 
@@ -506,14 +546,16 @@ public class RequestFormController extends SimpleFormController {
         //end biling details
 
         model.put("strain_id", webRequest.getStrain_id());
-        if (sd != null) {
+        if (sd != null && request.getParameter("type") == null) {
+            System.out.println("OK THIS IS FROM STRAINS TABLE");
             model.put("strain_name", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
             model.put("strainname", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
-        } else if (esd != null) {
+        } else if (esd != null && request.getParameter("type").equals("nkiescells")) {
+             System.out.println("OK THIS IS FROM NKIESCELLS TABLE");
             model.put("strain_name", esd.getStrain_name());
             model.put("strainname", esd.getStrain_name());
         }
-
+ System.out.println("STRAIN_NAME VAL IS " + model.get("strain_name") + " " + model.get("strainname"));
         model.put("common_name_s", webRequest.getCommon_name_s());//TODO need to take from backgrounds.name when all model files are incorporated
         model.put("req_material", webRequest.getReq_material());
         model.put("live_animals", webRequest.getLive_animals());
@@ -521,7 +563,17 @@ public class RequestFormController extends SimpleFormController {
         model.put("frozen_spe", webRequest.getFrozen_spe());
         // TA application details
         model.put("application_type", webRequest.getApplication_type());
-        model.put("ta_eligible", webRequest.getEligible_country());
+        
+        WebRequestsDAO vatEligbleCheck = new WebRequestsDAO();
+        vatEligbleCheck = wr.getReqByID(webRequest.getId_req());
+        String EUEligible = vatEligbleCheck.getEligible_country();
+        model.put("ta_eligible", EUEligible/*webRequest.getEligible_country()*/);
+       // if(webRequest.getEligible_country() != null && webRequest.getEligible_country().equals("yes")) {
+        if(EUEligible.equals("yes")){
+            model.put("EU",Integer.parseInt("1") );
+        } else {
+            model.put("EU", Integer.parseInt("0") );
+        }
         model.put("ta_proj_desc", webRequest.getProject_description());
         model.put("ROI", webRequest.getRegister_interest());
         //new e-mail message requirements for eucomm
@@ -530,6 +582,7 @@ public class RequestFormController extends SimpleFormController {
         model.put("labID", webRequest.getLab_id_labo());
         model.put("rtoolsID", rtoolsID);
         model.put("BASEURL", BASEURL);
+        model.put("DistributionCentre",webRequest.getDistributionCentre().getName() + ", " + webRequest.getDistributionCentre().getCountry());
         if (webRequest.getLab_id_labo() != null && !webRequest.getLab_id_labo().equals("4")) {
             /*
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
@@ -624,9 +677,31 @@ public class RequestFormController extends SimpleFormController {
         if (webRequest.getLab_id_labo() != null && webRequest.getLab_id_labo().equals("3")) {
             //a Hemholtz request so need to create xml file and mail to Susan EMMA-539
             //better check to make sure it isn't a ROI
+              System.out.println("Send xml file to Helmholtz");
+              System.out.println("req material from model is: " + model.get("req_material"));
             if (!webRequest.getRegister_interest().equals("1")) {
 
                 model.put("con_country_code_iso", wr.isoCountryCode(webRequest.getCon_country()));//Added EMMA-539 
+
+                CharSequence csFE = "embryos";
+                CharSequence csFS = "sperm";
+                CharSequence csL = "Live";
+                CharSequence csR = "Rederived";
+                
+                if (model.get("req_material").toString().contains(csFE) || model.get("req_material").toString().contains(csFS)) {
+                    model.put("cost", frozenCost);
+                    System.out.println("cost from model is: " + frozenCost);
+                } else if (model.get("req_material").toString().startsWith(csL.toString())) {
+                    model.put("cost", liveCost);
+                     System.out.println("cost from model is: " + liveCost);
+                } else if (model.get("req_material").toString().startsWith(csR.toString())) {
+                    model.put("cost", liveCost);
+                     System.out.println("cost from model is: " + liveCost);
+                } else {
+                    model.put("cost", null);
+                    System.out.println("being set to null");
+                }
+                System.out.println("cost model is : " + model.get("cost"));
                 // XML file content Template created by Velocity
                 String xmlFileContent = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                         "org/emmanet/util/velocitytemplates/requestXml-Template.vm", model);
@@ -654,10 +729,12 @@ public class RequestFormController extends SimpleFormController {
                             MimeMessageHelper helper = new MimeMessageHelper(xmlMessage, true, "UTF-8");
                             helper.setReplyTo("emma@infrafrontier.eu");
                             helper.setFrom("emma@infrafrontier.eu");
-                            helper.setTo(xmlMailTo);
+                           // helper.setTo(xmlMailTo);
+                            helper.setTo("philw@ebi.ac.uk");
                             helper.setSubject("XML request file for request id " + model.get("requestID") + " (" + model.get("emmaid") + "). ");
                             helper.addAttachment(xmlFileName + xmlExt, fileXML);
                             getJavaMailSender().send(xmlMessage);
+                            System.out.println("Sent xml file to Helmholtz");
                         } catch (MessagingException ex) {
                         }
                     } else {
@@ -1175,5 +1252,89 @@ public class RequestFormController extends SimpleFormController {
      */
     public void setNkiescellCc(String[] nkiescellCc) {
         this.nkiescellCc = nkiescellCc;
+    }
+
+    /**
+     * @return the frozenCost
+     */
+    public String getFrozenCost() {
+        return frozenCost;
+    }
+
+    /**
+     * @param frozenCost the frozenCost to set
+     */
+    public void setFrozenCost(String frozenCost) {
+        this.frozenCost = frozenCost;
+    }
+
+    /**
+     * @return the liveCost
+     */
+    public String getLiveCost() {
+        return liveCost;
+    }
+
+    /**
+     * @param liveCost the liveCost to set
+     */
+    public void setLiveCost(String liveCost) {
+        this.liveCost = liveCost;
+    }
+
+    /**
+     * @return the frozenDelivery
+     */
+    public String getFrozenDelivery() {
+        return frozenDelivery;
+    }
+
+    /**
+     * @param frozenDelivery the frozenDelivery to set
+     */
+    public void setFrozenDelivery(String frozenDelivery) {
+        this.frozenDelivery = frozenDelivery;
+    }
+
+    /**
+     * @return the liveDelivery
+     */
+    public String getLiveDelivery() {
+        return liveDelivery;
+    }
+
+    /**
+     * @param liveDelivery the liveDelivery to set
+     */
+    public void setLiveDelivery(String liveDelivery) {
+        this.liveDelivery = liveDelivery;
+    }
+
+    /**
+     * @return the liveShelfDelivery
+     */
+    public String getLiveShelfDelivery() {
+        return liveShelfDelivery;
+    }
+
+    /**
+     * @param liveShelfDelivery the liveShelfDelivery to set
+     */
+    public void setLiveShelfDelivery(String liveShelfDelivery) {
+        this.liveShelfDelivery = liveShelfDelivery;
+    }
+
+    /**
+     * @return the liveShelfCost
+     */
+    public String getLiveShelfCost() {
+        return liveShelfCost;
+    }
+
+    /**
+     * @param liveShelfCost the liveShelfCost to set
+     */
+    public void setLiveShelfCost(String liveShelfCost) {
+        this.liveShelfCost = liveShelfCost;
     }
 }

@@ -14,6 +14,8 @@
 
 <spring:bind path="command.*" />
 <c:set var="eligibleCountryValue" value="${command.eligible_country}"/>
+<c:set var="availabilities" value="${command.availabilities}"/>
+<c:set var="distCentre" value="${command.distributionCentre}"/>
 <%
     String newReq = request.getParameter("new");
     response.setHeader("Cache-Control", "max-age=0");
@@ -151,7 +153,6 @@
         <br/>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/><br/>
-
         <div id="wrapper">
             <div id="container">
                 <div class="region region-content">
@@ -614,8 +615,9 @@
 
                                         <div class="clear"></div>
 
-                                    </c:if>
+                                    
                                 </div>
+                                        </c:if>
                                 <%-- END OF BILLING INFORMATION  --%>
 
 
@@ -624,10 +626,10 @@
 
 
 
-                                        <div class="boxcontainer">
-                                                <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
-                                            <br />
-                                                <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
+                                <div class="boxcontainer">
+                                    <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
+                                    <br />
+                                    <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
                                     </spring:bind>
                                     <p><strong>Strain name</strong></p><spring:bind path="command.strain_name">
@@ -637,6 +639,7 @@
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="100" ${readonlyfield} />
                                     </spring:bind>
                                 </div>
+                                        
                                 <div class="boxcontainer">
                                     <p>
                                     <h5>
@@ -649,32 +652,63 @@
                                         <font color="red">*</font>
                                     </h5>
                                     </p>
+                                    <c:choose><c:when test="${param['type'] ne 'nkiescells'}"><br/>
+                                            <strong>Distributed from:-</strong> ${distCentre.name}, ${distCentre.country}<br/><br/>
+                                            <strong>Current availability:-</strong><br/><br/>
+                                            <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p>
+                                            <p>&nbsp;</p>
+                                            <spring:bind path="command.req_material">
+                                                <c:forEach var="avail" items="${availabilities}">
+                                                    <c:choose>
+                                                        <c:when test="${fn:startsWith(avail, 'Rederivation')}">
+                                                            <c:set var="deliveryTime" value="${command.liveDelivery}"/>
+                                                            <c:set var="price" value="${command.liveCost}"/>
+                                                            <c:set var="inputFieldValue" value="Rederived"/>
+                                                        </c:when>
+                                                        <c:when test="${fn:startsWith(avail, 'Live')}">
+                                                            <c:set var="deliveryTime" value="${command.liveShelfDelivery}"/>
+                                                            <c:set var="price" value="${command.liveShelfCost}"/>
+                                                            <c:set var="inputFieldValue" value="live animals"/>
+                                                        </c:when>
+                                                        <c:when test="${fn:contains(avail, 'sperm')}">
+                                                            <c:set var="deliveryTime" value="${command.frozenDelivery}"/>
+                                                            <c:set var="price" value="${command.frozenCost}"/>
+                                                            <c:set var="inputFieldValue" value="frozen sperm"/>
+                                                        </c:when>
+                                                        <c:when test="${fn:contains(avail, 'embryos')}">
+                                                            <c:set var="deliveryTime" value="${command.frozenDelivery}"/>
+                                                            <c:set var="price" value="${command.frozenCost}"/>
+                                                            <c:set var="inputFieldValue" value="frozen embryos"/>
+                                                        </c:when>
+                                                        <c:otherwise>
 
-                                    <c:choose><c:when test="${param['type'] ne 'nkiescells'}"><br/>(please check current availabilities on strain description page)<br/><br/></c:when><c:otherwise></c:otherwise></c:choose>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    <p><input type="radio" name="<c:out value="${status.expression}"/>" value="${inputFieldValue}" class="radio"  /> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}.</p>
+                                                    </c:forEach>  
+                                                </spring:bind>
+                                        </c:when>
+                                        <c:otherwise></c:otherwise>
+                                    </c:choose>
 
-                                    <%-- TODO WORK OUT STRAIN AVAILABILITY + PERTINENT SELECTIONS IF FINAL FORM SUBMISSION         roi = ${command.register_interest}
-                                req mat = ${command.req_material}--%>
-
-                                    <%--${command.str_id_str}--%>
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
                                         <c:choose><c:when test="${command.req_material  == 'first available'}"> <br /><br />You indicated ${command.req_material} therefore, either frozen or live material, depending on current stock, will be supplied.<br /></c:when>
                                             <c:otherwise> 
 
-                                                <spring:bind path="command.req_material">
-                                                    <c:choose>
-                                                        <c:when test="${param['type'] eq 'nkiescells'}">
+
+                                                <c:choose>
+                                                    <c:when test="${param['type'] eq 'nkiescells'}">
+                                                        <spring:bind path="command.req_material">
                                                             <form:radiobutton id="${status.expression}" path="${status.expression}" value="ES Cells" /><strong>ES Cells</strong>
+                                                        </spring:bind>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <%--<p><input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio"  /><strong>Live Animals</strong></p>
+                                                        <p><input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio"  /><strong>Frozen Material</strong></p>--%>
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <p><input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio"  /><strong>Live Animals</strong></p>
-                                                            <p><input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio"  /><strong>Frozen Material</strong></p>
-                                                            </c:otherwise>
 
-
-                                                    </c:choose>
-
-                                                </spring:bind>
 
                                                 <c:if test="${command.register_interest == '1' && command.id_req == null}" >
 
@@ -689,11 +723,12 @@
                                                             </c:choose>
                                                             <strong>First available</strong>
                                                         </spring:bind>
+                                                            </p>
                                                     </c:if>
                                                 </c:otherwise>
                                             </c:choose> 
                                         </c:if>
-                                    </p>
+                                    
 
                                     <c:if test="${command.register_interest == '1' && command.id_req == null}" >
                                         <p>PLEASE NOTE THAT EMMA CANNOT GUARANTEE THAT MICE WILL BE MADE AVAILABLE. THE POSSIBLE SHIPPING DATE CANNOT BE SCHEDULED WHILE THE STRAIN IS STILL UNDER DEVELOPMENT.
@@ -779,16 +814,16 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:if test="${param['type'] ne 'nkiescells'}">
-                                                    <spring:bind path="command.terms_read">
-                                                        <input type="checkbox"  name="<c:out value="${status.expression}"/>" value="on"<c:if test="${command.terms_read  != null}" >checked</c:if>/>
-                                                    </spring:bind>
-                                                    Please check this box to confirm you have read <a href="javascript:void(0)" onClick="javascript:openWindow('../conditions.html');" id="conditionsShow" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
-                                                    <%-- to resolve issue with null application type for normal requests 07012013--%>
-</c:if>
+                                                        <spring:bind path="command.terms_read">
+                                                            <input type="checkbox"  name="<c:out value="${status.expression}"/>" value="on"<c:if test="${command.terms_read  != null}" >checked</c:if>/>
+                                                        </spring:bind>
+                                                        Please check this box to confirm you have read <a href="javascript:void(0)" onClick="javascript:openWindow('../conditions.html');" id="conditionsShow" title="EMMA Conditions">the conditions</a> and agree to pay the <a href="${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering">service charge</a> plus shipping cost.
+                                                        <%-- to resolve issue with null application type for normal requests 07012013--%>
+                                                    </c:if>
                                                     <c:if test="${param['type'] == 'nkiescells'}">
                                                         <spring:bind path="command.terms_read">
-                                                        <input type="hidden"  name="<c:out value="${status.expression}"/>" value="on"/>
-                                                    </spring:bind>
+                                                            <input type="hidden"  name="<c:out value="${status.expression}"/>" value="on"/>
+                                                        </spring:bind>
                                                     </c:if>
                                                     <spring:bind path="command.application_type">
                                                         <input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="request_only" />

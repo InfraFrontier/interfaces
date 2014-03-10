@@ -52,12 +52,12 @@ public class LaboratoriesManager {
         return archive;
     }
 
-    public LaboratoriesStrainsDAO getLabByStrainID(int id) {
+    public LabsDAO getLabByStrainID(String id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        LaboratoriesStrainsDAO lsDAO = null;
+        LabsDAO lsDAO = null;
         try {
-            lsDAO = (LaboratoriesStrainsDAO) session.get(LaboratoriesStrainsDAO.class,
+            lsDAO = (LabsDAO) session.get(LabsDAO.class,
                     id);
             session.getTransaction().commit();
         } catch (HibernateException e) {

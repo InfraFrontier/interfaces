@@ -224,6 +224,12 @@
         </property>
         <property name="nkiescellCc" value="i.huijbers@nki.nl"/>
        <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de"/>
+       <property name="liveCost" value="2400"/><!-- Cost in euros for material for use in xml sent to Helmholtz legal team for German requests-->
+       <property name="frozenCost" value="1100"/><!-- Cost in euros for material for use in xml sent to Helmholtz legal team for German requests-->
+       <property name="liveShelfCost" value="2400"/>
+       <property name="frozenDelivery" value="4 weeks"/>
+       <property name="liveDelivery" value="4-6 months"/>
+       <property name="liveShelfDelivery" value="4 weeks"/>
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
             <value>redirect:../success.emma</value>

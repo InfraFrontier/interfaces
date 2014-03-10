@@ -107,10 +107,18 @@ public class WebRequestsDAO {
     private String wtsi_mouse_portal = "no";
     
     private List cvDAO;
-    
+    private List availabilities;
+    private LabsDAO distributionCentre;
     private Set sourcesrequestsDAO;
     
     private Set projectsstrainsDAO;
+    
+    private String frozenCost;
+    private String liveCost;
+    private String liveShelfCost;
+    private String frozenDelivery;
+    private String liveDelivery;
+    private String liveShelfDelivery;
     
     public String getId_req() {
         return id_req;
@@ -748,6 +756,118 @@ public class WebRequestsDAO {
      */
     public void setEncryptedId_req(String encryptedId_req) {
         this.encryptedId_req = encryptedId_req;
+    }
+
+    /**
+     * @return the availabilities
+     */
+    public List getAvailabilities() {
+        return availabilities;
+    }
+
+    /**
+     * @param availabilities the availabilities to set
+     */
+    public void setAvailabilities(List availabilities) {
+        this.availabilities = availabilities;
+    }
+
+    /**
+     * @return the distributionCentre
+     */
+    public LabsDAO getDistributionCentre() {
+        return distributionCentre;
+    }
+
+    /**
+     * @param distributionCentre the distributionCentre to set
+     */
+    public void setDistributionCentre(LabsDAO distributionCentre) {
+        this.distributionCentre = distributionCentre;
+    }
+
+    /**
+     * @return the frozenCost
+     */
+    public String getFrozenCost() {
+        return frozenCost;
+    }
+
+    /**
+     * @param frozenCost the frozenCost to set
+     */
+    public void setFrozenCost(String frozenCost) {
+        this.frozenCost = frozenCost;
+    }
+
+    /**
+     * @return the liveCost
+     */
+    public String getLiveCost() {
+        return liveCost;
+    }
+
+    /**
+     * @param liveCost the liveCost to set
+     */
+    public void setLiveCost(String liveCost) {
+        this.liveCost = liveCost;
+    }
+
+    /**
+     * @return the frozenDelivery
+     */
+    public String getFrozenDelivery() {
+        return frozenDelivery;
+    }
+
+    /**
+     * @param frozenDelivery the frozenDelivery to set
+     */
+    public void setFrozenDelivery(String frozenDelivery) {
+        this.frozenDelivery = frozenDelivery;
+    }
+
+    /**
+     * @return the liveDelivery
+     */
+    public String getLiveDelivery() {
+        return liveDelivery;
+    }
+
+    /**
+     * @param liveDelivery the liveDelivery to set
+     */
+    public void setLiveDelivery(String liveDelivery) {
+        this.liveDelivery = liveDelivery;
+    }
+
+    /**
+     * @return the liveShelfCost
+     */
+    public String getLiveShelfCost() {
+        return liveShelfCost;
+    }
+
+    /**
+     * @param liveShelfCost the liveShelfCost to set
+     */
+    public void setLiveShelfCost(String liveShelfCost) {
+        this.liveShelfCost = liveShelfCost;
+    }
+
+    /**
+     * @return the liveShelfDelivery
+     */
+    public String getLiveShelfDelivery() {
+        return liveShelfDelivery;
+    }
+
+    /**
+     * @param liveShelfDelivery the liveShelfDelivery to set
+     */
+    public void setLiveShelfDelivery(String liveShelfDelivery) {
+        this.liveShelfDelivery = liveShelfDelivery;
     }
     
     
