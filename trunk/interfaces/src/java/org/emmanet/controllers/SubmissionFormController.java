@@ -821,7 +821,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         nsd.setUsername("EMMA");
         //nsd.setWrDAO(null);
 
-        stm.save(nsd);
+        stm.save(nsd);//TODO TRY/CATCH EXCEPTION
 
         System.out.println("THE ID STR OF THE NEW STRAINS DAO IS::-" + nsd.getId_str());
         String emmaID = String.format("%05d", nsd.getId_str());//String.format("%05d", result);
@@ -1017,7 +1017,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //projects - set all to unknown(id 1) or COMMU(id 2)
         Set projectsStrains = new LinkedHashSet();
         ProjectsStrainsDAO psd = new ProjectsStrainsDAO();
-        psd.setProject_id(1);
+        psd.setProject_id(2);
         psd.setStr_id_str(nsd.getId_str());
 
         ProjectsStrainsManager psm = new ProjectsStrainsManager();
@@ -1096,7 +1096,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
         model.put("BASEURL", BASEURL);
 
         String velocTemplate = "org/emmanet/util/velocitytemplates/SubmissionFormReceipt-Template.vm";
-
         String content = VelocityEngineUtils.mergeTemplateIntoString(getVelocityEngine(),
                 velocTemplate, model);
         MimeMessage message = getJavaMailSender().createMimeMessage();
