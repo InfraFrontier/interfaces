@@ -652,10 +652,9 @@
                                         <font color="red">*</font>
                                     </h5>
                                     </p>
-                                    <c:choose><c:when test="${param['type'] ne 'nkiescells'}"><br/>
+                                    <c:choose><c:when test="${param['type'] ne 'nkiescells' && command.register_interest != 1}"><br/>
                                             <strong>Distributed from:-</strong> ${distCentre.name}, ${distCentre.country}<br/><br/>
-                                            <strong>Current availability:-</strong><br/><br/>
-                                            <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p>
+                                            <strong>Current availability:-</strong><br/>
                                             <p>&nbsp;</p>
                                             <spring:bind path="command.req_material">
                                                 <c:forEach var="avail" items="${availabilities}">
@@ -684,11 +683,14 @@
 
                                                         </c:otherwise>
                                                     </c:choose>
-                                                    <p><input type="radio" name="<c:out value="${status.expression}"/>" value="${inputFieldValue}" class="radio"  /> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}.</p>
+                                                    <p><input type="radio" name="<c:out value="${status.expression}"/>" value="${inputFieldValue}" class="radio"  /> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
                                                     </c:forEach>  
                                                 </spring:bind>
+                                                    <p>&nbsp;</p>
+                                                    <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p> 
                                         </c:when>
                                         <c:otherwise></c:otherwise>
+                                                   
                                     </c:choose>
 
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
