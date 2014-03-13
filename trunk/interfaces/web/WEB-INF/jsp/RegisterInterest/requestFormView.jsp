@@ -683,7 +683,7 @@
 
                                                         </c:otherwise>
                                                     </c:choose>
-                                                    <p><input type="radio" name="<c:out value="${status.expression}"/>" value="${inputFieldValue}" class="radio"  /> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
+                                                    <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="${inputFieldValue}"/> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
                                                     </c:forEach>  
                                                 </spring:bind>
                                                     <p>&nbsp;</p>
@@ -713,19 +713,12 @@
 
 
                                                 <c:if test="${command.register_interest == '1' && command.id_req == null}" >
-
-                                                    <p><spring:bind path="command.req_material">
-                                                            <c:choose>
-                                                                <c:when test="${command.req_material  == 'first available'}" >
-                                                                    <input type="radio" name="<c:out value="${status.expression}"/>" value="first available" class="radio" checked />
-                                                                </c:when>
-                                                                <c:otherwise> 
-                                                                    <input type="radio" name="<c:out value="${status.expression}"/>" value="first available" class="radio" />
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                            <strong>First available</strong>
+                                                    <p>&nbsp;</p>
+                                                    <spring:bind path="command.req_material">
+                                                        <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="live animals"  /> <strong>Live Animals</strong></p>
+                                                        <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="frozen material" /> <strong>Frozen Material</strong></p>
+                                                        <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="first available" /> <strong>First available</strong></p>
                                                         </spring:bind>
-                                                            </p>
                                                     </c:if>
                                                 </c:otherwise>
                                             </c:choose> 
