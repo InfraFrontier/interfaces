@@ -29,19 +29,24 @@
     <bil_firstname>${bil_firstname}</bil_firstname>
     <bil_surname>${bil_surname}</bil_surname>
     <bil_e_mail>${bil_e_mail}</bil_e_mail>
+    <email_R>${bil_e_mail}</email_R>
     <bil_phone>${bil_phone}</bil_phone>
+    <telefon_number_R>${bil_phone}</telefon_number_R>
     <bil_fax>${bil_fax}</bil_fax>
     <bil_institution>${bil_institution}</bil_institution>
     <Institution>${bil_institution}</Institution>
     <bil_dept>${bil_dept}</bil_dept>
     <bil_addr_1>${bil_addr_1}</bil_addr_1>
+    <Street_B>${bil_addr_1}</Street_B>
     <bil_addr_2>${bil_addr_2}</bil_addr_2>
     <bil_province>${bil_province}</bil_province>
     <State_B>${bil_province}</State_B>
     <bil_town>${bil_town}</bil_town>
     <City_B>${bil_town}</City_B>
     <bil_postcode>${bil_postcode}</bil_postcode>
+    <Zip_Code_B>${bil_postcode}</Zip_Code_B>
     <bil_country>${bil_country}</bil_country>
+    <Countries_B>${con_country_code_iso}</Countries_B>
     <bil_vat>${bil_vat}</bil_vat>
     <VATID>${bil_vat}</VATID>
     <strain_id>${strain_id}</strain_id>
