@@ -653,7 +653,7 @@
                                     </h5>
                                     </p>
                                     <c:choose><c:when test="${param['type'] ne 'nkiescells' && command.register_interest != 1}"><br/>
-                                            <strong>Distributed from:-</strong> ${distCentre.name}, ${distCentre.country}<br/><br/>
+                                            This stock is distributed from ${distCentre.name}, ${distCentre.country}, EMMA node. Additional stocks may be distributed from other EMMA repositories.<br/><br/>
                                             <strong>Current availability:-</strong><br/>
                                             <p>&nbsp;</p>
                                             <spring:bind path="command.req_material">
@@ -739,7 +739,7 @@
                                     Now using command.lab_id_labo == '1961' to filter out sanger strains rather than pid of 5
                                     28/07/2011
                                     --%>
-                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'nowt') }"> <%--  ||command.lab_id_labo == '1961'  --%><%--${param.pid == '3' || param.pid == '4' ||--%>
+                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi') }"> <%--  ||command.lab_id_labo == '1961'  --%><%--${param.pid == '3' || param.pid == '4' ||--%>
                                         <c:choose>
                                             <c:when test="${command.wtsi_mouse_portal  == 'yes'}" >
                                                 <c:set var="wtsichecked" value="checked"/>
