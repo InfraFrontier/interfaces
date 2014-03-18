@@ -140,7 +140,7 @@
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}"  title="">
 
-                                                        <form:option value='0'>Please select...</form:option>
+                                                        <form:option value='7'>Please select...</form:option><%--  Set deafult to bg_id of 7 which is to be updated --%>
                                                         <c:forEach var="background" items="${BGDAO}">
 
                                                             <form:option value='${background[0]}'>${fn:escapeXml(background[1])}</form:option>
@@ -491,7 +491,7 @@
                                                     <!--TODO BACKGROUNDS FROM DATABASE PRODUCED LIST-->
                                                     <form:select path="${status.expression}" id="${status.expression}" title="">
 
-                                                        <form:option value='0'>Please select...</form:option>
+                                                        <form:option value='7'>Please select...</form:option><%--  Set deafult to bg_id of 7 which is to be updated --%>
                                                         <c:forEach var="background" items="${BGDAO}">
                                                             <form:option value='${background[0]}'>${fn:escapeXml(background[1])}</form:option>
                                                         </c:forEach>        
