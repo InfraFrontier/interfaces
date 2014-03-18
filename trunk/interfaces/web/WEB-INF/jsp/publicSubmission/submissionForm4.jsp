@@ -98,19 +98,19 @@
                                                 <form:errors path="${status.expression}" cssClass="error" />
                                                 <div class="input">
                                                     <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                                                        <div id="user_details_link" style="display: none"><p><a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a>&nbsp;&nbsp;<a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a></p></div></div>
+                                                       <%-- <div id="user_details_link" style="display: none"><p><a class='activate_modal' name='user_window' href='javascript:void(0)'><img src="../images/people.png" border="0" width="32" height="32" align="absmiddle"/></a>&nbsp;&nbsp;<a class='activate_modal' name='user_window' href='javascript:void(0)'>Use these user details</a></p></div>--%></div>
                                                                 
                                             </div>
                                             <ul id="ulUsers"></ul>
                                         </spring:bind>
 
-                                        <script type="text/javascript" >              
+                                       <%-- <script type="text/javascript" >              
                                             $('#shipper_email').focusout(function() {
                                                 $("#user_details_link").hide();
                                                 $('#user_window').load('../ajaxReturn.emma',{email:$('#shipper_email').val(), funct: "peopleCall",fieldset: "shipper"});
                                                 $("#user_details_link").show();
                                             });
-                                        </script>
+                                        </script>--%>
 
                                         <spring:bind path="command.shipper_title">
                                             <div class="field">
