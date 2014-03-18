@@ -116,7 +116,7 @@
                                 <p>
                                     Please enter your contact information.
                                 </p>
-                                <c:if test="${not empty PeopleDAO}">
+                              <%--  <c:if test="${not empty PeopleDAO}">
                                     <c:forEach var="obj" items="${PeopleDAO}" end="1">
                                         <c:set var="user" value="${obj}"/>
                                         <c:set var="nameForPeopleImage" value="${user['firstname']}&nbsp${user['surname']}"/>
@@ -127,6 +127,7 @@
                                         </div>
                                         <script type="text/javascript">$("#loadUserDetails").makeFloat({x:2,y:"current",speed:"normal"});</script>  
                                 </c:if>
+                              --%>
                                 <div id='mask' class='close_modal'></div>
                                 <div id='user_window' class='modal_window'>
                                     <c:if test="${not empty PeopleDAO}">

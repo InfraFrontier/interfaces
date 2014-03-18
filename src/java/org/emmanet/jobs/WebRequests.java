@@ -533,7 +533,7 @@ public class WebRequests {
                     "from WebRequestsDAO "
                     + "where register_interest = 1 "
                     + "group by strain_id "
-                    + "order by count(strain_id) descgoogle.co.uk"
+                    + "order by count(strain_id) desc"
                     + "#").list();//   order by count desc // TODO why is this not liked by hql??count(strain_id)
             session.getTransaction().commit();
 

@@ -730,7 +730,7 @@ public class RequestFormController extends SimpleFormController {
                             helper.setReplyTo("emma@infrafrontier.eu");
                             helper.setFrom("emma@infrafrontier.eu");
                             helper.setTo(xmlMailTo);
-                           // helper.setTo("philw@ebi.ac.uk");
+                           //helper.setTo("philw@ebi.ac.uk");
                             helper.setSubject("XML request file for request id " + model.get("requestID") + " (" + model.get("emmaid") + "). ");
                             helper.addAttachment(xmlFileName + xmlExt, fileXML);
                             getJavaMailSender().send(xmlMessage);

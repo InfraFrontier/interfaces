@@ -246,6 +246,13 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
                             prevSub.setEncryptedId_sub(encrypted);
                             prevSub.setCvDAO(wr.isoCountries());
+                            
+                            //setting all per_id_per,  per_id_per_contact and per_id_per_sub id's to 0 to ensure a new user and lab is created for each.
+                            prevSub.setPer_id_per(0);
+                            prevSub.setPer_id_per_contact(0);
+                            prevSub.setPer_id_per_sub(0);
+                            sm.save(prevSub);
+                            
                             request.setAttribute("previousSub", prevSub);
                         }
                     }
@@ -273,11 +280,11 @@ public class SubmissionFormController extends AbstractWizardFormController {
                             System.out.println("A U T H O R I T Y  : :  " + pd.getLabsDAO().getAuthority());
                             //RESTRICT PEOPLE LISTING ONLY TO AUTHORISED LIST
                             if (pd.getLabsDAO().getAuthority() != null) {
-                                peopleDAOs.add(pd);
+                                //peopleDAOs.add(pd); commented out to prevent re-use of people details which is causing issues
                             } else {
                                 // peopleDAOs.add(pd);
                                 //person not authorised to pick addresses but we need to populate submitter per_id_per_sub with id
-                                sda.setPer_id_per_sub(Integer.parseInt(pd.getId_per()));
+                                sda.setPer_id_per_sub(0/*Integer.parseInt(pd.getId_per())*/);//setting people id to 0 to ensure a new user is created each time
                                 break peopleListLoop;
                             }
 
