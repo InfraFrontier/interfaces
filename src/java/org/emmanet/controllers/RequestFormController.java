@@ -397,7 +397,7 @@ public class RequestFormController extends SimpleFormController {
             sd=sm.getStrainByID(wr.getStr_id_str());
         }
             //sd=sm.getStrainByID(wr.getStr_id_str());
-            System.out.println("STRAINSDAO value for name is" + sd.getName ());
+            //System.out.println("STRAINSDAO value for name is" + sd.getName ());
             //sd.getArchiveDAO().getLab_id_labo();
              // System.out.println("lab id  is" + wr.getLab_id_labo() + " OR its taken from request " + request.getParameter("lab_id_labo"));
               if(wr.getLab_id_labo() != null){
