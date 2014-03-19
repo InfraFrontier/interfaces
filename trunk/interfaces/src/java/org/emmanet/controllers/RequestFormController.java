@@ -354,7 +354,7 @@ public class RequestFormController extends SimpleFormController {
 
             if(wr.getStr_id_str() != 0){
                 wr.setAvailabilities(webRequest.availabilitiesList(wr.getStr_id_str()));//to satisfy JIRA-219
-            } else{
+            } else if(request.getParameter("str_id_str") != null){
                 wr.setAvailabilities(webRequest.availabilitiesList(Integer.parseInt(request.getParameter("str_id_str"))));
             }
             
