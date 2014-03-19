@@ -390,9 +390,9 @@ public class RequestFormController extends SimpleFormController {
                 // System.out.println("o[0].toString() == " + o[0].toString());
                 //System.out.println("o[0].toString() == " + wr.getLab_id_labo());
             }
-            System.out.println("id_lab0" + wr.getLab_id_labo());
+           // System.out.println("id_lab0" + wr.getLab_id_labo());
            // StrainsManager sm = new StrainsManager();
-            System.out.println("VAL FOR STR ID STR IS: " + wr.getStr_id_str());
+            //.out.println("VAL FOR STR ID STR IS: " + wr.getStr_id_str());
             if(sd == null){
             sd=sm.getStrainByID(wr.getStr_id_str());
         }
