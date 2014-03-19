@@ -23,6 +23,8 @@
         <script type="text/javascript" src="../js/buttoncontrols.js"></script>
         <title>EMMA Requests Interface</title>
         <script type="text/javascript">
+            alert(location.origin);
+            var host = location.origin;
             function fulfillTrigger(){
                 alert("dispatching mail");
             }
@@ -46,7 +48,7 @@
             </c:choose>
             &nbsp;Report generated :: <dt:format pattern="yyyy-MM-dd HH:mm"><dt:currentTime/></dt:format>
         </p>
-        <p><center><input type="button" alt="Insert a new request using this interface" value="Insert Request" onclick="javascript:window.location.href='${sessionScope.BASEURL}emma/RegisterInterest/requestFormView.emma?new=y&status=insert&user=<c:out value="${fn:toUpperCase(UserName)}" />'"/></center></p>
+        <p><center><input type="button" alt="Insert a new request using this interface" value="Insert Request" onclick="javascript:window.location.href='' + host + '/emma/RegisterInterest/requestFormView.emma?new=y&status=insert&user=<c:out value="${fn:toUpperCase(UserName)}" />'"/></center></p>
         <p>&nbsp;</p>
         <%-- DATAGRID BEGINS<c:out value="${row.count}"/> :  --%>
         
