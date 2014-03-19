@@ -23,7 +23,7 @@
         <script type="text/javascript" src="../js/buttoncontrols.js"></script>
         <title>EMMA Requests Interface</title>
         <script type="text/javascript">
-            alert(location.origin);
+            //alert(location.origin);
             var host = location.origin;
             function fulfillTrigger(){
                 alert("dispatching mail");
