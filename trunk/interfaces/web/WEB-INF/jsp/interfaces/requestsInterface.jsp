@@ -46,7 +46,7 @@
             </c:choose>
             &nbsp;Report generated :: <dt:format pattern="yyyy-MM-dd HH:mm"><dt:currentTime/></dt:format>
         </p>
-        <p><center><input type="button" alt="Insert a new request using this interface" value="Insert Request" onclick="javascript:parent.location='${sessionScope.BASEURL}emma/RegisterInterest/requestFormView.emma?new=y&status=insert&user=<c:out value="${fn:toUpperCase(UserName)}" />'"/></center></p>
+        <p><center><input type="button" alt="Insert a new request using this interface" value="Insert Request" onclick="javascript:window.parent.location='${sessionScope.BASEURL}RegisterInterest/requestFormView.emma?new=y&status=insert&user=<c:out value="${fn:toUpperCase(UserName)}" />'"/></center></p>
         <p>&nbsp;</p>
         <%-- DATAGRID BEGINS<c:out value="${row.count}"/> :  --%>
         
