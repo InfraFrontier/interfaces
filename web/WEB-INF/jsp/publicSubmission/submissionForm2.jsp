@@ -75,7 +75,7 @@
                         $(function() {   
                             $( "#dialog-confirm" ).dialog({
                                 resizable: false,
-                                height:220,
+                                height:280,
                                 modal: true       
                             });
                         });
@@ -85,12 +85,12 @@
                         <input type="hidden" name="getprev" id="getprev" value="${submissionDAO.encryptedId_sub}" class="text ui-widget-content ui-corner-all" />
                         <input type="hidden" name="_target${submissionDAO.step}" id="_target${submissionDAO.step}" value="Next" class="text ui-widget-content ui-corner-all" />
 
-                        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?
-                                <br/><br/>
-                            <center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;
+                        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Would you like to continue the submission<c:if test="${not empty submissionDAO.strain_name}"> for strain named ${submissionDAO.strain_name}</c:if> that you started on <c:out value="${submissionDAO.timestamp}"/> but never completed?</p>
+                                <p>
+                                By selecting 'Yes' you will have to re-accept the Terms and Conditions before being taken to your previous submission.</p><br/><br/> 
+                            <p><center><button id="No" type="button" name="No" value="No">No</button>&nbsp;&nbsp;
                                 <input type="button" name="recall_window" value="Yes" onclick="javascript:window.location.assign('submissionForm.emma?getprev=${submissionDAO.encryptedId_sub}&recall_window=Yes');">
-                        </center>
-                        </p>
+                        </center></p>
                     </form>
                     <script>
                         $( "#No" )
