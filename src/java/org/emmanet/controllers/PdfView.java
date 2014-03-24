@@ -23,7 +23,10 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +43,7 @@ import org.emmanet.model.StrainsManager;
 import org.emmanet.model.Strains_OmimDAO;
 import org.emmanet.model.Strains_OmimManager;
 import org.emmanet.model.Syn_StrainsDAO;
+import org.emmanet.util.Configuration;
 import org.emmanet.util.Utils;
 
 /**
@@ -50,6 +54,8 @@ public class PdfView extends AbstractPdfView {
 
     private String pdfTitle;
     private boolean pdfConditions;
+    final static String SUBFORMUPLOAD = Configuration.get("SUBFORMUPLOAD");
+    final static String UPLOADEDFILEURL = Configuration.get("UPLOADEDFILEURL");
 
     @Override
     protected void buildPdfDocument(Map map, Document doc, PdfWriter writer, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -327,6 +333,46 @@ public class PdfView extends AbstractPdfView {
             if (sd.getPer_id_per_sub() != null) {
                 subPDAO = pm.getPerson(sd.getPer_id_per_sub());
             }
+            
+            //RETRIEVE ASSOCIATED SUBMISSION FILES IF PRESENT
+
+            final String submissionID = sd.getSub_id_sub();
+            System.out.println("SUBMISSION ID IS::" + submissionID);
+
+            List assocFilesADDITIONAL = new ArrayList();
+            List assocFilesSANITARY = new ArrayList();
+            List assocFilesCHARACTERISATION = new ArrayList();
+
+            File dir = new File(SUBFORMUPLOAD);
+            File[] files;
+            files = dir.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    //only add to list if submission id is conatined within file name (which includes path and file name)
+                    if (submissionID != null && name.contains(submissionID)) {
+                        return name.toLowerCase().endsWith(".pdf");
+                    }
+                    return false;
+                }
+            });
+            System.out.println("Files size is::" + files.length);
+            if (files != null && submissionID != null) {
+                for (int i = 0; i < files.length; i++) {
+                    System.out.println("FILEname VALUE " + i + "==" + files[i].getName());
+                    String file = files[i].getName();
+                    if (file.startsWith(submissionID) && file.contains((CharSequence) "ADDITIONAL")) {
+                        assocFilesADDITIONAL.add(file);
+                        System.out.println("ADDITIONAL file " + file);
+                    } else if (file.startsWith(submissionID) && file.contains((CharSequence) "SANITARYSTATUS")) {
+                        assocFilesSANITARY.add(file);
+                        System.out.println("SANITARY file " + file);
+                    } else {
+                        assocFilesCHARACTERISATION.add(file);
+                        System.out.println("CHARACTERISATION file " + file);
+                    }
+                }
+            }
+
 
             ServletContext servletContext = request.getSession().getServletContext();
             URL infrafrontierIconURL = servletContext.getResource("/images/infrafrontier/icon/footerlogo.jpg");
@@ -799,6 +845,27 @@ public class PdfView extends AbstractPdfView {
             }
             cell.setColspan(2);
             table.addCell(cell);
+            
+                     
+                 //assocFilesCHARACTERISATION
+            
+            StringBuffer additionalCharacFiles = new StringBuffer("");
+            for (Iterator it = assocFilesCHARACTERISATION.iterator(); it.hasNext();) {
+                String fileName = it.next().toString();
+                additionalCharacFiles = new StringBuffer(additionalCharacFiles).append("\n        ").append(fileName);
+            }
+
+            cell = new PdfPCell(new Paragraph("\nAdditional files uploaded:",
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("" + additionalCharacFiles,
+            FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
             doc.add(table);
             
             doc.add(Chunk.NEWLINE);
@@ -933,6 +1000,26 @@ public class PdfView extends AbstractPdfView {
                     + "(e.g.: long-term cryopreservation by sperm freezing) the strain's original genotype will not "
                     + "always be available for future reconstitution of live colonies. Therefore, the original genetic "
                     + "background cannot be guaranteed.\n\n", font));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+                 //assocFilesSANITARY
+            
+            StringBuffer additionalSanitaryFiles = new StringBuffer("");
+            for (Iterator it = assocFilesSANITARY.iterator(); it.hasNext();) {
+                String fileName = it.next().toString();
+                additionalSanitaryFiles = new StringBuffer(additionalSanitaryFiles).append("\n        ").append(fileName);
+            }
+
+            cell = new PdfPCell(new Paragraph("\nAdditional files uploaded:",
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Paragraph("" + additionalSanitaryFiles,
+            FontFactory.getFont(FontFactory.HELVETICA, 11)));
             cell.setColspan(2);
             cell.setBorder(0);
             table.addCell(cell);
@@ -1152,11 +1239,26 @@ public class PdfView extends AbstractPdfView {
             cell.setBorder(0);
             table.addCell(cell);
             
+                     
+                 //assocFilesADDITIONAL
             
+            StringBuffer additionalFiles = new StringBuffer("");
+            for (Iterator it = assocFilesADDITIONAL.iterator(); it.hasNext();) {
+                String fileName = it.next().toString();
+                additionalFiles = new StringBuffer(additionalFiles).append("\n        ").append(fileName);
+            }
+
+            cell = new PdfPCell(new Paragraph("\nAdditional files uploaded:",
+                        FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
             
-            
-            
-            
+            cell = new PdfPCell(new Paragraph("" + additionalFiles,
+            FontFactory.getFont(FontFactory.HELVETICA, 11)));
+            cell.setColspan(2);
+            cell.setBorder(0);
+            table.addCell(cell);
             
 //            cell = new PdfPCell(new Paragraph("\n\nWere any of the following techniques used in the construction of this mutant?\n\n", FontFactory.getFont(FontFactory.HELVETICA, 11)));
 //            cell.setColspan(2);
