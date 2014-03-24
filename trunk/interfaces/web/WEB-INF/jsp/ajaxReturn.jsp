@@ -22,8 +22,8 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script type="text/javascript" src="../js/jquery.parsequery.js"></script>
-<script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
+<%--<script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+<script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>--%>
 
 <c:set var="keyRef" value='${returnedOut}' scope="page"></c:set>
 <c:choose>
@@ -64,28 +64,6 @@
         <c:set var="displayClass" value=""/>
         <c:set var="fieldDisplay" value=""/>
     </c:if>
-    <table  id="taOptions" width: 100%; text-align: left; margin-left: auto; margin-right: auto;" border="0" cellpadding="0" cellspacing="0">
-            <tr><td colspan="2"><br/><br/><b>Application for <a href="http://www.emmanet.org/projects/emmaservice-activities.php"  target="_blank"> Transnational Access (TA) Activity</a> - free of charge access to EMMA mouse mutant resources.</b></td></tr>
-        <tr><td colspan="2">The two TA options are reserved to customers based in EU Member States and EU Associated Countries. Further information on <a href="http://www.emmanet.org/projects/ta-activity.php" target="_blank">Eligibility criteria and selection procedure for TA activity</a>.<br/><br/></td></tr>
-        <tr><td  class="${displayClass}" colspan="2"><b>TA Option A:</b><br /></td></tr>
-        <tr><td  class="${displayClass}"><%--<spring:bind path="command.application_type">--%><input ${fieldDisplay} type="radio"  name="application_type" value="ta_or_request" <%--onchange="javascript:show('taProjDesc');return false;" /></spring:bind>--%></td><td  class="${displayClass}">Please select to<c:if test="${(empty param.status)}"> confirm you have read <a href="#" onclick="javascript:ajax('conditions.html#top','conditions');return false;" title="EMMA Conditions">the conditions</a>, </c:if> apply for free of charge TA and agree to pay the <a href = "http://www.emmanet.org/strains.php"  target="_blank">service charge</a> plus shipping cost if the TA application is rejected</td></tr>
-        <tr><td colspan="2">&nbsp;</td></tr>
-        <tr><td  class="${displayClass}" colspan="2"><b>TA Option B:</b><br /></td></tr>
-        <tr><td  class="${displayClass}"><%--<spring:bind path="command.application_type">--%><input ${fieldDisplay} type="radio"  name="application_type" value="ta_only" <%--onchange="javascript:show('taProjDesc');return false;" /></spring:bind>--%></td><td  class="${displayClass}">Please select to<c:if test="${(empty param.status)}"> confirm you have read <a href="#" onclick="javascript:ajax('conditions.html#top','conditions');return false;" title="EMMA Conditions">the conditions</a> and </c:if> apply for free of charge TA only. In case the TA application is rejected the request process will then be terminated</td></tr>
-    </table>
-    <br/>
-    <table id="taProjDesc" width="100%" >
-        <tr>
-            <td valign="top" class="${displayClass}">
-                Description of project (1/2 page) involving requested EMMA mouse mutant resource.<br />The <b>project description</b> is <b>mandatory</b> (for TA applicants only) and will be used by the Evaluation Committee for selection of applicants.
-            </td>
-        </tr>
-        <tr>
-            <td valign="top">
-                <textarea ${fieldDisplay} name="project_description" rows="30" cols="80" maxlength="1750"  wrap="soft"></textarea><br />      
-            </td>
-        </tr>
-    </table>
 </c:if>
 <%--
 JSON return for submission form people data fro PI and contact

@@ -65,7 +65,8 @@ public class AjaxReturnController extends SimpleFormController {
              }*/
             if (request.getParameter("funct") != null && request.getParameter("funct").equals("esCellLineCall")) {
                 returnedOut = new HashMap();
-                System.out.println("q value is::" + request.getParameter("q"));
+                returnedResults = null;
+                //System.out.println("q value is::" + request.getParameter("q"));
                 SubmissionsManager sm = new SubmissionsManager();
                 returnedResults = sm.getesCellLines(request.getParameter("q"));
                 returnedOut.put("ajaxReturn", returnedResults);
