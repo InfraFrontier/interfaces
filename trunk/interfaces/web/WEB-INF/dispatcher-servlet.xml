@@ -415,7 +415,7 @@
         <property name="archCompTemplate" value="archiveComplete-Template.vm" />
         <property name="archCompCTemplate" value="archiveCompleteC-Template.vm" />
         <property name="msgSubject" value="Your submission to EMMA" />
-        <property name="cc" value="emma@infrafrontier.eu,webmaster@infrafrontier.eu" />
+        <property name="cc" value="emma@infrafrontier.eu,webmaster@infrafrontier.eu,curators@infrafrontier.eu" />
         <!-- replaced ,sabine.fessele@helmholtz-muenchen.de,Michael.hagn@helmholtz-muenchen.de with info@emmanet.org<property name="cc" value="phil.j.wilkinson@gmail.com,webmaster@emmanet.org" />-->
         <property name="fileLocation">
             <value>${DATAFILES}/tmp/</value>
@@ -576,7 +576,7 @@
                 <value>/publicSubmission/submissionForm11</value>
             </list>
         </property>
-        <property name="cc" value="emma@infrafrontier.eu" />
+        <property name="cc" value="emma@infrafrontier.eu,curators@infrafrontier.eu" />
         <property name="validator">
             <!--<bean class="org.emmanet.controllers.SubmissionFormController" />-->
             <bean class="org.emmanet.controllers.SubmissionFormValidator" />
