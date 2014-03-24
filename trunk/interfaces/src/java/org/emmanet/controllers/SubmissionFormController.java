@@ -1032,13 +1032,14 @@ public class SubmissionFormController extends AbstractWizardFormController {
         projectsStrains.add(psd);
         //~~~~~~~~~~~~~~~~ nsd.setProjectsDAO(projectsStrains);
 
-        //associate uploaded file prefix with new strain id by adding sub_id_sub
-        nsd.setSub_id_sub(sd.getId_sub());
 
         //need to save and recall saved strains object as for some reason if I try to set the source strains here without doing this it throws an error.
         // stm.save(nsd);
         nsd = stm.getStrainByID(nsd.getId_str());
 
+        //associate uploaded file prefix with new strain id by adding sub_id_sub
+        nsd.setSub_id_sub(sd.getId_sub());
+        
         Set sourcesStrains = new LinkedHashSet();
         Sources_StrainsDAO srcsd = new Sources_StrainsDAO();
         Calendar rightNow = Calendar.getInstance();
