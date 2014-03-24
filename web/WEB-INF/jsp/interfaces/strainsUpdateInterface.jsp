@@ -922,7 +922,7 @@ END OF CRYOPRESERVATION HISTORY --%>
                         <td>&nbsp;</td>
                         <td>
                             <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
-                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
+                                <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
                         <td>&nbsp;</td>
