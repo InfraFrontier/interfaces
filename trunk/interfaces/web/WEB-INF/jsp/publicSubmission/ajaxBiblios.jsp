@@ -133,7 +133,7 @@ Are you sure you wish to continue? ");
             published:"yes"
         });
         removeBibDetails();
-        $("#reference").hide("fast");
+       // $("#reference").hide("fast");
        // $('#published-no').val(null);  $( "input").val([ "published-no" ]);
         $('input:radio[name="published"]').filter('[value="no"]').attr('checked', true);
     });

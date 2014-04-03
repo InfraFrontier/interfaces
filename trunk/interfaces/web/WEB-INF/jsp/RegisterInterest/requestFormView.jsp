@@ -32,38 +32,42 @@
 
         <meta content="Phil Wilkinson" name="author">
         <meta content="Request form for registering an interest in strains that have recently arrived to the EMMA Centres and for requesting publicly available strains." name="description">
-        <%--<link rel="stylesheet" type="text/css" href="css/emmastyle.css">--%>
         <style type="text/css" media="all">@import url("../css/default.css?mptxkh");</style>
+        <style type="text/css">@import url(../css/calendar-blue.css);</style>
+        <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
+   
         <script src="../js/ajax.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/synonymDiv.js"></script>
-        <SCRIPT>
-            (function(i,s,o,g,r,a,m){
-                i['GoogleAnalyticsObject']=r;
-                i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)
-                },i[r].l=1*new Date();
-                a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];
-                a.async=1;
-                a.src=g;
-                m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
-            ga('send', 'pageview');
-        </SCRIPT>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-        </script>
-        <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
-        <%-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"></script>--%>
-        <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
-        <%--<link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" />--%>
-        <style type="text/css">@import url(../css/calendar-blue.css);</style>
+        <%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>--%>
+               <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
+        <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+        <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/calendar.js"></script>
         <script type="text/javascript" src="../js/calendar-en.js"></script>
         <script type="text/javascript" src="../js/calendar-setup.js"></script>
         <script type="text/javascript" src="../js/popWin.js"></script>
         <script type="text/javascript" src="../js/taDisplay.js?<%= new java.util.Date()%>"></script>
-        <script type="text/javascript">
+                                                <script type="text/javascript">
+            $(document).ready(function(){
+                $("#insertID").autocomplete("../ajaxReturn.emma?strainid=yes",{ mustMatch:1,max:100});
+                $('#insertID').result(function(event, data, formatted) {
+                    if (data) {
+                        // Extract the data values          
+                        var emma_id = data[0];
+                        var name = data[1];
+                        var id = data[2];
+                        //alert(emma_id + "\n" + name + "\n" + id);
+                        document.forms[0].strain_id.value = emma_id; 
+                        document.forms[0].strain_name.value = name;
+                        document.forms[0].str_id_str.value = id; 
+                    }
+                });
+            });
+        </script>
+              <script type="text/javascript">
             /*
              * Fill the contact persons details with the scientists when chosen 'as above'.
              */
@@ -72,20 +76,7 @@
                 var scientist = new Array ('sci_title','sci_firstname','sci_surname','sci_e_mail','sci_phone','sci_fax');
                 var contact = new Array ('con_institution','con_dept','con_addr_1','con_addr_2','con_province','con_town','con_postcode','con_country');
                 var billing = new Array ('bil_institution','bil_dept','bil_addr_1','bil_addr_2','bil_province','bil_town','bil_postcode','bil_country');
-                // alert("contactAsAvive reached " + form);
-            <%--  /*
-               * 'con_title','con_firstname','con_surname','con_e_mail','con_phone','con_fax',
-               * 'bil_title','bil_firstname','bil_surname','bil_e_mail','bil_phone','bil_fax',
-               *
-
-
-        if ( form.con_as_above.checked == true ) {
-                for (var i = 0; i < scientist.length; i++) {
-                    form.elements[contact[i]].value = form.elements[scientist[i]].value;
-                }
-        }
-                 */
-            --%>
+ 
                     if ( form.bil_as_above.checked == true ) {
                         for (var i = 0; i < contact.length; i++) {
                             
@@ -128,28 +119,25 @@
                 }
 
         </script>   
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $("#insertID").autocomplete("../ajaxReturn.emma",{ mustMatch:1,max:100});
-
-
-                $('#insertID').result(function(event, data, formatted) {
-                    if (data) {
-       
-                        // Extract the data values          
-                        var emma_id = data[0];
-                        var name = data[1];
-                        var id = data[2];
-                        //  alert(emma_id + "\n" + name + "\n" + id);
-                        document.forms[0].strain_id.value = emma_id; 
-                        document.forms[0].strain_name.value = name;
-                        document.forms[0].str_id_str.value = id; 
-                    }
-                });
-        </script>
+<SCRIPT>
+            (function(i,s,o,g,r,a,m){
+                i['GoogleAnalyticsObject']=r;
+                i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)
+                },i[r].l=1*new Date();
+                a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];
+                a.async=1;
+                a.src=g;
+                m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
+            ga('send', 'pageview');
+        </SCRIPT>
 
     </head>
     <body>
+        
         <br/>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/><br/>
@@ -228,12 +216,14 @@
                                     <c:if test="${not empty message}">
                                         <font color="green"><c:out value="${message}" /></font>
                                         <c:set var="message" value=""  scope="page" />
+                                        ]
                                     </center>
                                 </c:if>
 
 
                                 <%-- <form  class="form" method="post" commandName="command">--%>
                                 <form:form method="POST" commandName="command">
+  
                                     <%--spring:bind path="command.eligible_country">--%><input type="hidden" name="eligible_country" id="eligible_country" value="<c:out value='${command.eligible_country}'/>"/><%--</spring:bind>--%>
 
                                     <c:if test="${(empty param.status)}">
@@ -250,15 +240,15 @@
                                             <tr><td class="boxoutB" align="right"><b>Request date</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="reqDate" id="reqDate" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>" size="10"  />            
                                                         <img src="../images/cal.gif"  id="reqdate" border="0">
                                                         <script type="text/javascript">
-                                                                Calendar.setup(
-                                                                {
-                                                                    inputField  : "reqDate",
-                                                                    ifFormat    : "%Y-%m-%d %H:%M:%S",
-                                                                    button      : "reqdate",   
-                                                                    onUpdate : calHiddenFields
-                                                                }
-                                                            );
-                                                                document.forms[0].elements['insertID'].focus();
+                                                            Calendar.setup(
+                                                            {
+                                                                inputField  : "reqDate",
+                                                                ifFormat    : "%Y-%m-%d %H:%M:%S",
+                                                                button      : "reqdate",   
+                                                                onUpdate : calHiddenFields
+                                                            }
+                                                        );
+                                                            document.forms[0].elements['insertID'].focus();
 
                                                         </script></td></tr>
                                                 <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
@@ -615,9 +605,9 @@
 
                                         <div class="clear"></div>
 
-                                    
-                                </div>
-                                        </c:if>
+
+                                    </div>
+                                </c:if>
                                 <%-- END OF BILLING INFORMATION  --%>
 
 
@@ -626,10 +616,10 @@
 
 
 
-                                <div class="boxcontainer">
-                                    <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
-                                    <br />
-                                    <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
+                                        <div class="boxcontainer">
+                                                <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
+                                            <br />
+                                                <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
                                     </spring:bind>
                                     <p><strong>Strain name</strong></p><spring:bind path="command.strain_name">
@@ -639,7 +629,7 @@
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="100" ${readonlyfield} />
                                     </spring:bind>
                                 </div>
-                                        
+
                                 <div class="boxcontainer">
                                     <p>
                                     <h5>
@@ -684,13 +674,13 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                     <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="${inputFieldValue}"/> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
-                                                    </c:forEach>  
-                                                </spring:bind>
-                                                    <p>&nbsp;</p>
-                                                    <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p> 
+                                                </c:forEach>  
+                                            </spring:bind>
+                                            <p>&nbsp;</p>
+                                            <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p> 
                                         </c:when>
                                         <c:otherwise></c:otherwise>
-                                                   
+
                                     </c:choose>
 
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
@@ -718,12 +708,12 @@
                                                         <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="live animals"  /> <strong>Live Animals</strong></p>
                                                         <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="frozen material" /> <strong>Frozen Material</strong></p>
                                                         <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="first available" /> <strong>First available</strong></p>
-                                                        </spring:bind>
-                                                    </c:if>
-                                                </c:otherwise>
-                                            </c:choose> 
-                                        </c:if>
-                                    
+                                                    </spring:bind>
+                                                </c:if>
+                                            </c:otherwise>
+                                        </c:choose> 
+                                    </c:if>
+
 
                                     <c:if test="${command.register_interest == '1' && command.id_req == null}" >
                                         <p>PLEASE NOTE THAT EMMA CANNOT GUARANTEE THAT MICE WILL BE MADE AVAILABLE. THE POSSIBLE SHIPPING DATE CANNOT BE SCHEDULED WHILE THE STRAIN IS STILL UNDER DEVELOPMENT.

@@ -217,13 +217,8 @@ public class AjaxReturnController extends SimpleFormController {
             returnedOut.put("paper", paper);
         }
         
-        
         ///to edit mutations
-        
-        
-        
-        
-                if (request.getParameter("funct") != null && request.getParameter("funct").equals("mutationEdit")) {
+            if (request.getParameter("funct") != null && request.getParameter("funct").equals("mutationEdit")) {
             returnedOut = new HashMap();
             List mutations = new LinkedList();
 
@@ -252,17 +247,27 @@ public class AjaxReturnController extends SimpleFormController {
             mutations.add(17, ID);
             returnedOut.put("mutations", mutations);
         }
-        
-        
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
             returnedOut = new HashMap();
 //            List<String> filenameList = buildFilenameListOLD(request);
             List<String> filenameList = buildFilenameList(request);
 
-            returnedOut.put("fileListing", filenameList);
+            returnedOut.put("fileListing", filenameList); 
         }
         
+        if(request.getParameter("funct") != null && request.getParameter("funct").equals("strainid") ) {
+                    webRequest = new WebRequests();
+                    returnedResults = null;
+            if (!request.getParameter("q").startsWith("em:")) {
+                int query = Integer.parseInt(request.getParameter("q"));
+                returnedResults = webRequest.strainList(query);
+                System.out.println("returned results" + returnedResults.size());
+                returnedOut.put("ajaxReturn", returnedResults);
+        }else{
+          returnedOut.clear();  
+        }
+          }
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
     }
     
