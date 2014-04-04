@@ -1664,7 +1664,8 @@ public class WebRequests {
         try {
             availList = session.createSQLQuery("SELECT description FROM cv_availabilities,availabilities_strains "
                     + "WHERE str_id_str=? "
-                    + "AND avail_id=id").setInteger(0, id).list();
+                    + "AND avail_id=id "
+                    + "AND to_distr=1").setInteger(0, id).list();
             session.getTransaction().commit();
 
         } catch (HibernateException e) {

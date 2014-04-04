@@ -410,6 +410,8 @@ public class RequestFormController extends SimpleFormController {
            wr.setFrozenCost(frozenCost);
            wr.setFrozenDelivery(frozenDelivery);
            wr.setLiveDelivery(liveDelivery);
+           wr.setLiveShelfCost(liveShelfCost);
+           wr.setLiveShelfDelivery(liveShelfDelivery);
            return wr;
         }
     }
