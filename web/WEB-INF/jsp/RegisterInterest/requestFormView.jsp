@@ -52,7 +52,7 @@
         <script type="text/javascript" src="../js/taDisplay.js?<%= new java.util.Date()%>"></script>
                                                 <script type="text/javascript">
             $(document).ready(function(){
-                $("#insertID").autocomplete("../ajaxReturn.emma?strainid=yes",{ mustMatch:1,max:100});
+                $("#insertID").autocomplete("../ajaxReturn.emma?funct=strainid",{ mustMatch:1,max:100});
                 $('#insertID').result(function(event, data, formatted) {
                     if (data) {
                         // Extract the data values          

@@ -265,7 +265,7 @@ public class AjaxReturnController extends SimpleFormController {
                 System.out.println("returned results" + returnedResults.size());
                 returnedOut.put("ajaxReturn", returnedResults);
         }else{
-          returnedOut.clear();  
+          
         }
           }
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
