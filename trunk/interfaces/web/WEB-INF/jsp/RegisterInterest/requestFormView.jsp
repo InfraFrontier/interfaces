@@ -52,6 +52,7 @@
         <script type="text/javascript" src="../js/taDisplay.js?<%= new java.util.Date()%>"></script>
                                                 <script type="text/javascript">
             $(document).ready(function(){
+                
                 $("#insertID").autocomplete("../ajaxReturn.emma?funct=strainid",{ mustMatch:1,max:100});
                 $('#insertID').result(function(event, data, formatted) {
                     if (data) {
@@ -216,7 +217,6 @@
                                     <c:if test="${not empty message}">
                                         <font color="green"><c:out value="${message}" /></font>
                                         <c:set var="message" value=""  scope="page" />
-                                        ]
                                     </center>
                                 </c:if>
 
@@ -235,7 +235,7 @@
                                         <input type="hidden" id="europhenome" name="europhenome" value="no"/>
                                         <input type="hidden" id="wtsi_mouse_portal" name="wtsi_mouse_portal" value="no"/>
                                         <table width="100%">
-                                            <tr><td class="boxoutB" align="right"><b>Select strain id</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="insertID" id="insertID" value="" size="10"  /></td></tr>
+                                            <tr><td class="boxoutB" align="right"><b>Select strain id</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="insertID" id="insertID" value="" size="10"  style="border:3px solid green"/></td></tr>
 
                                             <tr><td class="boxoutB" align="right"><b>Request date</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="reqDate" id="reqDate" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>" size="10"  />            
                                                         <img src="../images/cal.gif"  id="reqdate" border="0">
@@ -248,7 +248,9 @@
                                                                 onUpdate : calHiddenFields
                                                             }
                                                         );
-                                                            document.forms[0].elements['insertID'].focus();
+                                                            //document.forms[0].elements['insertID'].focus();
+                                                            //document.forms[0].elements['reqDate'].focus();
+               // document.forms[0].elements['insertID'].focus();
 
                                                         </script></td></tr>
                                                 <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
