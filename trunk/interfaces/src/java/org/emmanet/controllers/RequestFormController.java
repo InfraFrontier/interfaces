@@ -279,7 +279,11 @@ public class RequestFormController extends SimpleFormController {
                 return wrd;
 
             } else {
-                return webRequest.getReqByID(decryptedID);
+                WebRequestsDAO wr =webRequest.getReqByID(decryptedID);
+                 wr.setAvailabilities(webRequest.availabilitiesList(wr.getStr_id_str()));//to satisfy JIRA-219
+                 wr.setAvailabilities(webRequest.availabilitiesList(wr.getStr_id_str()));//to satisfy JIRA-219
+               // return webRequest.getReqByID(decryptedID); //RETURNING WEBREQUEST WITH NO PARAMS SET
+                 return wr;
             }
         } else {
             WebRequestsDAO wr = new WebRequestsDAO();

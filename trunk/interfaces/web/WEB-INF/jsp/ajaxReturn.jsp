@@ -27,7 +27,7 @@
 
 <c:set var="keyRef" value='${returnedOut}' scope="page"></c:set>
 <c:choose>
-    <c:when test='${not empty keyRef["ajaxReturn"] && empty param.query}'>
+    <c:when test='${not empty keyRef["ajaxReturn"] && param.funct == "strainid"}'>
         <c:forEach var="strain"  items='${keyRef["ajaxReturn"]}'>
             ${strain[0]}|${strain[1]}|${strain[2]}
         </c:forEach>
