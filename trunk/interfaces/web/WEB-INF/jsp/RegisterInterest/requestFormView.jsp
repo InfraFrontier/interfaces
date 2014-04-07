@@ -248,10 +248,6 @@
                                                                 onUpdate : calHiddenFields
                                                             }
                                                         );
-                                                            //document.forms[0].elements['insertID'].focus();
-                                                            //document.forms[0].elements['reqDate'].focus();
-               // document.forms[0].elements['insertID'].focus();
-
                                                         </script></td></tr>
                                                 <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
                                             </table>                          
@@ -644,6 +640,7 @@
                                         <font color="red">*</font>
                                     </h5>
                                     </p>
+                                    <c:if test="${param['status'] ne 'insert'}">
                                     <c:choose><c:when test="${param['type'] ne 'nkiescells' && command.register_interest != 1}"><br/>
                                             This stock is distributed from ${distCentre.name}, ${distCentre.country}, EMMA node. Additional stocks may be distributed from other EMMA repositories.<br/><br/>
                                             <strong>Current availability:-</strong><br/>
@@ -675,6 +672,7 @@
 
                                                         </c:otherwise>
                                                     </c:choose>
+                                                   
                                                     <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="${inputFieldValue}"/> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
                                                 </c:forEach>  
                                             </spring:bind>
@@ -682,9 +680,8 @@
                                             <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p> 
                                         </c:when>
                                         <c:otherwise></c:otherwise>
-
                                     </c:choose>
-
+ </c:if>
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
                                         <c:choose><c:when test="${command.req_material  == 'first available'}"> <br /><br />You indicated ${command.req_material} therefore, either frozen or live material, depending on current stock, will be supplied.<br /></c:when>
                                             <c:otherwise> 
@@ -704,7 +701,7 @@
 
 
 
-                                                <c:if test="${command.register_interest == '1' && command.id_req == null}" >
+                                                <c:if test="${command.register_interest == '1' && command.id_req == null || param['status']=='insert'}" >
                                                     <p>&nbsp;</p>
                                                     <spring:bind path="command.req_material">
                                                         <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="live animals"  /> <strong>Live Animals</strong></p>

@@ -50,13 +50,9 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -95,9 +91,6 @@ import javax.servlet.http.HttpSession;
 import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.NkiEsCellsDAO;
 import org.emmanet.model.StrainsManager;
-import org.emmanet.util.Configuration;
-import org.emmanet.util.ReadFileFromURL;
-import org.springframework.core.io.InputStreamSource;
 
 /**
  *
@@ -436,6 +429,7 @@ public class RequestFormController extends SimpleFormController {
             BindException errors) {
         WebRequests wr = new WebRequests();
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
+        session.setAttribute("req_material", null);
         System.out.println("PO REFERENCE NUMBER IN CONTROLLER IS " + webRequest.getPO_ref());
         if (!webRequest.getStrain_name().toLowerCase().contains("wtsi")) {
             //webRequest.setWtsi_mouse_portal("no");
@@ -607,7 +601,6 @@ public class RequestFormController extends SimpleFormController {
             } else if (esd != null) {
                 model.put("mtaFile", esd.getMta_file());
             }
-
         }
         //// end new e-mail message requirements for eucomm
         // E-mail content
@@ -634,6 +627,7 @@ public class RequestFormController extends SimpleFormController {
                 session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/escellRequest-Template.vm";
             } else {
+                session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";
             }
             pdfTitle = "EMMA Mutant Request Form";
