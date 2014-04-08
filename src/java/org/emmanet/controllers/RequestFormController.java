@@ -430,6 +430,9 @@ public class RequestFormController extends SimpleFormController {
         WebRequests wr = new WebRequests();
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
         session.setAttribute("req_material", null);
+        mailSubjectText="";
+        sd=null;
+        esd=null;
         System.out.println("PO REFERENCE NUMBER IN CONTROLLER IS " + webRequest.getPO_ref());
         if (!webRequest.getStrain_name().toLowerCase().contains("wtsi")) {
             //webRequest.setWtsi_mouse_portal("no");
