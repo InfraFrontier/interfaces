@@ -35,14 +35,14 @@
         <style type="text/css" media="all">@import url("../css/default.css?mptxkh");</style>
         <style type="text/css">@import url(../css/calendar-blue.css);</style>
         <link rel="stylesheet" type="text/css" href="../css/autocomplete/autocomplete.css">
-   
+
         <script src="../js/ajax.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/synonymDiv.js"></script>
         <%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>--%>
-               <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-         <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
+        <script type="text/javascript" src="../js/autocomplete/autocomplete.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
         <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
         <script type="text/javascript" src="../js/calendar.js"></script>
@@ -50,7 +50,7 @@
         <script type="text/javascript" src="../js/calendar-setup.js"></script>
         <script type="text/javascript" src="../js/popWin.js"></script>
         <script type="text/javascript" src="../js/taDisplay.js?<%= new java.util.Date()%>"></script>
-                                                <script type="text/javascript">
+        <script type="text/javascript">
             $(document).ready(function(){
                 
                 $("#insertID").autocomplete("../ajaxReturn.emma?funct=strainid",{ mustMatch:1,max:100});
@@ -68,7 +68,7 @@
                 });
             });
         </script>
-              <script type="text/javascript">
+        <script type="text/javascript">
             /*
              * Fill the contact persons details with the scientists when chosen 'as above'.
              */
@@ -78,49 +78,49 @@
                 var contact = new Array ('con_institution','con_dept','con_addr_1','con_addr_2','con_province','con_town','con_postcode','con_country');
                 var billing = new Array ('bil_institution','bil_dept','bil_addr_1','bil_addr_2','bil_province','bil_town','bil_postcode','bil_country');
  
-                    if ( form.bil_as_above.checked == true ) {
-                        for (var i = 0; i < contact.length; i++) {
+                if ( form.bil_as_above.checked == true ) {
+                    for (var i = 0; i < contact.length; i++) {
                             
-                            form.elements[billing[i]].value = form.elements[contact[i]].value;
-                        }
-                    } 
-                }
+                        form.elements[billing[i]].value = form.elements[contact[i]].value;
+                    }
+                } 
+            }
     
-                function show(layer) {
-                    //alert("show layer :- " + layer);
-                    var myLayer=document.getElementById(layer).style.display;
-                    document.getElementById(layer).style.display="";
+            function show(layer) {
+                //alert("show layer :- " + layer);
+                var myLayer=document.getElementById(layer).style.display;
+                document.getElementById(layer).style.display="";
                          
-                }
-                function hide(layer) {
-                    // alert(layer);
-                    var myLayer=document.getElementById(layer).style.display;
-                    document.getElementById(layer).style.display="none";
+            }
+            function hide(layer) {
+                // alert(layer);
+                var myLayer=document.getElementById(layer).style.display;
+                document.getElementById(layer).style.display="none";
                         
-                }
+            }
                      
-                function calHiddenFields(calendar) {
-                    var y = calendar.date.getFullYear();
-                    var m = calendar.date.getMonth() + 1;
-                    var d = calendar.date.getDate();
-                    var h = calendar.date.getHours();
-                    var mins = calendar.date.getMinutes();
-                    var s = calendar.date.getSeconds();
-                    var ms = calendar.date.getMilliseconds();
-                    if (m < 10) {
-                        m = '0' + m;
-                    }
-                    if (d < 10) {
-                        d = '0' + d;
-                    }
-                    var fmtDate = ""+y+m+d +h+mins+s+ms+"";
-                    document.forms[0].timestamp.value=fmtDate;
-                    fmtDate = ""+y+"-"+m+"-"+d+" "+h+":"+mins+":"+s+"";
-                    document.forms[0].ftimestamp.value=fmtDate;
+            function calHiddenFields(calendar) {
+                var y = calendar.date.getFullYear();
+                var m = calendar.date.getMonth() + 1;
+                var d = calendar.date.getDate();
+                var h = calendar.date.getHours();
+                var mins = calendar.date.getMinutes();
+                var s = calendar.date.getSeconds();
+                var ms = calendar.date.getMilliseconds();
+                if (m < 10) {
+                    m = '0' + m;
                 }
+                if (d < 10) {
+                    d = '0' + d;
+                }
+                var fmtDate = ""+y+m+d +h+mins+s+ms+"";
+                document.forms[0].timestamp.value=fmtDate;
+                fmtDate = ""+y+"-"+m+"-"+d+" "+h+":"+mins+":"+s+"";
+                document.forms[0].ftimestamp.value=fmtDate;
+            }
 
         </script>   
-<SCRIPT>
+        <SCRIPT>
             (function(i,s,o,g,r,a,m){
                 i['GoogleAnalyticsObject']=r;
                 i[r]=i[r]||function(){
@@ -131,14 +131,14 @@
                 a.async=1;
                 a.src=g;
                 m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    })(window,document,'script','//www.google-analytics.com/analytics        .js','ga');
             ga('create', '<c:out value="${GOOGLEANAL}"/>', 'infrafrontier.eu');
             ga('send', 'pageview');
         </SCRIPT>
 
     </head>
     <body>
-        
+
         <br/>
         <p><img src="" height="1" width="145"/><a href="${BASEURL}"><img src="../images/infrafrontier/logo-infrafrontier.png" border="0"/></a></p>
         <br/><br/>
@@ -223,7 +223,7 @@
 
                                 <%-- <form  class="form" method="post" commandName="command">--%>
                                 <form:form method="POST" commandName="command">
-  
+
                                     <%--spring:bind path="command.eligible_country">--%><input type="hidden" name="eligible_country" id="eligible_country" value="<c:out value='${command.eligible_country}'/>"/><%--</spring:bind>--%>
 
                                     <c:if test="${(empty param.status)}">
@@ -238,19 +238,19 @@
                                             <tr><td class="boxoutB" align="right"><b>Select strain id</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="insertID" id="insertID" value="" size="10"  style="border:3px solid green"/></td></tr>
 
                                             <tr><td class="boxoutB" align="right"><b>Request date</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="text" name="reqDate" id="reqDate" value="<dt:format pattern="yyyy-MM-dd HH:mm:s"><dt:currentTime/></dt:format>" size="10"  />            
-                                                        <img src="../images/cal.gif"  id="reqdate" border="0">
-                                                        <script type="text/javascript">
-                                                            Calendar.setup(
-                                                            {
-                                                                inputField  : "reqDate",
-                                                                ifFormat    : "%Y-%m-%d %H:%M:%S",
-                                                                button      : "reqdate",   
-                                                                onUpdate : calHiddenFields
-                                                            }
-                                                        );
-                                                        </script></td></tr>
-                                                <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
-                                            </table>                          
+                                                    <img src="../images/cal.gif"  id="reqdate" border="0">
+                                                    <script type="text/javascript">
+                                                        Calendar.setup(
+                                                        {
+                                                            inputField  : "reqDate",
+                                                            ifFormat    : "%Y-%m-%d %H:%M:%S",
+                                                            button      : "reqdate",   
+                                                            onUpdate : calHiddenFields
+                                                        }
+                                                    );
+                                                    </script></td></tr>
+                                            <tr><td class="boxoutB" align="right"><b>Trigger e-mails (default=no)</b>&nbsp;&nbsp;</td><td class="boxoutB"><input type="radio" name="triggerMails" id="triggerMails" value="no" checked  />No<input type="radio" name="triggerMails" id="triggerMails" value="managersonly"  />Centre managers only<input type="radio" name="triggerMails" id="triggerMails" value="yes" />Yes</td></tr>
+                                        </table>                          
                                     </c:if>  
 
                                 </div>          
@@ -614,10 +614,10 @@
 
 
 
-                                        <div class="boxcontainer">
-                                                <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
-                                            <br />
-                                                <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
+                                <div class="boxcontainer">
+                                    <h5>Requested <c:choose><c:when test="${param['type'] eq 'nkiescells'}">ES Cell</c:when><c:otherwise>strain</c:otherwise></c:choose>:</h5>
+                                    <br />
+                                    <p><strong><c:choose><c:when test="${param['type'] eq 'nkiescells'}">Clone</c:when><c:otherwise>EMMA</c:otherwise></c:choose> ID</strong></p><spring:bind path="command.strain_id">
                                         <input type="text" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" size="10" ${readonlyfield} />
                                     </spring:bind>
                                     <p><strong>Strain name</strong></p><spring:bind path="command.strain_name">
@@ -641,47 +641,47 @@
                                     </h5>
                                     </p>
                                     <c:if test="${param['status'] ne 'insert'}">
-                                    <c:choose><c:when test="${param['type'] ne 'nkiescells' && command.register_interest != 1}"><br/>
-                                            This stock is distributed from ${distCentre.name}, ${distCentre.country}, EMMA node. Additional stocks may be distributed from other EMMA repositories.<br/><br/>
-                                            <strong>Current availability:-</strong><br/>
-                                            <p>&nbsp;</p>
-                                            <spring:bind path="command.req_material">
-                                                <c:forEach var="avail" items="${availabilities}">
-                                                    <c:choose>
-                                                        <c:when test="${fn:startsWith(avail, 'Rederivation')}">
-                                                            <c:set var="deliveryTime" value="${command.liveDelivery}"/>
-                                                            <c:set var="price" value="${command.liveCost}"/>
-                                                            <c:set var="inputFieldValue" value="Rederived"/>
-                                                        </c:when>
-                                                        <c:when test="${fn:startsWith(avail, 'Live')}">
-                                                            <c:set var="deliveryTime" value="${command.liveShelfDelivery}"/>
-                                                            <c:set var="price" value="${command.liveShelfCost}"/>
-                                                            <c:set var="inputFieldValue" value="live animals"/>
-                                                        </c:when>
-                                                        <c:when test="${fn:contains(avail, 'sperm')}">
-                                                            <c:set var="deliveryTime" value="${command.frozenDelivery}"/>
-                                                            <c:set var="price" value="${command.frozenCost}"/>
-                                                            <c:set var="inputFieldValue" value="frozen sperm"/>
-                                                        </c:when>
-                                                        <c:when test="${fn:contains(avail, 'embryos')}">
-                                                            <c:set var="deliveryTime" value="${command.frozenDelivery}"/>
-                                                            <c:set var="price" value="${command.frozenCost}"/>
-                                                            <c:set var="inputFieldValue" value="frozen embryos"/>
-                                                        </c:when>
-                                                        <c:otherwise>
+                                        <c:choose><c:when test="${param['type'] ne 'nkiescells' && command.register_interest != 1}"><br/>
+                                                This stock is distributed from ${distCentre.name}, ${distCentre.country}, EMMA node. Additional stocks may be distributed from other EMMA repositories.<br/><br/>
+                                                <strong>Current availability:-</strong><br/>
+                                                <p>&nbsp;</p>
+                                                <spring:bind path="command.req_material">
+                                                    <c:forEach var="avail" items="${availabilities}">
+                                                        <c:choose>
+                                                            <c:when test="${fn:startsWith(avail, 'Rederivation')}">
+                                                                <c:set var="deliveryTime" value="${command.liveDelivery}"/>
+                                                                <c:set var="price" value="${command.liveCost}"/>
+                                                                <c:set var="inputFieldValue" value="Rederived"/>
+                                                            </c:when>
+                                                            <c:when test="${fn:startsWith(avail, 'Live')}">
+                                                                <c:set var="deliveryTime" value="${command.liveShelfDelivery}"/>
+                                                                <c:set var="price" value="${command.liveShelfCost}"/>
+                                                                <c:set var="inputFieldValue" value="live animals"/>
+                                                            </c:when>
+                                                            <c:when test="${fn:contains(avail, 'sperm')}">
+                                                                <c:set var="deliveryTime" value="${command.frozenDelivery}"/>
+                                                                <c:set var="price" value="${command.frozenCost}"/>
+                                                                <c:set var="inputFieldValue" value="frozen sperm"/>
+                                                            </c:when>
+                                                            <c:when test="${fn:contains(avail, 'embryos')}">
+                                                                <c:set var="deliveryTime" value="${command.frozenDelivery}"/>
+                                                                <c:set var="price" value="${command.frozenCost}"/>
+                                                                <c:set var="inputFieldValue" value="frozen embryos"/>
+                                                            </c:when>
+                                                            <c:otherwise>
 
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                   
-                                                    <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="${inputFieldValue}"/> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
-                                                </c:forEach>  
-                                            </spring:bind>
-                                            <p>&nbsp;</p>
-                                            <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p> 
-                                        </c:when>
-                                        <c:otherwise></c:otherwise>
-                                    </c:choose>
- </c:if>
+                                                            </c:otherwise>
+                                                        </c:choose>
+
+                                                        <p><form:radiobutton id="${status.expression}" path="${status.expression}" value="${inputFieldValue}"/> <strong>${avail}.</strong> Delivered in ${deliveryTime} (after paperwork in place). &euro;${price}, plus shipping costs.</p>
+                                                    </c:forEach>  
+                                                </spring:bind>
+                                                <p>&nbsp;</p>
+                                                <p>Due to the dynamic nature of our processes, strain availability may change at short notice. The local repository manager will advise you in these circumstances.</p> 
+                                            </c:when>
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose>
+                                    </c:if>
                                     <c:if test="${command.register_interest  != null || command.req_material != null}" >
                                         <c:choose><c:when test="${command.req_material  == 'first available'}"> <br /><br />You indicated ${command.req_material} therefore, either frozen or live material, depending on current stock, will be supplied.<br /></c:when>
                                             <c:otherwise> 
@@ -820,6 +820,9 @@
 
                                             <spring:bind path="command.application_type">
                                                 <input type="hidden" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="request_only" />
+                                            </spring:bind>
+                                            <spring:bind path="command.terms_read">
+                                                <input type="hidden"  name="<c:out value="${status.expression}"/>" value="on"/>
                                             </spring:bind>
                                         </c:if>
                                     </p>
