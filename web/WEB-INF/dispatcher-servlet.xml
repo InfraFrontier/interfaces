@@ -94,6 +94,8 @@
                 </prop>
                 <prop key="/interfaces/geneUpdateInterface.emma">geneUpdateInterfaceFormController
                 </prop>
+                <prop key="/interfaces/pdfDownload.emma">PdfDownloadController
+                </prop>
                 <prop key="newsitems.emma">rssNewsController
                 </prop>
                 <prop key="/ajaxReturn.emma">ajaxReturnController
@@ -642,6 +644,10 @@
         <property name="validator">
 		<bean class="org.emmanet.controllers.AlleleManagementDetailController" />
 	</property>
+    </bean>
+
+        <bean name="PdfDownloadController" class="org.emmanet.controllers.PdfDownloadController">
+   
     </bean>
 
 </beans>
