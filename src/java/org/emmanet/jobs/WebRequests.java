@@ -1617,7 +1617,7 @@ public class WebRequests {
              */
             strainList = session.createQuery("SELECT emma_id,name,id_str FROM StrainsDAO"
                     + " WHERE id_str LIKE '" + id + "%'"
-                    + " AND str_access NOT IN ('C','N','R')"
+                    //+ " AND str_access NOT IN ('C','N','R')" As requested by Sabine Fessele, EMMA-590
                     + " ORDER BY emma_id").list();
             session.getTransaction().commit();
 
