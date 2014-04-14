@@ -851,7 +851,8 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
+                            <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
+                                <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
                                 <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
@@ -921,7 +922,8 @@ END OF CRYOPRESERVATION HISTORY --%>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
+                           <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
+                                <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
                                 <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
@@ -1167,7 +1169,8 @@ END OF CRYOPRESERVATION HISTORY --%>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'>
+                            <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
+                                <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
                                 <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download submission supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
