@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import org.emmanet.jobs.WebRequests;
 import org.emmanet.model.StrainsManager;
 import org.emmanet.model.SubmissionsDAO;
+import org.emmanet.model.SubmissionsManager;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -43,7 +44,7 @@ public class SubmissionFormValidator implements
             + "\\uFFEF])))\\.?$";
     private static final String FAXTEL_PATTERN = "^\\+\\d+[\\d\\-\\(\\)\\s]+(x\\d+)?$";
     private static final String DIGITSONLY_PATTERN = "^(0|[1-9][0-9]*)$";
-
+private SubmissionsManager subm = new SubmissionsManager();
     public boolean supports(Class type) {
         return type.equals(SubmissionsDAO.class);
     }
@@ -304,6 +305,15 @@ public class SubmissionFormValidator implements
         /*    if (sd.getBreeding_history().length() > wr.fieldMaxLength("breeding_history", "submissions")) {
          errors.rejectValue("breeding_history", "", "The field input appears to be too long for the database. Maximum length of input is " + wr.fieldMaxLength("breeding_history", "submissions") + " characters.");
          */
+        
+        //Check for at least one mutation in mutation_strains table EMMA-644
+        BigInteger bi=subm.getSubMutationsCountBySUBID(Integer.parseInt(sd.getId_sub()));
+        if(bi.intValue() < 1) {
+        errors.rejectValue("mutation_type", "incorrect.mutation_type",
+                        "Please ensure that you add at least one mutation, making sure you add it to the list by using the 'Record this mutation' button.");
+    }
+        
+        
         List errorList = errors.getAllErrors();
         for (Iterator it = errorList.listIterator(); it.hasNext();) {
             Object o = it.next();

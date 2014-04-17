@@ -182,7 +182,6 @@
                                                 <div class="input">
                                                     <form:input maxlength="3"  id="${status.expression}" path="${status.expression}" title="" />
                                                 </div>
-
                                             </div>
                                         </spring:bind>
                                     </div>    
@@ -215,10 +214,12 @@
                                     <fieldset class="mutation" id="mutation">
                                         <div id="mutRef" name="mutRef"></div>
                                         <h4>Mutation(s)</h4>
+                                        <p>Please record at least one mutation with the button below.</p>
                                         <div class="field mutation_type">
                                             <label class="label" for="mutation_type"><strong>Type<sup><font color="red">*</font></sup></strong></label>
                                             <input type="hidden" name="sessencID" id="sessencID" value="${sessionScope.getprev}"/>
                                             <div class="input">
+                                                <spring:bind path="command.mutation_type">
                                                 <!--TODO MUTS FROM DATABASE-->
                                                 <select name="mutation_type" id="mutation_type">
                                                     <option value="">
@@ -246,8 +247,9 @@
                                                         Undefined
                                                     </option>
                                                 </select>
+                                                 <br/><form:errors path="${status.expression}" cssClass="error" />
+                                                </spring:bind>
                                             </div>
-                                            <form:errors path="${status.expression}" cssClass="error" />
                                         </div>
                                         <div id="exposeCH" style="display: none">CH Exposed</div>
                                         <script>
@@ -255,9 +257,11 @@
                                             mutFieldDisplay();
                                         </script>
                                         <div style="display: none" class="field mutation_subtype conditional CH" id="field mutation_subtype_conditionalCH">
+                                            <spring:bind path="command.mutation_subtypeCH">
                                             <label class="label" for="mutation_subtype"><strong>Subtype<sup><font color="red">*</font></sup></strong></label>
                                             <div class="input">
                                                 <!--TODO MUTS SUBS FROM DATABASE-->
+                                                
                                                 <select name="mutation_subtypeCH" id="mutation_subtypeCH">
                                                     <option value="">
                                                         &nbsp;
@@ -286,8 +290,10 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                                </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_subtype conditional IN" id="field mutation_subtype conditional IN">
+                                            <spring:bind path="command.mutation_subtypeIN">
                                             <label class="label" for="mutation_subtype"><strong>Subtype<sup><font color="red">*</font></sup></strong></label>
                                             <div class="input">
 
@@ -307,8 +313,10 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_subtype conditional TM" id="field mutation_subtype conditional TM">
+                                            <spring:bind path="command.mutation_subtypeTM">
                                             <label class="label" for="mutation_subtype"><strong>Subtype<sup><font color="red">*</font></sup></strong></label>
 
                                             <div class="input">
@@ -339,8 +347,10 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_transgene_mgi_symbol conditional TG" id="field mutation_transgene_mgi_symbol conditional TG">
+                                            <spring:bind path="command.mutation_transgene_mgi_symbol">
                                             <label class="label" for="mutation_transgene_mgi_symbol"><strong>Transgene</strong></label>
 
                                             <div class="input">
@@ -349,8 +359,10 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_gene_mgi_symbol conditional CH GT IN SP TM XX" id="field mutation_gene_mgi_symbol conditional CH GT IN SP TM XX">
+                                            <spring:bind path="command.mutation_gene_mgi_symbol">
                                             <label class="label" for="mutation_gene_mgi_symbol"><strong>Affected gene</strong></label>
                                             <div class="input">
                                                 <input type="text" name="mutation_gene_mgi_symbol" maxlength="100" value="" id="mutation_gene_mgi_symbol" />
@@ -358,8 +370,10 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_allele_mgi_symbol conditional CH GT IN SP TM XX" id="field mutation_allele_mgi_symbol conditional CH GT IN SP TM XX">
+                                            <spring:bind path="command.mutation_allele_mgi_symbol">
                                             <label class="label" for="mutation_allele_mgi_symbol"><strong>Affected allele</strong></label>
 
                                             <div class="input">
@@ -368,10 +382,11 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_chrom conditional CH GT IN SP TM XX" id="field mutation_chrom conditional CH GT IN SP TM XX">
+                                            <spring:bind path="command.mutation_chrom">
                                             <label class="label" for="mutation_chrom"><strong>Affected chromosome</strong></label>
-
                                             <div class="input">
                                                 <select name="mutation_chrom" id="mutation_chrom">
                                                     <option value="">
@@ -381,7 +396,6 @@
                                                         1
                                                     </option>
                                                     <option value="2">
-
                                                         2
                                                     </option>
                                                     <option value="3">
@@ -393,7 +407,6 @@
                                                     <option value="5">
                                                         5
                                                     </option>
-
                                                     <option value="6">
                                                         6
                                                     </option>
@@ -404,7 +417,6 @@
                                                         8
                                                     </option>
                                                     <option value="9">
-
                                                         9
                                                     </option>
                                                     <option value="10">
@@ -416,7 +428,6 @@
                                                     <option value="12">
                                                         12
                                                     </option>
-
                                                     <option value="13">
                                                         13
                                                     </option>
@@ -427,7 +438,6 @@
                                                         15
                                                     </option>
                                                     <option value="16">
-
                                                         16
                                                     </option>
                                                     <option value="17">
@@ -439,7 +449,6 @@
                                                     <option value="19">
                                                         19
                                                     </option>
-
                                                     <option value="X">
                                                         X
                                                     </option>
@@ -450,10 +459,12 @@
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
-
                                             </div>
+                                            </spring:bind>
                                         </div>
+                                        <br/>
                                         <div class="field mutation_dominance_pattern">
+                                            <spring:bind path="command.mutation_dominance_pattern">
                                             <label class="label" for="mutation_dominance_pattern"><strong>Dominance pattern</strong></label>
                                             <div class="input">
                                                 <select name="mutation_dominance_pattern" id="mutation_dominance_pattern">
@@ -479,8 +490,8 @@
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
-
                                             </div>
+                                            </spring:bind>
                                         </div>
 
                                         <spring:bind path="command.mutation_original_backg">
@@ -524,36 +535,40 @@
                                         </script>
 
                                         <div style="display: none" class="field mutation_chrom_anomaly_name conditional CH" id="field mutation_chrom_anomaly_name conditional CH">
+                                            <spring:bind path="command.mutation_chrom_anomaly_name">
                                             <label class="label" for="mutation_chrom_anomaly_name"><strong>Chromosomal anomaly name</strong></label>
                                             <div class="input">
                                                 <input type="text" name="mutation_chrom_anomaly_name" maxlength=""100 value="" id="mutation_chrom_anomaly_name" />
-
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_chrom_anomaly_descr conditional CH" id="field mutation_chrom_anomaly_descr conditional CH">
+                                            <spring:bind path="command.mutation_chrom_anomaly_descr">
                                             <label class="label" for="mutation_chrom_anomaly_descr"><strong>Chromosomal anomaly description</strong></label>
                                             <div class="input">
-
                                                 <input type="text" name="mutation_chrom_anomaly_descr" maxlength="100" value="" id="mutation_chrom_anomaly_descr" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_es_cell_line conditional GT TM" id="field mutation_es_cell_line conditional GT TM">
+                                            <spring:bind path="command.mutation_es_cell_line">
                                             <label class="label" for="mutation_es_cell_line"><strong>ES cell line used</strong></label>
-
                                             <div class="input">
                                                 <input type="text" name="mutation_es_cell_line" maxlength="255" value="" id="mutation_es_cell_line" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_mutagen conditional IN" id="field mutation_mutagen conditional IN">
+                                            <spring:bind path="command.mutation_mutagen">
                                             <label class="label" for="mutation_mutagen"><strong>Mutagen used</strong></label>
                                             <div class="input">
                                                 <input type="text" name="mutation_mutagen" value="" id="mutation_mutagen" />
@@ -561,43 +576,50 @@
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_promoter conditional TG" id="field mutation_promoter conditional TG">
+                                            <spring:bind path="command.mutation_promoter">
                                             <label class="label" for="mutation_promoter"><strong>Promoter</strong></label>
-
                                             <div class="input">
                                                 <input type="text" name="mutation_promoter" maxlength="150" value="" id="mutation_promoter" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_founder_line_number conditional TG" id="field mutation_founder_line_number conditional TG">
+                                            <spring:bind path="command.mutation_founder_line_number">
                                             <label class="label" for="mutation_founder_line_number"><strong>Founder line number</strong></label>
-
                                             <div class="input">
                                                 <input type="text" name="mutation_founder_line_number" maxlength="150" value="" id="mutation_founder_line_number" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <div style="display: none" class="field mutation_plasmid conditional TG" id="field mutation_plasmid conditional TG">
+                                            <spring:bind path="command.mutation_plasmid">
                                             <label class="label" for="mutation_plasmid"><strong>Plasmid/construct name or symbol</strong></label>
-
                                             <div class="input">
                                                 <input type="text" name="mutation_plasmid" maxlength="150" value="" id="mutation_plasmid" onKeyPress="return disableEnterKey(event)"/>
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
                                             </div>
+                                            </spring:bind>
                                         </div>
                                         <br/>
                                         <input type="hidden" name="id_mut" id="id_mut"  value=""/>
                                     </fieldset>
                                     <div class="box half first">&nbsp;</div>
                                     <div class="box half last">
-                                        <input value="Clear mutation fields" type="button" class="btn big" id="clearMutation" onclick="clear_form_elements(document.getElementById('mutation'))" /></div>
+                                        <p align="center">
+                                        <input value="Clear mutation fields" type="button" class="btn big" id="clearMutation" onclick="clear_form_elements(document.getElementById('mutation'))" />
+                                    </p>
+                                    </div>
                                 </div>
                                 <p>&nbsp;</p>  
 

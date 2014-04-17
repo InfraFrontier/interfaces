@@ -131,9 +131,12 @@ mutdaos = new ArrayList();
             //System.out.println("DEBUG INTEGER ISSUE LINE 72::" + smd.getId_sub());
             //int id_sub
             ID = smd.getId_sub();
-            // System.out.println("DEBUG INTEGER ISSUE LINE 72::" + id_sub);
+            //System.out.println("DEBUG LINE 134::" + type);
+            if(!type.isEmpty()){
             mm.save(smd);
             mutdaos = mm.getSubMutationBySubID(ID);
+            }
+            
 
         } else if (request.getParameter("action").equals("edit")) {
             //edit records

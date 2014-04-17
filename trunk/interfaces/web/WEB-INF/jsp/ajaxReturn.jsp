@@ -26,6 +26,10 @@
 <script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>--%>
 
 <c:set var="keyRef" value='${returnedOut}' scope="page"></c:set>
+    <c:if test='${param.query!="es"}'>
+        <script type="text/javascript" src="../js/jquery.parsequery.js"></script>
+<script type="text/javascript" src="../js/jquery.parsequery.min.js"></script>
+    </c:if>
 <c:choose>
     <c:when test='${not empty keyRef["ajaxReturn"] && param.funct == "strainid"}'>
         <c:forEach var="strain"  items='${keyRef["ajaxReturn"]}'>
