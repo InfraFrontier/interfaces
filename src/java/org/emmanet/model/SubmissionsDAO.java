@@ -78,6 +78,23 @@ public class SubmissionsDAO implements Serializable {
     private String heterozygous_phenotypic_descr;
     //mutations
     private String mutation_original_backg;
+    private String mutation_type;
+    //mutations not recorded in submissions table
+    private String mutation_subtypeCH;
+    private String mutation_subtypeIN;
+    private String mutation_subtypeTM;
+    private String mutation_transgene_mgi_symbol;
+    private String mutation_gene_mgi_symbol;
+    private String mutation_allele_mgi_symbol;
+    private String mutation_chrom;
+    private String mutation_dominance_pattern;
+    private String mutation_chrom_anomaly_name;
+    private String mutation_chrom_anomaly_descr;
+    private String mutation_es_cell_line;
+    private String mutation_mutagen;
+    private String mutation_promoter;
+    private String mutation_founder_line_number;
+    private String mutation_plasmid;
     //bibliography
     private String published;
     private String notes;
@@ -92,9 +109,7 @@ public class SubmissionsDAO implements Serializable {
     private String pages;
     private String addReference;
     private String removeReference;
-    
-    private Set SubmissionBibliosDAO; 
-    
+    private Set SubmissionBibliosDAO;
     private String genotyping;
     private String genotyping_file;
     private String phenotyping;
@@ -149,7 +164,6 @@ public class SubmissionsDAO implements Serializable {
     private String human_condition_text;
     private String human_condition_more;
     private String research_areas;
-    
     private String research_tools;
     private String research_areas_other_text;
     private String research_tools_cre;
@@ -182,10 +196,8 @@ public class SubmissionsDAO implements Serializable {
     private String additional_materials_file_3;
     private String additional_materials_file_4;
     private String additional_materials_file_5;
-    
     private String step;
     private String encryptedStep;
-    
     private List biblioRefs;
 
     /**
@@ -910,7 +922,8 @@ public class SubmissionsDAO implements Serializable {
     }
 
     /**
-     * @param heterozygous_phenotypic_descr the heterozygous_phenotypic_descr to set
+     * @param heterozygous_phenotypic_descr the heterozygous_phenotypic_descr to
+     * set
      */
     public void setHeterozygous_phenotypic_descr(String heterozygous_phenotypic_descr) {
         this.heterozygous_phenotypic_descr = heterozygous_phenotypic_descr;
@@ -1204,7 +1217,8 @@ public class SubmissionsDAO implements Serializable {
     }
 
     /**
-     * @param homozygous_matings_requiredYes the homozygous_matings_requiredYes to set
+     * @param homozygous_matings_requiredYes the homozygous_matings_requiredYes
+     * to set
      */
     public void setHomozygous_matings_requiredYes(String homozygous_matings_requiredYes) {
         this.homozygous_matings_requiredYes = homozygous_matings_requiredYes;
@@ -1218,7 +1232,8 @@ public class SubmissionsDAO implements Serializable {
     }
 
     /**
-     * @param homozygous_matings_requiredNo the homozygous_matings_requiredNo to set
+     * @param homozygous_matings_requiredNo the homozygous_matings_requiredNo to
+     * set
      */
     public void setHomozygous_matings_requiredNo(String homozygous_matings_requiredNo) {
         this.homozygous_matings_requiredNo = homozygous_matings_requiredNo;
@@ -1232,7 +1247,8 @@ public class SubmissionsDAO implements Serializable {
     }
 
     /**
-     * @param homozygous_matings_requiredUknown the homozygous_matings_requiredUknown to set
+     * @param homozygous_matings_requiredUknown the
+     * homozygous_matings_requiredUknown to set
      */
     public void setHomozygous_matings_requiredUknown(String homozygous_matings_requiredUknown) {
         this.homozygous_matings_requiredUknown = homozygous_matings_requiredUknown;
@@ -1246,7 +1262,8 @@ public class SubmissionsDAO implements Serializable {
     }
 
     /**
-     * @param homozygous_matings_required_text the homozygous_matings_required_text to set
+     * @param homozygous_matings_required_text the
+     * homozygous_matings_required_text to set
      */
     public void setHomozygous_matings_required_text(String homozygous_matings_required_text) {
         this.homozygous_matings_required_text = homozygous_matings_required_text;
@@ -1517,7 +1534,6 @@ public class SubmissionsDAO implements Serializable {
     public void setHuman_condition_text(String human_condition_text) {
         this.human_condition_text = human_condition_text;
     }
-
 
     /**
      * @return the research_areas_other_text
@@ -1952,7 +1968,6 @@ public class SubmissionsDAO implements Serializable {
     public void setPublished(String published) {
         this.published = published;
     }
-
 
     /**
      * @return the reference_descr_text_0
@@ -2512,5 +2527,229 @@ public class SubmissionsDAO implements Serializable {
      */
     public void setNotesadditional(String notesadditional) {
         this.notesadditional = notesadditional;
+    }
+
+    /**
+     * @return the mutation_type
+     */
+    public String getMutation_type() {
+        return mutation_type;
+    }
+
+    /**
+     * @param mutation_type the mutation_type to set
+     */
+    public void setMutation_type(String mutation_type) {
+        this.mutation_type = mutation_type;
+    }
+
+    /**
+     * @return the mutation_subtypeCH
+     */
+    public String getMutation_subtypeCH() {
+        return mutation_subtypeCH;
+    }
+
+    /**
+     * @param mutation_subtypeCH the mutation_subtypeCH to set
+     */
+    public void setMutation_subtypeCH(String mutation_subtypeCH) {
+        this.mutation_subtypeCH = mutation_subtypeCH;
+    }
+
+    /**
+     * @return the mutation_subtypeIN
+     */
+    public String getMutation_subtypeIN() {
+        return mutation_subtypeIN;
+    }
+
+    /**
+     * @param mutation_subtypeIN the mutation_subtypeIN to set
+     */
+    public void setMutation_subtypeIN(String mutation_subtypeIN) {
+        this.mutation_subtypeIN = mutation_subtypeIN;
+    }
+
+    /**
+     * @return the mutation_subtypeTM
+     */
+    public String getMutation_subtypeTM() {
+        return mutation_subtypeTM;
+    }
+
+    /**
+     * @param mutation_subtypeTM the mutation_subtypeTM to set
+     */
+    public void setMutation_subtypeTM(String mutation_subtypeTM) {
+        this.mutation_subtypeTM = mutation_subtypeTM;
+    }
+
+    /**
+     * @return the mutation_transgene_mgi_symbol
+     */
+    public String getMutation_transgene_mgi_symbol() {
+        return mutation_transgene_mgi_symbol;
+    }
+
+    /**
+     * @param mutation_transgene_mgi_symbol the mutation_transgene_mgi_symbol to set
+     */
+    public void setMutation_transgene_mgi_symbol(String mutation_transgene_mgi_symbol) {
+        this.mutation_transgene_mgi_symbol = mutation_transgene_mgi_symbol;
+    }
+
+    /**
+     * @return the mutation_gene_mgi_symbol
+     */
+    public String getMutation_gene_mgi_symbol() {
+        return mutation_gene_mgi_symbol;
+    }
+
+    /**
+     * @param mutation_gene_mgi_symbol the mutation_gene_mgi_symbol to set
+     */
+    public void setMutation_gene_mgi_symbol(String mutation_gene_mgi_symbol) {
+        this.mutation_gene_mgi_symbol = mutation_gene_mgi_symbol;
+    }
+
+    /**
+     * @return the mutation_allele_mgi_symbol
+     */
+    public String getMutation_allele_mgi_symbol() {
+        return mutation_allele_mgi_symbol;
+    }
+
+    /**
+     * @param mutation_allele_mgi_symbol the mutation_allele_mgi_symbol to set
+     */
+    public void setMutation_allele_mgi_symbol(String mutation_allele_mgi_symbol) {
+        this.mutation_allele_mgi_symbol = mutation_allele_mgi_symbol;
+    }
+
+    /**
+     * @return the mutation_chrom
+     */
+    public String getMutation_chrom() {
+        return mutation_chrom;
+    }
+
+    /**
+     * @param mutation_chrom the mutation_chrom to set
+     */
+    public void setMutation_chrom(String mutation_chrom) {
+        this.mutation_chrom = mutation_chrom;
+    }
+
+    /**
+     * @return the mutation_dominance_pattern
+     */
+    public String getMutation_dominance_pattern() {
+        return mutation_dominance_pattern;
+    }
+
+    /**
+     * @param mutation_dominance_pattern the mutation_dominance_pattern to set
+     */
+    public void setMutation_dominance_pattern(String mutation_dominance_pattern) {
+        this.mutation_dominance_pattern = mutation_dominance_pattern;
+    }
+
+    /**
+     * @return the mutation_chrom_anomaly_name
+     */
+    public String getMutation_chrom_anomaly_name() {
+        return mutation_chrom_anomaly_name;
+    }
+
+    /**
+     * @param mutation_chrom_anomaly_name the mutation_chrom_anomaly_name to set
+     */
+    public void setMutation_chrom_anomaly_name(String mutation_chrom_anomaly_name) {
+        this.mutation_chrom_anomaly_name = mutation_chrom_anomaly_name;
+    }
+
+    /**
+     * @return the mutation_chrom_anomaly_descr
+     */
+    public String getMutation_chrom_anomaly_descr() {
+        return mutation_chrom_anomaly_descr;
+    }
+
+    /**
+     * @param mutation_chrom_anomaly_descr the mutation_chrom_anomaly_descr to set
+     */
+    public void setMutation_chrom_anomaly_descr(String mutation_chrom_anomaly_descr) {
+        this.mutation_chrom_anomaly_descr = mutation_chrom_anomaly_descr;
+    }
+
+    /**
+     * @return the mutation_es_cell_line
+     */
+    public String getMutation_es_cell_line() {
+        return mutation_es_cell_line;
+    }
+
+    /**
+     * @param mutation_es_cell_line the mutation_es_cell_line to set
+     */
+    public void setMutation_es_cell_line(String mutation_es_cell_line) {
+        this.mutation_es_cell_line = mutation_es_cell_line;
+    }
+
+    /**
+     * @return the mutation_mutagen
+     */
+    public String getMutation_mutagen() {
+        return mutation_mutagen;
+    }
+
+    /**
+     * @param mutation_mutagen the mutation_mutagen to set
+     */
+    public void setMutation_mutagen(String mutation_mutagen) {
+        this.mutation_mutagen = mutation_mutagen;
+    }
+
+    /**
+     * @return the mutation_promoter
+     */
+    public String getMutation_promoter() {
+        return mutation_promoter;
+    }
+
+    /**
+     * @param mutation_promoter the mutation_promoter to set
+     */
+    public void setMutation_promoter(String mutation_promoter) {
+        this.mutation_promoter = mutation_promoter;
+    }
+
+    /**
+     * @return the mutation_founder_line_number
+     */
+    public String getMutation_founder_line_number() {
+        return mutation_founder_line_number;
+    }
+
+    /**
+     * @param mutation_founder_line_number the mutation_founder_line_number to set
+     */
+    public void setMutation_founder_line_number(String mutation_founder_line_number) {
+        this.mutation_founder_line_number = mutation_founder_line_number;
+    }
+
+    /**
+     * @return the mutation_plasmid
+     */
+    public String getMutation_plasmid() {
+        return mutation_plasmid;
+    }
+
+    /**
+     * @param mutation_plasmid the mutation_plasmid to set
+     */
+    public void setMutation_plasmid(String mutation_plasmid) {
+        this.mutation_plasmid = mutation_plasmid;
     }
 }

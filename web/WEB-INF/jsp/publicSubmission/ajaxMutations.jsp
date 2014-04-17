@@ -29,7 +29,7 @@
 
 <div name="addMut" id="addMut">
     <p>
-        <input value="Record this mutation" class="btn big" type="button" id="add_mutation" /> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
+        <input value="Record this mutation" class="btn big" type="button" id="add_mutation" style="background: #ea5b0b;"/> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
     </p>
 </div>
     <div name="editMut" id="editMut" style="display: none">
@@ -41,7 +41,7 @@
 <h4>Mutations for Submission</h4>
 <script type="text/javascript" >  $("#addMut").show(); </script>
 <c:choose>
-    <c:when test="${count<=0}">No mutations added.</c:when>
+    <c:when test="${count<=0}">No mutations added. You must record at least one mutation.</c:when>
     <c:otherwise>
         <div class="boxcontainer">
             <div class="box full">

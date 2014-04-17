@@ -4,6 +4,7 @@
  */
 package org.emmanet.model;
 
+import java.math.BigInteger;
 import java.util.List;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -30,13 +31,13 @@ public class SubmissionsManager {
 
         return sd;
     }
-    
-      public List getSubMutationsBySUBID(int id) {
+
+    public List getSubMutationsBySUBID(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List smd = null;
         try {
-             smd = session.createQuery(
+            smd = session.createQuery(
                     "FROM SubmissionMutationsDAO WHERE id_sub=?").setParameter(0, id).list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -47,12 +48,27 @@ public class SubmissionsManager {
         return smd;
     }
 
+    public BigInteger getSubMutationsCountBySUBID(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        BigInteger bi = null;
+        try {
+            bi = (BigInteger) session.createSQLQuery(
+                    "SELECT COUNT( id_sub) FROM submission_mutations WHERE id_sub=?").setParameter(0, id).uniqueResult();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return bi;
+    }
+
     public List getSubBibliosBySUBID(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         List sbd = null;
         try {
-           sbd = session.createQuery(
+            sbd = session.createQuery(
                     "FROM SubmissionBibliosDAO WHERE sub_id_sub=?").setParameter(0, id).list();
             session.getTransaction().commit();
         } catch (HibernateException e) {
@@ -76,8 +92,8 @@ public class SubmissionsManager {
             throw e;
         }
         return prevSubmission;
-    }        
-        
+    }
+
     public List getesCellLines(String q) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -87,17 +103,16 @@ public class SubmissionsManager {
             esCellLines = session.createSQLQuery(
                     "SELECT name FROM es_cell_lines WHERE name like '" + q + "%'").list();
             session.getTransaction().commit();
-          System.out.println("ES response " + esCellLines.size());  
+            System.out.println("ES response " + esCellLines.size());
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
         }
         return esCellLines;
     }
-            
-        
-        public void save(CategoriesStrainsDAO csDAO) {
-        
+
+    public void save(CategoriesStrainsDAO csDAO) {
+
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -111,7 +126,7 @@ public class SubmissionsManager {
             throw e;
         }
     }
-        
+
     public void saveSQL(int catID, int strainID) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
