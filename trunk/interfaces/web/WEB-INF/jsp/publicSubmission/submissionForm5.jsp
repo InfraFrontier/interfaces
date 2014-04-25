@@ -538,7 +538,7 @@
                                             <spring:bind path="command.mutation_chrom_anomaly_name">
                                             <label class="label" for="mutation_chrom_anomaly_name"><strong>Chromosomal anomaly name</strong></label>
                                             <div class="input">
-                                                <input type="text" name="mutation_chrom_anomaly_name" maxlength=""100 value="" id="mutation_chrom_anomaly_name" />
+                                                <input type="text" name="mutation_chrom_anomaly_name" maxlength="100" value="" id="mutation_chrom_anomaly_name" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
