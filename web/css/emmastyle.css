@@ -240,9 +240,9 @@ select   { font-size: 1em; color: #333; border:1px solid #0090d2; }
 
 
 /* layout footer*/
-#footer{ clear: both; margin:auto; height:60px; width:100%; text-align: center;}
+#footer{ clear: both; margin:auto; height:60px; width:100%; text-align: center;position:fixed;bottom:0;}
 
-#navfooter{ clear:both; background-color:#fff; margin-left:220px; margin-top:10px; height: 30px; padding: 0; }
+#navfooter{ clear:both; background-color:#fff; margin-left:220px; margin-top:10px; height: 30px; padding: 0;position:fixed;bottom:0; }
 #navfooter ul { padding: 0; list-style-type: none;}
 #navfooter ul li { display: block; float: left;}
 #navfooter ul li a { text-decoration: none; padding: 3px 9px 3px; border-right: 1px solid #666; color: #333; background-color: #fff; text-align: center; }

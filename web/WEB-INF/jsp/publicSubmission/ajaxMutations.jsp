@@ -23,13 +23,14 @@
 <c:set var="count"  value="${keyRef['count']}"></c:set>
 <c:set var="sessencID"  value="${sessionScope.getprev}"></c:set>
 
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <!DOCTYPE html>
 
 <div name="addMut" id="addMut">
     <p>
-        <input value="Record this mutation" class="btn big" type="button" id="add_mutation" style="background: #ea5b0b;"/> You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.
+        <input value="Record this mutation" class="btn big" type="button" id="add_mutation" style="background: #ea5b0b;"/> <c:if test="${empty command}">You can add ${10 - count} more mutation<c:if test="${10 - count != 1}">s</c:if>.</c:if>
     </p>
 </div>
     <div name="editMut" id="editMut" style="display: none">
@@ -38,12 +39,26 @@
     </p>
 </div>
 <p>&nbsp;</p>
+                       
 <h4>Mutations for Submission</h4>
 <script type="text/javascript" >  $("#addMut").show(); </script>
 <c:choose>
+    <c:when test="${not empty command}">
+        <c:if test="${not empty command}">
+    <spring:bind path="command.*">
+        <c:if test="${not empty status.errorMessages}">
+            <center>
+                <c:forEach var="error" items="${status.errorMessages}">
+                    <font color="red"><c:out value="${error}" escapeXml="false" /> </font>
+                    <br />
+                </c:forEach>
+            </c:if>
+        </spring:bind>
+    </c:if>  
+    </c:when>
     <c:when test="${count<=0}">No mutations added. You must record at least one mutation.</c:when>
     <c:otherwise>
-        <div class="boxcontainer">
+        <div class="boxcontainer">       
             <div class="box full">
                 <table width="100%">
                     <thead>
@@ -75,23 +90,14 @@
 </c:choose>
 <script type="text/javascript" > 
     $("a[id^='editmutation']").click(function() {
-       // alert("Handler for edit mutation called. FUNCTIONALITY NOT IN PLACE YET!");
-        //testcall();
-       // alert("Mutation values are :: - " + $('#mutation_type').val() + "    " + $('#mutation_type').val() + "      " );
         $("#addMut").hide();
         $("#editMut").show();
-
         alert("Mutation details will be returned to the fields for editing.Click Edit Mutation to save changes.");
         $('#mutRef').load('../ajaxReturn.emma',{mutid:$(this).attr("title"), funct: "mutationEdit"});
-
-        // alert($(this).attr("title"));
- 
     });
     
     //edit_mutation
       $('#edit_mutation').click(function() {
-         //  alert($(this).attr("E  D  I  T  I  N  G  !  ! "));$(this).attr("title")
-          //  alert("E  D  I  T  I  N  G  !  ! ");
         $('#subMutations').load('ajaxMutations.emma',{
             action: "edit",
             action2: "editRecord",

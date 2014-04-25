@@ -313,7 +313,25 @@ private SubmissionsManager subm = new SubmissionsManager();
                         "Please ensure that you add at least one mutation, making sure you add it to the list by using the 'Record this mutation' button.");
     }
         
+        //Check for at least one sub-type for main types CH/TM and IN EMMA-644
         
+        if (sd.getMutation_type() != null && sd.getMutation_type().equals("CH")) {
+            if (sd.getMutation_subtypeCH() == null || sd.getMutation_subtypeCH().isEmpty()) {
+                errors.rejectValue("mutation_subtypeCH", "incorrect.mutation_subtypeCH",
+                        "Please ensure that you select a value for mutation subtype.");
+            }
+        } else if (sd.getMutation_type() != null && sd.getMutation_type().equals("TM")) {
+            if (sd.getMutation_subtypeTM() == null || sd.getMutation_subtypeTM().isEmpty()) {
+                errors.rejectValue("mutation_subtypeTM", "incorrect.mutation_subtypeTM",
+                        "Please ensure that you select a value for mutation subtype.");
+            } 
+        } else if (sd.getMutation_type() != null && sd.getMutation_type().equals("IN")) {
+                if (sd.getMutation_subtypeIN() == null || sd.getMutation_subtypeIN().isEmpty()) {
+                    errors.rejectValue("mutation_subtypeIN", "incorrect.mutation_subtypeIN",
+                            "Please ensure that you select a value for mutation subtype.");
+                }
+        }
+  
         List errorList = errors.getAllErrors();
         for (Iterator it = errorList.listIterator(); it.hasNext();) {
             Object o = it.next();
