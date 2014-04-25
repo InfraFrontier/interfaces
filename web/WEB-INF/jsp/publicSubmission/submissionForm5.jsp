@@ -354,7 +354,7 @@
                                             <label class="label" for="mutation_transgene_mgi_symbol"><strong>Transgene</strong></label>
 
                                             <div class="input">
-                                                <input type="text" name="mutation_transgene_mgi_symbol" maxlength="100" value="" id="mutation_transgene_mgi_symbol" />
+                                                <input type="text" name="mutation_transgene_mgi_symbol" maxlength="20" value="" id="mutation_transgene_mgi_symbol" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
@@ -365,7 +365,7 @@
                                             <spring:bind path="command.mutation_gene_mgi_symbol">
                                             <label class="label" for="mutation_gene_mgi_symbol"><strong>Affected gene</strong></label>
                                             <div class="input">
-                                                <input type="text" name="mutation_gene_mgi_symbol" maxlength="100" value="" id="mutation_gene_mgi_symbol" />
+                                                <input type="text" name="mutation_gene_mgi_symbol" maxlength="20" value="" id="mutation_gene_mgi_symbol" />
                                             </div>
                                             <div class="validation_error_message">
                                                 &nbsp;
