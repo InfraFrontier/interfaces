@@ -70,9 +70,9 @@ form .item-list,
 .breadcrumb a.active	{ color: #909090; }
 #content				{ min-height: 450px; }
 .front #content			{ padding-top: 20px; }
-#footer					{ margin-top: 60px; padding-top: 20px; background: #fff; border-top: #e0e0e0 1px solid; }
-.innerfooter			{ width: 960px; margin: 0 auto; }
-#footerline				{ background: #303030; color: #fff; padding: 20px 0; margin-top: 20px; font-size: 11px; }
+#footer					{ margin-top: 60px; padding-top: 20px; background: #fff; border-top: #e0e0e0 1px solid;}
+.innerfooter			{ width: 960px; margin: 0 auto;}
+#footerline				{ background: #303030; color: #fff; padding: 20px 0; margin-top: 20px; font-size: 11px;}
 
 /* Boxsystem */
 .node					{ width: 100%; }
