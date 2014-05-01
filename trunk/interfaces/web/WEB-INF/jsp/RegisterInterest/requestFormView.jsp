@@ -693,13 +693,15 @@
                                                             <form:radiobutton id="${status.expression}" path="${status.expression}" value="ES Cells" /><strong>ES Cells</strong>
                                                         </spring:bind>
                                                     </c:when>
+                                                     <c:when test="${command.register_interest == '1' && command.id_req != null}" >
+                                                         <spring:bind path="command.req_material">
+                                                             You have requested to be supplied with ${status.value}.
+                                                         </spring:bind>
+                                                     </c:when>
                                                     <c:otherwise>
-                                                        <%--<p><input type="radio" name="<c:out value="${status.expression}"/>" value="live animals" class="radio"  /><strong>Live Animals</strong></p>
-                                                        <p><input type="radio" name="<c:out value="${status.expression}"/>" value="frozen material" class="radio"  /><strong>Frozen Material</strong></p>--%>
+
                                                     </c:otherwise>
                                                 </c:choose>
-
-
 
                                                 <c:if test="${command.register_interest == '1' && command.id_req == null || param['status']=='insert'}" >
                                                     <p>&nbsp;</p>
