@@ -448,11 +448,20 @@ public class RequestFormController extends SimpleFormController {
         }
         mailSend = true;
         Cc = new HashMap();
-
+int im = 0;
         // Late stage addition for multiple cc addresses TODO MAKE BETTER
         Cc.put("1", new String("emma@infrafrontier.eu"));
         //Cc.put("2", new String(""));
-        Cc.put("2", new String(webRequest.getCon_e_mail()));
+                    
+            if (request.getParameter("triggerMails") != null && request.getParameter("triggerMails").equals("managersonly")) {
+                //map key + 1
+                im = 2;
+            } else {
+                Cc.put("2", new String(webRequest.getCon_e_mail()));
+                 //map key + 1
+                  im = 3;
+            }
+            
         // Get responsible centre mail address(es) and add to map
         List ccCentre = new ArrayList();
         if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
@@ -460,8 +469,7 @@ public class RequestFormController extends SimpleFormController {
         } else {
             ccCentre = wr.ccArchiveMailAddresses("" + webRequest.getStr_id_str(), "strains");
         }
-        //map key + 1
-        int im = 3;
+
         Object[] o = null;
         it = ccCentre.iterator();
         while (it.hasNext()) {
@@ -779,6 +787,8 @@ public class RequestFormController extends SimpleFormController {
             if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
                 //helper.setCc(nkiescellCc);
                 helper.setCc(ccAddresses);
+            } else if (request.getParameter("triggerMails") != null && request.getParameter("triggerMails").equals("managersonly")) {
+                //no cc addresses else managers only email repeats
             } else {
                 helper.setCc(ccAddresses);//.addCc(ccAddresses);
             }
