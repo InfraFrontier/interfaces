@@ -1009,7 +1009,17 @@ public class SubmissionFormController extends AbstractWizardFormController {
         Syn_StrainsDAO ssd = new Syn_StrainsDAO();
         ssd.setStr_id_str(nsd.getId_str());
         System.out.println("STRING ID FROM STRAINS OBJECT==" + ssd.getStr_id_str());
-        ssd.setName(nsd.getName());
+        if (nsd.getName().length() > 100) {
+            /*
+             * need to truncate name to avoid issues with length difference in tables strain (varchar 500) and syn_strains (varchar 100)
+             * altering field size in syn_strains causes issues with UNIQUE KEY `syn_strains_uk` (`name`,`str_id_str`) only allowed a max key length is 767 bytes
+             * bug with our mysql instances which has not been resolved by dba's
+             * */
+            String synName = nsd.getName().substring(0, 100);
+            ssd.setName(synName);
+        } else {
+            ssd.setName(nsd.getName());
+        }
         ssd.setUsername("EMMA");
         ssd.setLast_change(currentDate);
 
