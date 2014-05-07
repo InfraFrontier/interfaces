@@ -237,7 +237,7 @@
             <value>redirect:../success.emma</value>
         </property>
         <property name="internalSuccessView">
-            <value>redirect:${BASEURL}/interfaces/requestsInterface.emma?listAll=y</value>
+            <value>redirect:${BASEURL}emma/interfaces/requestsInterface.emma?listAll=y</value>
         </property>
       <property name="validator">
             <ref bean="RequestFormValidator" />
