@@ -571,7 +571,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         ad.setArchiving_method_id(null);
         ad.setBreeding(null);
         ad.setEmbryo_state(null);
-        ad.setEvaluated(currentDate);
+        ad.setEvaluated(null);
         ad.setFemale_bg_id(null);
         ad.setFemales(null);
         ad.setFreezing_started(null);
