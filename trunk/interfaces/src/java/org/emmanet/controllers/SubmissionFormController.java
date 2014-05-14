@@ -556,7 +556,7 @@ public class SubmissionFormController extends AbstractWizardFormController {
         //and start to populate a new strains dao.
         //might need to break this out into its own method to be accesible by restful web service for future bulk uploads
         StrainsDAO nsd = new StrainsDAO();
-
+nsd.setReporting_count("1.0");
         //  stm.save(nsd);//need to save to get ID but this causes stalobject error when updating 
         Date dt = new Date();
         SimpleDateFormat sdf
