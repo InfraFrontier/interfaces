@@ -14,6 +14,7 @@ function populateBibDetails(userString,refNo){
     $('#id_biblio').val(q.biblioid);
     $('#notes').val(q.notes);
     $('#notesadditional').val(q.notesadditional);
+    $('#reference_descr').val(q.reference_descr);
     $('#published').val("yes");
 }
 function removeBibDetails(){

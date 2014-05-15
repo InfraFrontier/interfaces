@@ -185,6 +185,21 @@ public class AjaxReturnController extends SimpleFormController {
                     paper.add(6, fb.issue);
                     paper.add(7, fb.pages);
                     paper.add(8, fb.paperid);
+                    paper.add(9, fb.paperid);
+                    paper.add(10, request.getParameter("notes"));
+                    paper.add(11, request.getParameter("notesadditional"));
+                    System.out.println(request.getParameter("notes"));
+                    System.out.println(request.getParameter("notesadditional"));
+                    /*
+                     
+                     
+        populateBibDetails("?title=${paper[0]}&author1=${paper[1]}&author2=${paper[2]}\
+&journal=${paper[3]}&year=${paper[4]}&volume=${paper[5]}&issue=${paper[6]}&pages=${paper[7]}\
+&paperid=${paper[8]}&biblioid=${paper[9]}&notes=${paper[10]}&notesadditional=${paper[11]}&published=yes",0);
+
+                     
+                     
+                     */
               //  }
           //  }
             //  int pmID = Integer.parseInt(request.getParameter("pubmedid"));
