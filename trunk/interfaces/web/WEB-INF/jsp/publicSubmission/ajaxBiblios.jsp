@@ -116,7 +116,7 @@ Are you sure you wish to continue? ");
 </script>
 <script type="text/javascript" > 
     $('#add_biblio').click(function() {
-      //  alert("Adding biblio ${sessencID}" );
+     // alert("Adding biblio $('#notes').val()" );
         $('#subBiblios').load('ajaxBiblios.emma',{
             action: "add",
             Id_sub:"${sessencID}",//$('#encID').val(), 

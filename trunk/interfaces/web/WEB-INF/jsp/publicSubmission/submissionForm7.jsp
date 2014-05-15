@@ -136,7 +136,7 @@
                                     <div id="bibRef" name="bibRef"></div>
                                     <script type="text/javascript" > 
                                         $('#pubmed_id').focusout(function() {
-                                            $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#pubmed_id').val(), funct: "pubMed",query: "biblios"});
+                                            $('#bibRef').load('../ajaxReturn.emma',{pubmedid:$('#pubmed_id').val(), funct: "pubMed",query: "biblios",notes:$('#notes').val(), notesadditional:$('#notesadditional').val()});
                                         });
                                     </script>
                                     <spring:bind path="command.title">
