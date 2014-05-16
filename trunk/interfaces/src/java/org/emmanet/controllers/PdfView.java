@@ -349,7 +349,7 @@ public class PdfView extends AbstractPdfView {
                 @Override
                 public boolean accept(File dir, String name) {
                     //only add to list if submission id is conatined within file name (which includes path and file name)
-                    if (submissionID != null && name.contains(submissionID)) {
+                    if (submissionID != null && name.startsWith(submissionID)) {
                         return name.toLowerCase().endsWith(".pdf");
                     }
                     return false;
