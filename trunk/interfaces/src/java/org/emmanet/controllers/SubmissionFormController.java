@@ -898,20 +898,24 @@ nsd.setReporting_count("1.0");
 
         //SUBMISSIONMUTATIONSDAO
         Set setMutationsStrainsDAO = new LinkedHashSet();
+        GenesManager genesManager = new GenesManager();
         for (Iterator it = smd.listIterator(); it.hasNext();) {
-
             smdao = (SubmissionMutationsDAO) it.next();
-
-            GenesManager genesManager = new GenesManager();
-            String transgeneName = smdao.getMutation_transgene_mgi_symbol().trim();
+            String transgeneName = "";
+            if (!smdao.getMutation_transgene_mgi_symbol().trim().isEmpty()) {
+                transgeneName = smdao.getMutation_transgene_mgi_symbol().trim();
+            } else {
+                transgeneName = smdao.getMutation_gene_mgi_symbol();
+            }
+            
             GenesDAO genesDAO = genesManager.getGene(transgeneName);
-
+System.out.println("This is the value of transgene - " + transgeneName);
             if (genesDAO == null) {
                 genesDAO = new GenesDAO();                                      // The transgene does not yet exist in the genes table. Create a new instance.
-                genesDAO.setName(transgeneName.isEmpty() ? "Unknown at present" : smdao.getMutation_transgene_mgi_symbol());
-                genesDAO.setSymbol(genesDAO.getName());
+                genesDAO.setName(transgeneName.isEmpty() ? "Unknown at present" : transgeneName/*smdao.getMutation_transgene_mgi_symbol()*/);
+                genesDAO.setSymbol(genesDAO.getName());//ok adds result of above so all good according to Raffaele's requirements
                 genesDAO.setChromosome(smdao.getMutation_chrom());
-                genesDAO.setMgi_ref(smdao.getMutation_gene_mgi_symbol());
+                genesDAO.setMgi_ref(null);
                 genesDAO.setPromoter(smdao.getMutation_promoter());
                 genesDAO.setFounder_line_number(smdao.getMutation_founder_line_number());
                 genesDAO.setPlasmid_construct(smdao.getMutation_plasmid());
@@ -926,10 +930,12 @@ nsd.setReporting_count("1.0");
             AllelesDAO ald = new AllelesDAO();
             ald.setUsername("EMMA");
             ald.setLast_change(currentDate);
-            ald.setName("Unknown at present");
-            ald.setAlls_form("Unknown at present");
+            ald.setName(smdao.getMutation_allele_mgi_symbol().isEmpty() ? "Unknown at present" : smdao.getMutation_allele_mgi_symbol());
+            //ald.setName("Unknown at present");
+            //ald.setAlls_form("Unknown at present");
+            ald.setAlls_form(smdao.getMutation_allele_mgi_symbol().isEmpty() ? "Unknown at present" : smdao.getMutation_allele_mgi_symbol());
             ald.setGen_id_gene("" + genesDAO.getId_gene());
-            ald.setMgi_ref(smdao.getMutation_allele_mgi_symbol());
+            ald.setMgi_ref(null);
             ald.setGenesDAO(genesDAO);
             mm.save(ald);
 
