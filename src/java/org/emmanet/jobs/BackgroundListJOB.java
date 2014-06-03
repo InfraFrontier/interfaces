@@ -46,6 +46,7 @@ public class BackgroundListJOB extends QuartzJobBean {
                 Object[] o = (Object[]) it.next();
                 out.write(o[0].toString() + "||");
                 String bgName = StringEscapeUtils.escapeHtml(o[1].toString().trim());
+                bgName = bgName.replaceAll("(\\r|\\n)", "");//removing line breaks carraige returns within string, resolves issue seen in file.
                 out.write(bgName);
                 out.newLine();
             }
