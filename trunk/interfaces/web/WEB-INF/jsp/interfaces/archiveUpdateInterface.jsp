@@ -86,7 +86,7 @@
 <spring:bind path="command.*"> </spring:bind>
 <br/><br/>
 <%-- include consistent navigation --%>
-<%@ include file="navigation_inc.html" %>
+<%@ include file="navigation_inc.jsp" %>
 <%-- PDFURL= ${keyRef["pdfURL"]}--%>
 <center>
     <c:if test="${not empty status.errorMessages}">

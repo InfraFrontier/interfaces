@@ -73,7 +73,7 @@
         <span id="loginHeader">Logged in as user <c:out value="${fn:toUpperCase(UserName)}" /></span>
         <br /><br />
         <%-- include consistent navigation --%>
-        <%@ include file="navigation_inc.html" %>
+        <%@ include file="navigation_inc.jsp" %>
         <h4 class="footer"><a href="javascript: void(0)" class="footer" onclick="javascript:showlayer('strSearch');return false;">+-</a> Strains Search</h4>
         <form name="strainsSearch" action="strainsInterface.emma">
             <table width="98%" border="0"
