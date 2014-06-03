@@ -26,7 +26,7 @@
         <span id="loginHeader">Logged in as user <c:out value="${fn:toUpperCase(UserName)}" /> </span>
         <br/><br/>
         <%-- include consistent navigation --%>
-        <%@ include file="navigation_inc.html" %>
+        <%@ include file="navigation_inc.jsp" %>
         <p class="searchHeader" id="searchHeader">${keyRef["searchSize"]} record<c:choose><c:when  test="${keyRef['searchSize'] ==1}" ></c:when><c:otherwise>s</c:otherwise></c:choose> returned
             <c:set var="search" value='${keyRef["searchDescription"]}'></c:set>
             <c:choose>

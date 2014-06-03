@@ -65,7 +65,7 @@
 
         <br/><br/>
         <%-- include consistent navigation --%>
-        <%@ include file="navigation_inc.html" %>
+        <%@ include file="navigation_inc.jsp" %>
     <center>
         <c:if test="${not empty status.errorMessages}">
             <c:forEach var="error" items="${status.errorMessages}">
