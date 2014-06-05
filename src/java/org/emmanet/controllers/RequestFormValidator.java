@@ -29,13 +29,11 @@ import org.springframework.validation.FieldError;
 public class RequestFormValidator implements
         org.springframework.validation.Validator {
 
-    private static final String EMAIL_PATTERN
-            = "^([a-zA-Z0-9\\'_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
+    private static final String EMAIL_PATTERN = "^([a-zA-Z0-9\\'_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)"
             + "|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
     private WebRequests wr = new WebRequests();
     private WebRequests wrDupCheck = new WebRequests();
     private String table;
-
     private String[] euCountriesList = {"Austria", "Belgium", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"};
     private String[] assocCountriesList = {"Albania", "Croatia", "Iceland", "Israel", "Liechtenstein", "Macedonia", "Montenegro", "Norway", "Serbia", "Switzerland", "Turkey"};
 
@@ -252,36 +250,46 @@ public class RequestFormValidator implements
         }
 
         if (webReq.getStrain_name().contains("Wtsi")/*.getProjectID().equals("5")*/) {
-            if (webReq.getWtsi_mouse_portal() == null || webReq.getWtsi_mouse_portal().equals("no")) {
+            System.out.println("STRAIN NAME CONTAINS Wtsi " + webReq.getWtsi_mouse_portal());
+            if (webReq.getEurophenome() == null && webReq.getWtsi_mouse_portal() == null) {
+                errors.reject("Message", "Please select the option that generated your interest or select no, if none apply?");
+            }
+            if (webReq.getWtsi_mouse_portal() != null && webReq.getEurophenome() != null) {
+                if (webReq.getEurophenome().equals("yes") && webReq.getWtsi_mouse_portal().equals("yes")) {
+                    errors.reject("Message", "Please select no to one option that didn't generate your interest in the strain you have selected?");
+                }
+            }
+            if (webReq.getWtsi_mouse_portal() != null && webReq.getWtsi_mouse_portal().equals("no")) {
                 //europhenome must be checked then
                 if (webReq.getEurophenome() == null) {
-                    errors.reject("Message", "Was your interest in this strain generated from the Europhenome website?");
+                    errors.reject("Message", "Was your interest in this strain generated from the International Mouse "
+                            + "Phenotyping Consortium website?");
                 }
+            }
 
-                if (webReq.getEurophenome() == null || webReq.getEurophenome().equals("no")) {
+                if (webReq.getEurophenome() != null && webReq.getEurophenome().equals("no")) {
                     //pheno must be checked then
                     if (webReq.getWtsi_mouse_portal() == null) {
                         errors.reject("Message", "Was your interest in this strain generated from the WTSI Mouse Portal?");
                     }
                 }
-
-            }
+         
 
             if (webReq.getWtsi_mouse_portal() != null && webReq.getWtsi_mouse_portal().equals("yes")) {
                 //europhenome must = no
                 if (webReq.getEurophenome() == null) {
-                    errors.reject("Message", "Please select 'No' to the question related to whether your interest in the strain was generated from the Europhenome website.");
+                    errors.reject("Message", "Please select 'No' to the question related to whether your interest in the strain was "
+                            + "generated from the International Mouse Phenotyping Consortium website.");
                 }
             }
 
             if (webReq.getEurophenome() != null && webReq.getEurophenome().equals("yes")) {
                 //wtsi must = no
                 if (webReq.getWtsi_mouse_portal() == null) {
-                    errors.reject("Message", "Please select 'No' to the question related to whether your interest in the strain was generated from the WTSI Mouse Portal.");
+                    errors.reject("Message", "Please select 'No' to the question related to whether your interest in the strain was "
+                            + "generated from the WTSI Mouse Portal.");
                 }
-
             }
-
         }
         //    }
         if (webReq.getProjectID() != null) {
@@ -291,7 +299,6 @@ public class RequestFormValidator implements
                 }
             }
         }
-
     }
 
     public boolean patternMatch(String patternValue, String input) {

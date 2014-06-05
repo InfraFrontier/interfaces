@@ -627,7 +627,19 @@
 
         <table  id="mutations" style="display: none;"  border="0" width="85%" align="center" >
             <tr>
-                <td colspan="4"><br /><c:choose><c:when test="${not empty mutationsStrainsDAO}"><a href="" onClick="javascript:gmyWin=openWindow('mutationUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit Mutations</a></c:when><c:otherwise>No mutations recorded. <a href="mutationUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}">Add</a></c:otherwise></c:choose><br /><br /></td>
+                <td colspan="4"><br />
+                    <c:choose>
+                         <c:when test="${sessionScope.SPRING_SECURITY_LAST_USERNAME == 'curator' || sessionScope.SPRING_SECURITY_LAST_USERNAME == 'super'}">
+                            <a href="../2/curation/mutationManagementList/go?filterMutationKey=&filterMutationType=&filterMutationSubtype=&filterStrainKey=${keyRef["id_str"]}&filterAlleleKey=&filterBackgroundKey=&filterGeneKey=&filterGeneSymbol=&mutation_key=&strain_key=${keyRef["id_str"]}&gene_key=&mutationType=&allele_key=&geneSymbol=&mutationSubtype=&background_key= ">Mutation curation interface</a>
+                        </c:when>
+                        <c:when test="${not empty mutationsStrainsDAO}">
+                            <a href="" onClick="javascript:gmyWin=openWindow('mutationUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit Mutations</a>
+                        </c:when>
+                            <c:otherwise>
+                                No mutations recorded. <a href="mutationUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}">Add</a>
+                            </c:otherwise>
+                    </c:choose>
+                                <br /><br /></td>
             </tr>
             <tr>
                 <td  colspan="4">Factor Multiple Mutations:
@@ -996,11 +1008,28 @@ END OF CRYOPRESERVATION HISTORY --%>
 
         <table  id="bibDiv" style="display: none;"  border="0" width="85%" align="center" >
             <tr>
-                <td valign="top" colspan="4"><c:choose><c:when test="${(sessionScope.bibCount) >= 1}"><a href="javascript:;" onClick="javascript:gmyWin=openWindow('biblios<c:choose><c:when test="${(sessionScope.bibCount) > 1}">List</c:when><c:otherwise>Update</c:otherwise></c:choose>Interface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit bibliographic details</a></c:when><c:otherwise>No bibliographic references recorded. <a href="" onClick="javascript:gmyWin=openWindow('bibliosUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Add</a></c:otherwise></c:choose>
+                <td valign="top" colspan="4">
+                    <c:choose>
+                                                <c:when test="${sessionScope.SPRING_SECURITY_LAST_USERNAME == 'curator' || sessionScope.SPRING_SECURITY_LAST_USERNAME == 'super'}">
+                            <a href="../2/curation/biblioManagementList/go?filterBiblioKey=&filterStrainKey=${keyRef["id_str"]}&filterPubmedId=&filterBiblioAuthor1=&filterBiblioJournal=&filterBiblioTitle=&filterBiblioYear=&biblio_key=&biblioJournal=&strain_key=${keyRef["id_str"]}&biblioTitle=&pubmedId=&biblioYear=&biblioAuthor1=
+                               ">Biblio curation interface</a>
+                        </c:when>
+                        <c:when test="${(sessionScope.bibCount) >= 1}">
+                            <a href="javascript:;" onClick="javascript:gmyWin=openWindow('biblios</c>
+                               <c:choose>
+                                   <c:when test="${(sessionScope.bibCount) > 1}">List</c:when>
+                                   <c:otherwise>Update</c:otherwise>
+                               </c:choose>
+                                   Interface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit bibliographic details</a>
+                        </c:when>
+                        <c:otherwise>No bibliographic references recorded. <a href="" onClick="javascript:gmyWin=openWindow('bibliosUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Add</a>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </table>
-        <%-- End of bibliographic details --%>
+        <%-- End of bibliographic details 
+     --%>
 
 
         <%-- Start of additional information --%>

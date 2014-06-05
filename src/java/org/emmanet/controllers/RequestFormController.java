@@ -417,6 +417,11 @@ public class RequestFormController extends SimpleFormController {
             wr.setLiveDelivery(liveDelivery);
             wr.setLiveShelfCost(liveShelfCost);
             wr.setLiveShelfDelivery(liveShelfDelivery);
+            
+            System.out.println("Mouse portal val is " + wr.getWtsi_mouse_portal());
+            System.out.println("europhenome  val is " + wr.getEurophenome());
+            wr.setWtsi_mouse_portal(null);
+            wr.setEurophenome(null);
             return wr;
         }
     }
