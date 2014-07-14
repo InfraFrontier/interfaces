@@ -4,6 +4,7 @@
     Author     : phil
 --%>
 
+<%@page import="org.emmanet.util.WebmasterAlertMsg"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -36,9 +37,16 @@ optionDisplay ="<form:option value=\"";
             try {
                 BufferedReader in = new BufferedReader(new FileReader(Configuration.get("BGNAMESLIST")));
                 String str;
-
+ outerloop:
                 while ((str = in.readLine()) != null) {
                    int i = str.indexOf("||");
+                   if(i<0){
+                       //could be a problem with created bg list, send a mail to webmaster as an alert
+                       WebmasterAlertMsg alertMsg = new WebmasterAlertMsg();
+                       System.out.println("alert message object # is " + alertMsg.hashCode());
+                       alertMsg.sendAlert(" Alert generated, possible issue with BG names file."," -- There is a problem with the generated BG list. Check ASAP.");
+                       break outerloop;
+                   }
                    String id = str.substring(0, i);
                    str = str.replace(id + "||", "");
                    str = org.apache.commons.lang.StringEscapeUtils.escapeHtml(str);
