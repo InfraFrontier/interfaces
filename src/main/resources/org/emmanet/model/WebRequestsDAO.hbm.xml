@@ -85,6 +85,8 @@
     <property column="wtsi_mouse_portal" name="wtsi_mouse_portal"/>
     <property column="europhenome" name="europhenome"/>
     
+    <property column="cancelation_reason" name="cancelation_reason"/>
+    
     <!--- BILLING FIELDS -->
     <!--  <many-to-one  name="AvailabilitiesStrainsDAO" class="org.emmanet.model.AvailabilitiesStrainsDAO" column="str_id_str">
             
