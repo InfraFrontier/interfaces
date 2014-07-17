@@ -1006,11 +1006,16 @@ System.out.println("DAO FROM SM==" + rtd.getRtls_id());
         session.beginTransaction();
         List nameStatus = null;
         try {
-            nameStatus = session.createSQLQuery("SELECT DISTINCT name_status " +
+          /*  nameStatus = session.createSQLQuery("SELECT DISTINCT name_status " +
                     "FROM strains " +
                     "WHERE name_status != '' " +
                     "AND name_status IS NOT NULL " +
-                    "ORDER BY name_status ASC").list();
+                    "ORDER BY name_status ASC").list();*/
+             nameStatus = session.createSQLQuery("SELECT code_rc,desc_rc "
+                     + "FROM ref_codes "
+                     + "WHERE domaine_rc='NAME_STATUS' "
+                     + "ORDER BY code_rc"
+                     ).list();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
             throw e;
