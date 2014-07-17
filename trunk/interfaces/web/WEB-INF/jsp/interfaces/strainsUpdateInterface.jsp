@@ -3,7 +3,6 @@
     Created on : 06-Oct-2008, 12:53:55
     Author     : phil
 --%>
-
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,7 +13,6 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="req" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page import="org.emmanet.util.Configuration" %>
-
 <%
     java.io.BufferedReader inSources = new java.io.BufferedReader(new java.io.FileReader(Configuration.get("NSLIST")));
     String strIn;
@@ -49,7 +47,6 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
