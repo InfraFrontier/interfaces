@@ -52,7 +52,6 @@ public class BackgroundListJOB extends QuartzJobBean {
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -72,7 +71,6 @@ public class BackgroundListJOB extends QuartzJobBean {
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -93,7 +91,6 @@ public class BackgroundListJOB extends QuartzJobBean {
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -113,7 +110,6 @@ public class BackgroundListJOB extends QuartzJobBean {
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -131,7 +127,6 @@ public class BackgroundListJOB extends QuartzJobBean {
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -143,13 +138,14 @@ public class BackgroundListJOB extends QuartzJobBean {
 
             out.write("<option value=\"\" selected>Please select...</option>\n");
             for (Iterator it = nameStatus.listIterator(); it.hasNext();) {
-                Object o = it.next();
-                String code = StringEscapeUtils.escapeHtml(o.toString().trim());
-                out.write("<option value=\"" + code + "\">" + code + "</option>\n");
+                //Object o = it.next();
+                Object[] o = (Object[]) it.next();
+                String code = StringEscapeUtils.escapeHtml(o[0].toString().trim());
+                String desc = StringEscapeUtils.escapeHtml(o[1].toString().trim());
+                out.write("<option value=\"" + code + "\">" + desc + "</option>\n");
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -167,7 +163,6 @@ public class BackgroundListJOB extends QuartzJobBean {
             }
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
