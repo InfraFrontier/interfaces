@@ -84,7 +84,8 @@
                         <%--<a href='#' onClick="javascript:gmyWin=openWindow('cryopreservationUpdateInterface.emma?cryoArchID=${command.archive_id}',gmyWin);return false;">Cryopreservation History</a>--%></c:if>
                     <form:form>
                         <%-- START OF STRAIN DATAGRID --%>
-
+            <c:choose><c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' ||  fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'CURATOR'}"><c:set var="fieldStatus" value=""></c:set></c:when><c:otherwise><c:set var="fieldStatus" value="disabled"></c:set></c:otherwise></c:choose>
+           
         <table border="0" width="85%" align="center" >
 
             <tr>
@@ -116,7 +117,7 @@
                         <c:when test="${not empty syn_strainsDAO}">
                             <c:forEach var="synonym" items='${syn_strainsDAO}' varStatus="row">
                                 <spring:bind path="command.syn_strainsDAO">
-                                    <input type="text" name="${status.expression}" value='${synonym.name}' size="50"  disabled/>
+                                    <input type="text" name="${status.expression}" value='${synonym.name}' size="50"  ${fieldStatus}/>
                                 </spring:bind>
                                 <br/>
                             </c:forEach>
@@ -149,12 +150,11 @@
                     </a><%--</c:if>--%>
                 </td>
             </tr>
-            <c:choose><c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || 'CURATOR'}"><c:set var="fieldStatus" value=""></c:set></c:when><c:otherwise><c:set var="fieldStatus" value="disabled"></c:set></c:otherwise></c:choose>
-            <tr>
+ <tr>
                 <td valign="top">MGI Strain ID:</td>
                 <td valign="top"><spring:bind path="command.mgi_ref"><input type='text'  name="<c:out value='${status.expression}'/>"  value='${status.value}' size='10' maxsize='10' ${fieldStatus}/></spring:bind></td>
                     <c:choose>
-                        <c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || 'CURATOR'}">
+                        <c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'CURATOR'}">
 
                         <td>Edit MTA file: </td>
                         <td>
@@ -217,7 +217,7 @@
                     %> 
                     <spring:bind path="command.name_status">
                         <c:choose>
-                            <c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || 'CURATOR'}">
+                            <c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' || fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'CURATOR'}">
                                 <select name="<c:out value='${status.expression}'/>">
                                     <%=strOut%>
                                 </select>
@@ -1015,7 +1015,7 @@ END OF CRYOPRESERVATION HISTORY --%>
                                ">Biblio curation interface</a>
                         </c:when>
                         <c:when test="${(sessionScope.bibCount) >= 1}">
-                            <a href="javascript:;" onClick="javascript:gmyWin=openWindow('biblios</c>
+                            <a href="javascript:;" onClick="javascript:gmyWin=openWindow('biblios
                                <c:choose>
                                    <c:when test="${(sessionScope.bibCount) > 1}">List</c:when>
                                    <c:otherwise>Update</c:otherwise>
