@@ -81,8 +81,8 @@
                         <%--<a href='#' onClick="javascript:gmyWin=openWindow('cryopreservationUpdateInterface.emma?cryoArchID=${command.archive_id}',gmyWin);return false;">Cryopreservation History</a>--%></c:if>
                     <form:form>
                         <%-- START OF STRAIN DATAGRID --%>
-            <c:choose><c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' ||  fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'CURATOR'}"><c:set var="fieldStatus" value=""></c:set></c:when><c:otherwise><c:set var="fieldStatus" value="disabled"></c:set></c:otherwise></c:choose>
-           
+                        <c:choose><c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' ||  fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'CURATOR'}"><c:set var="fieldStatus" value=""></c:set></c:when><c:otherwise><c:set var="fieldStatus" value="disabled"></c:set></c:otherwise></c:choose>
+
         <table border="0" width="85%" align="center" >
 
             <tr>
@@ -147,7 +147,7 @@
                     </a><%--</c:if>--%>
                 </td>
             </tr>
- <tr>
+            <tr>
                 <td valign="top">MGI Strain ID:</td>
                 <td valign="top"><spring:bind path="command.mgi_ref"><input type='text'  name="<c:out value='${status.expression}'/>"  value='${status.value}' size='10' maxsize='10' ${fieldStatus}/></spring:bind></td>
                     <c:choose>
@@ -389,112 +389,112 @@
 
         <%--- START OF SHIPPING CONTACT INFORMATION --%>
         <table id="shipper" style="display: none;"  border="0" width="85%" align="center" >
-             <c:if test="${empty peopleDAOCon}"><tr><td colspan="4">No shipping contact information supplied</td></tr></c:if>
-        <c:if test="${not empty peopleDAOCon}">
-            <tr>
-                <td>Title:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.title">
-                        <form:select path="${status.expression}" id="${status.expression}">
-                            <form:option value=""></form:option>
-                            <form:option value="Mr">Mr</form:option>
-                            <form:option value="Mrs">Mrs</form:option>
-                            <form:option value="Ms">Ms</form:option>
-                            <form:option value="Prof">Prof</form:option>
-                            <form:option value="Dr">Dr</form:option>
-                        </form:select>
-                    </spring:bind>
-                </td>
-                <td>Institution:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.name">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+            <c:if test="${empty peopleDAOCon}"><tr><td colspan="4">No shipping contact information supplied</td></tr></c:if>
+            <c:if test="${not empty peopleDAOCon}">
+                <tr>
+                    <td>Title:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.title">
+                            <form:select path="${status.expression}" id="${status.expression}">
+                                <form:option value=""></form:option>
+                                <form:option value="Mr">Mr</form:option>
+                                <form:option value="Mrs">Mrs</form:option>
+                                <form:option value="Ms">Ms</form:option>
+                                <form:option value="Prof">Prof</form:option>
+                                <form:option value="Dr">Dr</form:option>
+                            </form:select>
+                        </spring:bind>
+                    </td>
+                    <td>Institution:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.name">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Firstname:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.firstname">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Department:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.dept">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+                <tr>
+                    <td>Firstname:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.firstname">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Department:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.dept">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Surname:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.surname">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Address Line 1:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.addr_line_1">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.surname">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Address Line 1:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.addr_line_1">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Email:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.email">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Address Line 2:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.addr_line_2">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-            <tr>
-                <td>Phone:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.phone">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Town:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.town">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-            <tr>
-                <td>Fax:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.fax">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>County/Province:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.province">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>Country:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOCon.labsDAO.country">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.email">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Address Line 2:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.addr_line_2">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.phone">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Town:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.town">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fax:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.fax">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>County/Province:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.province">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>Country:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOCon.labsDAO.country">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
             </c:if>
         </table>
 
@@ -505,113 +505,113 @@
         </table>
 
         <table  id="submitter" style="display: none;"  border="0" width="85%" align="center" >
-        <c:if test="${empty peopleDAOSub}"><tr><td colspan="4">No submitter information supplied</td></tr></c:if>
-        <c:if test="${not empty peopleDAOSub}">
-            <tr>
-                <td>Title:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.title">
-                        <form:select path="${status.expression}" id="${status.expression}">
-                            <form:option value=""></form:option>
-                            <form:option value="Mr">Mr</form:option>
-                            <form:option value="Mrs">Mrs</form:option>
-                            <form:option value="Ms">Ms</form:option>
-                            <form:option value="Prof">Prof</form:option>
-                            <form:option value="Dr">Dr</form:option>
-                        </form:select>
-                    </spring:bind>
-                </td>
-                <td>Institution:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.name">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+            <c:if test="${empty peopleDAOSub}"><tr><td colspan="4">No submitter information supplied</td></tr></c:if>
+            <c:if test="${not empty peopleDAOSub}">
+                <tr>
+                    <td>Title:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.title">
+                            <form:select path="${status.expression}" id="${status.expression}">
+                                <form:option value=""></form:option>
+                                <form:option value="Mr">Mr</form:option>
+                                <form:option value="Mrs">Mrs</form:option>
+                                <form:option value="Ms">Ms</form:option>
+                                <form:option value="Prof">Prof</form:option>
+                                <form:option value="Dr">Dr</form:option>
+                            </form:select>
+                        </spring:bind>
+                    </td>
+                    <td>Institution:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.name">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Firstname:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.firstname">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Department:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.dept">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+                <tr>
+                    <td>Firstname:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.firstname">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Department:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.dept">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Surname:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.surname">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Address Line 1:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.addr_line_1">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.surname">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Address Line 1:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.addr_line_1">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>Email:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.email">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Address Line 2:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.addr_line_2">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-            <tr>
-                <td>Phone:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.phone">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>Town:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.town">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-            <tr>
-                <td>Fax:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.fax">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-                <td>County/Province:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.province">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>Country:</td>
-                <td>
-                    <spring:bind path="command.peopleDAOSub.labsDAO.country">
-                        <form:input  id="${status.expression}" path="${status.expression}"></form:input>
-                    </spring:bind>
-                </td>
-            </tr>
-        </table>
+                <tr>
+                    <td>Email:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.email">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Address Line 2:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.addr_line_2">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.phone">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>Town:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.town">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fax:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.fax">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                    <td>County/Province:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.province">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>Country:</td>
+                    <td>
+                        <spring:bind path="command.peopleDAOSub.labsDAO.country">
+                            <form:input  id="${status.expression}" path="${status.expression}"></form:input>
+                        </spring:bind>
+                    </td>
+                </tr>
+            </table>
         </c:if>
         <%--- END OF SHIPPING CONTACT INFORMATION --%>
 
@@ -626,17 +626,17 @@
             <tr>
                 <td colspan="4"><br />
                     <c:choose>
-                         <c:when test="${sessionScope.SPRING_SECURITY_LAST_USERNAME == 'curator' || sessionScope.SPRING_SECURITY_LAST_USERNAME == 'super'}">
+                        <c:when test="${sessionScope.SPRING_SECURITY_LAST_USERNAME == 'curator' || sessionScope.SPRING_SECURITY_LAST_USERNAME == 'super'}">
                             <a href="../2/curation/mutationManagementList/go?filterMutationKey=&filterMutationType=&filterMutationSubtype=&filterStrainKey=${keyRef["id_str"]}&filterAlleleKey=&filterBackgroundKey=&filterGeneKey=&filterGeneSymbol=&mutation_key=&strain_key=${keyRef["id_str"]}&gene_key=&mutationType=&allele_key=&geneSymbol=&mutationSubtype=&background_key= ">Mutation curation interface</a>
                         </c:when>
                         <c:when test="${not empty mutationsStrainsDAO}">
                             <a href="" onClick="javascript:gmyWin=openWindow('mutationUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit Mutations</a>
                         </c:when>
-                            <c:otherwise>
-                                No mutations recorded. <a href="mutationUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}">Add</a>
-                            </c:otherwise>
+                        <c:otherwise>
+                            No mutations recorded. <a href="mutationUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}">Add</a>
+                        </c:otherwise>
                     </c:choose>
-                                <br /><br /></td>
+                    <br /><br /></td>
             </tr>
             <tr>
                 <td  colspan="4">Factor Multiple Mutations:
@@ -665,10 +665,10 @@
         <table  id="genStrainDesc" style="display: none;"  border="0" width="85%" align="center" >
 
             <tr>
-                <td valign="top">
+                <td valign="top" colspan="2">
                     Genetic background used to maintain strain:
                 </td>
-                <td>
+                <td colspan="2">
                     <%-- just to test, replace with a drop down later --%>
                     <c:set var="nameParam" value="${backgroundDAO['id_bg']}"/>
 
@@ -698,13 +698,15 @@
 
             <tr >
                 <td valign="top">
-                    Phenotype:
+                   Phenotype:
                 </td>
                 <td><spring:bind path="command.pheno_text"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
-                <td valign="top">Genotype:</td>
-                <td valign="top"><c:if test="${not empty keyRef['charact_gen']}"><spring:bind path="command.charact_gen"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
+                <td>Phenotypic description of hetero/hemizygous mice:</td>
+                <td><spring:bind path="command.pheno_text_hetero"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='4'>${status.value}</textarea></spring:bind>
             </tr>
             <tr>
+                <td valign="top">Genotype:</td>
+                <td valign="top"><c:if test="${not empty keyRef['charact_gen']}"><spring:bind path="command.charact_gen"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
                 <td valign="top">
                     Health status:
                 </td>
@@ -713,16 +715,13 @@
                         <input type="text" maxlength="5" name="<c:out value='${status.expression}'/>" value='${status.value}' />
                     </spring:bind>
                 </td>
+            </tr>
+            <tr>
                 <td valign="top">Generations backcrossed:</td>
                 <td><spring:bind path="command.generation"> <form:input size="3" maxlength="3"  id="${status.expression}" path="${status.expression}" title="" /></spring:bind></td>
-            </tr>
-            
-            <tr>
                 <td  valign="top">Generations sib mated:</td>
                 <td><spring:bind path="command.sibmatings"> <form:input size="3" maxlength="3"  id="${status.expression}" path="${status.expression}" title="" /></spring:bind></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
+                </tr>
 
             <%-- END OF Strain genetic description --%>
 
@@ -861,7 +860,7 @@
                         <td>&nbsp;</td>
                         <td>
                             <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
-                                <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
+                            <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
                                 <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download sanitary status supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
@@ -916,12 +915,6 @@ END OF CRYOPRESERVATION HISTORY --%>
                 <td colspan="2"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_other"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
                 </td>
             </tr>
-            
-              <tr>
-                <td  colspan="2">Phenotypic description of hetero/hemizygous mice:</td>
-                <td colspan="2"><spring:bind path="command.pheno_text_hetero"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind>
-                </td>
-            </tr>
 
             <%-- Additional Files Supporting strain from submission --%>
 
@@ -931,8 +924,8 @@ END OF CRYOPRESERVATION HISTORY --%>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                           <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
-                                <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
+                            <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
+                            <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
                                 <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
@@ -1007,7 +1000,7 @@ END OF CRYOPRESERVATION HISTORY --%>
             <tr>
                 <td valign="top" colspan="4">
                     <c:choose>
-                                                <c:when test="${sessionScope.SPRING_SECURITY_LAST_USERNAME == 'curator' || sessionScope.SPRING_SECURITY_LAST_USERNAME == 'super'}">
+                        <c:when test="${sessionScope.SPRING_SECURITY_LAST_USERNAME == 'curator' || sessionScope.SPRING_SECURITY_LAST_USERNAME == 'super'}">
                             <a href="../2/curation/biblioManagementList/go?filterBiblioKey=&filterStrainKey=${keyRef["id_str"]}&filterPubmedId=&filterBiblioAuthor1=&filterBiblioJournal=&filterBiblioTitle=&filterBiblioYear=&biblio_key=&biblioJournal=&strain_key=${keyRef["id_str"]}&biblioTitle=&pubmedId=&biblioYear=&biblioAuthor1=
                                ">Biblio curation interface</a>
                         </c:when>
@@ -1026,7 +1019,7 @@ END OF CRYOPRESERVATION HISTORY --%>
             </tr>
         </table>
         <%-- End of bibliographic details 
-     --%>
+        --%>
 
 
         <%-- Start of additional information --%>
@@ -1164,16 +1157,16 @@ END OF CRYOPRESERVATION HISTORY --%>
                 <td>Additional owner permission:</td>
                 <td>
                     <c:if test="${not empty residuesDAO}">
-                    <spring:bind path="command.residuesDAO.owner_permission">
-                        <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
-                        <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
-                        <input <c:if test="${status.value=='not known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
-                    </spring:bind>
+                        <spring:bind path="command.residuesDAO.owner_permission">
+                            <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
+                            <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
+                            <input <c:if test="${status.value=='not known'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="not_known" type="radio"> Not known
+                        </spring:bind>
                     </c:if>
                 </td>
-                
-                    <c:choose>
-                        <c:when test="${residuesDAO.owner_permission=='no'}">
+
+                <c:choose>
+                    <c:when test="${residuesDAO.owner_permission=='no'}">
                         <td>Additional owner permission information:</td>
                         <td>
                             <spring:bind path="command.residuesDAO.owner_permission_text"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind>
@@ -1196,7 +1189,7 @@ END OF CRYOPRESERVATION HISTORY --%>
                         <td>&nbsp;</td>
                         <td>
                             <%-- <a href='${( sessionScope.UPLOADEDFILEURL)}${file}'> --%>
-                                <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
+                            <a href="pdfDownload.emma?filename=${fn:escapeXml(file)}" target="_BLANK">
                                 <img src="../images/pdf_icon.gif" width="28" height="29" alt="Download submission supporting file ${( sessionScope.UPLOADEDFILEURL)}${file}" border="0" align="absmiddle">&nbsp;${file}
                             </a>
                         </td>
