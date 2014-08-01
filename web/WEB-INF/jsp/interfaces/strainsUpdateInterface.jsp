@@ -55,6 +55,8 @@
         <script type="text/javascript" src="../js/buttoncontrols.js"></script>
         <script type="text/javascript" src="../js/quickid.js"></script>
         <script type="text/javascript" src="../js/synonymDiv.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
         <title>EMMA Strain Update Interface</title>
     </head>
     <body>
@@ -83,18 +85,18 @@
                         <%-- START OF STRAIN DATAGRID --%>
                         <c:choose><c:when test="${fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'SUPER' ||  fn:toUpperCase(sessionScope.SPRING_SECURITY_LAST_USERNAME) eq 'CURATOR'}"><c:set var="fieldStatus" value=""></c:set></c:when><c:otherwise><c:set var="fieldStatus" value="disabled"></c:set></c:otherwise></c:choose>
 
-        <table border="0" width="85%" align="center" >
+                    <table border="0" width="85%" align="center" >
 
-            <tr>
-                <td>EMMA ID:</td>
-                <td>${keyRef["emma_id"]}</td>
+                        <tr>
+                            <td>EMMA ID:</td>
+                                    <td>${keyRef["emma_id"]}</td>
                 <td>Available to order whilst archiving: </td>
                 <td><%--<c:choose><c:when test='${keyRef["available_to_order"] eq "yes"}'>yes${KeyRef["available_to_order"]}</c:when><c:otherwise> <spring:bind path="command.available_to_order"> Select to make strain available <input type="checkbox" name="<c:out value='${status.expression}'/>" value="yes" /></spring:bind></c:otherwise></c:choose>--%>
                     Yes: <spring:bind path="command.available_to_order"><input type="radio" <c:if test="${keyRef['available_to_order']=='yes'}">checked="checked" </c:if> name="<c:out value='${status.expression}'/>" value="yes" />&nbsp;&nbsp;No: <input type="radio" <c:if test="${keyRef['available_to_order']=='no' || empty keyRef['available_to_order']}">checked="checked" </c:if> name="<c:out value='${status.expression}'/>" value="no" /></spring:bind></td>
-            </tr>
-            <tr>
-                <td valign="top">International Strain Name:</td>
-                <td valign="top">
+                    </tr>
+                    <tr>
+                        <td valign="top">International Strain Name:</td>
+                        <td valign="top">
                     <spring:bind path="command.name">
                         <%--<input type="textarea" name="<c:out value='${status.expression}'/>" value='${status.value}' size="70" /></textarea>--%>
                         <textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='10' maxlength='500'>${status.value}</textarea>
@@ -113,9 +115,20 @@
                     <c:choose>
                         <c:when test="${not empty syn_strainsDAO}">
                             <c:forEach var="synonym" items='${syn_strainsDAO}' varStatus="row">
+                                <%--<spring:bind path="command.syn_strainsDAO.name">${row.count}--${fieldStatus}    + "&name=${synonym.name}" --%>
                                 <spring:bind path="command.syn_strainsDAO">
-                                    <input type="text" name="${status.expression}" value='${synonym.name}' size="50"  ${fieldStatus}/>
+                                    <input type="text" id="${status.expression}${row.count}" name="${status.expression}" value='${synonym.name}' size="50" disabled />
                                 </spring:bind>
+                                <c:if test="${empty fieldStatus}"><a href="javascript:void(0)" id="editSynLink${row.count}">Edit synonym</a></c:if>
+                                <script type="text/javascript">
+                                    var count = ${row.count};
+                                    $("#editSynLink" + count).click(function(event) {
+                                        event.preventDefault();
+                                        var url = "editSynonym.emma"; 
+                                        var addedVars = "?id_syn=${synonym.id_syn}";
+                                        gmyWin=openWindow(url + addedVars);
+                                    });
+                                </script>
                                 <br/>
                             </c:forEach>
                         </c:when>
@@ -156,7 +169,7 @@
                         <td>Edit MTA file: </td>
                         <td>
                             <spring:bind path="command.mta_file"><input type="text" size="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind>
-                        </td>
+                            </td>
                     </c:when>
 
                     <c:otherwise>
@@ -171,8 +184,8 @@
             <tr>
                 <td>Repository:</td>
                 <td><c:if test="${not empty Repository['code']}">${Repository["code"]}, ${Repository["country"]}</c:if></td>
-                <td>Grace period expiry date:</td>
-                <td> <c:choose><c:when test="${keyRef['str_access'] == 'C'}">
+                    <td>Grace period expiry date:</td>
+                    <td> <c:choose><c:when test="${keyRef['str_access'] == 'C'}">
                             <req:setAttribute name="pattern">yyyy-MM-dd HH:mm:ss.S</req:setAttribute>
                             <c:set var="date" value='${keyRef["gp_release"]}'></c:set>
                             <dt:format pattern="dd MMMMM yyyy">
@@ -373,8 +386,8 @@
             <tr>
                 <td><c:if test="${not empty ilarDAO}">ILAR Code:</c:if>&nbsp;</td>
                 <td><c:if test="${not empty ilarDAO}"><spring:bind path="command.peopleDAO.ilarDAO.labcode"> <input type="text" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if>&nbsp;</td>
-                <td>Country:</td>
-                <td>
+                        <td>Country:</td>
+                        <td>
                     <spring:bind path="command.peopleDAO.labsDAO.country">
                         <input type="text" name="<c:out value='${status.expression}'/>" value='${status.value}' />
                     </spring:bind>
@@ -646,7 +659,7 @@
                             <option value=""></option>
                             <option value="1.0" <c:if test="${empty status.value || status.value=='1.0'}">selected</c:if>>1</option>
                             <option value="2.0" <c:if test="${status.value=='2.0'}">selected</c:if>>2</option>
-                        </select>
+                            </select>
                     </spring:bind>
                 </td>
             </tr>
@@ -698,19 +711,19 @@
 
             <tr >
                 <td valign="top">
-                   Phenotype:
+                    Phenotype:
                 </td>
                 <td><spring:bind path="command.pheno_text"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
-                <td>Phenotypic description of hetero/hemizygous mice:</td>
-                <td><spring:bind path="command.pheno_text_hetero"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='4'>${status.value}</textarea></spring:bind>
-            </tr>
-            <tr>
-                <td valign="top">Genotype:</td>
-                <td valign="top"><c:if test="${not empty keyRef['charact_gen']}"><spring:bind path="command.charact_gen"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
-                <td valign="top">
-                    Health status:
-                </td>
-                <td valign="top">
+                    <td>Phenotypic description of hetero/hemizygous mice:</td>
+                    <td><spring:bind path="command.pheno_text_hetero"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='4'>${status.value}</textarea></spring:bind>
+                </tr>
+                <tr>
+                    <td valign="top">Genotype:</td>
+                    <td valign="top"><c:if test="${not empty keyRef['charact_gen']}"><spring:bind path="command.charact_gen"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
+                        <td valign="top">
+                            Health status:
+                        </td>
+                        <td valign="top">
                     <spring:bind path="command.health_status">
                         <input type="text" maxlength="5" name="<c:out value='${status.expression}'/>" value='${status.value}' />
                     </spring:bind>
@@ -719,8 +732,8 @@
             <tr>
                 <td valign="top">Generations backcrossed:</td>
                 <td><spring:bind path="command.generation"> <form:input size="3" maxlength="3"  id="${status.expression}" path="${status.expression}" title="" /></spring:bind></td>
-                <td  valign="top">Generations sib mated:</td>
-                <td><spring:bind path="command.sibmatings"> <form:input size="3" maxlength="3"  id="${status.expression}" path="${status.expression}" title="" /></spring:bind></td>
+                    <td  valign="top">Generations sib mated:</td>
+                    <td><spring:bind path="command.sibmatings"> <form:input size="3" maxlength="3"  id="${status.expression}" path="${status.expression}" title="" /></spring:bind></td>
                 </tr>
 
             <%-- END OF Strain genetic description --%>
@@ -754,12 +767,12 @@
             <tr>
                 <td  valign="top">Breeding History</td>
                 <td><spring:bind path="command.maintenance"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>Homozygous mice viable: </td>
-                <td colspan="3"><spring:bind path="command.mutant_viable">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Homozygous mice viable: </td>
+                    <td colspan="3"><spring:bind path="command.mutant_viable">
                         <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
                         <input <c:if test="${status.value=='no'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="no" type="radio"> No
                         <input <c:if test="${status.value=='males only'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="males only" type="radio"> Only males
@@ -811,45 +824,45 @@
             <tr>
                 <td valign="top">Strain Sanitary Status:</td>
                 <td  valign="top"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.current_sanitary_status"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
-                <td valign="top">Animal Husbandry:</td>
-                <td valign="top"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.animal_husbandry"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
-            </tr>
+                        <td valign="top">Animal Husbandry:</td>
+                        <td valign="top"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.animal_husbandry"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
+                    </tr>
 
 
-            <tr>
-                <td>Average age of reproductive maturity (weeks)</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.reproductive_maturity_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-                <td>Average age of reproductive decline (months)</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.reproductive_decline_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-            </tr>
+                    <tr>
+                        <td>Average age of reproductive maturity (weeks)</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.reproductive_maturity_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                        <td>Average age of reproductive decline (months)</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.reproductive_decline_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                    </tr>
 
-            <tr>
-                <td>Average length of gestation (days)</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.gestation_length"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-                <td>Average number of pups at birth</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.pups_at_birth"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-            </tr>
+                    <tr>
+                        <td>Average length of gestation (days)</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.gestation_length"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                        <td>Average number of pups at birth</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.pups_at_birth"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                    </tr>
 
-            <tr>
-                <td>Average number of pups surviving to weaning</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.pups_at_weaning"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-                <td>Recommended weaning age (days)</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.weaning_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-            </tr>
+                    <tr>
+                        <td>Average number of pups surviving to weaning</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.pups_at_weaning"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                        <td>Recommended weaning age (days)</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.weaning_age"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                    </tr>
 
-            <tr>
-                <td>Average number of litters in lifetime</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.litters_in_lifetime"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-                <td>Breeding performance</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.breeding_performance"><input type="text" maxlength="10" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-            </tr>
+                    <tr>
+                        <td>Average number of litters in lifetime</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.litters_in_lifetime"><input type="text" maxlength="2" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                        <td>Breeding performance</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.breeding_performance"><input type="text" maxlength="10" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                    </tr>
 
-            <tr>
-                <td valign="top">Animal welfare</td>
-                <td valign="top"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.welfare"><input type="text" maxlength="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
-                <td valign="top">Remedial actions</td>
-                <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.remedial_actions"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
-            </tr>
+                    <tr>
+                        <td valign="top">Animal welfare</td>
+                        <td valign="top"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.welfare"><input type="text" maxlength="50" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind></c:if></td>
+                        <td valign="top">Remedial actions</td>
+                        <td><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.remedial_actions"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></c:if></td>
+                    </tr>
 
             <%-- Additional Files Supporting strain from submission --%>
 
@@ -903,18 +916,18 @@ END OF CRYOPRESERVATION HISTORY --%>
                 <td colspan="2">By genotyping:</td>
                 <td colspan="2">
                     <c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_genotyping"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
-                </td>
-            </tr>
-            <tr>
-                <td  colspan="2">By phenotyping:</ td>
-                <td colspan="2"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_phenotyping"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
-                </td>
-            </tr>
-            <tr>
-                <td  colspan="2">By other means:</td>
-                <td colspan="2"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_other"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
-                </td>
-            </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2">By phenotyping:</ td>
+                        <td colspan="2"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_phenotyping"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2">By other means:</td>
+                        <td colspan="2"><c:if test="${not empty residuesDAO}"><spring:bind path="command.residuesDAO.char_other"><textarea  name="<c:out value='${status.expression}'/>"  cols='70' rows='4'>${status.value}</textarea></spring:bind></c:if>
+                        </td>
+                    </tr>
 
             <%-- Additional Files Supporting strain from submission --%>
 
@@ -970,17 +983,17 @@ END OF CRYOPRESERVATION HISTORY --%>
                 </td>
                 <td valign="top">
                     <spring:bind path="command.human_model_desc"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='4'>${status.value}</textarea></spring:bind>
-                </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td valign="top" >
-                    Research Tools
-                </td>
-                <td valign="top"><c:choose><c:when  test="${(sessionScope.rtCount) >= 1}"><a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit research tools</a></c:when><c:otherwise>No research tools recorded. <a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Add</a></c:otherwise></c:choose>
-                </td>
-                <td colspan="2">Research areas<br/><br/>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" >
+                        Research Tools
+                    </td>
+                    <td valign="top"><c:choose><c:when  test="${(sessionScope.rtCount) >= 1}"><a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=edit&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Edit research tools</a></c:when><c:otherwise>No research tools recorded. <a href="" onClick="javascript:gmyWin=openWindow('rtoolsUpdateInterface.emma?action=add&EditStrain=${keyRef["id_str"]}', gmyWin);return false;">Add</a></c:otherwise></c:choose>
+                        </td>
+                        <td colspan="2">Research areas<br/><br/>
                     <c:forEach var="cat" items="${requestScope.categories}" varStatus="status">
                         ${cat}<br />
                     </c:forEach>
@@ -1035,10 +1048,10 @@ END OF CRYOPRESERVATION HISTORY --%>
                     <td>6 month requests: </td>
                     <td>
                         <spring:bind path="command.residuesDAO.number_of_requests"><input type="text" size="5" name="<c:out value='${status.expression}'/>" value='${status.value}' /></spring:bind>
-                    </td>
+                        </td>
 
-                    <td>Deposited with other institution/company: </td>
-                    <td>
+                        <td>Deposited with other institution/company: </td>
+                        <td>
 
                         <spring:bind path="command.residuesDAO.deposited_elsewhere">
                             <input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="yes" type="radio"> Yes
@@ -1095,17 +1108,17 @@ END OF CRYOPRESERVATION HISTORY --%>
                         <spring:bind path="command.residuesDAO.flp"><input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}'/>" type="checkbox"></spring:bind> FLP recombinase technology
                         <spring:bind path="command.residuesDAO.tet"><input <c:if test="${status.value=='yes'}">checked="checked"</c:if> name="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}'/>" type="checkbox"></spring:bind> TET-system technology
 
-                    </td>
-                </tr>
-                <tr>
-                    <td>Estimated shipping: </td>
-                    <td>Month: <spring:bind path="command.residuesDAO.when_mice_month"><input type="text" size="2" name="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}'/>"></spring:bind>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Estimated shipping: </td>
+                            <td>Month: <spring:bind path="command.residuesDAO.when_mice_month"><input type="text" size="2" name="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}'/>"></spring:bind>
                         Year: <spring:bind path="command.residuesDAO.when_mice_year"><input type="text" size="4" name="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}'/>"></spring:bind></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="4">Males/Females <b>&#9792;&#9794;</b>:
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">Males/Females <b>&#9792;&#9794;</b>:
 
                         <spring:bind path="command.residuesDAO.when_how_many_males">
                             <input type="text" size="6" name="<c:out value='${status.expression}'/>" value="<c:out value='${status.value}'/>">
@@ -1126,7 +1139,7 @@ END OF CRYOPRESERVATION HISTORY --%>
                     </td>
                     <td valign="top"><c:if test="${not empty residuesDAO && residuesDAO['delayed_wanted'] == 'yes'}">Delay reason: </c:if></td>
                     <td valign="top"><c:if test="${not empty residuesDAO && residuesDAO['delayed_wanted'] == 'yes'}"><spring:bind path="command.residuesDAO.delayed_description"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind></c:if></td>
-                </tr>
+                        </tr>
 
             </c:if>
             <%-- End of additional information --%>
@@ -1144,7 +1157,7 @@ END OF CRYOPRESERVATION HISTORY --%>
                         <td>Exclusive owner details:</td>
                         <td>
                             <spring:bind path="command.ex_owner_description"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind>
-                        </td>
+                            </td>
                     </c:when>
                     <c:otherwise>
                         <td>&nbsp;</td>
@@ -1170,7 +1183,7 @@ END OF CRYOPRESERVATION HISTORY --%>
                         <td>Additional owner permission information:</td>
                         <td>
                             <spring:bind path="command.residuesDAO.owner_permission_text"><textarea  name="<c:out value='${status.expression}'/>"  cols='60' rows='4'>${status.value}</textarea></spring:bind>
-                        </td>
+                            </td>
                     </c:when>
                     <c:otherwise>
                         <td>&nbsp;</td>

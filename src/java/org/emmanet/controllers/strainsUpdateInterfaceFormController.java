@@ -24,6 +24,8 @@ import org.emmanet.model.StrainsDAO;
 import org.emmanet.model.StrainsManager;
 import org.emmanet.model.Strains_OmimDAO;
 import org.emmanet.model.Strains_OmimManager;
+import org.emmanet.model.Syn_StrainsDAO;
+import org.emmanet.model.Syn_StrainsManager;
 import org.emmanet.util.Configuration;
 import org.emmanet.util.DirFileList;
 import org.springframework.validation.BindException;
@@ -182,9 +184,12 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
             BindException errors)
             throws ServletException, Exception {
         StrainsDAO sDAO = (StrainsDAO) command;
-        //BackgroundDAO bDAO=(BackgroundDAO) sDAO.getBackgroundDAO();
-//line below prevents java.sql.SQLException: Incorrect integer value: '' for column 'mgi_ref' at row 1
-//errors caused by an empty string value
+        
+        Syn_StrainsManager ssm = new Syn_StrainsManager();
+        Set setSynStrains = (Set)ssm.getSetSynStrainsByID(sDAO.getId_str());
+       // sDAO.setSyn_strainsDAO(setSynStrains);
+        
+        
         if (sDAO.getMgi_ref() != null && sDAO.getMgi_ref().equals("")) {
             sDAO.setMgi_ref(null);
         }
