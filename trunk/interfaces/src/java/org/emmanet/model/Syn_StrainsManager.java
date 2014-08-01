@@ -4,6 +4,7 @@
  */
 package org.emmanet.model;
 
+import java.util.Set;
 import org.emmanet.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -28,12 +29,27 @@ public class Syn_StrainsManager {
         }
         return ssd;
     }
+    
+     public Set getSetSynStrainsByID(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Set ssd = null;
+        try {
+            ssd = (Set) session.get(Syn_StrainsDAO.class,
+                    id);
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+            throw e;
+        }
+        return ssd;
+    }
 
     public void save(Syn_StrainsDAO ssDAO) {
 
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-
+System.out.println("DAO value is " + ssDAO.getName().toString());
         try {
             session.saveOrUpdate(ssDAO);
             session.getTransaction().commit();

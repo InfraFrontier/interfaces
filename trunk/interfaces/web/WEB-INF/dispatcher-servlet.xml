@@ -131,6 +131,7 @@
                 <prop key="/interfaces/geneManagementDetail.emma">geneManagementDetailController</prop>
                 <prop key="/interfaces/alleleManagementList.emma">alleleManagementListController</prop>
                 <prop key="/interfaces/alleleManagementDetail.emma">alleleManagementDetailController</prop>
+                <prop key="/interfaces/editSynonym.emma">synonymUpdateInterfaceController</prop>
             </props>
 
             
@@ -652,6 +653,12 @@
 
         <bean name="PdfDownloadController" class="org.emmanet.controllers.PdfDownloadController">
    
+    </bean>
+    
+        <bean name="synonymUpdateInterfaceController" class="org.emmanet.controllers.SynonymUpdateInterfaceController">
+        <property name="successView">
+            <value>redirect:editSynonym.emma</value>
+        </property>
     </bean>
 
 </beans>
