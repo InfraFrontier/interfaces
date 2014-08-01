@@ -187,7 +187,7 @@ public class strainsUpdateInterfaceFormController extends SimpleFormController {
         
         Syn_StrainsManager ssm = new Syn_StrainsManager();
         Set setSynStrains = (Set)ssm.getSetSynStrainsByID(sDAO.getId_str());
-       // sDAO.setSyn_strainsDAO(setSynStrains);
+        sDAO.setSyn_strainsDAO(setSynStrains);
         
         
         if (sDAO.getMgi_ref() != null && sDAO.getMgi_ref().equals("")) {
