@@ -711,11 +711,14 @@
 
             <tr >
                 <td valign="top">
-                    Phenotype:
+                    Phenotypic description of homozygous mice:
                 </td>
-                <td><spring:bind path="command.pheno_text"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
-                    <td>Phenotypic description of hetero/hemizygous mice:</td>
-                    <td><spring:bind path="command.pheno_text_hetero"><textarea  name="<c:out value='${status.expression}'/>"  cols='50' rows='4'>${status.value}</textarea></spring:bind>
+                <div id="PhenoDesc" class="helpdiv">For some strains homozygous and heterozygous/hemizygous phenotypes are combined in this field.</dev>
+                <td>
+                    <spring:bind path="command.pheno_text"><textarea  onmouseover="ShowContent('PhenoDesc'); return true;"  onmouseout="HideContent('PhenoDesc'); return true;" name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
+                    <td valign="top">Phenotypic description of hetero/hemizygous mice:</td>
+                    <div id="HeteroDesc" class="helpdiv">For some strains this field is not used and all phenotypic observations are put in field for homozygous phenotypes.</dev>
+                    <td><spring:bind path="command.pheno_text_hetero"><textarea   onmouseover="ShowContent('HeteroDesc'); return true;"  onmouseout="HideContent('HeteroDesc'); return true;" name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind>
                 </tr>
                 <tr>
                     <td valign="top">Genotype:</td>
