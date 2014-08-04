@@ -713,7 +713,7 @@
                 <td valign="top">
                     Phenotypic description of homozygous mice:
                 </td>
-                <div id="PhenoDesc" class="helpdiv">For some strains homozygous and heterozygous/hemizygous phenotypes are combined in this field.</dev>
+                <div id="PhenoDesc" class="helpdiv">For some strains homozygous and heterozygous/hemizygous phenotypes are combined in this field (also true for iMITS imported lines).</dev>
                 <td>
                     <spring:bind path="command.pheno_text"><textarea  onmouseover="ShowContent('PhenoDesc'); return true;"  onmouseout="HideContent('PhenoDesc'); return true;" name="<c:out value='${status.expression}'/>"  cols='50' rows='8'>${status.value}</textarea></spring:bind></td>
                     <td valign="top">Phenotypic description of hetero/hemizygous mice:</td>
