@@ -163,6 +163,7 @@
             mutation_transgene_mgi_symbol:$('#mutation_transgene_mgi_symbol').val(),
             mutation_type:$('#mutation_type').val()
         });
+        clear_form_elements(document.getElementById('mutation'));//added philw during it meeting july to try and resolve retained data reported by raffaele
     });
 </script>
 <c:if test="${count >= 10}"><script type="text/javascript" >  $("#addMut").hide(); </script></c:if>
