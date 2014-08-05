@@ -126,6 +126,8 @@ public class SubmissionMutationsController /* implements Controller*/ extends Si
                         setSubtype(request.getParameter("mutation_subtypeTM"));
                         System.out.println(type + " TM type so mut sub is " + request.getParameter("mutation_subtypeTM"));
                         break;
+                        
+                        default:  setSubtype(null);
                 }
             }
             transMGI = request.getParameter("mutation_transgene_mgi_symbol");
