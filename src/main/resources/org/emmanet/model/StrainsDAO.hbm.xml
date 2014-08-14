@@ -97,5 +97,15 @@
     <property column="additional_owner" name="additional_owner"/>
     <property column="reporting_count" name="reporting_count"/>
     <property column="sub_id_sub" name="sub_id_sub"/>
+    
+    <property column="genotype_file" name="genotype_file"/>
+    <property column="owner_xref" name="owner_xref"/>
+    <property column="mutation_xref" name="mutation_xref"/>
+    <property column="sanger_phenotype_data_exists" name="sanger_phenotype_data_exists"/>
+    <property column="europhenome_data_exists" name="europhenome_data_exists"/>
+    <property column="other_research_areas" name="other_research_areas"/>
+    <property column="colony_prefix" name="colony_prefix"/>
+    <property column="ls_consortium" name="ls_consortium"/>
+    <property column="impc_phenotype_data_exists" name="impc_phenotype_data_exists"/>
   </class>
 </hibernate-mapping>

@@ -45,6 +45,7 @@ import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -52,7 +53,9 @@ import java.io.Writer;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -91,6 +94,7 @@ import javax.servlet.http.HttpSession;
 import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.NkiEsCellsDAO;
 import org.emmanet.model.StrainsManager;
+import org.emmanet.util.Configuration;
 
 /**
  *
@@ -130,8 +134,9 @@ public class RequestFormController extends SimpleFormController {
     private Iterator it;
     private boolean mailSend;
     public static final String MAP_KEY = "returnedOut";
-    // final static String BASEURL = Configuration.get("BASEURL");
+   //final static String BASEURL = Configuration.get("BASEURL");
     //  final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
+    final static String FILELOCATION = Configuration.get("TMPFILES");
     private static String BASEURL;
     private static String GOOGLEANAL;
     private Map returnedOut = new HashMap();
@@ -398,8 +403,10 @@ public class RequestFormController extends SimpleFormController {
             // System.out.println("id_lab0" + wr.getLab_id_labo());
             // StrainsManager sm = new StrainsManager();
             //.out.println("VAL FOR STR ID STR IS: " + wr.getStr_id_str());
+           
             if (sd == null) {
                 sd = sm.getStrainByID(wr.getStr_id_str());
+                 System.out.println("sd values two is " + sd.getImpc_phenotype_data_exists() + " + " + sd.getId_str());
             }
             //sd=sm.getStrainByID(wr.getStr_id_str());
             //System.out.println("STRAINSDAO value for name is" + sd.getName ());
@@ -422,6 +429,8 @@ public class RequestFormController extends SimpleFormController {
             System.out.println("europhenome  val is " + wr.getEurophenome());
             wr.setWtsi_mouse_portal(null);
             wr.setEurophenome(null);
+            wr.setImpc_phenotype_data_exists(sd.getImpc_phenotype_data_exists());
+            System.out.println("impc data is...." + wr.getImpc_phenotype_data_exists());
             return wr;
         }
     }
@@ -883,6 +892,44 @@ int im = 0;
                 return new ModelAndView(getInternalSuccessView());
             }
         }
+   
+        //test logging of previous refferal URIs for Sanger lines
+        //to improve europhenome/mouse portal interest logging
+        // <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">
+        //System.out.println(model.get("strain_name").toString());
+        if (model.get("strain_name") != null
+                && model.get("strain_name").toString().toLowerCase().contains("wtsi")) {
+            //System.out.println("CONDITION IS TRUE");
+            BufferedWriter out = null;
+            Date date = new Date();
+            SimpleDateFormat ldf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMM");
+            try {
+                out = new BufferedWriter(new FileWriter(FILELOCATION + "/wtsiRefererLogging." + sdf.format(date), true));
+                //System.out.println(out.hashCode() + " - " + FILELOCATION + "wtsiRefererLogging." + sdf.format(date));
+                String referer = request.getHeader("Referer");
+                if (referer.contains("sanger.ac.uk/mouseportal")) {
+                    //log to file as from wtsi mouse portal
+                    out.write(ldf.format(date) + "-" + referer);
+                } else {
+                    //Need to log a message so all requests are logged for metrics
+                    out.write(ldf.format(date) + "-" + "WTSI request not generated from another site. " + referer);
+                }
+            } catch (IOException ex) {
+                 ex.printStackTrace();
+                //Logger.getLogger(RequestFormController.class.getName()).log(Level.WARNING, null, ex);
+            } finally {
+                try {
+                    out.newLine();
+                    out.flush();
+                    out.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    //Logger.getLogger(RequestFormController.class.getName()).log(Level.WARNING, null, ex);
+                }
+            }
+        }
+
         return new ModelAndView(getSuccessView());
     }
 
