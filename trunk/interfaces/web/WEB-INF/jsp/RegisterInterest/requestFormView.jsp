@@ -761,8 +761,10 @@
                                                 <c:set var="europhenomecheckedno" value=""/>
                                             </c:otherwise>
                                         </c:choose>
-                                    </c:if>--%>
-                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">
+                                    </c:if>
+                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">--%>
+                                          pheno data exists =   ${command.impc_phenotype_data_exists}
+                                        <c:if test="${command.impc_phenotype_data_exists == 'yes'}">
                                         Have you selected this line
                                         because you are interested in the phenotype data presented on the<%-- </c:if> <c:if test="fn:containsIgnoreCase(command.strain_name,'wtsi')}">${command.lab_id_labo == '1961' || --%>
                                         <a href='http://www.sanger.ac.uk/mouseportal/<c:if test="${not empty command.common_name_s}">search?query=${command.common_name_s}</c:if>' target="_blank">Wellcome Trust Sanger Institute Mouse Portal</a>? 
@@ -775,25 +777,7 @@
                                      Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
                                             No<form:radiobutton id="europhenome-no" path="europhenome" value="no" />
                                     </spring:bind>.
-                                        <%--<spring:bind path="command.wtsi_mouse_portal">
-                                            Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
-                                            No<form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />
-                                        </spring:bind>--> or the  <a href='http://www.europhenome.org' target='_blank'>Europhenome website</a>?
-                                    </c:if>
-                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">
-                                        <a href='http://www.europhenome.org' target='_blank'>Europhenome website</a>? <%-- param.pid == '3' || param.pid == '4' || command.lab_id_labo == '1961' || --%>
-                                       <%--// <spring:bind path="command.europhenome">
-                                            Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;</spring:bind>
-                                            No<form:radiobutton id="europhenome-no" path="europhenome" value="no" />
-                                        
-                                    </c:if>
-                                    <%-- <c:if test="${(param.pid == '3' || param.pid == '4') && command.lab_id_labo != '1961' || fn:containsIgnoreCase(command.strain_name,'wtsi')}">
-                                         <input type="hidden" id="wtsi_mouse_portal" name="wtsi_mouse_portal" value="no"/>
-                                    
-                                    <form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />Yes<br />
-                                    <input type="radio" name="<c:out value="${status.expression}"/>" value="no" class="radio" ${europhenomecheckedno}/>
-                                    <input type="radio" name="<c:out value="${status.expression}" />" value="yes" class="radio" ${europhenomechecked}/>
-                                  --%>   </c:if>
+                                </c:if>
 
                                     <p align="left">
                                         &nbsp;

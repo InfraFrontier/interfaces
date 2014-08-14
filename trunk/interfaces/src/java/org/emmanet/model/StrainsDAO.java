@@ -86,6 +86,17 @@ public class StrainsDAO implements Serializable {
     private String reporting_count;
     private Set categoriesStrainsDAO;
     
+    
+    private String genotype_file;
+    private String owner_xref;
+    private String mutation_xref;
+    private String sanger_phenotype_data_exists;
+    private String europhenome_data_exists;
+    private String other_research_areas;
+    private String colony_prefix;
+    private String ls_consortium;
+    private String impc_phenotype_data_exists;
+    
     private String sub_id_sub;
 
     public int getId_str() {
@@ -669,5 +680,131 @@ public class StrainsDAO implements Serializable {
      */
     public void setPeopleDAOSub(PeopleDAO peopleDAOSub) {
         this.peopleDAOSub = peopleDAOSub;
+    }
+
+    /**
+     * @return the genotype_file
+     */
+    public String getGenotype_file() {
+        return genotype_file;
+    }
+
+    /**
+     * @param genotype_file the genotype_file to set
+     */
+    public void setGenotype_file(String genotype_file) {
+        this.genotype_file = genotype_file;
+    }
+
+    /**
+     * @return the owner_xref
+     */
+    public String getOwner_xref() {
+        return owner_xref;
+    }
+
+    /**
+     * @param owner_xref the owner_xref to set
+     */
+    public void setOwner_xref(String owner_xref) {
+        this.owner_xref = owner_xref;
+    }
+
+    /**
+     * @return the mutation_xref
+     */
+    public String getMutation_xref() {
+        return mutation_xref;
+    }
+
+    /**
+     * @param mutation_xref the mutation_xref to set
+     */
+    public void setMutation_xref(String mutation_xref) {
+        this.mutation_xref = mutation_xref;
+    }
+
+    /**
+     * @return the sanger_phenotype_data_exists
+     */
+    public String getSanger_phenotype_data_exists() {
+        return sanger_phenotype_data_exists;
+    }
+
+    /**
+     * @param sanger_phenotype_data_exists the sanger_phenotype_data_exists to set
+     */
+    public void setSanger_phenotype_data_exists(String sanger_phenotype_data_exists) {
+        this.sanger_phenotype_data_exists = sanger_phenotype_data_exists;
+    }
+
+    /**
+     * @return the europhenome_data_exists
+     */
+    public String getEurophenome_data_exists() {
+        return europhenome_data_exists;
+    }
+
+    /**
+     * @param europhenome_data_exists the europhenome_data_exists to set
+     */
+    public void setEurophenome_data_exists(String europhenome_data_exists) {
+        this.europhenome_data_exists = europhenome_data_exists;
+    }
+
+    /**
+     * @return the other_research_areas
+     */
+    public String getOther_research_areas() {
+        return other_research_areas;
+    }
+
+    /**
+     * @param other_research_areas the other_research_areas to set
+     */
+    public void setOther_research_areas(String other_research_areas) {
+        this.other_research_areas = other_research_areas;
+    }
+
+    /**
+     * @return the colony_prefix
+     */
+    public String getColony_prefix() {
+        return colony_prefix;
+    }
+
+    /**
+     * @param colony_prefix the colony_prefix to set
+     */
+    public void setColony_prefix(String colony_prefix) {
+        this.colony_prefix = colony_prefix;
+    }
+
+    /**
+     * @return the ls_consortium
+     */
+    public String getLs_consortium() {
+        return ls_consortium;
+    }
+
+    /**
+     * @param ls_consortium the ls_consortium to set
+     */
+    public void setLs_consortium(String ls_consortium) {
+        this.ls_consortium = ls_consortium;
+    }
+
+    /**
+     * @return the impc_phenotype_data_exists
+     */
+    public String getImpc_phenotype_data_exists() {
+        return impc_phenotype_data_exists;
+    }
+
+    /**
+     * @param impc_phenotype_data_exists the impc_phenotype_data_exists to set
+     */
+    public void setImpc_phenotype_data_exists(String impc_phenotype_data_exists) {
+        this.impc_phenotype_data_exists = impc_phenotype_data_exists;
     }
 }

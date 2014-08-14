@@ -97,6 +97,7 @@ public class WebRequestsDAO {
     private String PO_ref;
     private String eucomm_funding;
     private String user;
+    private String impc_phenotype_data_exists;//used to set questions for Europhenome/WTSI mouse portal interest on web form, obtained from strains.impc_phenotype_data_exists
 
 
     /**
@@ -868,6 +869,20 @@ public class WebRequestsDAO {
      */
     public void setLiveShelfDelivery(String liveShelfDelivery) {
         this.liveShelfDelivery = liveShelfDelivery;
+    }
+
+    /**
+     * @return the impc_phenotype_data_exists
+     */
+    public String getImpc_phenotype_data_exists() {
+        return impc_phenotype_data_exists;
+    }
+
+    /**
+     * @param impc_phenotype_data_exists the impc_phenotype_data_exists to set
+     */
+    public void setImpc_phenotype_data_exists(String impc_phenotype_data_exists) {
+        this.impc_phenotype_data_exists = impc_phenotype_data_exists;
     }
     
     

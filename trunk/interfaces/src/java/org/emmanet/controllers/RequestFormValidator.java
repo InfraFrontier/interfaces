@@ -249,7 +249,8 @@ public class RequestFormValidator implements
                     + "Please ensure you select an ID from the highlighted autocomplete droplist, when inserting an internal request.");
         }
 
-        if (webReq.getStrain_name().contains("Wtsi")/*.getProjectID().equals("5")*/) {
+       // if (webReq.getStrain_name().contains("Wtsi")/*.getProjectID().equals("5")*/) {
+            if (webReq.getImpc_phenotype_data_exists().equals("yes")) {
             System.out.println("STRAIN NAME CONTAINS Wtsi " + webReq.getWtsi_mouse_portal());
             if (webReq.getEurophenome() == null && webReq.getWtsi_mouse_portal() == null) {
                 errors.reject("Message", "Please select the option that generated your interest or select no, if none apply?");
