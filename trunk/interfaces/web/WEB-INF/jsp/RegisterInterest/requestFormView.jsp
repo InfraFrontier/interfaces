@@ -771,7 +771,7 @@
                                         <spring:bind path="command.wtsi_mouse_portal">
                                          Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
                                             No<form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />
-                                    or the  <a href='http://www.europhenome.org' target='_blank'>'International Mouse Phenotyping Consortium website</a>?
+                                    or the  <a href='http://www.mousephenotype.org/' target='_blank'>'International Mouse Phenotyping Consortium website</a>?
                                         </spring:bind>
                                         <spring:bind path="command.europhenome">
                                      Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
