@@ -762,8 +762,8 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </c:if>
-                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">--%>
-                                          pheno data exists =   ${command.impc_phenotype_data_exists}
+                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">
+                                          pheno data exists =   ${command.impc_phenotype_data_exists}--%>
                                         <c:if test="${command.impc_phenotype_data_exists == 'yes'}">
                                         Have you selected this line
                                         because you are interested in the phenotype data presented on the<%-- </c:if> <c:if test="fn:containsIgnoreCase(command.strain_name,'wtsi')}">${command.lab_id_labo == '1961' || --%>
