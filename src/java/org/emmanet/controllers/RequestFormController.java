@@ -429,8 +429,9 @@ public class RequestFormController extends SimpleFormController {
             System.out.println("europhenome  val is " + wr.getEurophenome());
             wr.setWtsi_mouse_portal(null);
             wr.setEurophenome(null);
-            wr.setImpc_phenotype_data_exists(sd.getImpc_phenotype_data_exists());
-            System.out.println("impc data is...." + wr.getImpc_phenotype_data_exists());
+            String impcDataExists = sd.getImpc_phenotype_data_exists();
+            wr.setImpc_phenotype_data_exists(impcDataExists);
+            //System.out.println("impc data is...." + wr.getImpc_phenotype_data_exists());
             return wr;
         }
     }
