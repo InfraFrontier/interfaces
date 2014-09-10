@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.emmanet.model.BackgroundManager;
 import org.emmanet.model.LaboratoriesManager;
 import org.emmanet.model.LabsDAO;
@@ -16,7 +17,6 @@ import org.emmanet.util.Configuration;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
-import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  *
@@ -24,21 +24,13 @@ import org.apache.commons.lang.StringEscapeUtils;
  */
 public class BackgroundListJOB extends QuartzJobBean {
 
-    private String fileLocation=Configuration.get("TMPFILES");// = "/tmp/";
+    private String fileLocation=Configuration.get("TMPFILES");
     private BackgroundManager bm = new BackgroundManager();
     private StrainsManager sm = new StrainsManager();
     private LaboratoriesManager lm = new LaboratoriesManager();
 
     public void generateBGList() {
         try {
-            /* BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "bglist"));
-            List backGrounds = bm.getBackgrounds();
-            out.write("<option value=\"0\" selected>Please select...</option>\n");
-            for (Iterator it = backGrounds.listIterator(); it.hasNext();) {
-            Object[] o = (Object[]) it.next();
-            String id_bg = o[0].toString();
-            String name = o[1].toString();
-            out.write("<option value=\"" + id_bg + "\">" + name + "</option>\n");*/
 
             List backGrounds = bm.getBackgrounds();
             BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "bgNamesList.emma", false));
@@ -57,9 +49,8 @@ public class BackgroundListJOB extends QuartzJobBean {
 
     public void generateFundingSourceList() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "fslist"));
-
-            List backGrounds = bm.getCVSources();
+             List backGrounds = bm.getCVSources();
+             BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "fslist"));
 
             out.write("<option value=\"0\" selected>Please select...</option>\n");
             for (Iterator it = backGrounds.listIterator(); it.hasNext();) {
@@ -77,9 +68,8 @@ public class BackgroundListJOB extends QuartzJobBean {
     public void generateReqFundingSourceList() {
         //Generates the list used for request related funding sources
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "reqfslist"));
-
             List backGrounds = sm.getReqRelatedFundingSource();
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "reqfslist"));
 
             out.write("<option value=\"0\" selected>Please select...</option>\n");
             for (Iterator it = backGrounds.listIterator(); it.hasNext();) {
@@ -96,9 +86,8 @@ public class BackgroundListJOB extends QuartzJobBean {
 
     public void generateProjectList() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "plist"));
-
-            List projects = bm.getCVProjects();
+                        List projects = bm.getCVProjects();
+BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "plist"));
 
             out.write("<option value=\"0\" selected>Please select...</option>\n");
             for (Iterator it = projects.listIterator(); it.hasNext();) {
@@ -115,9 +104,8 @@ public class BackgroundListJOB extends QuartzJobBean {
 
     public void generateCodeInternalList() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "cilist"));
-
             List codeInt = sm.getCodeInternal();
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "cilist"));
 
             out.write("<option value=\"\" selected>Please select...</option>\n");
             for (Iterator it = codeInt.listIterator(); it.hasNext();) {
@@ -132,9 +120,8 @@ public class BackgroundListJOB extends QuartzJobBean {
 
     public void generateNameStatusList() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "nslist"));
-
-            List nameStatus = sm.getNameStatusList();
+                        List nameStatus = sm.getNameStatusList();
+                        BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "nslist"));
 
             out.write("<option value=\"\" selected>Please select...</option>\n");
             for (Iterator it = nameStatus.listIterator(); it.hasNext();) {
@@ -151,9 +138,8 @@ public class BackgroundListJOB extends QuartzJobBean {
 
     public void generateArchivesList() {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "archlist"));
-
-            List archives = lm.getArchivesByCode();
+             List archives = lm.getArchivesByCode();
+             BufferedWriter out = new BufferedWriter(new FileWriter(fileLocation + "archlist"));
 
             out.write("<option value=\"\" selected>Please select...</option>\n");
             for (Iterator it = archives.listIterator(); it.hasNext();) {
