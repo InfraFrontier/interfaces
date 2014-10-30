@@ -807,8 +807,8 @@ int im = 0;
                 //helper.addCc(ccAddress);
             }
             if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
-                //helper.setCc(nkiescellCc);
-                helper.setCc(ccAddresses);
+                helper.setCc(nkiescellCc);
+                //helper.setCc(ccAddresses);
             } else if (request.getParameter("triggerMails") != null && request.getParameter("triggerMails").equals("managersonly")) {
                 //no cc addresses else managers only email repeats
             } else {
