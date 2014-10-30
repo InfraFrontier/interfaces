@@ -13,6 +13,8 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +41,9 @@ public class WebmasterAlertMsg {
             System.out.println(e);
         } catch (MessagingException e) {
             System.out.println(e);
-        }
+        } finally {
+            
+    }
         return true;
     }
 }
