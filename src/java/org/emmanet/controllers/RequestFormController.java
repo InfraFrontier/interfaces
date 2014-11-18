@@ -438,7 +438,7 @@ public class RequestFormController extends SimpleFormController {
             }
             
             wr.setImpc_phenotype_data_exists(impcDataExists);
-            //System.out.println("impc data is...." + wr.getImpc_phenotype_data_exists());
+            System.out.println("impc data is...." + wr.getImpc_phenotype_data_exists());
             return wr;
         }
     }
