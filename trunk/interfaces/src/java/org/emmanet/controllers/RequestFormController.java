@@ -401,10 +401,7 @@ public class RequestFormController extends SimpleFormController {
                 // System.out.println("o[0].toString() == " + o[0].toString());
                 //System.out.println("o[0].toString() == " + wr.getLab_id_labo());
             }
-            // System.out.println("id_lab0" + wr.getLab_id_labo());
-            // StrainsManager sm = new StrainsManager();
-            //.out.println("VAL FOR STR ID STR IS: " + wr.getStr_id_str());
-  //    System.out.println("407 STRAINSDAO VALUE IS " + sd.getEmma_id());     
+  
             if (sd == null) {
                 int iPhenoExists;
                 iPhenoExists=wr.getStr_id_str();
@@ -436,11 +433,14 @@ public class RequestFormController extends SimpleFormController {
             wr.setEurophenome(null);
             String impcDataExists = "";
             if (sd != null) {
-                impcDataExists = sd.getImpc_phenotype_data_exists();
+                impcDataExists = sd.getLs_consortium();//.getImpc_phenotype_data_exists();
+                if (impcDataExists.contains("IMPC")) {
+                    impcDataExists="yes";
+                }
             }
             
             wr.setImpc_phenotype_data_exists(impcDataExists);
-            System.out.println("impc data is...." + wr.getImpc_phenotype_data_exists());
+            System.out.println("impc data is...." + impcDataExists);
             return wr;
         }
     }
