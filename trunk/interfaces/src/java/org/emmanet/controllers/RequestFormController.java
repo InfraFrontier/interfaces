@@ -150,8 +150,7 @@ public class RequestFormController extends SimpleFormController {
     private String liveShelfDelivery;
     private String liveShelfCost;
     private LaboratoriesManager lm = new LaboratoriesManager();
-
-    ;
+    private String impcDataExists;
 
     @Override
     protected Object formBackingObject(HttpServletRequest request) {
@@ -431,7 +430,7 @@ public class RequestFormController extends SimpleFormController {
             System.out.println("europhenome  val is " + wr.getEurophenome());
             wr.setWtsi_mouse_portal(null);
             wr.setEurophenome(null);
-            String impcDataExists = "";
+            impcDataExists = "";
             if (sd != null) {
                 impcDataExists = sd.getLs_consortium();//.getImpc_phenotype_data_exists();
                 if (impcDataExists.contains("IMPC")) {
