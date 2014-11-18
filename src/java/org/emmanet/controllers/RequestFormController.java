@@ -234,6 +234,7 @@ public class RequestFormController extends SimpleFormController {
                 WebRequests wreq = new WebRequests();
                 List rtools = wreq.strainRToolID(wrd.getStr_id_str());
                 sd = sm.getStrainByID(wrd.getStr_id_str());
+                System.out.println("STRAINSDAO VALUE IS " + sd.getEmma_id());
                 System.out.println("rtools size=" + rtools.size());
                 it = rtools.iterator();
 
@@ -403,11 +404,12 @@ public class RequestFormController extends SimpleFormController {
             // System.out.println("id_lab0" + wr.getLab_id_labo());
             // StrainsManager sm = new StrainsManager();
             //.out.println("VAL FOR STR ID STR IS: " + wr.getStr_id_str());
-           
+  //    System.out.println("407 STRAINSDAO VALUE IS " + sd.getEmma_id());     
             if (sd == null) {
                 int iPhenoExists;
                 iPhenoExists=wr.getStr_id_str();
                 sd = sm.getStrainByID(iPhenoExists);
+                System.out.println("412 STRAINSDAO VALUE IS " + sd.getEmma_id());
                  if (sd != null)
                 System.out.println("sd values two is " + sd.getImpc_phenotype_data_exists() + " + " + sd.getId_str());
             }
