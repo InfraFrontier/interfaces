@@ -257,7 +257,7 @@ public class RequestFormValidator implements
             }
             if (webReq.getWtsi_mouse_portal() != null && webReq.getEurophenome() != null) {
                 if (webReq.getEurophenome().equals("yes") && webReq.getWtsi_mouse_portal().equals("yes")) {
-                    errors.reject("Message", "Please select no to one option that didn't generate your interest in the strain you have selected?");
+                    //errors.reject("Message", "Please select no to one option that didn't generate your interest in the strain you have selected?"); REMOVED- requested by Sabine
                 }
             }
             if (webReq.getWtsi_mouse_portal() != null && webReq.getWtsi_mouse_portal().equals("no")) {
