@@ -433,7 +433,7 @@ public class RequestFormController extends SimpleFormController {
             impcDataExists = "";
             if (sd != null) {
                 impcDataExists = sd.getLs_consortium();//.getImpc_phenotype_data_exists();
-                if (impcDataExists.contains("IMPC")) {
+                if (impcDataExists != null && impcDataExists.contains("IMPC")) {
                     impcDataExists="yes";
                 }
             }
