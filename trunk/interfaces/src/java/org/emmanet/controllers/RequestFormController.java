@@ -159,6 +159,7 @@ public class RequestFormController extends SimpleFormController {
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
         StrainsManager sm = new StrainsManager();
+        sd=new StrainsDAO();
 
         session = request.getSession(true);
         //System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
@@ -279,7 +280,8 @@ public class RequestFormController extends SimpleFormController {
                 return wrd;
 
             } else {
-                WebRequestsDAO wr = webRequest.getReqByID(decryptedID);
+                WebRequestsDAO wr = new WebRequestsDAO();
+                wr = webRequest.getReqByID(decryptedID);
                 wr.setAvailabilities(webRequest.availabilitiesList(wr.getStr_id_str()));//to satisfy JIRA-219
                 wr.setDistributionCentre(lm.getLabByStrainID(wr.getLab_id_labo()));
                 wr.setLiveCost(liveCost);
@@ -400,15 +402,24 @@ public class RequestFormController extends SimpleFormController {
                 // System.out.println("o[0].toString() == " + o[0].toString());
                 //System.out.println("o[0].toString() == " + wr.getLab_id_labo());
             }
-  
-            if (sd == null) {
+            sd = sm.getStrainByID(wr.getStr_id_str());
+            System.out.println("405 STRAINSDAO VALUE IS " + wr.getStr_id_str() );
+
+                   if (sd != null) {
+                                        System.out.println("405 STRAINSDAO VALUE IS " + sd.getLs_consortium() );
+                 System.out.println("405 STRAINSDAO VALUE IS " + sd.getName() );
+                System.out.println("sd values two is " + sd.getLs_consortium() + " + " + sd.getId_str());
+            } else {
                 int iPhenoExists;
                 iPhenoExists=wr.getStr_id_str();
+                if ( iPhenoExists==0) {
+                     iPhenoExists= Integer.parseInt(request.getParameter("str_id_str"));
+                }
+                  System.out.println("pheno exists  IS " +wr.getStr_id_str());
                 sd = sm.getStrainByID(iPhenoExists);
-                System.out.println("412 STRAINSDAO VALUE IS " + sd.getEmma_id());
-                 if (sd != null)
-                System.out.println("sd values two is " + sd.getImpc_phenotype_data_exists() + " + " + sd.getId_str());
+               // System.out.println("412 STRAINSDAO VALUE IS " + sd.getEmma_id());
             }
+
             //sd=sm.getStrainByID(wr.getStr_id_str());
             //System.out.println("STRAINSDAO value for name is" + sd.getName ());
             //sd.getArchiveDAO().getLab_id_labo();
