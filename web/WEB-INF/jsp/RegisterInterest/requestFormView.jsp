@@ -229,7 +229,7 @@
                                     <c:if test="${(empty param.status)}">
                                         <input type="hidden" id="projectID" name="projectID" value="<c:out value="${param.pid}"/>"/>
 
-                                        <c:if test="${param.pid == '1' || param.pid == '2' || param.pid == '6'}"> <input type="hidden" id="europhenome" name="europhenome" value="no"/><input type="hidden" id="wtsi_mouse_portal" name="wtsi_mouse_portal" value="no"/></c:if>
+                                      <%--  <c:if test="${param.pid == '1' || param.pid == '2' || param.pid == '6'}"> <input type="hidden" id="europhenome" name="europhenome" value="no"/><input type="hidden" id="wtsi_mouse_portal" name="wtsi_mouse_portal" value="no"/></c:if>--%>
                                     </c:if>
                                     <c:if test="${(not empty param.status)}">
                                         <input type="hidden" id="europhenome" name="europhenome" value="no"/>
@@ -726,47 +726,10 @@
                                 </div> 
                                 <div class="boxcontainer">
                                     <br/><br/>
-                                    <%--param.pid == '5'
-                                    Now using command.lab_id_labo == '1961' to filter out sanger strains rather than pid of 5
-                                    28/07/2011
-                                    --%>
-                                     <%--  ||command.lab_id_labo == '1961'  --%><%--${param.pid == '3' || param.pid == '4' ||--%>
-                                    <%--<c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi') }">
-                                        <c:choose>
-                                            <c:when test="${command.wtsi_mouse_portal  == 'yes'}" >
-                                                <c:set var="wtsichecked" value="checked"/>
-                                                <c:set var="wtsicheckedno" value=""/>
-                                            </c:when>
-                                            <c:when test="${command.wtsi_mouse_portal  == 'nowyjose'}" >
-                                                <c:set var="wtsichecked" value=""/>
-                                                <c:set var="wtsicheckedno" value="checked"/><%--checked --%>
-                                           <%-- </c:when>
-                                            <c:otherwise> 
-                                                <c:set var="wtsichecked" value=""/>
-                                                <c:set var="wtsicheckedno" value=""/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <c:choose>
-                                            <c:when test="${command.europhenome  == 'yes'}" >
-                                                <c:set var="europhenomechecked" value="checked"/>
-                                                <c:set var="europhenomecheckedno" value=""/>
-                                            </c:when>
-                                            <c:when test="${command.europhenome  == 'nowayjose'}" >
-                                                <c:set var="europhenomechecked" value=""/>
-                                                <c:set var="europhenomecheckedno" value="checked"/><%--checked --%>
-                                            <%--</c:when>
-
-                                            <c:otherwise> 
-                                                <c:set var="europhenomechecked" value=""/>
-                                                <c:set var="europhenomecheckedno" value=""/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:if>
-                                    <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">
-                                          pheno data exists =   ${command.impc_phenotype_data_exists}--%>
+                                    
                                         <c:if test="${command.impc_phenotype_data_exists == 'yes'}">
                                         Have you selected this line
-                                        because you are interested in the phenotype data presented on the<%-- </c:if> <c:if test="fn:containsIgnoreCase(command.strain_name,'wtsi')}">${command.lab_id_labo == '1961' || --%>
+                                        because you are interested in the phenotype data presented on the
                                         <a href='http://www.sanger.ac.uk/mouseportal/<c:if test="${not empty command.common_name_s}">search?query=${command.common_name_s}</c:if>' target="_blank">Wellcome Trust Sanger Institute Mouse Portal</a>? 
                                         <spring:bind path="command.wtsi_mouse_portal">
                                          Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
