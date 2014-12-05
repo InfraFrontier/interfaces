@@ -729,17 +729,17 @@
                                     
                                         <c:if test="${command.impc_phenotype_data_exists == 'yes'}">
                                         Have you selected this line
-                                        because you are interested in the phenotype data presented on the
+                                        because you are interested in the phenotype data presented on the:<br/><br/>
                                         <a href='http://www.sanger.ac.uk/mouseportal/<c:if test="${not empty command.common_name_s}">search?query=${command.common_name_s}</c:if>' target="_blank">Wellcome Trust Sanger Institute Mouse Portal</a>? 
                                         <spring:bind path="command.wtsi_mouse_portal">
                                          Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
-                                            No<form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />
-                                    or the  <a href='http://www.mousephenotype.org/' target='_blank'>'International Mouse Phenotyping Consortium website</a>?
+                                         No<form:radiobutton id="${status.expression}-no" path="${status.expression}" value="no" />
+                                    <br/><br/><a href='http://www.mousephenotype.org/' target='_blank'>International Mouse Phenotyping Consortium website</a>?
                                         </spring:bind>
                                         <spring:bind path="command.europhenome">
                                      Yes<form:radiobutton id="${status.expression}-yes" path="${status.expression}" value="yes" />&nbsp;&nbsp;&nbsp;
                                             No<form:radiobutton id="europhenome-no" path="europhenome" value="no" />
-                                    </spring:bind>.
+                                    </spring:bind>
                                 </c:if>
 
                                     <p align="left">
