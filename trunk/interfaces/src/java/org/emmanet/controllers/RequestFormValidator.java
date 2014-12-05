@@ -113,6 +113,10 @@ public class RequestFormValidator implements
         } else if (webReq.getSci_e_mail().length() >= 1 && webReq.getSci_e_mail().length() > wr.fieldMaxLength("sci_e_mail", table)) {
             errors.reject("Message", "The Scientists Email address field input appears to be too long for the database");
         }
+         if (webReq.getSci_e_mail().contains("-.")) {
+            errors.reject("Message", "The Scientists Email address field appears to be incorrect");
+        } 
+        
         if (webReq.getSci_phone() == null || webReq.getSci_phone().trim().length() < 1) {
             errors.reject("Message", "The Scientists phone field appears to have no value or is incorrect");
         } else if (webReq.getSci_phone().length() >= 1 && webReq.getSci_phone().length() > wr.fieldMaxLength("sci_phone", table)) {
@@ -148,8 +152,12 @@ public class RequestFormValidator implements
         }
         if (webReq.getCon_e_mail() == null || webReq.getCon_e_mail().trim().length() < 1 || !patternMatch(EMAIL_PATTERN, webReq.getCon_e_mail())) {
             errors.reject("Message", "The Contacts Email address field appears to have no value or is incorrect");
-        } else if (webReq.getCon_e_mail().length() >= 1 && webReq.getCon_e_mail().length() > wr.fieldMaxLength("con_e_mail", table)) {
+        }  else if (webReq.getCon_e_mail().length() >= 1 && webReq.getCon_e_mail().length() > wr.fieldMaxLength("con_e_mail", table)) {
             errors.reject("Message", "The Contacts Email address field input appears to be too long for the database");
+        }
+        
+        if (webReq.getCon_e_mail().contains("-.")) {
+            errors.reject("Message", "The Contacts Email address field appears to be incorrect");
         }
         if (webReq.getCon_phone() == null || webReq.getCon_phone().trim().length() < 1) {
             errors.reject("Message", "The Shipping Contacts phone field appears to have no value or is incorrect");
@@ -200,7 +208,12 @@ public class RequestFormValidator implements
                         + "Please ensure all the required billing contact fields are filled in.");
             } else if (webReq.getBil_e_mail().length() >= 1 && webReq.getBil_e_mail().length() > wr.fieldMaxLength("bil_e_mail", table)) {
                 errors.reject("Message", "The billing contacts Email address field input appears to be too long for the database");
+            } 
+            
+             if (webReq.getBil_e_mail().contains("-.")) {
+            errors.reject("Message", "The billing contacts Email address field appears to be incorrect");
             }
+             
             if (webReq.getBil_phone() == null || webReq.getBil_phone().trim().length() < 1) {
                 errors.reject("Message", "The billing contacts phone field appears to have no value. "
                         + "Please ensure all the required billing contact fields are filled in.");
