@@ -113,7 +113,7 @@ public class RequestFormValidator implements
         } else if (webReq.getSci_e_mail().length() >= 1 && webReq.getSci_e_mail().length() > wr.fieldMaxLength("sci_e_mail", table)) {
             errors.reject("Message", "The Scientists Email address field input appears to be too long for the database");
         }
-         if (webReq.getSci_e_mail().contains("-.")) {
+         if (webReq.getSci_e_mail().contains("-.") || webReq.getSci_e_mail().contains(".-")) {
             errors.reject("Message", "The Scientists Email address field appears to be incorrect");
         } 
         
@@ -156,7 +156,7 @@ public class RequestFormValidator implements
             errors.reject("Message", "The Contacts Email address field input appears to be too long for the database");
         }
         
-        if (webReq.getCon_e_mail().contains("-.")) {
+        if (webReq.getCon_e_mail().contains("-.") || webReq.getCon_e_mail().contains(".-")) {
             errors.reject("Message", "The Contacts Email address field appears to be incorrect");
         }
         if (webReq.getCon_phone() == null || webReq.getCon_phone().trim().length() < 1) {
@@ -210,7 +210,7 @@ public class RequestFormValidator implements
                 errors.reject("Message", "The billing contacts Email address field input appears to be too long for the database");
             } 
             
-             if (webReq.getBil_e_mail().contains("-.")) {
+             if (webReq.getBil_e_mail().contains("-.") || webReq.getBil_e_mail().contains(".-")) {
             errors.reject("Message", "The billing contacts Email address field appears to be incorrect");
             }
              
