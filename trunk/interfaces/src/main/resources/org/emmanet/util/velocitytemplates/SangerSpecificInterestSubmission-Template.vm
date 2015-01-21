@@ -16,13 +16,15 @@ Please find attached the MTA template for your convenience. To expedite processi
     The MTA is non-negotiable.
     For the section "Description of Materials", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
             "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. ${string}."
+    The Wellcome Trust Sanger Institute accepts MTAs in PDF format. The partially executed document may be sent to mousemta@sanger.ac.uk.
 
-Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <${BASEURL}search>.
+Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <(${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering)>.
 
 The standard quantity supplied is 2 breeding pairs.
 To potentially accelerate availability please indicate if you would consider receiving 2 males only. Standard Service Fee applies (${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering).
 
-Should you have any general questions, please do not hesitate to contact EMMA (emma@infrafrontier.eu). For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
+Should you have any general questions, please do not hesitate to contact the INFRAFRONTIER Project Office (info@infrafrontier.eu).
+For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
 
 ## Include footer template common to all Sanger messages
 #parse( "org/emmanet/util/velocitytemplates/SangerSpecificFooter.vm" )

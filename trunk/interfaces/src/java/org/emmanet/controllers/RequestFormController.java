@@ -603,6 +603,7 @@ int im = 0;
             System.out.println("OK THIS IS FROM STRAINS TABLE");
             model.put("strain_name", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
             model.put("strainname", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+            model.put("consortium", sd.getLs_consortium());//added to satisfy 
         } else if (esd != null && request.getParameter("type").equals("nkiescells")) {
             System.out.println("OK THIS IS FROM NKIESCELLS TABLE");
             model.put("strain_name", esd.getStrain_name());
@@ -896,7 +897,13 @@ int im = 0;
             if (mailSend) {
                 System.out.println(content);
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
+                 System.out.println(message);
+                helper.setCc("philw@ebi.ac.uk");
+                helper.setBcc("philw@ebi.ac.uk");
+                helper.setTo("philw@ebi.ac.uk");
                 getJavaMailSender().send(message);
+                System.out.println(model.get("consortium"));
+               
                 System.out.println("Mail sent ");
             }
 
