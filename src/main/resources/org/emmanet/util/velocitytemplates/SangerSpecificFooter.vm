@@ -14,7 +14,7 @@ The LoA qPCR is gene specific and also confirms the location of the targeted mut
 
 The structure of the targeted mutation is not fully verified. It is recommended that the recipient confirms the mutation structure by Southern blotting.
 
-#if ($consortium == "EUCOMMToolsCre")
+#if ($consortium == "xEUCOMMToolsCre")
 The Cre expression pattern is expected to mirror that of the host gene, but this may not be fully described and/or may be modified in the targeted allele.  Although characterisation of the Cre expression pattern is an objective of EUCOMMTools this is an ongoing process which may be incomplete.  It is therefore recommended that the recipient verifies the Cre expression pattern.  For the tm1(EGFP_CreERT2) allele, the promoter-driven selection cassette is flanked with Rox sites and may be removed using Dre recombinase.
 
 #end
