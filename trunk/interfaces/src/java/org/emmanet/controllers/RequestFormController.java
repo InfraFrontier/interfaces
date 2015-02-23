@@ -491,7 +491,7 @@ int im = 0;
                 //map key + 1
                 im = 2;
             } else {
-                Cc.put("2", new String(webRequest.getCon_e_mail()));
+                Cc.put("2", new String(webRequest.getCon_e_mail().trim()));
                  //map key + 1
                   im = 3;
             }
@@ -535,7 +535,7 @@ int im = 0;
                     "message",
                     getMessageSourceAccessor().getMessage("Message",
                     webRequest.getSci_firstname() + " " + webRequest.getSci_surname() + ", Your request submitted successfully, you will receive "
-                    + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail()));
+                    + "confirmation by e-mail sent to the address " + webRequest.getSci_e_mail().trim()));
         }
         String rtoolsID = "";
         List rtools = wr.strainRToolID(webRequest.getStr_id_str());
@@ -559,13 +559,13 @@ int im = 0;
         model.put("sci_title", webRequest.getSci_title());
         model.put("sci_firstname", webRequest.getSci_firstname());
         model.put("sci_surname", webRequest.getSci_surname());
-        model.put("sci_e_mail", webRequest.getSci_e_mail());
+        model.put("sci_e_mail", webRequest.getSci_e_mail().trim());
         model.put("sci_phone", webRequest.getSci_phone());
         model.put("sci_fax", webRequest.getSci_fax());
         model.put("con_title", webRequest.getCon_title());
         model.put("con_firstname", webRequest.getCon_firstname());
         model.put("con_surname", webRequest.getCon_surname());
-        model.put("con_e_mail", webRequest.getCon_e_mail());
+        model.put("con_e_mail", webRequest.getCon_e_mail().trim());
         model.put("con_phone", webRequest.getCon_phone());
         model.put("con_fax", webRequest.getCon_fax());
         model.put("con_institution", webRequest.getCon_institution());
@@ -584,7 +584,7 @@ int im = 0;
             model.put("bil_title", webRequest.getBil_title());
             model.put("bil_firstname", webRequest.getBil_firstname());
             model.put("bil_surname", webRequest.getBil_surname());
-            model.put("bil_e_mail", webRequest.getBil_e_mail());
+            model.put("bil_e_mail", webRequest.getBil_e_mail().trim());
             model.put("bil_phone", webRequest.getBil_phone());
             model.put("bil_fax", webRequest.getBil_fax());
             model.put("bil_institution", webRequest.getBil_institution());
@@ -631,7 +631,7 @@ int im = 0;
         model.put("ta_proj_desc", webRequest.getProject_description());
         model.put("ROI", webRequest.getRegister_interest());
         //new e-mail message requirements for eucomm
-        model.put("ArchContactEmail", ArchContactEmail);
+        model.put("ArchContactEmail", ArchContactEmail.trim());
         model.put("requestID", webRequest.getId_req());
         model.put("labID", webRequest.getLab_id_labo());
         model.put("rtoolsID", rtoolsID);
@@ -898,9 +898,9 @@ int im = 0;
                 System.out.println(content);
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
                  System.out.println(message);
-                //helper.setCc("philw@ebi.ac.uk");
-               // helper.setBcc("philw@ebi.ac.uk");
-               // helper.setTo("philw@ebi.ac.uk");
+                helper.setCc("philw@ebi.ac.uk");
+                helper.setBcc("philw@ebi.ac.uk");
+               helper.setTo("philw@ebi.ac.uk");
                 getJavaMailSender().send(message);
                 System.out.println(model.get("consortium"));
                
