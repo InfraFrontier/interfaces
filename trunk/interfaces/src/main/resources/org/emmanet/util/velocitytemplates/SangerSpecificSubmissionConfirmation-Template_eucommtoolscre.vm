@@ -1,22 +1,24 @@
-This is an automatically generated message.  Please do not reply directly to this mail. 
-IMPORTANT INFORMATION. PLEASE READ CAREFULLY
+This is an automatically generated message sent in response to the interest you have shown in the strain detailed below:
 
-Dear EMMA customer
 
-We would like to confirm receipt of the Registration of Interest (RoI) for ${strainname} (${emmaid}).
+
+Dear EMMA customer,
+
+We would like to confirm receipt of the order form that you submitted to EMMA for ${strainname} (${emmaid})
 Your request ID is: ${requestID}
 
-The strain you are interested in has been produced by the Sanger Institute Mouse Genetics Project (Sanger MGP). The Sanger MGP provides an opportunity to obtain mice prior to archiving at a distribution centre. However, please note that at this time, we can NOT guarantee there will be mice available for shipment nor provide a shipping date. Should mice become available for shipment, we will notify you by email. At that time you will be required to complete an Order Form before shipment can proceed. 
- 
-Without exception, shipment will not proceed without a completed Material Transfer Agreement (MTA). In our experience, this can be a lengthy procedure we therefore recommend starting this process immediately. 
-Please find attached the MTA template for your convenience. To expedite processing of the MTA, please follow these guidelines:
+You will be contacted within two weeks by the EMMA partner responsible for distributing the strain you have requested. 
 
+The strain you are interested in has been produced by the Sanger Institute Mouse Genetics Project (Sanger MGP). 
+ 
+Without exception, shipment will not proceed without a completed Material Transfer Agreement (MTA). In our experience, this can be a lengthy procedure. If a partially executed document has not already been submitted we recommend starting this process immediately. 
+Please find attached the MTA template for your convenience. To expedite processing of the MTA, please follow these guidelines: 
     -   Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
     -   The MTA is non-negotiable.
     -   For the section “Description of Materials”, please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
             "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. Request ID:[####]."
 
-    -    The Wellcome Trust Sanger Institute accepts MTAs in PDF format. The partially executed document may be sent to mousemta@sanger.ac.uk.
+    -   The Wellcome Trust Sanger Institute accepts MTAs in PDF format. The partially executed document may be sent to mousemta@sanger.ac.uk.
 
 Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering>. 
 
@@ -34,21 +36,19 @@ Kind regards,
 The Sanger Mouse Genetics Project
 EMMA - European Mouse Mutant Archive
 www.infrafrontier.eu
-
-
 Disclaimer
 
 The current level of quality control (QC) performed before the mice are shipped is to:
 
-    -  Confirm the individual mouse genotype by qPCR counting the copy number variation of the neo marker and either SR-PCR or LoA qPCR. The 3’ LoxP is also verified where appropriate by qPCR or SR-PCR.
-    -  Confirm the location of the targeted mutation for the colony by long-range PCR (LR-PCR), by the detection of homozygous mice by gene specific SR-PCR and/or by loss of wild type allele (LoA) qPCR.
+    -   Confirm the individual mouse genotype by qPCR counting the copy number variation of the Cre gene and by loss of wild type allele (LoA) qPCR.
+The LoA qPCR is gene specific and also confirms the location of the targeted mutation
 
 The structure of the targeted mutation is not fully verified. It is recommended that the recipient confirms the mutation structure by Southern blotting.
 
-Please be aware that the strain description may be subject to change. For the most recent description please consult the International Mouse Phenotyping Consortium (IMPC; www.mousephenotype.org) information pages for the appropriate product details.
+The Cre expression pattern is expected to mirror that of the host gene, but this may not be fully described and/or may be modified in the targeted allele.  Although characterisation of the Cre expression pattern is an objective of EUCOMMTools this is an ongoing process which may be incomplete.  It is therefore recommended that the recipient verifies the Cre expression pattern.  For the tm1(EGFP_CreERT2) type allele, if the promoter-driven selection cassette is flanked with Rox sites, it may be removed using Dre recombinase.
+Please be aware that the strain description may be subject to change. For the most recent description please consult the CREATE website (www.creline.org/eucommtools) information pages for the appropriate product details.
 
 Publications
-
 Please use this acknowledgement phrase in publications:
 "We thank the Wellcome Trust Sanger Institute Mouse Genetics Project (Sanger MGP) and its funders for providing the mutant mouse line (Allele:[state allele]).   Funding information may be found at www.sanger.ac.uk/mouseportal and associated primary phenotypic information at www.mousephenotype.org."
 Please include in publications from the following references:
@@ -59,25 +59,33 @@ Bradley A, Anastassiadis K, Ayadi A, Battey JF, Bell C, Birling M-C, Bottomley J
 Pettitt SJ, Liang Q, Rairdan XY, Moran JL, Prosser HM, Beier DR, Lloyd KC, Bradley A & Skarnes WC (2009) Agouti C57BL/6N embryonic stem cells for mouse genetic resources. Nature methods, 6, 493-495.
 
 Further Information
-
 International Mouse Phenotyping Consortium (IMPC) strain-specific quality control (QC) details. 
 Search for your gene and follow the link from ‘Product Details’ for the mouse strain of interest.
-www.mousephenotype.org
+www.mousephenotype.org  
+
 General Descriptions of the mouse strain quality control (QC) assays at the IKMC Knowledgebase
-www.i-dcc.org/kb/25  
+www.i-dcc.org/kb/25 
+
 IKMC Knowledgebase
 www.i-dcc.org/kb  
- General information about structure of IMPC alleles and their derivatives www.mousephenotype.org/martsearch_ikmc_project/about/targeting-strategies   
+
+General information about structure of IMPC alleles and their derivatives www.mousephenotype.org/martsearch_ikmc_project/about/targeting-strategies  
+
 Guidelines for converting alleles
-www.i-dcc.org/kb/entry/105   
+www.i-dcc.org/kb/entry/105  
+
 Sanger MGP Frequently Asked Questions (FAQ)
-www.i-dcc.org/kb/11   Phenotype enquiries
+www.i-dcc.org/kb/11 
+
+Phenotype enquiries
 MGPEnquiries@sanger.ac.uk 
 
 International Mouse Strain Resource (IMSR)
-www.findmice.org/index.jsp  
+www.findmice.org/index.jsp 
+
 CREATE (Coordination of resources for conditional expression of mutated mouse alleles) project
-www.creline.org
+www.creline.org 
+
 Additional Useful Publications
 Ryder E, Doe B, Gleeson D, Houghton R, Dalvi P, Grau E, Habib B, Miklejewska E, Newman S, Sethi D, Sinclair C, Vyas S, Wardle-Jones H; Sanger Mouse Genetics Project, Bottomley J, Bussell J, Galli A, Salisbury J, Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177–185.
 Birling M.C., Gofflot F. and Warot X. (2009). Site-specific recombinases for manipulation of the mouse genome. Methods Mol. Biol., 561, 245-263. Review.

@@ -663,10 +663,11 @@ int im = 0;
              * for strain submission
              */
 
-            //uncomment here to release new mail templates for sanger awaiting go ahead from jo bottomley
+            
             if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
-                /*##NEW TEMPLATE FOR SANGER */
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template.vm";
+            } else if (sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) { 
+                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template_eucommtoolscre.vm";
             } else if (webRequest.getApplication_type().equals("ta_only")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/taonlyRequest-Template.vm";
             } else if (webRequest.getApplication_type().equals("ta_or_request")) {
@@ -710,6 +711,8 @@ int im = 0;
             if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
                 /*##NEW TEMPLATE FOR SANGER */
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template.vm";
+            } else if (sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) { 
+                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template_eucommtoolscre.vm";
             } else {
                 velocTemplate = "org/emmanet/util/velocitytemplates/interestSubmission-Template.vm";
             }
@@ -898,9 +901,9 @@ int im = 0;
                 System.out.println(content);
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
                  System.out.println(message);
-                //helper.setCc("philw@ebi.ac.uk");
-                //helper.setBcc("philw@ebi.ac.uk");
-               //helper.setTo("philw@ebi.ac.uk");
+helper.setCc("philw@ebi.ac.uk");
+helper.setBcc("philw@ebi.ac.uk");
+helper.setTo("philw@ebi.ac.uk");
                 getJavaMailSender().send(message);
                 System.out.println(model.get("consortium"));
                
