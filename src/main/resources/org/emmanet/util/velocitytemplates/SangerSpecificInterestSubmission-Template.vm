@@ -13,8 +13,8 @@ Please find attached the MTA template for your convenience. To expedite processi
 
     -   Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
     -   The MTA is non-negotiable.
-    -   For the section "Description of Materials", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
-            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. Request ID:[####]."
+    -   For the section "Description of Material", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
+            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. Request ID:[${requestID}]."
 
     -    The Wellcome Trust Sanger Institute accepts MTAs in PDF format. The partially executed document may be sent to mousemta@sanger.ac.uk.
 

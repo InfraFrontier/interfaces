@@ -16,8 +16,8 @@ Please find attached the MTA template for your convenience. To expedite processi
 
     -   Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
     -   The MTA is non-negotiable.
-    -   For the section “Description of Materials”, please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
-            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. Request ID:[####]."
+    -   For the section "Description of Material", please use this specific language but change the gene symbol and the request ID as appropriate for your request: 
+            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. Request ID:[${requestID}]."
 
     -   The Wellcome Trust Sanger Institute accepts MTAs in PDF format. The partially executed document may be sent to mousemta@sanger.ac.uk.
 
@@ -52,15 +52,15 @@ Publications
 Please use this acknowledgement phrase in publications:
 "We thank the Wellcome Trust Sanger Institute Mouse Genetics Project (Sanger MGP) and its funders for providing the mutant mouse line (Allele:[state allele]). Funding information may be found at www.sanger.ac.uk/mouseportal and associated primary phenotypic information at www.mousephenotype.org."
 Please include in publications from the following references:
-White, J. K., Gerdin, A.-K., Karp, N. A., Ryder, E., Buljan, M., Bussell, J. N., Salisbury, J., et al. (2013). Genome-wide Generation and Systematic Phenotyping of Knockout Mice Reveals New Roles for Many Genes. Cell, 154(2), 452–464.
-Ryder E, Gleeson D, Sethi D, Vyas S, Miklejewska E, Dalvi P, Habib B, Cook R, Hardy M, Jhaveri K, Bottomley J, Wardle-Jones H, Bussell JN, Houghton R, Salisbury J, Skarnes WC; Sanger Mouse Genetics Project, Ramirez-Solis R. (2013). Molecular characterization of mutant mouse strains generated from the EUCOMM/KOMP-CSD ES cell resource. Mamm. Genome, 24, 286–294.
+White, J. K., Gerdin, A.-K., Karp, N. A., Ryder, E., Buljan, M., Bussell, J. N., Salisbury, J., et al. (2013). Genome-wide Generation and Systematic Phenotyping of Knockout Mice Reveals New Roles for Many Genes. Cell, 154(2), 452-464.
+Ryder E, Gleeson D, Sethi D, Vyas S, Miklejewska E, Dalvi P, Habib B, Cook R, Hardy M, Jhaveri K, Bottomley J, Wardle-Jones H, Bussell JN, Houghton R, Salisbury J, Skarnes WC; Sanger Mouse Genetics Project, Ramirez-Solis R. (2013). Molecular characterization of mutant mouse strains generated from the EUCOMM/KOMP-CSD ES cell resource. Mamm. Genome, 24, 286-294.
 Skarnes, W.C., Rosen, B., West, A.P., Koutsourakis, M., Bushell, W., Iyer, V., Mujica, A.O., Thomas, M., Harrow, J., Cox, T. et al. (2011) A conditional knockout resource for the genome-wide study of mouse gene function. Nature, 474, 337-342.
-Bradley A, Anastassiadis K, Ayadi A, Battey JF, Bell C, Birling M-C, Bottomley J, Brown SD, Bürger A, Bult CJ, Bushell W, Collins FS, Desaintes C, Doe B, Economides A, Eppig JT, Finnell RH, Fletcher C, Fray M, Frendewey D, et al. (2012) The mammalian gene function resource: the international knockout mouse consortium. Mamm. Genome, 23, 580-586.
+Bradley A, Anastassiadis K, Ayadi A, Battey JF, Bell C, Birling M-C, Bottomley J, Brown SD, Burger A, Bult CJ, Bushell W, Collins FS, Desaintes C, Doe B, Economides A, Eppig JT, Finnell RH, Fletcher C, Fray M, Frendewey D, et al. (2012) The mammalian gene function resource: the international knockout mouse consortium. Mamm. Genome, 23, 580-586.
 Pettitt SJ, Liang Q, Rairdan XY, Moran JL, Prosser HM, Beier DR, Lloyd KC, Bradley A & Skarnes WC (2009) Agouti C57BL/6N embryonic stem cells for mouse genetic resources. Nature methods, 6, 493-495.
 
 Further Information
 International Mouse Phenotyping Consortium (IMPC) strain-specific quality control (QC) details. 
-Search for your gene and follow the link from ‘Product Details’ for the mouse strain of interest.
+Search for your gene and follow the link from 'Product Details' for the mouse strain of interest.
 www.mousephenotype.org  
 
 General Descriptions of the mouse strain quality control (QC) assays at the IKMC Knowledgebase
@@ -87,7 +87,7 @@ CREATE (Coordination of resources for conditional expression of mutated mouse al
 www.creline.org 
 
 Additional Useful Publications
-Ryder E, Doe B, Gleeson D, Houghton R, Dalvi P, Grau E, Habib B, Miklejewska E, Newman S, Sethi D, Sinclair C, Vyas S, Wardle-Jones H; Sanger Mouse Genetics Project, Bottomley J, Bussell J, Galli A, Salisbury J, Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177–185.
+Ryder E, Doe B, Gleeson D, Houghton R, Dalvi P, Grau E, Habib B, Miklejewska E, Newman S, Sethi D, Sinclair C, Vyas S, Wardle-Jones H; Sanger Mouse Genetics Project, Bottomley J, Bussell J, Galli A, Salisbury J, Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177-185.
 Birling M.C., Gofflot F. and Warot X. (2009). Site-specific recombinases for manipulation of the mouse genome. Methods Mol. Biol., 561, 245-263. Review.
 Liang,Q., Conte,N., Skarnes,W. C. and Bradley, A. (2008). Extensive genomic copy number variation in embryonic stem cells. Proc. Nat. Acad. Sci., 105 (11), 17453-17456.
 Farley FW, Soriano P, Steffen LS, Dymecki SM. (2000). Widespread recombinase expression using FLPeR (flipper) mice. Genesis, 28 (3-4), 106-110.
