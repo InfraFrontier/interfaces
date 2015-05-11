@@ -80,6 +80,10 @@ td.sectHead{
     font-style: normal;
 }
 
+td.nowrap {
+    white-space: nowrap;
+}
+
 table.datagrid {
 
     border-top-style: solid;
