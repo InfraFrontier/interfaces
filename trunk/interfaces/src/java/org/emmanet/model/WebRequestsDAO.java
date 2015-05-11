@@ -121,6 +121,9 @@ public class WebRequestsDAO {
     private String liveDelivery;
     private String liveShelfDelivery;
     
+    private String import_permission_date;
+    private String payment_date;
+    
     public String getId_req() {
         return id_req;
     }
@@ -883,6 +886,34 @@ public class WebRequestsDAO {
      */
     public void setImpc_phenotype_data_exists(String impc_phenotype_data_exists) {
         this.impc_phenotype_data_exists = impc_phenotype_data_exists;
+    }
+
+    /**
+     * @return the import_permission_date
+     */
+    public String getImport_permission_date() {
+        return import_permission_date;
+    }
+
+    /**
+     * @param import_permission_date the import_permission_date to set
+     */
+    public void setImport_permission_date(String import_permission_date) {
+        this.import_permission_date = import_permission_date;
+    }
+
+    /**
+     * @return the payment_date
+     */
+    public String getPayment_date() {
+        return payment_date;
+    }
+
+    /**
+     * @param payment_date the payment_date to set
+     */
+    public void setPayment_date(String payment_date) {
+        this.payment_date = payment_date;
     }
     
     

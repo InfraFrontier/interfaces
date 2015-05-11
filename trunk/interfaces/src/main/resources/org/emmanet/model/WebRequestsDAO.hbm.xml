@@ -87,12 +87,9 @@
     
     <property column="cancelation_reason" name="cancelation_reason"/>
     
+    
     <!--- BILLING FIELDS -->
-    <!--  <many-to-one  name="AvailabilitiesStrainsDAO" class="org.emmanet.model.AvailabilitiesStrainsDAO" column="str_id_str">
-            
-            </many-to-one>
-            insert="false"
-             update="false"
-        -->
+<property column="payment_date" name="payment_date"/>
+<property column="import_permission_date" name="import_permission_date"/>
   </class>
 </hibernate-mapping>
