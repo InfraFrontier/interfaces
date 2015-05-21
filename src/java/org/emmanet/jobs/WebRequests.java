@@ -72,20 +72,20 @@ public class WebRequests {
         return duplicatedList;
     }
 
-    public List ccArchiveMailAddresses(String str_id_str,String table) {
+    public List ccArchiveMailAddresses(String str_id_str, String table) {
 
         List ccArchive = null;
-        String fromTables="";
-        String andTables="";
-        String whereClause="";
-        if(!table.equals("nki_es_cells")) {
-            fromTables=" archive, strains, web_requests,";
-            andTables="AND people.lab_id_labo = archive.lab_id_labo AND archive.id = strains.archive_id ";
-            whereClause="strains.id_str";
+        String fromTables = "";
+        String andTables = "";
+        String whereClause = "";
+        if (!table.equals("nki_es_cells")) {
+            fromTables = " archive, strains, web_requests,";
+            andTables = "AND people.lab_id_labo = archive.lab_id_labo AND archive.id = strains.archive_id ";
+            whereClause = "strains.id_str";
         } else {
-            whereClause="nki_es_cells.clone_id";
-            fromTables="nki_es_cells,";
-            andTables="AND people.lab_id_labo = nki_es_cells.lab_id_labo ";
+            whereClause = "nki_es_cells.clone_id";
+            fromTables = "nki_es_cells,";
+            andTables = "AND people.lab_id_labo = nki_es_cells.lab_id_labo ";
         }
         System.out.println("value of clone id or strain id is :: " + str_id_str);
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -435,7 +435,7 @@ public class WebRequests {
         try {
 
             requestsFrozen = session.createQuery(query /*"from WebRequestsDAO " +
-             "where req_material like '%frozen%'"?*/).list();
+                     "where req_material like '%frozen%'"?*/).list();
             session.getTransaction().commit();
 
         } catch (HibernateException e) {
@@ -1298,8 +1298,8 @@ public class WebRequests {
                     + andClause
                     + " AND date_format( " + dateField + ", '%b' ) = ? "
                     + "AND YEAR( " + dateField + " ) = ? "/* +
-             " " +
-             "GROUP BY r.sci_e_mail,r.str_id_str "*/).setString(0, month).setString(1, year).uniqueResult();//AND req_status='SHIP'
+                     " " +
+                     "GROUP BY r.sci_e_mail,r.str_id_str "*/).setString(0, month).setString(1, year).uniqueResult();//AND req_status='SHIP'
 
             session.getTransaction().commit();
             queryResults = Integer.parseInt(bi.toString());
@@ -1441,96 +1441,7 @@ public class WebRequests {
         return queryResults;
     }
 
-    /*  public int getEUCOMMEMMADuplicatedReqCounts(String LabCode, int projectID) {
-
-     int queryResults;
-     String sqlClause = "";
-
-     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-     session.beginTransaction();
-     try {
-     //checked ok     - COUNT( DISTINCT sci_e_mail )
-     /*  BigInteger bi = (BigInteger) session.createSQLQuery("SELECT COUNT( id_req ) " +
-     "FROM laboratories l, web_requests r, strains s, rtools_strains ps " +
-     "WHERE (r.id_req) NOT IN  (" +
-     "SELECT 1 " +
-     "FROM web_requests " +
-     "WHERE sci_e_mail = r.sci_e_mail " +
-     "AND str_id_str = r.str_id_str " +
-     "HAVING COUNT( 1 ) > 1" +
-     ")" +
-     "AND r.lab_id_labo = l.id_labo " +
-     "AND s.id_str = r.str_id_str " +
-     "AND s.id_str = ps.str_id_str " +
-     "AND rtls_id =? " +
-     "AND l.code=? " +
-     "AND timestamp IS NOT NULL").setInteger(0, projectID).setString(1, LabCode).uniqueResult();*/
-    /*  BigInteger bi = (BigInteger) session.createSQLQuery("SELECT COUNT( id_req ) " +
-     "FROM laboratories l, web_requests r, strains s, rtools_strains ps " +
-     "WHERE id_req IN (SELECT MIN(id_req) FROM web_requests w, rtools_strains rs WHERE w.str_id_str=rs.str_id_str AND rtls_id=9 GROUP BY w.str_id_str, sci_e_mail) AND r.lab_id_labo = l.id_labo " +
-     "AND s.id_str = r.str_id_str " +
-     "AND s.id_str = ps.str_id_str " +
-     "AND rtls_id =? " +
-     "AND l.code=? " +
-     "AND timestamp IS NOT NULL").setInteger(0, projectID).setString(1, LabCode).uniqueResult();
-
-
-     session.getTransaction().commit();
-     queryResults = Integer.parseInt(bi.toString());
-
-     } catch (HibernateException e) {
-     session.getTransaction().rollback();
-     throw e;
-     }
-     return queryResults;
-     }
-     */
-    /*  public int getEUCOMMEMMADuplicatedReqCountsByMonth(String LabCode, int projectID, String month, String year) {
-
-     int queryResults;
-
-     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-     session.beginTransaction();
-     try {
-
-     /*BigInteger bi = (BigInteger) session.createSQLQuery("SELECT COUNT(id_req)-COUNT(DISTINCT sci_e_mail) " +
-     "AS Corrected " +
-     "FROM laboratories l, web_requests r, strains s, rtools_strains ps " +
-     "WHERE (r.id_req) NOT IN  (  " +
-     "SELECT 1 FROM web_requests " +
-     "WHERE sci_e_mail = r.sci_e_mail AND str_id_str = r.str_id_str " +
-     "HAVING COUNT( 1 ) >1" +
-     " ) " +
-     "AND r.lab_id_labo = l.id_labo " +
-     "AND s.id_str = r.str_id_str " +
-     "AND s.id_str = ps.str_id_str " +
-     "AND rtls_id =? AND date_format(r.timestamp, '%b' ) = ? " +
-     "AND YEAR(r.timestamp) = ? " +
-     "AND l.code = ? " +
-     "AND timestamp IS NOT NULL").setInteger(0, projectID).setString(1, month).setString(2, year).setString(3, LabCode).uniqueResult();*/
-    /*    BigInteger bi = (BigInteger) session.createSQLQuery("SELECT COUNT(id_req)-COUNT(DISTINCT sci_e_mail) " +
-     "AS Corrected " +
-     "FROM laboratories l, web_requests r, strains s, rtools_strains ps " +
-     "WHERE id_req IN (SELECT MIN(id_req) FROM web_requests w, rtools_strains rs WHERE w.str_id_str=rs.str_id_str AND rtls_id=9 GROUP BY w.str_id_str, sci_e_mail) AND r.lab_id_labo = l.id_labo " +
-     "AND s.id_str = r.str_id_str " +
-     "AND s.id_str = ps.str_id_str " +
-     "AND rtls_id =? AND date_format(r.timestamp, '%b' ) = ? " +
-     "AND YEAR(r.timestamp) = ? " +
-     "AND l.code = ? " +
-     "AND timestamp IS NOT NULL").setInteger(0, projectID).setString(1, month).setString(2, year).setString(3, LabCode).uniqueResult();
-            
-            
-
-     session.getTransaction().commit();
-     queryResults = Integer.parseInt(bi.toString());
-
-     } catch (HibernateException e) {
-     session.getTransaction().rollback();
-     throw e;
-     }
-     return queryResults;
-     }
-     */
+    
     public List sciMails(String field) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
@@ -1674,7 +1585,7 @@ public class WebRequests {
         }
         return availList;
     }
-    
+
     public void saveRequest(WebRequestsDAO saveWebReq) {
         // Fixes java.sql.BatchUpdateException: Data truncation: Incorrect datetime
         // value: '' for column 'date_processed' at row 1 when date field not updated
@@ -1711,6 +1622,16 @@ public class WebRequests {
         if (saveWebReq.getMta_arrived_date() != null) {
             if (saveWebReq.getMta_arrived_date().length() == 0) {
                 saveWebReq.setMta_arrived_date(null);
+            }
+        }
+        if (saveWebReq.getPayment_date() != null) {
+            if (saveWebReq.getPayment_date().length() == 0) {
+                saveWebReq.setPayment_date(null);
+            }
+        }
+        if (saveWebReq.getImport_permission_date() != null) {
+            if (saveWebReq.getImport_permission_date().length() == 0) {
+                saveWebReq.setImport_permission_date(null);
             }
         }
 
@@ -1774,7 +1695,7 @@ public class WebRequests {
         }
         return sd;
     }
-    
+
     public NkiEsCellsDAO getESCellsByID(String id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
