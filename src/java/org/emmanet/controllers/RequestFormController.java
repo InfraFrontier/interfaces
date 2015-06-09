@@ -134,8 +134,6 @@ public class RequestFormController extends SimpleFormController {
     private Iterator it;
     private boolean mailSend;
     public static final String MAP_KEY = "returnedOut";
-   //final static String BASEURL = Configuration.get("BASEURL");
-    //  final static String GOOGLEANAL = Configuration.get("GOOGLEANAL");
     final static String FILELOCATION = Configuration.get("TMPFILES");
     private static String BASEURL;
     private static String GOOGLEANAL;
@@ -159,7 +157,7 @@ public class RequestFormController extends SimpleFormController {
          * THIS ALLOWS FORM TO DISPLAY FOR NEW REQUESTS
          */
         StrainsManager sm = new StrainsManager();
-        sd=new StrainsDAO();
+        sd = new StrainsDAO();
 
         session = request.getSession(true);
         //System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
@@ -403,21 +401,21 @@ public class RequestFormController extends SimpleFormController {
                 //System.out.println("o[0].toString() == " + wr.getLab_id_labo());
             }
             sd = sm.getStrainByID(wr.getStr_id_str());
-            System.out.println("405 STRAINSDAO VALUE IS " + wr.getStr_id_str() );
+            System.out.println("405 STRAINSDAO VALUE IS " + wr.getStr_id_str());
 
-                   if (sd != null) {
-                                        System.out.println("405 STRAINSDAO VALUE IS " + sd.getLs_consortium() );
-                 System.out.println("405 STRAINSDAO VALUE IS " + sd.getName() );
+            if (sd != null) {
+                System.out.println("405 STRAINSDAO VALUE IS " + sd.getLs_consortium());
+                System.out.println("405 STRAINSDAO VALUE IS " + sd.getName());
                 System.out.println("sd values two is " + sd.getLs_consortium() + " + " + sd.getId_str());
             } else {
                 int iPhenoExists;
-                iPhenoExists=wr.getStr_id_str();
-                if ( iPhenoExists==0 && request.getParameter("str_id_str") != null) {
-                     iPhenoExists= Integer.parseInt(request.getParameter("str_id_str"));
+                iPhenoExists = wr.getStr_id_str();
+                if (iPhenoExists == 0 && request.getParameter("str_id_str") != null) {
+                    iPhenoExists = Integer.parseInt(request.getParameter("str_id_str"));
                 }
-                  System.out.println("pheno exists  IS " +wr.getStr_id_str());
+                System.out.println("pheno exists  IS " + wr.getStr_id_str());
                 sd = sm.getStrainByID(iPhenoExists);
-               // System.out.println("412 STRAINSDAO VALUE IS " + sd.getEmma_id());
+                // System.out.println("412 STRAINSDAO VALUE IS " + sd.getEmma_id());
             }
 
             //sd=sm.getStrainByID(wr.getStr_id_str());
@@ -436,7 +434,7 @@ public class RequestFormController extends SimpleFormController {
             wr.setLiveDelivery(liveDelivery);
             wr.setLiveShelfCost(liveShelfCost);
             wr.setLiveShelfDelivery(liveShelfDelivery);
-            
+
             System.out.println("Mouse portal val is " + wr.getWtsi_mouse_portal());
             System.out.println("europhenome  val is " + wr.getEurophenome());
             wr.setWtsi_mouse_portal(null);
@@ -445,10 +443,10 @@ public class RequestFormController extends SimpleFormController {
             if (sd != null) {
                 impcDataExists = sd.getLs_consortium();//.getImpc_phenotype_data_exists();
                 if (impcDataExists != null && impcDataExists.contains("IMPC")) {
-                    impcDataExists="yes";
+                    impcDataExists = "yes";
                 }
             }
-            
+
             wr.setImpc_phenotype_data_exists(impcDataExists);
             System.out.println("impc data is...." + impcDataExists);
             return wr;
@@ -464,9 +462,11 @@ public class RequestFormController extends SimpleFormController {
         WebRequests wr = new WebRequests();
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
         session.setAttribute("req_material", null);
-        mailSubjectText="";
-        sd=null;
-        esd=null;
+        mailSubjectText = "";
+        sd = null;
+        esd = null;
+        String type = request.getParameter("type");
+        System.out.println("TYPE is set to " + type);
         System.out.println("PO REFERENCE NUMBER IN CONTROLLER IS " + webRequest.getPO_ref());
         if (!webRequest.getStrain_name().toLowerCase().contains("wtsi")) {
             //webRequest.setWtsi_mouse_portal("no");
@@ -475,27 +475,27 @@ public class RequestFormController extends SimpleFormController {
 
         String strainID = "" + webRequest.getStr_id_str() + "";
 
-        if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+        if (type != null && type.equals("nkiescells")) {
             esd = (NkiEsCellsDAO) (wr.getESCellsByID("" + webRequest.getStrain_id()));
         } else {
             sd = (wr.getStrainByID(webRequest.getStr_id_str()));
         }
         mailSend = true;
         Cc = new HashMap();
-int im = 0;
+        int im = 0;
         // Late stage addition for multiple cc addresses TODO MAKE BETTER
         Cc.put("1", new String("emma@infrafrontier.eu"));
         //Cc.put("2", new String(""));
-                    
-            if (request.getParameter("triggerMails") != null && request.getParameter("triggerMails").equals("managersonly")) {
-                //map key + 1
-                im = 2;
-            } else {
-                Cc.put("2", new String(webRequest.getCon_e_mail().trim()));
-                 //map key + 1
-                  im = 3;
-            }
-            
+
+        if (request.getParameter("triggerMails") != null && request.getParameter("triggerMails").equals("managersonly")) {
+            //map key + 1
+            im = 2;
+        } else {
+            Cc.put("2", new String(webRequest.getCon_e_mail().trim()));
+            //map key + 1
+            im = 3;
+        }
+
         // Get responsible centre mail address(es) and add to map
         List ccCentre = new ArrayList();
         if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
@@ -543,8 +543,6 @@ int im = 0;
         it = rtools.iterator();
 
         while (it.hasNext()) {
-            //  II =  it.next().;
-// rtoolsID = o[0].toString();
             Object oo = it.next();
             rtoolsID = oo.toString();
             System.out.println("rtoolsid=" + oo.toString() + "  -  labid=" + webRequest.getLab_id_labo());
@@ -599,12 +597,12 @@ int im = 0;
         //end biling details
 
         model.put("strain_id", webRequest.getStrain_id());
-        if (sd != null && request.getParameter("type") == null) {
+        if (sd != null && type == null) {
             System.out.println("OK THIS IS FROM STRAINS TABLE");
             model.put("strain_name", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
             model.put("strainname", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
             model.put("consortium", sd.getLs_consortium());//added to satisfy 
-        } else if (esd != null && request.getParameter("type").equals("nkiescells")) {
+        } else if (esd != null && type.equals("nkiescells")) {
             System.out.println("OK THIS IS FROM NKIESCELLS TABLE");
             model.put("strain_name", esd.getStrain_name());
             model.put("strainname", esd.getStrain_name());
@@ -636,8 +634,8 @@ int im = 0;
         model.put("labID", webRequest.getLab_id_labo());
         model.put("rtoolsID", rtoolsID);
         model.put("BASEURL", BASEURL);
-        if(webRequest.getDistributionCentre() != null){
-        model.put("DistributionCentre", webRequest.getDistributionCentre().getName() + ", " + webRequest.getDistributionCentre().getCountry());
+        if (webRequest.getDistributionCentre() != null) {
+            model.put("DistributionCentre", webRequest.getDistributionCentre().getName() + ", " + webRequest.getDistributionCentre().getCountry());
         }
         if (webRequest.getLab_id_labo() != null && !webRequest.getLab_id_labo().equals("4")) {
             /*
@@ -650,10 +648,6 @@ int im = 0;
                 model.put("mtaFile", esd.getMta_file());
             }
         }
-        //// end new e-mail message requirements for eucomm
-        // E-mail content
-        //Added to address final request email for reg int strains
-        // System.out.println(webRequest.getRegister_interest());
 
         System.out.println("rtoolsid=" + model.get("rtoolsID") + "  -  labid=" + model.get("labID"));
         String velocTemplate = null;
@@ -662,19 +656,15 @@ int im = 0;
             /* Set values for template to be used, PDF Title & mail message subject text
              * for strain submission
              */
+            System.out.println("lab id == " + webRequest.getLab_id_labo());
 
-            
             if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template.vm";
-            } else if (sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) { 
-                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template_eucommtoolscre.vm";
-            } else if (webRequest.getApplication_type().equals("ta_only")) {
-                velocTemplate = "org/emmanet/util/velocitytemplates/taonlyRequest-Template.vm";
-            } else if (webRequest.getApplication_type().equals("ta_or_request")) {
-                velocTemplate = "org/emmanet/util/velocitytemplates/taorRequest-Template.vm";
-            } else if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+            } else if (type != null && type.equals("nkiescells")) {
                 session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/escellRequest-Template.vm";
+            } else if ((sd.getLs_consortium() != null) && sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
+                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template_eucommtoolscre.vm";
             } else {
                 session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";
@@ -688,7 +678,7 @@ int im = 0;
 
             List rtool = new ArrayList();
             //to avoid tet cc being used if str_id_str (numeric only) for nki es cells is the same as a tet strain id
-            if (request.getParameter("type") != null && request.getParameter("type").equals("nkiescells")) {
+            if (type != null && type.equals("nkiescells")) {
                 //do nothing
             } else {
                 rtool = wr.strainRToolID(webRequest.getStr_id_str());
@@ -703,15 +693,10 @@ int im = 0;
             }
 
         } else if (webRequest.getRegister_interest().equals("1")) {
-            /* Set values for template to be used, PDF Title & mail message subject text
-             * for registration of interest
-             */
-
-            // //uncomment here to release new mail templates for sanger awaiting go ahead from jo bottomley
             if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
                 /*##NEW TEMPLATE FOR SANGER */
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template.vm";
-            } else if (sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) { 
+            } else if (sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template_eucommtoolscre.vm";
             } else {
                 velocTemplate = "org/emmanet/util/velocitytemplates/interestSubmission-Template.vm";
@@ -900,13 +885,13 @@ int im = 0;
             if (mailSend) {
                 System.out.println(content);
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
-                 System.out.println(message);
+                System.out.println(message);
 //helper.setCc("philw@ebi.ac.uk");
 //helper.setBcc("philw@ebi.ac.uk");
 //helper.setTo("philw@ebi.ac.uk");
                 getJavaMailSender().send(message);
                 System.out.println(model.get("consortium"));
-               
+
                 System.out.println("Mail sent ");
             }
 
@@ -922,7 +907,7 @@ int im = 0;
                 return new ModelAndView(getInternalSuccessView());
             }
         }
-   
+
         //test logging of previous refferal URIs for Sanger lines
         //to improve europhenome/mouse portal interest logging
         // <c:if test="${fn:containsIgnoreCase(command.strain_name,'wtsi')}">
@@ -946,7 +931,7 @@ int im = 0;
                     out.write(ldf.format(date) + "-" + "WTSI request not generated from another site. " + referer);
                 }
             } catch (IOException ex) {
-                 ex.printStackTrace();
+                ex.printStackTrace();
                 //Logger.getLogger(RequestFormController.class.getName()).log(Level.WARNING, null, ex);
             } finally {
                 try {
