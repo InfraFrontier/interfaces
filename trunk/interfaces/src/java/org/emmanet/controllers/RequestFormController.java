@@ -28,6 +28,28 @@
  */
 package org.emmanet.controllers;
 
+/*
+ * #%L
+ * InfraFrontier
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2015 EMBL-European Bioinformatics Institute
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -136,7 +158,6 @@ public class RequestFormController extends SimpleFormController {
     public static final String MAP_KEY = "returnedOut";
     final static String FILELOCATION = Configuration.get("TMPFILES");
     private static String BASEURL;
-    private static String GOOGLEANAL;
     private Map returnedOut = new HashMap();
     private Encrypter encrypter = new Encrypter();
     private HttpSession session;
@@ -160,10 +181,7 @@ public class RequestFormController extends SimpleFormController {
         sd = new StrainsDAO();
 
         session = request.getSession(true);
-        //System.out.println("baseurl/googleanal is ::- " + getBASEURL() + " / " + getGOOGLEANAL());
         session.setAttribute("BASEURL", getBASEURL());
-
-        session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
 
         if (request.getParameter("ID") != null) {
             //System.out.println("ID PARAM= " + request.getParameter("ID"));
@@ -460,14 +478,16 @@ public class RequestFormController extends SimpleFormController {
             Object command,
             BindException errors) {
         WebRequests wr = new WebRequests();
+        StrainsDAO sdSubmit = new StrainsDAO();
         WebRequestsDAO webRequest = (WebRequestsDAO) command;
         session.setAttribute("req_material", null);
+
         mailSubjectText = "";
-        sd = null;
+        sdSubmit = null;
         esd = null;
         String type = request.getParameter("type");
         System.out.println("TYPE is set to " + type);
-        System.out.println("PO REFERENCE NUMBER IN CONTROLLER IS " + webRequest.getPO_ref());
+
         if (!webRequest.getStrain_name().toLowerCase().contains("wtsi")) {
             //webRequest.setWtsi_mouse_portal("no");
             // webRequest.setEurophenome("no");
@@ -478,7 +498,7 @@ public class RequestFormController extends SimpleFormController {
         if (type != null && type.equals("nkiescells")) {
             esd = (NkiEsCellsDAO) (wr.getESCellsByID("" + webRequest.getStrain_id()));
         } else {
-            sd = (wr.getStrainByID(webRequest.getStr_id_str()));
+            sdSubmit = (wr.getStrainByID(webRequest.getStr_id_str()));
         }
         mailSend = true;
         Cc = new HashMap();
@@ -597,12 +617,16 @@ public class RequestFormController extends SimpleFormController {
         //end biling details
 
         model.put("strain_id", webRequest.getStrain_id());
-        if (sd != null && type == null) {
+
+        if (sdSubmit != null && type == null) {
+
             System.out.println("OK THIS IS FROM STRAINS TABLE");
-            model.put("strain_name", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
-            model.put("strainname", sd.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
-            model.put("consortium", sd.getLs_consortium());//added to satisfy 
+
+            model.put("strain_name", sdSubmit.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+            model.put("strainname", sdSubmit.getName());//webRequest.getStrain_name());//change req by Sabine as strain name sometimes changed in strains table but remains static in web_requests
+            model.put("consortium", sdSubmit.getLs_consortium());//added to satisfy 
         } else if (esd != null && type.equals("nkiescells")) {
+
             System.out.println("OK THIS IS FROM NKIESCELLS TABLE");
             model.put("strain_name", esd.getStrain_name());
             model.put("strainname", esd.getStrain_name());
@@ -642,8 +666,8 @@ public class RequestFormController extends SimpleFormController {
              * FOR LEGAL REASONS MTA FILE AND USAGE TEXT SHOULD NOT BE SHOWN FOR MRC STOCK.
              * MRC WILL SEND MTA SEPARATELY (M.FRAY EMMA IT MEETING 28-29 OCT 2010)
              */
-            if (sd != null) {
-                model.put("mtaFile", sd.getMta_file());
+            if (sdSubmit != null) {
+                model.put("mtaFile", sdSubmit.getMta_file());
             } else if (esd != null) {
                 model.put("mtaFile", esd.getMta_file());
             }
@@ -663,8 +687,16 @@ public class RequestFormController extends SimpleFormController {
             } else if (type != null && type.equals("nkiescells")) {
                 session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/escellRequest-Template.vm";
-            } else if ((sd.getLs_consortium() != null) && sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
+
+            } else if ((sdSubmit.getLs_consortium() != null) && sdSubmit.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template_eucommtoolscre.vm";
+            } else if (sdSubmit.getName().matches("em\\dWtsi") && webRequest.getLab_id_labo().equals("1961")) {
+                /* Request for a Crispr line
+                need to apply different mail template
+                */
+                System.out.println("\n\n\nTHIS IS A CRISPR LINE\n\n\n:");
+                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template_crispr.vm";
+
             } else {
                 session.setAttribute("req_material", webRequest.getReq_material());
                 velocTemplate = "org/emmanet/util/velocitytemplates/submissionConfirmation-Template.vm";
@@ -696,8 +728,16 @@ public class RequestFormController extends SimpleFormController {
             if (rtoolsID.equals("9") && webRequest.getLab_id_labo().equals("1961")) {
                 /*##NEW TEMPLATE FOR SANGER */
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template.vm";
-            } else if (sd.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
+
+            } else if (sdSubmit.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
+
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template_eucommtoolscre.vm";
+            } else if (sdSubmit.getName().matches("em\\dWtsi") && webRequest.getLab_id_labo().equals("1961")) {
+                /* Request for a Crispr line
+                need to apply different mail template
+                */
+                System.out.println("\n\n\nTHIS IS A CRISPR LINE\n\n\n:");
+                velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template_crispr.vm";
             } else {
                 velocTemplate = "org/emmanet/util/velocitytemplates/interestSubmission-Template.vm";
             }
@@ -820,8 +860,8 @@ public class RequestFormController extends SimpleFormController {
 
             helper.setTo(webRequest.getSci_e_mail().trim());
             String correctStrainname = "";
-            if (sd != null) {
-                correctStrainname = sd.getName();
+            if (sdSubmit != null) {
+                correctStrainname = sdSubmit.getName();
             } else if (esd != null) {
                 correctStrainname = esd.getStrain_name();
             }
@@ -842,16 +882,16 @@ public class RequestFormController extends SimpleFormController {
             String mtaFile = "";
             if (webRequest.getLab_id_labo() != null && !webRequest.getLab_id_labo().equals("4")) {
 
-                if (sd != null) {
-                    mtaFile = sd.getMta_file();
+                if (sdSubmit != null) {
+                    mtaFile = sdSubmit.getMta_file();
                 } else if (esd != null) {
                     mtaFile = esd.getMta_file();
                 }
-                // if (sd.getMta_file() != null && !sd.getMta_file().equals("")) {
+                // if (sdSubmit.getMta_file() != null && !sdSubmit.getMta_file().equals("")) {
                 if (mtaFile != null && !mtaFile.isEmpty()) {
                     if (!model.get("application_type").equals("ta_only")) {
                         //add mta file if associated with strain id
-                        //String mtaFile = sd.getMta_file();
+                        //String mtaFile = sdSubmit.getMta_file();
                         // mtaFile="this is a test.pdf";
                         System.out.println("mta file value is::" + mtaFile);
                         //  System.out.println( " OK now mta file from model value is " + model.get("mtaFile").toString());
@@ -885,10 +925,12 @@ public class RequestFormController extends SimpleFormController {
             if (mailSend) {
                 System.out.println(content);
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
+
                 System.out.println(message);
-//helper.setCc("philw@ebi.ac.uk");
-//helper.setBcc("philw@ebi.ac.uk");
-//helper.setTo("philw@ebi.ac.uk");
+helper.setCc("philw@ebi.ac.uk");
+helper.setBcc("philw@ebi.ac.uk");
+helper.setTo("philw@ebi.ac.uk");
+
                 getJavaMailSender().send(message);
                 System.out.println(model.get("consortium"));
 
@@ -1302,20 +1344,7 @@ public class RequestFormController extends SimpleFormController {
         this.BASEURL = BASEURL;
     }
 
-    /**
-     * @return the GOOGLEANAL
-     */
-    public String getGOOGLEANAL() {
-        return GOOGLEANAL;
-    }
-
-    /**
-     * @param GOOGLEANAL the GOOGLEANAL to set
-     */
-    public void setGOOGLEANAL(String GOOGLEANAL) {
-        this.GOOGLEANAL = GOOGLEANAL;
-    }
-
+    
     /**
      * @return the xmlMailTo
      */
