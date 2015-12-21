@@ -1,0 +1,88 @@
+This is an automatically generated message.  Please do not reply directly to this mail. 
+IMPORTANT INFORMATION. PLEASE READ CAREFULLY
+
+Dear EMMA customer
+
+We would like to confirm receipt of the Registration of Interest (RoI) for ${strainname} (${emmaid})
+Your request ID is: ${requestID}
+
+The strain you are interested in has been produced by the Sanger Institute Mouse Genetics Project (Sanger MGP). The Sanger MGP provides an opportunity to obtain mice prior to archiving at a distribution centre. However, please note that at this time, we can NOT guarantee there will be mice available for shipment nor provide a shipping date. Should mice become available for shipment, we will notify you by email. At that time you will be required to complete an Order Form before shipment can proceed. 
+ 
+Without exception, shipment will not proceed without a completed Material Transfer Agreement (MTA). In our experience, this can be a lengthy procedure we therefore recommend starting this process immediately. 
+Please find attached the MTA template for your convenience. To expedite processing of the MTA, please follow these guidelines:
+
+    -   Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
+    -   The MTA is non-negotiable.
+    -   For the section "Description of Material", please use this specific language but change the gene symbol and the request ID as appropriate for your request:
+            "Mice or frozen material derived from a colony containing mutants for the gene [gene symbol]. Request ID:[${requestID}]."
+
+    -   The Wellcome Trust Sanger Institute accepts MTAs in PDF format. The partially executed document may be sent to mousemta@sanger.ac.uk.
+
+Please be aware that the shipping costs will be covered by your Institution. In addition, an EMMA Service Fee will apply at the time the Order Form is completed. See rates at <(${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering)>.
+
+The standard quantity supplied is 2 breeding pairs.
+To potentially accelerate availability please indicate if you would consider receiving 2 males only. Standard Service Fee applies <(${BASEURL}resources-and-services/access-emma-mouse-resources/strain-ordering)>
+Should you have any general questions, please do not hesitate to contact the INFRAFRONTIER Project Office (info@infrafrontier.eu).
+For enquiries related to the progress of the resource development please contact mouseinterest@sanger.ac.uk
+
+
+Thank you for your interest in EMMA.
+
+Kind regards,
+
+The Sanger Mouse Genetics Project
+EMMA - European Mouse Mutant Archive
+www.infrafrontier.eu
+
+
+Disclaimer
+
+CRISPR/Cas9 derived exon deletions (zygote): The current level of quality control (QC) before the mice are shipped is to:
+
+    •Confirm the mutation for the colony by LoA qPCR, gene-specific endpoint PCR and Sanger sequencing
+    •Confirm the individual mouse genotype by loss of wildtype allele qPCR (LoA) and gene-specific endpoint PCR
+
+CRISPR/Cas9 derived point mutations (zygote): The current level of quality control (QC) performed before the mice are shipped is to:
+
+    •Confirm the mutation for the colony by gene-specific endpoint PCR and Sanger sequencing
+    •Confirm the individual mouse genotype by gene-specific endpoint PCR
+
+It is recommended that the recipient confirms the structure of the mutation by endpoint PCR and sequencing.
+Potential off-target effects produced by the CRISPR/Cas9 method may not have been investigated for this strain. 
+A pilot study on ten strains was carried out investigating the ten most likely potential off-target sites for each gRNA. For nine strains no off-target effects were observed. For one strain a putative 1bp change was identified in an intergenic region of the genome on a different chromosome to the desired mutation.
+
+Please be aware that the strain description may be subject to change. For the most recent description please consult the International Mouse Phenotyping Consortium (IMPC; www.mousephenotype.org) information pages for the appropriate product details.
+
+Publications
+
+Please use this acknowledgement phrase in publications:
+“We thank the Wellcome Trust Sanger Institute Mouse Genetics Project (Sanger MGP) and its funders for providing the mutant mouse line (Allele:[state allele]), and INFRAFRONTIER/EMMA (www.infrafrontier.eu). Funding information may be found at www.sanger.ac.uk/mouseportal and associated primary phenotypic information at www.mousephenotype.org.”
+Please include in publications from the following references:
+White, J. K., Gerdin, A.-K., Karp, N. A., Ryder, E., Buljan, M., Bussell, J. N., Salisbury, J., et al. (2013). Genome-wide Generation and Systematic Phenotyping of Knockout Mice Reveals New Roles for Many Genes. Cell, 154 (2), 452–464.
+
+Bradley, A., Anastassiadis, K., Ayadi, A., Battey, J.F., Bell, C., Birling, M-C., Bottomley, J., Brown, S.D., Bürger, A., Bult, C.J., Bushell, W., Collins, F.S., Desaintes, C., Doe, B., Economides, A., Eppig, J.T., Finnell, R.H., Fletcher, C., Fray, M., Frendewey, D., et al. (2012) The mammalian gene function resource: the international knockout mouse consortium. Mamm. Genome, 23, 580-586.
+
+Further Information
+International Mouse Phenotyping Consortium (IMPC) strain-specific quality control (QC) details. 
+Search for your gene and follow the link from ‘Product Details’ for the mouse strain of interest.
+www.mousephenotype.org   
+General Descriptions of the mouse strain quality control (QC) assays at the IKMC Knowledgebase
+www.i-dcc.org/kb/25  
+IKMC Knowledgebase
+www.i-dcc.org/kb  
+ General information about structure of IMPC alleles and their derivatives www.mousephenotype.org/martsearch_ikmc_project/about/targeting-strategies   
+Sanger MGP Frequently Asked Questions (FAQ)
+www.i-dcc.org/kb/11   Phenotype enquiries
+MGPEnquiries@sanger.ac.uk 
+
+International Mouse Strain Resource (IMSR)
+www.findmice.org/index.jsp  
+Additional Useful Publications
+Bae, S., Park, J., & Kim, J.-S. (2014). Cas-OFFinder: a fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided endonucleases. Bioinformatics (Oxford, England), 30 (10), 1473–1475.
+Ryder, E., Doe, B., Gleeson, D., Houghton, R., Dalvi, P., Grau, E., Habib, B., Miklejewska, E., Newman, S., Sethi, D., Sinclair, C., Vyas, S., Wardle-Jones, H.; Sanger Mouse Genetics Project, Bottomley, J., Bussell, J., Galli, A., Salisbury, J., Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177–185.
+Ryder, E., Gleeson, D., Sethi, D., Vyas, S., Miklejewska, E., Dalvi, P., Habib, B., Cook, R., Hardy, M., Jhaveri, K., Bottomley, J., Wardle-Jones, H., Bussell, J.N., Houghton, R., Salisbury, J., Skarnes W.C.; Sanger Mouse Genetics Project, Ramirez-Solis, R. (2013). Molecular characterization of mutant mouse strains generated from the EUCOMM/KOMP-CSD ES cell resource. Mamm. Genome, 24, 286–294.
+Skarnes, W.C., Rosen, B., West, A.P., Koutsourakis, M., Bushell, W., Iyer, V., Mujica, A.O., Thomas, M., Harrow, J., Cox, T. et al. (2011) A conditional knockout resource for the genome-wide study of mouse gene function. Nature, 474, 337-342.
+Birling, M.C., Gofflot, F. and Warot, X. (2009). Site-specific recombinases for manipulation of the mouse genome. Methods Mol. Biol., 561, 245-263. Review.
+Pettitt, S.J., Liang, Q., Rairdan, X.Y., Moran J.L., Prosser H.M., Beier D.R., Lloyd K.C., Bradley A. & Skarnes W.C. (2009) Agouti C57BL/6N embryonic stem cells for mouse genetic resources. Nature methods, 6, 493-495.
+Liang, Q., Conte, N., Skarnes, W. C. and Bradley, A. (2008). Extensive genomic copy number variation in embryonic stem cells. Proc. Nat. Acad. Sci., 105 (11), 17453-17456.
+Farley, F.W., Soriano, P., Steffen, L..S. & Dymecki, S.M. (2000). Widespread recombinase expression using FLPeR (flipper) mice. Genesis, 28 (3-4), 106-110.
