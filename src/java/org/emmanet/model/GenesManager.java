@@ -15,26 +15,47 @@
  */
 package org.emmanet.model;
 
+/*
+ * #%L
+ * InfraFrontier
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2015 EMBL-European Bioinformatics Institute
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.google.gson.Gson;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.emmanet.jobs.EmmaBiblioJOB;
 import org.emmanet.util.Filter;
+import org.emmanet.util.HibernateUtil;
 import org.emmanet.util.Utils;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import com.google.gson.Gson;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import org.emmanet.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
