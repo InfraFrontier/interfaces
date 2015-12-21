@@ -6,7 +6,7 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -14,10 +14,6 @@
         <title>EMMA Dashboard</title>
     </head>
     <body>
-
-    <h4>EMMA Dashboard</h4>
-    
-    
-    
+        <h4>EMMA Dashboard</h4>
     </body>
 </html>
