@@ -21,4 +21,4 @@ or copy and paste the link between the <> characters into the address bar of you
 Should you have any questions, please do not hesitate to contact the #if($rtoolsID == 9 && $labID == 1961)Wellcome Trust Sanger Institute Mouse Genetics Project (mouseinterest@sanger.ac.uk )#{else}EMMA Project Coordination Office (emma@infrafrontier.eu)#end.
 
 ## Include footer template common to all messages
-#parse( "org/emmanet/util/velocitytemplates/footer.vm" )
+#parse( "org/emmanet/util/velocitytemplates/footer.vm")
