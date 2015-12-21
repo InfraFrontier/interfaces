@@ -1,3 +1,24 @@
+<%--
+  #%L
+  InfraFrontier
+  $Id:$
+  $HeadURL:$
+  %%
+  Copyright (C) 2015 EMBL-European Bioinformatics Institute
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  --%>
 <%-- 
     Document   : submissionForm1
     Created on : 30-Jan-2012, 14:44:44
@@ -46,21 +67,7 @@
         <script>
             // window.jQuery || document.write('<script src="../js/jquery-1.7.2.min.js"><\/script><script src="/js/vendor/jquery-ui-1.7.2.min.js"><\/script>');
         </script>
-        <SCRIPT>
-            (function(i,s,o,g,r,a,m){
-                i['GoogleAnalyticsObject']=r;
-                i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)
-                },i[r].l=1*new Date();
-                a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];
-                a.async=1;
-                a.src=g;
-                m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', '${GOOGLEANAL}', 'infrafrontier.eu');
-            ga('send', 'pageview');
-        </SCRIPT>
+       
     </head>
     <body onKeyPress="return disableEnterKey(event)">
         <br/>
