@@ -1,5 +1,27 @@
 package org.emmanet.controllers;
 
+/*
+ * #%L
+ * InfraFrontier
+ * $Id:$
+ * $HeadURL:$
+ * %%
+ * Copyright (C) 2015 EMBL-European Bioinformatics Institute
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 /**
  *
  * @author phil
@@ -17,8 +39,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -89,7 +109,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
     private VelocityEngine velocityEngine;
     private boolean action;
     private static String BASEURL;// = Configuration.get("BASEURL");
-    private static String GOOGLEANAL;// = Configuration.get("GOOGLEANAL");
     private String[] Cc;
 
     public SubmissionFormController() {
@@ -140,8 +159,6 @@ public class SubmissionFormController extends AbstractWizardFormController {
 
         session = request.getSession(true);
         session.setAttribute("BASEURL", getBASEURL());
-
-        session.setAttribute("GOOGLEANAL", getGOOGLEANAL());
 //total steps in wizard for use in view
         int iPageCount = getPageCount() - 1;
         session.setAttribute("totalStepCount", "" + iPageCount);
@@ -909,7 +926,7 @@ nsd.setReporting_count("1.0");
             }
             
             GenesDAO genesDAO = genesManager.getGene(transgeneName);
-System.out.println("This is the value of transgene - " + transgeneName);
+//System.out.println("This is the value of transgene - " + transgeneName);
             if (genesDAO == null) {
                 genesDAO = new GenesDAO();                                      // The transgene does not yet exist in the genes table. Create a new instance.
                 genesDAO.setName(transgeneName.isEmpty() ? "Unknown at present" : transgeneName/*smdao.getMutation_transgene_mgi_symbol()*/);
@@ -1498,20 +1515,6 @@ System.out.println("This is the value of transgene - " + transgeneName);
      */
     public void setBASEURL(String aBASEURL) {
         BASEURL = aBASEURL;
-    }
-
-    /**
-     * @return the GOOGLEANAL
-     */
-    public String getGOOGLEANAL() {
-        return GOOGLEANAL;
-    }
-
-    /**
-     * @param GOOGLEANAL the GOOGLEANAL to set
-     */
-    public void setGOOGLEANAL(String aGOOGLEANAL) {
-        GOOGLEANAL = aGOOGLEANAL;
     }
 
     /**
