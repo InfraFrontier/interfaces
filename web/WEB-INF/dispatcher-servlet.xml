@@ -203,12 +203,9 @@
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="javaMailSender" ref="javaMailSender"/>
-         <property name="GOOGLEANAL" >
-             <value>${GOOGLEANAL}</value>
-         </property>
-                  <property name="BASEURL" >
-             <value>${BASEURL}</value>
-         </property>
+        <property name="BASEURL" >
+            <value>${BASEURL}</value>
+        </property>
         <property name="pathToXml">
             <value>${DATAFILES}/tmp/</value>
         </property><!-- /nfs/panda/emmaREMOVED AS PERMISSIONS ERROR cron_pdfs## /data/web/submissions/ removed from server move path changed -->
@@ -226,13 +223,13 @@
             <value>freundlieb@tet-systems.com</value>
         </property>
         <property name="nkiescellCc" value="i.huijbers@nki.nl"/>
-       <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de,accounts-receivable@helmholtz-muenchen.de"/>
-       <property name="liveCost" value="2400"/><!-- Cost in euros for material for use in xml sent to Helmholtz legal team for German requests-->
-       <property name="frozenCost" value="1100"/><!-- Cost in euros for material for use in xml sent to Helmholtz legal team for German requests-->
-       <property name="liveShelfCost" value="2400"/>
-       <property name="frozenDelivery" value="4 weeks"/>
-       <property name="liveDelivery" value="4-6 months"/>
-       <property name="liveShelfDelivery" value="4 weeks"/>
+        <property name="xmlMailTo" value="yi.hong@helmholtz-muenchen.de,s.marschall@helmholtz-muenchen.de,accounts-receivable@helmholtz-muenchen.de"/>
+        <property name="liveCost" value="2400"/><!-- Cost in euros for material for use in xml sent to Helmholtz legal team for German requests-->
+        <property name="frozenCost" value="1100"/><!-- Cost in euros for material for use in xml sent to Helmholtz legal team for German requests-->
+        <property name="liveShelfCost" value="2400"/>
+        <property name="frozenDelivery" value="4 weeks"/>
+        <property name="liveDelivery" value="4-6 months"/>
+        <property name="liveShelfDelivery" value="4 weeks"/>
         <!--START VALIDATE/SUCCESS-->
         <property name="successView">
             <value>redirect:../success.emma</value>
@@ -240,7 +237,7 @@
         <property name="internalSuccessView">
             <value>redirect:${BASEURL}emma/interfaces/requestsInterface.emma?listAll=y</value>
         </property>
-      <property name="validator">
+        <property name="validator">
             <ref bean="RequestFormValidator" />
         </property>
         <!--END VALIDATE/SUCCESS-->
@@ -556,12 +553,9 @@
     <bean name="submissionFormController" class="org.emmanet.controllers.SubmissionFormController" >
         <property name="javaMailSender" ref="javaMailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
-        <property name="GOOGLEANAL" >
-             <value>${GOOGLEANAL}</value>
-         </property>
-                  <property name="BASEURL" >
-             <value>${BASEURL}</value>
-         </property>
+        <property name="BASEURL" >
+            <value>${BASEURL}</value>
+        </property>
         <property name="pages">
             <list>
                 <!-- follow sequence -->
@@ -632,8 +626,8 @@
             <value>/interfaces/geneManagementDetail</value>
         </property>
         <property name="validator">
-		<bean class="org.emmanet.controllers.GeneManagementDetailController" />
-	</property>
+            <bean class="org.emmanet.controllers.GeneManagementDetailController" />
+        </property>
     </bean>
     
     <bean name="alleleManagementListController" class="org.emmanet.controllers.AlleleManagementListController">
@@ -647,15 +641,15 @@
             <value>/interfaces/alleleManagementDetail</value>
         </property>
         <property name="validator">
-		<bean class="org.emmanet.controllers.AlleleManagementDetailController" />
-	</property>
+            <bean class="org.emmanet.controllers.AlleleManagementDetailController" />
+        </property>
     </bean>
 
-        <bean name="PdfDownloadController" class="org.emmanet.controllers.PdfDownloadController">
+    <bean name="PdfDownloadController" class="org.emmanet.controllers.PdfDownloadController">
    
     </bean>
     
-        <bean name="synonymUpdateInterfaceController" class="org.emmanet.controllers.SynonymUpdateInterfaceController">
+    <bean name="synonymUpdateInterfaceController" class="org.emmanet.controllers.SynonymUpdateInterfaceController">
         <property name="successView">
             <value>redirect:editSynonym.emma</value>
         </property>

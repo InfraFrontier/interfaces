@@ -66,7 +66,8 @@
                                                     <p class="left">9. The Recipient agrees to acknowledge the Provider and EMMA as Distributor in any publication or presentation reporting on research involving an EMMA strain.</p>
                                                 </div>
                                                 <br />
-                                                <p><a href="javascript:void(0)" onclick="javascript:window.close(); return false;">Close</a></p>
+                                                <p><a href="javascript:void(0)" onclick="javascript:window.close();
+                                                        return false;">Close</a></p>
 
                                                 <br />
                                             </td>
