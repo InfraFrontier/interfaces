@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -38,7 +38,7 @@
         <itext.version>2.0.7</itext.version>
         <poi.version>3.0.2-FINAL</poi.version>
         <c3p0.version>0.9.1</c3p0.version>
-        <mysql.version>5.1.22</mysql.version>
+        <mysql.version>5.1.28</mysql.version>
         <spring.version>2.5.6.SEC01</spring.version>
         <spring.security.version>2.0.0</spring.security.version>
         <asm.version>3.0</asm.version>
@@ -61,15 +61,15 @@
     </properties>
 
     <dependencies>
-      <!-- velocity dependancy -->
-      <!-- see web.xml for listener -->
+        <!-- velocity dependancy -->
+        <!-- see web.xml for listener -->
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
         </dependency>
 
-		<!-- Quartz scheduler -->
+        <!-- Quartz scheduler -->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
@@ -89,8 +89,8 @@
             </exclusions>
         </dependency>
 
-		<!-- EBI webservice internal dependency -->
-      <!--  <dependency>
+        <!-- EBI webservice internal dependency -->
+        <!--  <dependency>
             <groupId>uk.ac.ebi</groupId>
             <artifactId>cdb-webservice-all</artifactId>
             <version>3.0</version>
@@ -101,28 +101,28 @@
             <artifactId>cdb-webservice-all</artifactId>
             <version>3.0.1</version>
         </dependency>
-		<!-- Chartdirector internal dependency -->
+        <!-- Chartdirector internal dependency -->
         <dependency>
             <groupId>com.advsofteng</groupId>
             <artifactId>chart-director-all</artifactId>
             <version>1.0</version>
         </dependency>
 
-		<!-- ASM dependencies -->
+        <!-- ASM dependencies -->
         <dependency>
             <groupId>asm</groupId>
             <artifactId>asm-all</artifactId>
             <version>${asm.version}</version>
         </dependency>
 
-		<!-- dom4j dependency -->
+        <!-- dom4j dependency -->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>${dom4j.version}</version>
         </dependency>
 
-		<!-- Spring Dependencies -->
+        <!-- Spring Dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -147,21 +147,21 @@
             <version>${spring.version}</version>
         </dependency>
 
-		<!-- iText dependency -->
+        <!-- iText dependency -->
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
             <version>${itext.version}</version>
         </dependency>
 
-		<!-- antlr dependency -->
+        <!-- antlr dependency -->
         <dependency>
             <groupId>antlr</groupId>
             <artifactId>antlr</artifactId>
             <version>${antlr.version}</version>
         </dependency>
 
-		<!-- Spring security dependencies -->
+        <!-- Spring security dependencies -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
@@ -199,7 +199,7 @@
             <version>${spring.version}</version>
         </dependency>
 
-		<!-- JTA dependency -->
+        <!-- JTA dependency -->
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
@@ -219,21 +219,21 @@
             <scope>provided</scope>
         </dependency>
 
-		<!-- C3P0 dependencies -->
+        <!-- C3P0 dependencies -->
         <dependency>
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
             <version>${c3p0.version}</version>
         </dependency>
 
-		<!-- poi dependency -->
+        <!-- poi dependency -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${poi.version}</version>
         </dependency>
 
-		<!-- apache taglibs dependencies -->
+        <!-- apache taglibs dependencies -->
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
@@ -252,36 +252,36 @@
             <version>${taglibs.request.version}</version>
         </dependency>
 
-		<!-- simply json dependency -->
+        <!-- simply json dependency -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>${json-simple.version}</version>
         </dependency>
 
-		<!-- Javabeans activation framework -->
+        <!-- Javabeans activation framework -->
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>${jaf.version}</version>
         </dependency>
 
-		<!-- Mail dependency -->
+        <!-- Mail dependency -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>${mail.version}</version>
         </dependency>
 
-		<!-- MySQL database driver -->
+        <!-- MySQL database driver -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.22</version>
+            <version>5.1.28</version>
             <scope>runtime</scope>
         </dependency>
 
-		<!-- jUnit dependancy -->
+        <!-- jUnit dependancy -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -290,7 +290,7 @@
         </dependency>
 
 
-		<!-- HTTP components Dependencies -->
+        <!-- HTTP components Dependencies -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
@@ -303,7 +303,7 @@
             <version>4.0-alpha3</version>
         </dependency>
 
-		<!-- Apache commons dependencies -->
+        <!-- Apache commons dependencies -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -331,7 +331,7 @@
             <artifactId>commons-logging</artifactId>
             <version>${commons.logging.version}</version>
             <exclusions>
-				<!-- Exclude servlet api -->
+                <!-- Exclude servlet api -->
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
@@ -345,14 +345,14 @@
             <version>${commons.codec.version}</version>
         </dependency>
                 
-                        <!-- Apache Commons fileupload Upload --> 
+        <!-- Apache Commons fileupload Upload --> 
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons.fileupload.version}</version>
         </dependency>
  
-	<!-- Apache Commons io Upload --> 
+        <!-- Apache Commons io Upload --> 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -360,23 +360,23 @@
         </dependency>
 
         <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
-                <exclusions>
-                        <exclusion>
-                                <groupId>com.sun.jdmk</groupId>
-                                <artifactId>jmxtools</artifactId>
-                        </exclusion>
-                        <exclusion>
-                                <groupId>com.sun.jmx</groupId>
-                                <artifactId>jmxri</artifactId>
-                        </exclusion>
-                </exclusions>
-                <scope>compile</scope>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>compile</scope>
         </dependency>
 
-		<!-- hibernate -->
+        <!-- hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
@@ -522,25 +522,54 @@
             </plugin>
               
             <plugin>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>exec-maven-plugin</artifactId>
-              <version>1.2.1</version>
-              <configuration>
-                <arguments>
-                  <CONFIG_PATH>${CONFIG_PATH}</CONFIG_PATH>
-                </arguments>
-              </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <arguments>
+                        <CONFIG_PATH>${CONFIG_PATH}</CONFIG_PATH>
+                    </arguments>
+                </configuration>
             </plugin>
             
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-plugin</artifactId>
-              <version>2.16</version>
-              <configuration>
-                <systemProperties>
-                    <CONFIG_PATH>${CONFIG_PATH}</CONFIG_PATH>
-                </systemProperties>
-              </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <systemProperties>
+                        <CONFIG_PATH>${CONFIG_PATH}</CONFIG_PATH>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+                    <verbose>false</verbose>
+                    <addSvnKeyWords>true</addSvnKeyWords>
+                    <organizationName>EMBL-European Bioinformatics Institute</organizationName>
+                    <inceptionYear>2015</inceptionYear>
+                    <projectName>InfraFrontier</projectName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>first</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <licenseName>apache_v2</licenseName>
+                            <roots>
+                                <root>web/WEB-INF/jsp</root>
+                                <root>src/test</root>
+                            </roots>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             
         </plugins>
@@ -553,7 +582,6 @@
                 <DATAFILES>/nfs/panda/emma/</DATAFILES>
                 <SERVERLOCATION>/localhost/</SERVERLOCATION>
                 <BASEURL>http://localhost:8080/</BASEURL>
-                <GOOGLEANAL>UA-40422777-1</GOOGLEANAL>
             </properties>
         </profile>
         
@@ -563,7 +591,6 @@
                 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
                 <SERVERLOCATION>/dev/</SERVERLOCATION>
                 <BASEURL>https://dev.infrafrontier.eu/</BASEURL>
-                <GOOGLEANAL>UA-40422777-1</GOOGLEANAL>
             </properties>
 
             <build>
@@ -588,7 +615,6 @@
                 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
                 <SERVERLOCATION>/stage/</SERVERLOCATION>
                 <BASEURL>https://beta.infrafrontier.eu/</BASEURL>
-                <GOOGLEANAL>UA-40422777-2</GOOGLEANAL>
             </properties>
             <build>
                 <plugins>
@@ -636,7 +662,6 @@
                 <DATAFILES>/nfs/web-hx/mouseinformatics/emma/</DATAFILES>
                 <SERVERLOCATION>/prod/</SERVERLOCATION>
                 <BASEURL>https://www.infrafrontier.eu/</BASEURL>
-                <GOOGLEANAL>UA-40422777-3</GOOGLEANAL>
             </properties>
             <build>
                 <plugins>
