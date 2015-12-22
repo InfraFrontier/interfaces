@@ -40,13 +40,13 @@ Disclaimer
 
 CRISPR/Cas9 derived exon deletions (zygote): The current level of quality control (QC) before the mice are shipped is to:
 
-    •Confirm the mutation for the colony by LoA qPCR, gene-specific endpoint PCR and Sanger sequencing
-    •Confirm the individual mouse genotype by loss of wildtype allele qPCR (LoA) and gene-specific endpoint PCR
+    -Confirm the mutation for the colony by LoA qPCR, gene-specific endpoint PCR and Sanger sequencing
+    -Confirm the individual mouse genotype by loss of wildtype allele qPCR (LoA) and gene-specific endpoint PCR
 
 CRISPR/Cas9 derived point mutations (zygote): The current level of quality control (QC) performed before the mice are shipped is to:
 
-    •Confirm the mutation for the colony by gene-specific endpoint PCR and Sanger sequencing
-    •Confirm the individual mouse genotype by gene-specific endpoint PCR
+    -Confirm the mutation for the colony by gene-specific endpoint PCR and Sanger sequencing
+    -Confirm the individual mouse genotype by gene-specific endpoint PCR
 
 It is recommended that the recipient confirms the structure of the mutation by endpoint PCR and sequencing.
 
@@ -59,7 +59,7 @@ Please be aware that the strain description may be subject to change. For the mo
 Publications
 Please use this acknowledgement phrase in publications:
 
-“We thank the Wellcome Trust Sanger Institute Mouse Genetics Project (Sanger MGP) and its funders for providing the mutant mouse line (Allele:[state allele]), and INFRAFRONTIER/EMMA (www.infrafrontier.eu). Funding information may be found at www.sanger.ac.uk/mouseportal and associated primary phenotypic information at www.mousephenotype.org.”
+"We thank the Wellcome Trust Sanger Institute Mouse Genetics Project (Sanger MGP) and its funders for providing the mutant mouse line (Allele:[state allele]), and INFRAFRONTIER/EMMA (www.infrafrontier.eu). Funding information may be found at www.sanger.ac.uk/mouseportal and associated primary phenotypic information at www.mousephenotype.org."
 Please include in publications from the following references:
 White, J. K., Gerdin, A.-K., Karp, N. A., Ryder, E., Buljan, M., Bussell, J. N., Salisbury, J., et al. (2013). Genome-wide Generation and Systematic Phenotyping of Knockout Mice Reveals New Roles for Many Genes. Cell, 154 (2), 452–464.
 
@@ -69,22 +69,30 @@ Further Information
 
 International Mouse Phenotyping Consortium (IMPC) strain-specific quality control (QC) details. 
 Search for your gene and follow the link from ‘Product Details’ for the mouse strain of interest.
-www.mousephenotype.org   
+www.mousephenotype.org
+
 General Descriptions of the mouse strain quality control (QC) assays at the IKMC Knowledgebase
-www.i-dcc.org/kb/25  
+www.i-dcc.org/kb/25
+
 IKMC Knowledgebase
-www.i-dcc.org/kb  
- General information about structure of IMPC alleles and their derivatives www.mousephenotype.org/martsearch_ikmc_project/about/targeting-strategies   
+www.i-dcc.org/kb
+
+General information about structure of IMPC alleles and their derivatives www.mousephenotype.org/martsearch_ikmc_project/about/targeting-strategies
+
 Sanger MGP Frequently Asked Questions (FAQ)
-www.i-dcc.org/kb/11   Phenotype enquiries
+www.i-dcc.org/kb/11
+
+Phenotype enquiries
 MGPEnquiries@sanger.ac.uk 
 
 International Mouse Strain Resource (IMSR)
-www.findmice.org/index.jsp  
+www.findmice.org/index.jsp
+
 Additional Useful Publications
-Bae, S., Park, J., & Kim, J.-S. (2014). Cas-OFFinder: a fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided endonucleases. Bioinformatics (Oxford, England), 30 (10), 1473–1475.
-Ryder, E., Doe, B., Gleeson, D., Houghton, R., Dalvi, P., Grau, E., Habib, B., Miklejewska, E., Newman, S., Sethi, D., Sinclair, C., Vyas, S., Wardle-Jones, H.; Sanger Mouse Genetics Project, Bottomley, J., Bussell, J., Galli, A., Salisbury, J., Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177–185.
-Ryder, E., Gleeson, D., Sethi, D., Vyas, S., Miklejewska, E., Dalvi, P., Habib, B., Cook, R., Hardy, M., Jhaveri, K., Bottomley, J., Wardle-Jones, H., Bussell, J.N., Houghton, R., Salisbury, J., Skarnes W.C.; Sanger Mouse Genetics Project, Ramirez-Solis, R. (2013). Molecular characterization of mutant mouse strains generated from the EUCOMM/KOMP-CSD ES cell resource. Mamm. Genome, 24, 286–294.
+
+Bae, S., Park, J., & Kim, J.-S. (2014). Cas-OFFinder: a fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided endonucleases. Bioinformatics (Oxford, England), 30 (10), 1473-1475.
+Ryder, E., Doe, B., Gleeson, D., Houghton, R., Dalvi, P., Grau, E., Habib, B., Miklejewska, E., Newman, S., Sethi, D., Sinclair, C., Vyas, S., Wardle-Jones, H.; Sanger Mouse Genetics Project, Bottomley, J., Bussell, J., Galli, A., Salisbury, J., Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177-185.
+Ryder, E., Gleeson, D., Sethi, D., Vyas, S., Miklejewska, E., Dalvi, P., Habib, B., Cook, R., Hardy, M., Jhaveri, K., Bottomley, J., Wardle-Jones, H., Bussell, J.N., Houghton, R., Salisbury, J., Skarnes W.C.; Sanger Mouse Genetics Project, Ramirez-Solis, R. (2013). Molecular characterization of mutant mouse strains generated from the EUCOMM/KOMP-CSD ES cell resource. Mamm. Genome, 24, 286-294.
 Skarnes, W.C., Rosen, B., West, A.P., Koutsourakis, M., Bushell, W., Iyer, V., Mujica, A.O., Thomas, M., Harrow, J., Cox, T. et al. (2011) A conditional knockout resource for the genome-wide study of mouse gene function. Nature, 474, 337-342.
 Birling, M.C., Gofflot, F. and Warot, X. (2009). Site-specific recombinases for manipulation of the mouse genome. Methods Mol. Biol., 561, 245-263. Review.
 Pettitt, S.J., Liang, Q., Rairdan, X.Y., Moran J.L., Prosser H.M., Beier D.R., Lloyd K.C., Bradley A. & Skarnes W.C. (2009) Agouti C57BL/6N embryonic stem cells for mouse genetic resources. Nature methods, 6, 493-495.
