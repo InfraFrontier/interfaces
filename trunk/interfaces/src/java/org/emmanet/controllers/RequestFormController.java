@@ -689,7 +689,7 @@ public class RequestFormController extends SimpleFormController {
 
             } else if ((sdSubmit.getLs_consortium() != null) && sdSubmit.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificSubmissionConfirmation-Template_eucommtoolscre.vm";
-            } else if (sdSubmit.getName().matches(".em\\dWtsi.") && webRequest.getLab_id_labo().equals("1961")) {
+            } else if (sdSubmit.getName().matches(".*em\\dWtsi.*") && webRequest.getLab_id_labo().equals("1961")) {
                 /* Request for a Crispr line
                 need to apply different mail template
                 */
@@ -731,7 +731,7 @@ public class RequestFormController extends SimpleFormController {
             } else if (sdSubmit.getLs_consortium().equals("EUCOMMToolsCre") && webRequest.getLab_id_labo().equals("1961")) {
 
                 velocTemplate = "org/emmanet/util/velocitytemplates/SangerSpecificInterestSubmission-Template_eucommtoolscre.vm";
-            } else if (sdSubmit.getName().matches(".em\\dWtsi.") && webRequest.getLab_id_labo().equals("1961")) {
+            } else if (sdSubmit.getName().matches(".*em\\dWtsi.*") && webRequest.getLab_id_labo().equals("1961")) {
                 /* Request for a Crispr line
                 need to apply different mail template
                 */
