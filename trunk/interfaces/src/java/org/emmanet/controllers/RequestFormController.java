@@ -277,8 +277,19 @@ public class RequestFormController extends SimpleFormController {
                 }
                 msg.setSubject("Your EMMA Strain Interest Registration Form - "
                         + "strain can now be ordered: " + model.get("emmaid") + " (" + model.get("strainname") + ")");
-                String content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                String content = "";
+                if (wrd.getLab_id_labo().equals("1961")) {
+                /* Request for a Sanger line
+                need to apply different mail template
+                */
+                System.out.println("\n\n\nTHIS IS A CRISPR LINE\n\n\n:");
+                content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                        "org/emmanet/util/velocitytemplates/SangerRegInt-Template.vm", model);
+
+            } else {
+                    content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                         "org/emmanet/util/velocitytemplates/regInt-Template.vm", model);
+                }
 
                 msg.setText(content);
                 try {

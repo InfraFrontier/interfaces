@@ -1,0 +1,29 @@
+## Include header template common to all messages
+#parse( "org/emmanet/util/velocitytemplates/header.vm" )
+Dear EMMA customer#*${name}*#,
+
+We would like to inform you that the strain ${strainname} (${emmaid}) is now available from the EMMA partner at the Wellcome Trust Sanger Institute.
+
+Please note that frozen material is not available for distribution for lines offered directly from the Wellcome Trust Sanger Institute. Live mice are offered subject to availability whilst the line is being maintained on the shelf as a potential early opportunity to source prior to archiving.
+Once archived, the line will be deposited at another EMMA partner for distribution.
+It may be up to 12 months before availability of frozen material.
+
+Registrations of Interest (RoIs) for frozen material will be transferred to the EMMA partner for distribution once an archive has been deposited.
+
+The mice offered for this Registration of Interest (RoI) will be available to order for the next 2 weeks and the RoI subsequently cancelled if there is no response.
+
+To place your order please go to:
+
+< ${BASEURL}emma/RegisterInterest/requestFormView.emma?ID=$id > 
+
+or copy and paste the link between the <> characters into the address bar of your browser and complete the EMMA Mutant Request Form. 
+
+Should you have any questions, please do not hesitate to contact the Wellcome Trust Sanger Institute Mouse Genetics Project (mouseinterest@sanger.ac.uk ).
+
+Thank you for your interest in EMMA.
+
+Kind regards,
+
+The Sanger Mouse Genetics Project
+EMMA - European Mouse Mutant Archive
+http://www.infrafrontier.eu
