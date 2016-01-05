@@ -151,8 +151,14 @@ encryptedID =   java.net.URLEncoder.encode(encryptedID, "UTF-8");
 
             msg.setSubject("Your EMMA Strain Interest Registration Form - "
                     + "strain can now be ordered: " + model.get("emmaid") + " (" + model.get("strainname") + ")");
-            String content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+            String content = "";
+            if(model.get("labid").equals("1961")) {
+            content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                    "org/emmanet/util/velocitytemplates/SangerRegInt-Template.vm", model);
+            } else {
+                content = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
                     "org/emmanet/util/velocitytemplates/regInt-Template.vm", model);
+            }
 
             msg.setText(content);
             try {
