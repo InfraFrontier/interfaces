@@ -9,6 +9,7 @@ Your request ID is: ${requestID}
 The strain you are interested in has been produced by the Sanger Institute Mouse Genetics Project (Sanger MGP). The Sanger MGP provides an opportunity to obtain mice prior to archiving at a distribution centre. However, please note that at this time, we can NOT guarantee there will be mice available for shipment nor provide a shipping date. Should mice become available for shipment, we will notify you by email. At that time you will be required to complete an Order Form before shipment can proceed. 
  
 Without exception, shipment will not proceed without a completed Material Transfer Agreement (MTA). In our experience, this can be a lengthy procedure we therefore recommend starting this process immediately. 
+
 Please find attached the MTA template for your convenience. To expedite processing of the MTA, please follow these guidelines:
 
     -   Only MTA documents signed by individuals authorized by your Institution for that purpose will be accepted.
@@ -56,8 +57,11 @@ Please be aware that the strain description may be subject to change. For the mo
 Publications
 
 Please use this acknowledgement phrase in publications:
+
 "We thank the Wellcome Trust Sanger Institute Mouse Genetics Project (Sanger MGP) and its funders for providing the mutant mouse line (Allele:[state allele]), and INFRAFRONTIER/EMMA (www.infrafrontier.eu). Funding information may be found at www.sanger.ac.uk/mouseportal and associated primary phenotypic information at www.mousephenotype.org."
+
 Please include in publications from the following references:
+
 White, J. K., Gerdin, A.-K., Karp, N. A., Ryder, E., Buljan, M., Bussell, J. N., Salisbury, J., et al. (2013). Genome-wide Generation and Systematic Phenotyping of Knockout Mice Reveals New Roles for Many Genes. Cell, 154 (2), 452–464.
 
 Bradley, A., Anastassiadis, K., Ayadi, A., Battey, J.F., Bell, C., Birling, M-C., Bottomley, J., Brown, S.D., Burger, A., Bult, C.J., Bushell, W., Collins, F.S., Desaintes, C., Doe, B., Economides, A., Eppig, J.T., Finnell, R.H., Fletcher, C., Fray, M., Frendewey, D., et al. (2012) The mammalian gene function resource: the international knockout mouse consortium. Mamm. Genome, 23, 580-586.
@@ -87,10 +91,18 @@ www.findmice.org/index.jsp
 Additional Useful Publications
 
 Bae, S., Park, J., & Kim, J.-S. (2014). Cas-OFFinder: a fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided endonucleases. Bioinformatics (Oxford, England), 30 (10), 1473-1475.
+
 Ryder, E., Doe, B., Gleeson, D., Houghton, R., Dalvi, P., Grau, E., Habib, B., Miklejewska, E., Newman, S., Sethi, D., Sinclair, C., Vyas, S., Wardle-Jones, H.; Sanger Mouse Genetics Project, Bottomley, J., Bussell, J., Galli, A., Salisbury, J., Ramirez-Solis R. (2014). Rapid conversion of EUCOMM/KOMP-CSD alleles in mouse embryos using a cell-permeable Cre recombinase. Transgenic research. 23(1), 177-185.
+
 Ryder, E., Gleeson, D., Sethi, D., Vyas, S., Miklejewska, E., Dalvi, P., Habib, B., Cook, R., Hardy, M., Jhaveri, K., Bottomley, J., Wardle-Jones, H., Bussell, J.N., Houghton, R., Salisbury, J., Skarnes W.C.; Sanger Mouse Genetics Project, Ramirez-Solis, R. (2013). Molecular characterization of mutant mouse strains generated from the EUCOMM/KOMP-CSD ES cell resource. Mamm. Genome, 24, 286-294.
+
 Skarnes, W.C., Rosen, B., West, A.P., Koutsourakis, M., Bushell, W., Iyer, V., Mujica, A.O., Thomas, M., Harrow, J., Cox, T. et al. (2011) A conditional knockout resource for the genome-wide study of mouse gene function. Nature, 474, 337-342.
+
 Birling, M.C., Gofflot, F. and Warot, X. (2009). Site-specific recombinases for manipulation of the mouse genome. Methods Mol. Biol., 561, 245-263. Review.
+
 Pettitt, S.J., Liang, Q., Rairdan, X.Y., Moran J.L., Prosser H.M., Beier D.R., Lloyd K.C., Bradley A. & Skarnes W.C. (2009) Agouti C57BL/6N embryonic stem cells for mouse genetic resources. Nature methods, 6, 493-495.
+
 Liang, Q., Conte, N., Skarnes, W. C. and Bradley, A. (2008). Extensive genomic copy number variation in embryonic stem cells. Proc. Nat. Acad. Sci., 105 (11), 17453-17456.
+
 Farley, F.W., Soriano, P., Steffen, L..S. & Dymecki, S.M. (2000). Widespread recombinase expression using FLPeR (flipper) mice. Genesis, 28 (3-4), 106-110.
+
