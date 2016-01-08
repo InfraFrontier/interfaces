@@ -937,8 +937,8 @@ public class RequestFormController extends SimpleFormController {
                 System.out.println("OK to send mail, the value submitted was : " + mailSend);
 
                 System.out.println(message);
-helper.setCc("philw@ebi.ac.uk");
-helper.setBcc("philw@ebi.ac.uk");
+//helper.setCc("philw@ebi.ac.uk");
+//helper.setBcc("philw@ebi.ac.uk");
 //helper.setTo("philw@ebi.ac.uk");
 
                 getJavaMailSender().send(message);
