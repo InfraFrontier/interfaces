@@ -149,6 +149,9 @@ public class RequestFormValidator implements
         } else if (webReq.getCon_institution().length() >= 1 && webReq.getCon_institution().length() > wr.fieldMaxLength("con_institution", table)) {
             errors.reject("Message", "The institution field input appears to be too long for the database");
         }
+        if (webReq.getCon_dept().length() >= 1 && webReq.getCon_dept().length() > wr.fieldMaxLength("con_dept", table)) {
+            errors.reject("Message", "The contacts department field input appears to be too long for the database");
+        }
         if (webReq.getCon_addr_1() == null || webReq.getCon_addr_1().trim().length() < 1) {
             errors.reject("Message", "The address field appears to have no value");
         } else if (webReq.getCon_addr_1().length() >= 1 && webReq.getCon_addr_1().length() > wr.fieldMaxLength("con_addr_1", table)) {
@@ -247,6 +250,9 @@ public class RequestFormValidator implements
                         + "Please ensure all the required billing contact fields are filled in.");
             } else if (webReq.getBil_institution().length() >= 1 && webReq.getBil_institution().length() > wr.fieldMaxLength("bil_institution", table)) {
                 errors.reject("Message", "The billing contacts institution field input appears to be too long for the database");
+            }
+            if (webReq.getBil_dept().length() >= 1 && webReq.getBil_dept().length() > wr.fieldMaxLength("bil_dept", table)) {
+                errors.reject("Message", "The billing department field input appears to be too long for the database");
             }
             if (webReq.getBil_addr_1() == null || webReq.getBil_addr_1().trim().length() < 1) {
                 errors.reject("Message", "The billing contacts address field appears to have no value. "
