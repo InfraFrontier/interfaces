@@ -231,7 +231,7 @@ public class archiveUpdateInterfaceFormController extends SimpleFormController {
              System.out.println("No file can be found with the name " + subFile);
              }
              }
-             //TODO YUK THIS IS ORRIBLE ANOTHER FUGLEY HACK ADD URL TO SESSION COOKIE ENABLING RETRIEVAL IN JSP PAGE
+             
              * 
              */
 
