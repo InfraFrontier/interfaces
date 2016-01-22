@@ -87,6 +87,7 @@ public class PubMedTest {
     /**
      * Test of getPubmedId method, of class PubMed.
      */
+    @Ignore
     @Test
     public void testGetPubmedIdDefault() {
         System.out.println("getPubmedIdDefault");
@@ -99,6 +100,7 @@ public class PubMedTest {
     /**
      * Test of setPubmedId method, of class PubMed.
      */
+    @Ignore
     @Test
     public void testSetPubmedId1() {
         System.out.println("setPubmedId");
@@ -124,7 +126,7 @@ public class PubMedTest {
         assertEquals("7", instance.getVolume());
         assertEquals(1978, instance.getYear());
     }
-    
+    @Ignore
     @Test
     public void testSetPubmedId2() {
         System.out.println("setPubmedId");
@@ -161,6 +163,7 @@ public class PubMedTest {
     /**
      * Test of isValid method, of class PubmedID.
      */
+    @Ignore
     @Test
     public void testIsValidLong() {
         System.out.println("isValid");
@@ -169,7 +172,7 @@ public class PubMedTest {
         boolean result = instance.isValid();
         assertEquals(expResult, result);
     }
-    
+    @Ignore
     @Test
     public void testIsValidString() {
         System.out.println("isValidString");
@@ -178,7 +181,7 @@ public class PubMedTest {
         boolean result = instance.isValid();
         assertEquals(expResult, result);
     }
-    
+    @Ignore
     @Test
     public void testIsValidNull() {
         System.out.println("isValidNull");
@@ -187,7 +190,7 @@ public class PubMedTest {
         boolean result = instance.isValid();
         assertEquals(expResult, result);
     }
-    
+    @Ignore
     @Test
     public void testIsValidNegative() {
         System.out.println("isValidNegative");
@@ -196,7 +199,7 @@ public class PubMedTest {
         boolean result = instance.isValid();
         assertEquals(expResult, result);
     }
-    
+    @Ignore
     @Test
     public void testIsValidEmpty() {
         System.out.println("isValidEmpty");
@@ -205,7 +208,7 @@ public class PubMedTest {
         boolean result = instance.isValid();
         assertEquals(expResult, result);
     }
-    
+    @Ignore
     @Test
     public void testIsValidAlpha() {
         System.out.println("isValidAlpha");
@@ -218,6 +221,7 @@ public class PubMedTest {
     /**
      * Test of toString method, of class PubmedID.
      */
+    @Ignore
     @Test
     public void testToString() {
         System.out.println("toString");
@@ -230,6 +234,7 @@ public class PubMedTest {
     /**
      * See jira bug #EMMA-525 for the motivation for this test.
      */
+    @Ignore
     @Test
     public void testIsValidWebService() {
         System.out.println("isValidWebService");

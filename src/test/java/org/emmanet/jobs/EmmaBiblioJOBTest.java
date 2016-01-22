@@ -90,6 +90,7 @@ public class EmmaBiblioJOBTest {
     /**
      * Test of fetchPaper method with valid pubmed_id.
      */
+    @Ignore
     @Test
     public void testFetchPaperValidPubmed_id() {
         System.out.println("fetchPaper valid pubmed_id");
