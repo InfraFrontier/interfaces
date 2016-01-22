@@ -167,7 +167,8 @@ public class strainInterfaceFormController extends SimpleFormController {
         String rTools = request.getParameter("rTools");
         String projects = request.getParameter("projects");
         String mutantType = request.getParameter("mutantType");
-        String mutantSubType = request.getParameter("mutantSubType");
+        String mutantSubType;
+        mutantSubType = request.getParameter("mutantSubType");
         String conCountry = request.getParameter("conCountry");
         String sciSurname = request.getParameter("sciSurname");
         String conSurname = request.getParameter("conSurname");
