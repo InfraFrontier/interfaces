@@ -62,7 +62,7 @@
                         data: "data=" + $(this).val(),
                         url: "../ajaxReturn.emma",
                         success: function(msg){
-                            if (msg != ''){
+                            if (msg. != ''){
                                 // alert(msg);
                                 $("#mutantSubType").hide();
                                 $("#mutantSubType").html(msg).show();
