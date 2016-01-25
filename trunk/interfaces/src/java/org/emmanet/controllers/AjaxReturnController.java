@@ -25,7 +25,6 @@ package org.emmanet.controllers;
  * limitations under the License.
  * #L%
  */
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -74,17 +73,8 @@ public class AjaxReturnController extends SimpleFormController {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getParameter("q") != null) {
-            System.out.println("we are here");
 
             //this is an jquery ajax call for autocomplete strain names from insert form
-        /*    if (request.getParameter("list") != null) {
-             if (request.getParameter("list").equals("cryo")) {
-             //this is to generate a cryo list autocompletedropdown on the fly
-             BackgroundManager bm = new BackgroundManager();
-             String query = request.getParameter("q");
-             bm.
-             }
-             }*/
             if (request.getParameter("funct") != null && request.getParameter("funct").equals("esCellLineCall")) {
                 returnedOut = new HashMap();
                 returnedResults = null;
@@ -143,7 +133,6 @@ public class AjaxReturnController extends SimpleFormController {
                         peopleDAOs.add(pd);
 
                         //return a JSON String
-
                         obj.put("id", pd.getId_per());
                         obj.put("title", pd.getTitle());
                         obj.put("firstname", pd.getFirstname());
@@ -171,7 +160,6 @@ public class AjaxReturnController extends SimpleFormController {
             }
         }
 
-
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("pubMed")) {
             int pmID = 0;
             String strID = request.getParameter("pubmedid");
@@ -184,47 +172,34 @@ public class AjaxReturnController extends SimpleFormController {
             try {
                 System.out.println("we are at try line 156");
                 pmID = Integer.parseInt(strID);
-               
+
                 System.out.println("we are at try line 158");
             } catch (NumberFormatException ex) {
-            
+
             }
-                Matcher matcher = replace.matcher(strID);
+            Matcher matcher = replace.matcher(strID);
 
-                while (matcher.find()) {
-                    System.out.println("we are at matcher find line 164");
-                    strID = matcher.replaceAll("");
-                    pmID = Integer.parseInt(strID);
- }
-                    System.out.println("BIBLIO REFERENCE CLEANED IS::- " + pmID);
-                    FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
-                    paper.add(0, fb.title);
-                    paper.add(1, fb.author1);
-                    paper.add(2, fb.author2);
-                    paper.add(3, fb.journal);
-                    paper.add(4, fb.year);
-                    paper.add(5, fb.volume);
-                    paper.add(6, fb.issue);
-                    paper.add(7, fb.pages);
-                    paper.add(8, fb.paperid);
-                    paper.add(9, fb.paperid);
-                    paper.add(10, request.getParameter("notes"));
-                    paper.add(11, request.getParameter("notesadditional"));
-                    System.out.println(request.getParameter("notes"));
-                    System.out.println(request.getParameter("notesadditional"));
-                    /*
-                     
-                     
-        populateBibDetails("?title=${paper[0]}&author1=${paper[1]}&author2=${paper[2]}\
-&journal=${paper[3]}&year=${paper[4]}&volume=${paper[5]}&issue=${paper[6]}&pages=${paper[7]}\
-&paperid=${paper[8]}&biblioid=${paper[9]}&notes=${paper[10]}&notesadditional=${paper[11]}&published=yes",0);
-
-                     
-                     
-                     */
-              //  }
-          //  }
-            //  int pmID = Integer.parseInt(request.getParameter("pubmedid"));
+            while (matcher.find()) {
+                System.out.println("we are at matcher find line 164");
+                strID = matcher.replaceAll("");
+                pmID = Integer.parseInt(strID);
+            }
+            System.out.println("BIBLIO REFERENCE CLEANED IS::- " + pmID);
+            FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
+            paper.add(0, fb.title);
+            paper.add(1, fb.author1);
+            paper.add(2, fb.author2);
+            paper.add(3, fb.journal);
+            paper.add(4, fb.year);
+            paper.add(5, fb.volume);
+            paper.add(6, fb.issue);
+            paper.add(7, fb.pages);
+            paper.add(8, fb.paperid);
+            paper.add(9, fb.paperid);
+            paper.add(10, request.getParameter("notes"));
+            paper.add(11, request.getParameter("notesadditional"));
+            System.out.println(request.getParameter("notes"));
+            System.out.println(request.getParameter("notesadditional"));
 
             returnedOut.put("paper", paper);
         }
@@ -234,7 +209,6 @@ public class AjaxReturnController extends SimpleFormController {
 
             BibliosManager bm = new BibliosManager();
             int ID = Integer.parseInt(request.getParameter("biblioid"));
-            //FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
             SubmissionBibliosDAO sbd = bm.getSubBiblioBySubBiblioID(ID);
             System.out.println("I D + + " + ID);
             paper.add(0, sbd.getTitle());
@@ -246,33 +220,31 @@ public class AjaxReturnController extends SimpleFormController {
             paper.add(6, null);
             paper.add(7, sbd.getPages());
             paper.add(8, sbd.getPubmed_id());
-            // System.out.println("BIBLIOID==" + ID );
             paper.add(9, ID);
-            paper.add(10,sbd.getNotes());
-            paper.add(11,sbd.getNotesadditional());
+            paper.add(10, sbd.getNotes());
+            paper.add(11, sbd.getNotesadditional());
             //System.out.println("P A P E R  SIZE=" + paper.size());
             returnedOut.put("paper", paper);
         }
-        
+
         ///to edit mutations
-            if (request.getParameter("funct") != null && request.getParameter("funct").equals("mutationEdit")) {
+        if (request.getParameter("funct") != null && request.getParameter("funct").equals("mutationEdit")) {
             returnedOut = new HashMap();
             List mutations = new LinkedList();
 
             MutationsManager mm = new MutationsManager();
             int ID = Integer.parseInt(request.getParameter("mutid"));
-            //FetchBiblio fb = (FetchBiblio) ej.fetchPaper(pmID);
             SubmissionMutationsDAO smd = mm.getSubMutationBySubMutID(ID);
             System.out.println("I D + + " + ID);
-            mutations.add(0, smd.getMutation_allele_mgi_symbol());//.getTitle());
-            mutations.add(1, smd.getMutation_chrom());//.getAuthor1());
-            mutations.add(2, smd.getMutation_chrom_anomaly_descr());//.getAuthor2());
-            mutations.add(3, smd.getMutation_chrom_anomaly_name());//getJournal());
-            mutations.add(4, smd.getMutation_dominance_pattern());//.getYear());
-            mutations.add(5, smd.getMutation_es_cell_line());//getVolume());
+            mutations.add(0, smd.getMutation_allele_mgi_symbol());
+            mutations.add(1, smd.getMutation_chrom());
+            mutations.add(2, smd.getMutation_chrom_anomaly_descr());
+            mutations.add(3, smd.getMutation_chrom_anomaly_name());
+            mutations.add(4, smd.getMutation_dominance_pattern());
+            mutations.add(5, smd.getMutation_es_cell_line());
             mutations.add(6, smd.getMutation_founder_line_number());
-            mutations.add(7, smd.getMutation_gene_mgi_symbol());//.getPages());
-            mutations.add(8, smd.getMutation_mutagen());//.getPubmed_id());
+            mutations.add(7, smd.getMutation_gene_mgi_symbol());
+            mutations.add(8, smd.getMutation_mutagen());
             mutations.add(9, smd.getMutation_original_backg());
             mutations.add(10, smd.getMutation_original_backg_text());
             mutations.add(11, smd.getMutation_plasmid());
@@ -287,43 +259,42 @@ public class AjaxReturnController extends SimpleFormController {
 
         if (request.getParameter("funct") != null && request.getParameter("funct").equals("fileList")) {
             returnedOut = new HashMap();
-//            List<String> filenameList = buildFilenameListOLD(request);
             List<String> filenameList = buildFilenameList(request);
 
-            returnedOut.put("fileListing", filenameList); 
+            returnedOut.put("fileListing", filenameList);
         }
-        
-        if(request.getParameter("funct") != null && request.getParameter("funct").equals("strainid") ) {
-                    webRequest = new WebRequests();
-                    returnedResults = null;
+
+        if (request.getParameter("funct") != null && request.getParameter("funct").equals("strainid")) {
+            webRequest = new WebRequests();
+            returnedResults = null;
             if (!request.getParameter("q").startsWith("em:")) {
                 int query = Integer.parseInt(request.getParameter("q"));
                 returnedResults = webRequest.strainList(query);
                 System.out.println("returned results" + returnedResults.size());
                 returnedOut.put("ajaxReturn", returnedResults);
-        }else{
-          
+            } else {
+
+            }
         }
-          }
         return new ModelAndView("ajaxReturn", MAP_KEY, returnedOut);
     }
-    
+
     @Deprecated
     public List<String> buildFilenameListOLD(HttpServletRequest request) {
         List<String> filenameList = new ArrayList();
-        
+
         logger.debug("F I L E  L I S T I N G  R E A C H E D ! !");
         Encrypter enc = new Encrypter();
         String subID = enc.decrypt(request.getParameter("encID"));
         logger.debug("subID = " + subID);
-        
+
         String fileType = request.getParameter("submissionFileType");
         logger.debug("fileType = " + fileType);
-        
+
         String searchString = subID + "_" + fileType;
         logger.debug("searchString = " + searchString);
-        
-        if ( ! subID.isEmpty()) {
+
+        if (!subID.isEmpty()) {
             DirFileList files = new DirFileList();
             String fileList[];
             logger.debug("calling DirFileList.filteredFileList(" + SUBFORMUPLOAD + ")");
@@ -340,64 +311,65 @@ public class AjaxReturnController extends SimpleFormController {
                 }
             }
         }
-        
+
         return filenameList;
     }
-    
+
     /**
      * Builds a list of filenames found that match the pattern of submitted
      * attachments. The pattern is in the format: <i>xxx_yyy_</i>
-     * where <i>xxx</i> is the submissions table's id_sub primary key and <i>yyy</i>
+     * where <i>xxx</i> is the submissions table's id_sub primary key and
+     * <i>yyy</i>
      * is the submission file type.
-     * 
+     *
      * @param request <code>HttpServletRequest</code> request object
-     * @return a list of filenames that match the pattern of submitted attachments.
+     * @return a list of filenames that match the pattern of submitted
+     * attachments.
      */
     public List<String> buildFilenameList(HttpServletRequest request) {
         String[] filenames;
         logger.debug("submissions: processing uploaded attachments.");
         Encrypter enc = new Encrypter();
         String idSub = enc.decrypt(request.getParameter("encID"));              // Get this submission's submissions.id_sub primary key value.
-        
+
         String filetype = request.getParameter("submissionFileType");           // Get the file type.
         logger.debug("filetype = " + filetype);
-        
+
         String filenamePattern = idSub + "_" + filetype + "_";
         logger.debug("filenamePattern = " + filenamePattern);
-        
+
         logger.debug("Uploading files from '" + SUBFORMUPLOAD + "'.");
         File directory = new File(SUBFORMUPLOAD);
         filenames = directory.list(new FilenameFilterImpl(filenamePattern));
 
         return Arrays.asList(filenames);
     }
-    
-    public class FilenameFilterImpl implements FilenameFilter
-    {
+
+    public class FilenameFilterImpl implements FilenameFilter {
+
         public String filenamePattern;
-        
+
         public FilenameFilterImpl(String filenamePattern) {
             this.filenamePattern = filenamePattern;
         }
-        
+
         /**
-         * This method tests if a specified file should be included in a file list.
-         * It is the implementation of the <code>FilenameFilter</code> interface for
-         * the 'Additional Files' functionality. <code>filenamePattern</code> is in
-         * the format: <i>xxx</i>_ADDITIONAL_<i>yyy</i> where <i>xxx</i> is the
-         * submissions table's id_sub primary key, and <i>yyy</i> is the remainder
-         * of the filename, including any extension.
-         * 
+         * This method tests if a specified file should be included in a file
+         * list. It is the implementation of the <code>FilenameFilter</code>
+         * interface for the 'Additional Files' functionality.
+         * <code>filenamePattern</code> is in the format:
+         * <i>xxx</i>_ADDITIONAL_<i>yyy</i> where <i>xxx</i> is the submissions
+         * table's id_sub primary key, and <i>yyy</i> is the remainder of the
+         * filename, including any extension.
+         *
          * @param dir the directory in which the file was found
          * @param name the name of the file
-         * @return <code>true</code> if and only if the name should be included in
-         *         the file list; <code>false</code> otherwise.
+         * @return <code>true</code> if and only if the name should be included
+         * in the file list; <code>false</code> otherwise.
          */
         @Override
         public boolean accept(File dir, String name) {
             return (name.startsWith(filenamePattern));
         }
     }
-    
-    
 }
