@@ -90,18 +90,13 @@
         </dependency>
 
         <!-- EBI webservice internal dependency -->
-        <!--  <dependency>
-            <groupId>uk.ac.ebi</groupId>
-            <artifactId>cdb-webservice-all</artifactId>
-            <version>3.0</version>
-        </dependency>-->
-        
-        <!-- EBI webservice internal dependency -->
         <dependency>
             <groupId>uk.ac.ebi</groupId>
-            <artifactId>ebi-ws-client</artifactId>
+            <artifactId>cdb-webservice-all</artifactId>
             <version>3.0.1</version>
         </dependency>
+        
+        <!-- EBI webservice internal dependency -->
         
         
         
